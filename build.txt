@@ -1,0 +1,9 @@
+author = =FFR= Osiris
+version = 0.1
+displayName = Decimation
+homepage = 
+hideCode = true
+hideResources = true
+includeSource = false
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
+includePDB = true
