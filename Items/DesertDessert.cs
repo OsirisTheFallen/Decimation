@@ -37,9 +37,9 @@ namespace Decimation.Items
         public override void AddRecipes()  //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SandBlock, 10);   //you need 10 Wood
+            recipe.AddIngredient(ItemID.SandBlock, 10);
  //           recipe.AddIngredient(ItemID.Wormtooth, 5);
-            recipe.AddTile(TileID.MythrilAnvil);   //at work bench
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
