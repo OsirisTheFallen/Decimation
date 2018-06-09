@@ -13,7 +13,8 @@ namespace Decimation
 {
     public class DecimationWorld : ModWorld
     {
-		public static bool downedBloodshotEye = false;		
+		public static bool downedBloodshotEye = false;	
+		public static bool downedDuneWorm = false;
 		public override void Initialize()
 		{
 			downedBloodshotEye = false;
