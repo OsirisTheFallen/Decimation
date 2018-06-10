@@ -10,7 +10,7 @@ namespace Decimation.Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Gilded Sickle");
-			Tooltip.SetDefault("Allows the collection of hay from grass/nCurrently doesn't do that");
+			Tooltip.SetDefault("Allows the collection of hay from grass");
 		}
         public override void SetDefaults()
         {
