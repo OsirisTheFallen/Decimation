@@ -33,4 +33,21 @@ namespace Decimation.Buffs
 			}
 		}
 	}
+
+    public class SlimedGlobalItem : GlobalItem
+    {
+        public override bool CanUseItem(Item item, Player player)
+        {
+            if (player.HasBuff(mod.BuffType("Slimed")))
+            {
+                //Detect only potions whose have a cooldown
+                if (item.potion)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return true;
+        }
+    }
 }
