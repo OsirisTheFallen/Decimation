@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+*.OLD
+*.csproj.user
+
+/obj
+/bin/Debug
+/.vs
