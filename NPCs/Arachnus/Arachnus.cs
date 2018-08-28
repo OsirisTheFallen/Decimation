@@ -55,6 +55,7 @@ namespace Decimation.NPCs.Arachnus
 
         public override void AI()
         {
+            npc.noTileCollide = false;
 
             player = Main.player[npc.target]; // player target
 
@@ -147,7 +148,7 @@ namespace Decimation.NPCs.Arachnus
                 // Enraged
                 if (npc.ai[2] == 1)
                 {
-
+                    npc.noTileCollide = true;
                     Dust.NewDust(npc.position, npc.width, npc.height, DustID.Shadowflame);
 
                     if (npc.ai[1] != 2)
