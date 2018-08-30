@@ -72,5 +72,15 @@ namespace Decimation
                 DecimationWorld.downedArachnus = ((flags & 4) != 0);
             }
         }
-	}
+
+        // For custom biome
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        {
+            int genIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
+            tasks.Insert(genIndex + 1, new PassLegacy("Dirt Blob", delegate (GenerationProgress progress)
+            {
+                WorldGen.TileRunner(Main.spawnTileX, Main.spawnTileY + -46, 6, Main.rand.Next(1, 3), TileID.Dirt, true, 0f, 0f, true, true);
+            }));
+        }
+    }
 }	

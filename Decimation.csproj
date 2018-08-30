@@ -55,7 +55,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Terraria">
-     <HintPath>D:\Jeux\Steam\steamapps\common\Tmod\Terraria.exe</HintPath>
+      <HintPath>D:\Jeux\Steam\steamapps\common\Tmod\Terraria.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +83,7 @@
     <Compile Include="Items\Antidote.cs" />
     <Compile Include="Decimation.cs" />
     <Compile Include="Items\BloodiedEssence.cs" />
+    <Compile Include="Items\Boss\Arachnus\ArachnusBag.cs" />
     <Compile Include="Items\CommanderPotion.cs" />
     <Compile Include="Items\DesertDessert.cs" />
     <Compile Include="Items\DuneWormMask.cs" />
@@ -91,11 +92,12 @@
     <Compile Include="Items\EnchantedMushroom.cs" />
     <Compile Include="Items\GildedSickle.cs" />
     <Compile Include="Items\GreatwoodHammer.cs" />
-    <Compile Include="Items\MoltenArachnidsAmulet.cs" />
+    <Compile Include="Items\Boss\Arachnus\MoltenArachnidsAmulet.cs" />
     <Compile Include="Items\MultigrainHammer.cs" />
     <Compile Include="Items\Placeable\ChlorophyteAnvil.cs" />
     <Compile Include="Items\Placeable\EnchantedAnvil.cs" />
     <Compile Include="Items\Placeable\TitanForge.cs" />
+    <Compile Include="Items\Boss\Arachnus\ShinySentinel.cs" />
     <Compile Include="Items\SoulofLife.cs" />
     <Compile Include="Items\SoulofSpite.cs" />
     <Compile Include="Items\SoulofTime.cs" />
@@ -105,9 +107,9 @@
     <Compile Include="Items\TreasureBagBloodshotEye.cs" />
     <Compile Include="Items\WarlockPotion.cs" />
     <Compile Include="Items\Weapons\BloodStream.cs" />
-    <Compile Include="Items\Weapons\ChainStynger.cs" />
-    <Compile Include="Items\Weapons\GlaiveWeaver.cs" />
-    <Compile Include="Items\Weapons\Infernolizer.cs" />
+    <Compile Include="Items\Boss\Arachnus\ChainStynger.cs" />
+    <Compile Include="Items\Boss\Arachnus\GlaiveWeaver.cs" />
+    <Compile Include="Items\Boss\Arachnus\Infernolizer.cs" />
     <Compile Include="Items\Weapons\MultigrainSword.cs" />
     <Compile Include="Items\Weapons\Pebble.cs" />
     <Compile Include="Items\Weapons\Sling.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Items\Weapons\Umbra.cs" />
     <Compile Include="Items\Weapons\VampiricShiv.cs" />
     <Compile Include="NPCs\Arachnus\Arachnus.cs" />
+    <Compile Include="NPCs\LivingMagma.cs" />
     <Compile Include="Projectiles\ArchingSolarBlade.cs" />
     <Compile Include="Projectiles\BlastofHeat.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
@@ -130,6 +133,7 @@
     <Content Include="description.txt" />
     <Content Include="NPCs\Arachnus\Arachnus.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"D:\Jeux\Steam\steamapps\common\Tmod\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>

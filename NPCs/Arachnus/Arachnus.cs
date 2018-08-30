@@ -19,10 +19,10 @@ namespace Decimation.NPCs.Arachnus
 
         public override void SetDefaults()
         {
-            npc.aiStyle = -1; // Not a vanilla AI
-            npc.lifeMax = 25000; // Not the real HP
-            npc.damage = 100; // Not real damages
-            npc.defense = 25; // Not real defenses
+            npc.aiStyle = -1; 
+            npc.lifeMax = 80000; 
+            npc.damage = 100; 
+            npc.defense = 25; 
             npc.knockBackResist = 0f;
             npc.width = 200;
             npc.height = 200;
@@ -35,6 +35,7 @@ namespace Decimation.NPCs.Arachnus
             npc.HitSound = SoundID.NPCHit6;
             npc.DeathSound = SoundID.NPCDeath10;
             music = MusicID.Boss4;
+            bossBag = mod.ItemType("ArachnusBag");
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -198,10 +199,28 @@ namespace Decimation.NPCs.Arachnus
 
         public override void NPCLoot()
         {
-            // Loots
-            // Glaive Weaver
-            // Infernolizer
-            // Chain Stynger
+            Item.NewItem(npc.Center, mod.ItemType("SoulofSpite"), Main.rand.Next(15, 31));
+
+            if (!Main.expertMode)
+            {
+                int rand = Main.rand.Next(3);
+                if (rand == 0)
+                    Item.NewItem(npc.Center, mod.ItemType("ChainStynger"));
+                else if (rand == 1)
+                    Item.NewItem(npc.Center, mod.ItemType("GlaiveWeaver"));
+                else if (rand == 2)
+                    Item.NewItem(npc.Center, mod.ItemType("Infernolizer"));
+            } else
+            {
+                npc.DropBossBags();
+            }
+        }
+
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            name = "Arachnus";
+            // Maybe better
+            potionType = ItemID.SuperHealingPotion;
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

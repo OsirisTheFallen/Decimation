@@ -18,11 +18,13 @@ namespace Decimation.Projectiles
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.melee = true;         // 
             projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 999;      //how many npc will penetrate
+            projectile.penetrate = 30;      //how many npc will penetrate
             projectile.timeLeft = 180;   //how many time this projectile has before disepire
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
             projectile.aiStyle = 3;
+            aiType = ProjectileID.BloodyMachete;
+            projectile.light = 1f;
         }
     }
 }
