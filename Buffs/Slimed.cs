@@ -28,7 +28,7 @@ namespace Decimation.Buffs
 
 			if(i >= 300)
 			{
-				player.Hurt(PlayerDeathReason.ByCustomReason("slimed"), 2, 0);
+				player.Hurt(PlayerDeathReason.LegacyDefault(), 2, 0);
 				i = 0;
 			}
 		}
@@ -40,12 +40,7 @@ namespace Decimation.Buffs
         {
             if (player.HasBuff(mod.BuffType("Slimed")))
             {
-                //Detect only potions whose have a cooldown
-                if (item.potion)
-                {
-                    return false;
-                }
-                return true;
+                return !(item.UseSound != null && item.useStyle == 2);
             }
             return true;
         }

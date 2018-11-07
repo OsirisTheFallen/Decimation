@@ -30,7 +30,7 @@ namespace Decimation.Buffs
         {
             if (player.HasBuff(mod.BuffType("Singed")))
             {
-                return !(item.UseSound != null && item.useStyle == 3);
+                return !(item.UseSound != null && item.useStyle == 2);
             }
             return true;
         }
