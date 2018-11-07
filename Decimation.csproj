@@ -96,6 +96,11 @@
     <Compile Include="Items\MultigrainHammer.cs" />
     <Compile Include="Items\Placeable\ChlorophyteAnvil.cs" />
     <Compile Include="Items\Placeable\EnchantedAnvil.cs" />
+    <Compile Include="Items\Moltenkey.cs" />
+    <Compile Include="Items\Placeable\ShrineoftheMoltenOne\DeadEarth.cs" />
+    <Compile Include="Items\Placeable\ShrineoftheMoltenOne\RedHotSpike.cs" />
+    <Compile Include="Items\Placeable\ShrineoftheMoltenOne\ShrineBrick.cs" />
+    <Compile Include="Items\Placeable\ShrineoftheMoltenOne\ShrineDoor.cs" />
     <Compile Include="Items\Placeable\TitanForge.cs" />
     <Compile Include="Items\Boss\Arachnus\ShinySentinel.cs" />
     <Compile Include="Items\SoulofLife.cs" />
@@ -118,20 +123,36 @@
     <Compile Include="Items\Weapons\Umbra.cs" />
     <Compile Include="Items\Weapons\VampiricShiv.cs" />
     <Compile Include="NPCs\Arachnus\Arachnus.cs" />
+    <Compile Include="NPCs\CoreSpider.cs" />
+    <Compile Include="NPCs\CoreSpiderWall.cs" />
     <Compile Include="NPCs\LivingMagma.cs" />
     <Compile Include="Projectiles\ArchingSolarBlade.cs" />
     <Compile Include="Projectiles\BlastofHeat.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
     <Compile Include="Projectiles\StingerM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structures\ShrineoftheMoltenOne.cs" />
     <Compile Include="Tiles\ChlorophyteAnvil.cs" />
     <Compile Include="Tiles\EnchantedAnvil.cs" />
+    <Compile Include="Tiles\ShrineoftheMoltenOne\DeadEarth.cs" />
+    <Compile Include="Tiles\ShrineoftheMoltenOne\LockedShrineDoor.cs" />
+    <Compile Include="Tiles\ShrineoftheMoltenOne\RedHotSpike.cs" />
+    <Compile Include="Tiles\ShrineoftheMoltenOne\ShrineBrick.cs" />
+    <Compile Include="Tiles\ShrineoftheMoltenOne\ShrineDoorClosed.cs" />
+    <Compile Include="Tiles\ShrineoftheMoltenOne\ShrineDoorOpened.cs" />
     <Compile Include="Tiles\TitanForge.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="build.txt" />
     <Content Include="description.txt" />
+    <Content Include="Items\Placeable\ShrineoftheMoltenOne\RedHotSpike.png" />
+    <Content Include="Items\Placeable\ShrineoftheMoltenOne\ShrineBrick.png" />
     <Content Include="NPCs\Arachnus\Arachnus.png" />
+    <Content Include="Tiles\ShrineoftheMoltenOne\LockedShrineDoor.png" />
+    <Content Include="Tiles\ShrineoftheMoltenOne\RedHotSpike.png" />
+    <Content Include="Tiles\ShrineoftheMoltenOne\ShrineBrick.png" />
+    <Content Include="Tiles\ShrineoftheMoltenOne\ShrineDoorClosed.png" />
+    <Content Include="Tiles\ShrineoftheMoltenOne\ShrineDoorOpened.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,7 +19,7 @@ namespace Decimation.NPCs
             npc.aiStyle = 1;
             npc.damage = 50;
             npc.defense = 18;
-            npc.lifeMax = 150;
+            npc.lifeMax = 630;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.alpha = 55;
@@ -46,7 +46,28 @@ namespace Decimation.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return SpawnCondition.Underworld.Chance;
+            int x = (int)Main.LocalPlayer.position.X / 16;
+            int y = (int)Main.LocalPlayer.position.Y / 16;
+
+            int validBlockCount = 0;
+            for (int i = -50 + x; i <= 50 + x; i++)
+            {
+                for (int j = -50 + y; j <= 50 + y; j++)
+                {
+                    if (i >= 0 && i <= Main.maxTilesX && j >= 0 && j <= Main.maxTilesY)
+                    {
+                        if (Main.tile[i, j].type == mod.TileType("ShrineBrick") || (Main.tile[i, j].type == mod.TileType("LockedShrineDoor") || Main.tile[i, j].type == mod.TileType("ShrineDoorClosed") || Main.tile[i, j].type == mod.TileType("ShrineDoorOpened")) || Main.tile[i, j].type == mod.TileType("RedHotSpike"))
+                        {
+                            validBlockCount++;
+                        }
+                    }
+                }
+            }
+
+
+            if (validBlockCount >= 15)
+                return SpawnCondition.Underworld.Chance * 2;
+            return 0;
         }
     }
 }

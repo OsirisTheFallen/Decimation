@@ -11,6 +11,9 @@ namespace Decimation
 {
     public class Decimation : Mod
     {
+
+        public static Mod decimation;
+
         public override void PostSetupContent()
         {
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
@@ -18,10 +21,14 @@ namespace Decimation
             {
                 bossChecklist.Call("AddBossWithInfo", "Bloodshot Eye of Cthulhu", 2.5f, (Func<bool>)(() => DecimationWorld.downedBloodshotEye), "INSERT LATER");
 				bossChecklist.Call("AddBossWithInfo", "Ancient Dune Worm", 5.7f, (Func<bool>)(() => DecimationWorld.downedDuneWorm), "INSERT LATER");
+                bossChecklist.Call("AddBossWithInfo", "Arachnus", 7.2f, (Func<bool>)(() => DecimationWorld.downedArachnus), "INSERT LATER"); // ?
             }
         }		
+
         public Decimation()
         {
+            decimation = this;
+
             Properties = new ModProperties()
             {
                 Autoload = true,

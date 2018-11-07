@@ -19,10 +19,10 @@ namespace Decimation.NPCs.Arachnus
 
         public override void SetDefaults()
         {
-            npc.aiStyle = -1; 
-            npc.lifeMax = 80000; 
-            npc.damage = 100; 
-            npc.defense = 25; 
+            npc.aiStyle = -1;
+            npc.lifeMax = 80000;
+            npc.damage = 100;
+            npc.defense = 25;
             npc.knockBackResist = 0f;
             npc.width = 200;
             npc.height = 200;
@@ -53,6 +53,7 @@ namespace Decimation.NPCs.Arachnus
         private float counterMax = 1200;
         private float mouthX;
         private float mouthY;
+        private bool tooFarFromShrine = false;
 
         public override void AI()
         {
@@ -86,6 +87,30 @@ namespace Decimation.NPCs.Arachnus
                 npc.ai[2] = 1;
             else
                 npc.ai[2] = 0;
+
+            // Check if Arachnus is in is Shrine
+            if (counter % 60 == 0)
+            {
+                int validBlockCount = 0;
+                for (int i = (int)(-50 + npc.Center.X / 16f); i <= (int)(50 + npc.Center.X / 16f); i++)
+                {
+                    for (int j = (int)(-50 + npc.Center.Y / 16f); j <= (int)(50 + npc.Center.Y / 16f); j++)
+                    {
+                        if (i >= 0 && i <= Main.maxTilesX && j >= 0 && j <= Main.maxTilesY)
+                        {
+                            if (Main.tile[i, j].type == mod.TileType("ShrineBrick") || (Main.tile[i, j].type == mod.TileType("LockedShrineDoor") || Main.tile[i, j].type == mod.TileType("ShrineDoorClosed") || Main.tile[i, j].type == mod.TileType("ShrineDoorOpened")) || Main.tile[i, j].type == mod.TileType("RedHotSpike"))
+                                validBlockCount++;
+                        }
+                    }
+                }
+
+                if (validBlockCount < 15)
+                    tooFarFromShrine = true;
+                else
+                    tooFarFromShrine = false;
+            }
+
+            if (tooFarFromShrine) npc.ai[2] = 1;
 
             // Normal ai
             if (npc.ai[0] == 0)
@@ -210,7 +235,8 @@ namespace Decimation.NPCs.Arachnus
                     Item.NewItem(npc.Center, mod.ItemType("GlaiveWeaver"));
                 else if (rand == 2)
                     Item.NewItem(npc.Center, mod.ItemType("Infernolizer"));
-            } else
+            }
+            else
             {
                 npc.DropBossBags();
             }
@@ -221,6 +247,8 @@ namespace Decimation.NPCs.Arachnus
             name = "Arachnus";
             // Maybe better
             potionType = ItemID.SuperHealingPotion;
+
+            DecimationWorld.downedArachnus = true;
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

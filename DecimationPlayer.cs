@@ -22,5 +22,6 @@ namespace Decimation
                 type = ProjectileID.JestersArrow;
             return base.Shoot(item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
+
     }
 }
