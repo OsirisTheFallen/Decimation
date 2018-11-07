@@ -16,8 +16,8 @@ namespace Decimation.Items.Boss.Arachnus
         {
             item.width = 32;
             item.height = 32;
-            item.value = 1300;
-            item.rare = 1;
+            item.value = 450000;
+            item.rare = 10;
             item.maxStack = 1;
             item.useStyle = 4;
             item.useAnimation = 30;

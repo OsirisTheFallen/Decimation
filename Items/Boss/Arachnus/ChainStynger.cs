@@ -19,6 +19,8 @@ namespace Decimation.Items.Boss.Arachnus
             item.knockBack *= 2;
             item.useTime /= 2;
             item.useAnimation /= 2;
+            item.rare = 10;
+            item.value = 450000;
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

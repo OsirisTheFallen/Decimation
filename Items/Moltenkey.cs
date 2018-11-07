@@ -17,7 +17,7 @@ namespace Decimation.Items
             item.width = 20;
             item.height = 20;
             item.maxStack = 1;
-            item.value = 1000000;
+            item.value = 450000;
             item.rare = 10;
             item.consumable = true;
         }

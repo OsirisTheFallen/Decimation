@@ -15,6 +15,8 @@ namespace Decimation.Items.Boss.Arachnus
             item.knockBack *= 2;
             item.useTime /= 2;
             item.useAnimation /= 2;
+            item.value = 450000;
+            item.rare = 10;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

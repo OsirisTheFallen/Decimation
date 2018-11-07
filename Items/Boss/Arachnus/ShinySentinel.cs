@@ -18,6 +18,7 @@ namespace Decimation.Items.Boss.Arachnus
             item.height = 28;
             item.accessory = true;
             item.maxStack = 1;
+            item.value = 450000;
             item.rare = -12;
             item.expert = true;
         }
