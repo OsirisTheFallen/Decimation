@@ -34,7 +34,7 @@ namespace Decimation.NPCs.Arachnus
             npc.noTileCollide = false; // When not enraged
             npc.HitSound = SoundID.NPCHit6;
             npc.DeathSound = SoundID.NPCDeath10;
-            music = MusicID.Boss4;
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Slimy_Showdown");
             bossBag = mod.ItemType("ArachnusBag");
         }
 
