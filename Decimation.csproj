@@ -70,6 +70,7 @@
     <Compile Include="DecimationPlayer.cs" />
     <Compile Include="DecimationWorld.cs" />
     <Compile Include="Items\Accesories\CrystalSkull.cs" />
+    <Compile Include="Items\Accesories\DeadeyesQuiver.cs" />
     <Compile Include="Items\Accesories\EnchantedFocuser.cs" />
     <Compile Include="Items\Accesories\EnergyFocuser.cs" />
     <Compile Include="Items\Accesories\FireAmulet.cs" />
@@ -86,11 +87,13 @@
     <Compile Include="Items\BloodiedEssence.cs" />
     <Compile Include="Items\Boss\Arachnus\ArachnusBag.cs" />
     <Compile Include="Items\CommanderPotion.cs" />
+    <Compile Include="Items\DenziumIngot.cs" />
     <Compile Include="Items\DesertDessert.cs" />
     <Compile Include="Items\DuneWormMask.cs" />
     <Compile Include="Items\DuneWormTreasureBag.cs" />
     <Compile Include="Items\DuneWormTrophey.cs" />
     <Compile Include="Items\EnchantedMushroom.cs" />
+    <Compile Include="Items\Placeable\DenziumOre.cs" />
     <Compile Include="Items\Tools\GildedSickle.cs" />
     <Compile Include="Items\Tools\GreatwoodHammer.cs" />
     <Compile Include="Items\Boss\Arachnus\MoltenArachnidsAmulet.cs" />

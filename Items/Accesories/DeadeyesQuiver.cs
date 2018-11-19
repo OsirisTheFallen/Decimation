@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using Decimation;
 
 namespace testmod.Items
 {
@@ -43,41 +44,7 @@ namespace testmod.Items
         {
             player.rangedDamage += 0.16f;
             player.rangedCrit += 2;
-            player.GetModPlayer<DecimationPlayer>().DeadeyesQuiverEquipped = true;
-        }
-    }
-
-
-
-    public class DecimationPlayer : ModPlayer
-    {
-        public bool DeadeyesQuiverEquipped = false;
-        public override void ResetEffects()
-        {
-            DeadeyesQuiverEquipped = false;
-        }
-
-        public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-            if (DeadeyesQuiverEquipped && (type == ProjectileID.WoodenArrowFriendly || type == ProjectileID.Bullet))
-            {
-                if (type == ProjectileID.WoodenArrowFriendly)
-                    type = ProjectileID.IchorArrow;
-                else
-                    type = ProjectileID.ChlorophyteBullet;
-
-                speedX *= 1.15f;
-                speedY *= 1.15f;
-            }
-            return base.Shoot(item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
-        }
-
-        public override bool ConsumeAmmo(Item weapon, Item ammo)
-        {
-            if (DeadeyesQuiverEquipped && Main.rand.Next(20) > 3)
-                return false;
-
-            return base.ConsumeAmmo(weapon, ammo);
+            player.GetModPlayer<DecimationPlayer>().deadeyesQuiverEquipped = true;
         }
     }
 }
