@@ -21,5 +21,5 @@ namespace Decimation.Buffs
 			player.minionDamage += 0.1f;
 			player.minionKB += 0.1f;
 		}
-	}
+    }
 }

@@ -23,5 +23,5 @@ namespace Decimation.Buffs
 			player.magicDamage += 0.1f;
 			player.magicCrit += 5;
 		}
-	}
+    }
 }

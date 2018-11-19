@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 namespace Decimation.NPCs.Arachnus
 {
@@ -34,7 +35,7 @@ namespace Decimation.NPCs.Arachnus
             npc.noTileCollide = false; // When not enraged
             npc.HitSound = SoundID.NPCHit6;
             npc.DeathSound = SoundID.NPCDeath10;
-            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Slimy_Showdown");
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Drums_of_hell");
             bossBag = mod.ItemType("ArachnusBag");
         }
 
@@ -45,7 +46,7 @@ namespace Decimation.NPCs.Arachnus
             npc.defense = (int)(npc.defense + numPlayers * 2);
         }
 
-        private Player player;
+        private Player target;
         private float speed = 2f;
         private Vector2 moveTo;
         private float turnResistance;
@@ -59,14 +60,13 @@ namespace Decimation.NPCs.Arachnus
         {
             npc.noTileCollide = false;
 
-            player = Main.player[npc.target]; // player target
+            npc.TargetClosest(false);
+            target = Main.player[npc.target];
 
             // Check for possibilities to despawn
-            if (!player.active || player.dead)
+            if (!target.active || target.dead)
             {
-                npc.TargetClosest(false);
-                player = Main.player[npc.target];
-                if (!player.active || player.dead)
+                if (!target.active || target.dead)
                 {
                     npc.velocity = new Vector2(0, 10f);
                     npc.noTileCollide = true;
@@ -78,12 +78,12 @@ namespace Decimation.NPCs.Arachnus
             }
 
             // Rotate to player
-            moveTo = player.Center - npc.Center;
+            moveTo = target.Center - npc.Center;
             float angle = (float)Math.Atan2(moveTo.Y, moveTo.X);
             npc.rotation = (float)(angle + Math.PI * 0.5f);
 
             // Check if enraged
-            if (!player.ZoneUnderworldHeight || !Collision.CanHit(npc.Center, 0, 0, player.Center, 0, 0))
+            if (!target.ZoneUnderworldHeight || !Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0))
                 npc.ai[2] = 1;
             else
                 npc.ai[2] = 0;
@@ -135,7 +135,13 @@ namespace Decimation.NPCs.Arachnus
                 else if (counter > 1320 && counter <= 1500 || (Main.expertMode && counter > 600 && counter < 800 && npc.life <= npc.lifeMax / 4))
                 {
                     if (counter == 1321)
+                    {
                         Main.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
+                        /**ModPacket netMessage = GetPacket(ArachnusMessageType.Sound);
+                        netMessage.Write(SoundID.Roar);
+                        netMessage.Write(0);
+                        netMessage.Send();**/
+                    }
                     npc.ai[1] = 2;
                 }
                 else npc.ai[1] = 99;
@@ -151,7 +157,11 @@ namespace Decimation.NPCs.Arachnus
                     float speedX = (float)(7 * Math.Cos(npc.rotation - Math.PI * 0.5f));
                     float speedY = (float)(7 * Math.Sin(npc.rotation - Math.PI * 0.5f));
                     Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), mod.ProjectileType("BlastofHeat"), 30, 0f);
-                    Main.PlaySound(SoundID.Item34, npc.position);
+                    //Main.PlaySound(SoundID.Item34, npc.position);
+                   /**ModPacket netMessage = GetPacket(ArachnusMessageType.Sound);
+                    netMessage.Write(SoundID.Item34);
+                    netMessage.Write(0);
+                    netMessage.Send();**/
                 }
                 else if (npc.ai[1] == 2)
                 {
@@ -202,6 +212,21 @@ namespace Decimation.NPCs.Arachnus
                 move *= speed / magnitude;
             }
             npc.velocity = npc.ai[1] != 99 ? move : new Vector2(0, 0);
+        }
+
+        public void Target()
+        {
+            if (Main.netMode != 1)
+            {
+                target = Main.player[npc.target];
+
+                if (Main.netMode == 2)
+                {
+                    ModPacket netMessage = GetPacket(ArachnusMessageType.Target);
+                    netMessage.Write(npc.target);
+                    netMessage.Send();
+                }
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -279,6 +304,43 @@ namespace Decimation.NPCs.Arachnus
                 0f
             );
             return false;
+        }
+
+        public void HandlePacket(BinaryReader reader)
+        {
+            ArachnusMessageType msgType = (ArachnusMessageType)reader.ReadByte();
+
+            switch (msgType)
+            {
+                case ArachnusMessageType.Target:
+                    target = Main.player[reader.ReadInt32()];
+                    break;
+                case ArachnusMessageType.Sound:
+                    int soundID = reader.ReadInt32();
+                    int style = reader.ReadInt32();
+                    Main.PlaySound(soundID, (int)npc.position.X, (int)npc.position.Y, style);
+                    break;
+                default:
+                    ErrorLogger.Log("DecimationMod: Unknown Message type: " + msgType);
+                    break;
+            }
+        }
+
+        private ModPacket GetPacket(ArachnusMessageType type)
+        {
+            ModPacket packet = mod.GetPacket();
+            packet.Write((byte)DecimationModMessageType.Arachnus);
+            packet.Write(npc.whoAmI);
+            packet.Write((byte)type);
+            return packet;
+            return null;
+        }
+
+        enum ArachnusMessageType : byte
+        {
+            Target,
+            Sound,
+            Downed
         }
     }
 

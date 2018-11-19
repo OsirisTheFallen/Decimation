@@ -46,6 +46,7 @@ namespace Decimation
             flags[0] = downedBloodshotEye; //+1 flag number for each new boss
             flags[1] = downedDuneWorm;
             flags[2] = downedArachnus;
+            writer.Write(flags);
         }
         public override void NetReceive(BinaryReader reader)
         {

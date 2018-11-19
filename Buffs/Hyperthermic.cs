@@ -22,6 +22,12 @@ namespace Decimation.Buffs
             player.statDefense = (int)(player.statDefense * 0.90f);
             player.moveSpeed *= 0.95f;
         }
+
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.defense = (int)(npc.defense * 0.90f);
+            npc.velocity *= 0.95f;
+        }
     }
 
     public class HyperthermicManaBlock : GlobalItem

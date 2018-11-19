@@ -16,11 +16,18 @@ namespace Decimation.Buffs
             canBeCleared = false;
         }
 
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.onFire2 = true;
+            player.moveSpeed *= 0.95f;
+            player.statDefense = (int)(0.95f * player.statDefense);
+        }
+
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.onFire = true;
-            npc.velocity -= (5 / 100) * npc.velocity;
-            npc.defense -= (5 / 100) * npc.defense;
+            npc.velocity *= 0.95f;
+            npc.defense = (int)(0.95f * npc.defense);
         }
     }
 

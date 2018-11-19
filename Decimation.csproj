@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buffs\Commander.cs" />
+    <Compile Include="Buffs\Amnesia.cs" />
     <Compile Include="Buffs\FatesSmile.cs" />
     <Compile Include="Buffs\Hyperthermic.cs" />
     <Compile Include="Buffs\NaturesAura.cs" />
@@ -90,10 +91,10 @@
     <Compile Include="Items\DuneWormTreasureBag.cs" />
     <Compile Include="Items\DuneWormTrophey.cs" />
     <Compile Include="Items\EnchantedMushroom.cs" />
-    <Compile Include="Items\GildedSickle.cs" />
-    <Compile Include="Items\GreatwoodHammer.cs" />
+    <Compile Include="Items\Tools\GildedSickle.cs" />
+    <Compile Include="Items\Tools\GreatwoodHammer.cs" />
     <Compile Include="Items\Boss\Arachnus\MoltenArachnidsAmulet.cs" />
-    <Compile Include="Items\MultigrainHammer.cs" />
+    <Compile Include="Items\Tools\MultigrainHammer.cs" />
     <Compile Include="Items\Placeable\ChlorophyteAnvil.cs" />
     <Compile Include="Items\Placeable\EnchantedAnvil.cs" />
     <Compile Include="Items\Moltenkey.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Items\SoulofTime.cs" />
     <Compile Include="Items\TheHourGlass.cs" />
     <Compile Include="Items\Thermoplasm.cs" />
+    <Compile Include="Items\Tools\TitanitePax.cs" />
     <Compile Include="Items\TitaniteBar.cs" />
     <Compile Include="Items\TreasureBagBloodshotEye.cs" />
     <Compile Include="Items\WarlockPotion.cs" />
@@ -115,11 +117,16 @@
     <Compile Include="Items\Boss\Arachnus\ChainStynger.cs" />
     <Compile Include="Items\Boss\Arachnus\GlaiveWeaver.cs" />
     <Compile Include="Items\Boss\Arachnus\Infernolizer.cs" />
+    <Compile Include="Items\Weapons\MoltenStyngerBolt.cs" />
     <Compile Include="Items\Weapons\MultigrainSword.cs" />
     <Compile Include="Items\Weapons\Pebble.cs" />
     <Compile Include="Items\Weapons\Sling.cs" />
     <Compile Include="Items\Weapons\SlingshotWood.cs" />
     <Compile Include="Items\Weapons\TheGreatwoodSword.cs" />
+    <Compile Include="Items\Weapons\TitanicLongsword.cs" />
+    <Compile Include="Items\Weapons\TitanicPike.cs" />
+    <Compile Include="Items\Weapons\TitanicRepeater.cs" />
+    <Compile Include="Items\Weapons\TitanicStyngerBolt.cs" />
     <Compile Include="Items\Weapons\Umbra.cs" />
     <Compile Include="Items\Weapons\VampiricShiv.cs" />
     <Compile Include="NPCs\Arachnus\Arachnus.cs" />
@@ -128,8 +135,11 @@
     <Compile Include="NPCs\LivingMagma.cs" />
     <Compile Include="Projectiles\ArchingSolarBlade.cs" />
     <Compile Include="Projectiles\BlastofHeat.cs" />
+    <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
     <Compile Include="Projectiles\StingerM.cs" />
+    <Compile Include="Projectiles\TitanicPikeProjectile.cs" />
+    <Compile Include="Projectiles\TitanicStyngerBolt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\ShrineoftheMoltenOne.cs" />
     <Compile Include="Tiles\ChlorophyteAnvil.cs" />
