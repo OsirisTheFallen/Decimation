@@ -34,6 +34,23 @@ namespace Decimation.Projectiles
             aiType = ProjectileID.Bullet;
         }
 
+        public override void Kill(int timeLeft)
+        {
+            int fragNbre = Main.rand.Next(2, 6);
+            for (int i = 0; i < fragNbre; i++)
+            {
+                float velocityX = (float)Main.rand.Next(-100, 101);
+                velocityX += 0.01f;
+                float velocityY = (float)Main.rand.Next(-100, 101);
+                velocityX -= 0.01f;
+                float sqrt = (float)Math.Sqrt((double)(velocityX * velocityX + velocityY * velocityY));
+                sqrt = 8f / sqrt;
+                velocityX *= sqrt;
+                velocityY *= sqrt;
+                Projectile.NewProjectile(projectile.Center.X - projectile.oldVelocity.X, projectile.Center.Y - projectile.oldVelocity.Y, velocityX, velocityY, ProjectileID.StyngerShrapnel, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+            }
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);

@@ -5,7 +5,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Decimation;
 
-namespace testmod.Items
+namespace Decimation.Items.Accesories
 {
     public class DeadeyesQuiver : ModItem
     {
@@ -27,12 +27,12 @@ namespace testmod.Items
         public override void AddRecipes()
         {
             ModRecipe r = new ModRecipe(mod);
-            r.AddIngredient(null, "JestersQuiver");
-            r.AddIngredient(null, "SoulofKight");
+            r.AddIngredient(mod.ItemType("JestersQuiver"));
+            r.AddIngredient(mod.ItemType("SoulofKight"));
             r.AddIngredient(ItemID.SoulofSight, 15);
             r.AddIngredient(ItemID.SoulofFright, 15);
-            r.AddIngredient(null, "EndlessPouchOfLife");
-            r.AddIngredient(null, "RedThread", 5);
+            r.AddIngredient(mod.ItemType("EndlessPouchOfLife"));
+            r.AddIngredient(mod.ItemType("RedThread"), 5);
             r.AddIngredient(ItemID.FlaskofIchor, 5);
             r.AddIngredient(ItemID.BlackDye, 3);
             r.AddIngredient(ItemID.RedDye, 3);
