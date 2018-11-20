@@ -94,6 +94,7 @@
     <Compile Include="Items\DuneWormTrophey.cs" />
     <Compile Include="Items\EnchantedMushroom.cs" />
     <Compile Include="Items\Placeable\DenziumOre.cs" />
+    <Compile Include="Items\Placeable\DenziumWall.cs" />
     <Compile Include="Items\Tools\GildedSickle.cs" />
     <Compile Include="Items\Tools\GreatwoodHammer.cs" />
     <Compile Include="Items\Boss\Arachnus\MoltenArachnidsAmulet.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\ShrineoftheMoltenOne.cs" />
     <Compile Include="Tiles\ChlorophyteAnvil.cs" />
+    <Compile Include="Tiles\DenziumOre.cs" />
     <Compile Include="Tiles\EnchantedAnvil.cs" />
     <Compile Include="Tiles\ShrineoftheMoltenOne\DeadEarth.cs" />
     <Compile Include="Tiles\ShrineoftheMoltenOne\LockedShrineDoor.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Tiles\ShrineoftheMoltenOne\ShrineDoorClosed.cs" />
     <Compile Include="Tiles\ShrineoftheMoltenOne\ShrineDoorOpened.cs" />
     <Compile Include="Tiles\TitanForge.cs" />
+    <Compile Include="Walls\DenziumWall.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="build.txt" />
