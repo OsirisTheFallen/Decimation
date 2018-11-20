@@ -18,7 +18,7 @@ namespace Decimation.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.width = 40;
+            projectile.width = 10;
             projectile.height = 10;
             projectile.aiStyle = 1;
             projectile.friendly = true;
@@ -44,29 +44,47 @@ namespace Decimation.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            if (projectile.timeLeft > 3)
+                projectile.timeLeft = 3;
         }
 
         public override void OnHitPvp(Player target, int damage, bool crit)
         {
+            if (projectile.timeLeft > 3)
+                projectile.timeLeft = 3;
         }
 
         public override void AI()
         {
-            if (projectile.timeLeft <= 3)
-            {
-                projectile.penetrate = -1;
-                projectile.tileCollide = false;
-                projectile.alpha = 255;
-                projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-                projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-                projectile.width = 100;
-                projectile.height = 100;
-                projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-                projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
-                projectile.damage = 250;
-                projectile.knockBack = 10f;
+        }
 
-                SpawnDust();
+        public override void Kill(int timeLeft)
+        {
+            projectile.penetrate = -1;
+            projectile.tileCollide = false;
+            projectile.alpha = 255;
+            projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
+            projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
+            projectile.width = 100;
+            projectile.height = 100;
+            projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
+            projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+            projectile.damage = 250;
+            projectile.knockBack = 10f;
+
+            SpawnDust();
+            int fragNbre = Main.rand.Next(2, 6);
+            for (int i = 0; i < fragNbre; i++)
+            {
+                float velocityX = (float)Main.rand.Next(-100, 101);
+                velocityX += 0.01f;
+                float velocityY = (float)Main.rand.Next(-100, 101);
+                velocityX -= 0.01f;
+                float sqrt = (float)Math.Sqrt((double)(velocityX * velocityX + velocityY * velocityY));
+                sqrt = 8f / sqrt;
+                velocityX *= sqrt;
+                velocityY *= sqrt;
+                Projectile.NewProjectile(projectile.Center.X - projectile.oldVelocity.X, projectile.Center.Y - projectile.oldVelocity.Y, velocityX, velocityY, ProjectileID.StyngerShrapnel, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
             }
         }
 
