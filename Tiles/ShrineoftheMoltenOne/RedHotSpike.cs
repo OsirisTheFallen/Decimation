@@ -40,7 +40,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             float playerY = player.position.Y;
 
             if (playerX / 16 - i <= 2 && playerX / 16 - i >= -2 && playerY / 16 - j <= 2 && playerY / 16 - j >= -4.3f)
-                player.AddBuff(mod.BuffType("Slimed"), 300);
+                player.AddBuff(mod.BuffType("Singed"), 300);
             if (playerX / 16 - i <= 1 && playerX / 16 - i >= -1.25f && playerY / 16 - j <= 1.1f && playerY / 16 - j >= -3.3f)
                 player.Hurt(PlayerDeathReason.LegacyDefault(), 100, 0);
         }
