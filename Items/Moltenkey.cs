@@ -9,7 +9,7 @@ namespace Decimation.Items
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Enough hot to open the shrine door.");
+            Tooltip.SetDefault("Hot enough to open the shrine door.");
         }
 
         public override void SetDefaults()
