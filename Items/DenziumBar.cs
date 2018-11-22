@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items
 {
-    public class DenziumIngot : ModItem
+    public class DenziumBar : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Denzium Ingot");
+            DisplayName.SetDefault("Denzium Bar");
         }
 
         public override void SetDefaults()

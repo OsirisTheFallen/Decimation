@@ -54,10 +54,6 @@ namespace Decimation.Projectiles
                 projectile.timeLeft = 3;
         }
 
-        public override void AI()
-        {
-        }
-
         public override void Kill(int timeLeft)
         {
             projectile.penetrate = -1;
@@ -73,7 +69,7 @@ namespace Decimation.Projectiles
             projectile.knockBack = 10f;
 
             SpawnDust();
-            int fragNbre = Main.rand.Next(2, 6);
+            int fragNbre = Main.rand.Next(8, 12);
             for (int i = 0; i < fragNbre; i++)
             {
                 float velocityX = (float)Main.rand.Next(-100, 101);
