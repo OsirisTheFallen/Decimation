@@ -8,24 +8,32 @@ namespace Decimation
     public class DecimationPlayer : ModPlayer
     {
         public bool closeToEnchantedAnvil = false;
-        public bool isJestersQueverEquiped = false;
+        public bool jestersQueverEquiped = false;
         public bool deadeyesQuiverEquipped = false;
+        public bool endlessPouchofLifeEquipped = false;
 
         public override void ResetEffects()
         {
             closeToEnchantedAnvil = false;
-            isJestersQueverEquiped = false;
+            jestersQueverEquiped = false;
             deadeyesQuiverEquipped = false;
+            endlessPouchofLifeEquipped = false;
         }
 
+        // FIND AN ALTERNATIVE! THIS METHOD DOESN'T GET CALLED WITH ALL THE WEAPONS
         public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if (isJestersQueverEquiped && type == ProjectileID.WoodenArrowFriendly)
+            Projectile toCheck = Main.projectile[type];
+
+            if (jestersQueverEquiped && toCheck.arrow)
                 type = ProjectileID.JestersArrow;
 
-            if (deadeyesQuiverEquipped && (type == ProjectileID.WoodenArrowFriendly || type == ProjectileID.Bullet))
+            if (endlessPouchofLifeEquipped && References.bullets.Contains(type))
+                type = ProjectileID.ChlorophyteBullet;
+
+            if (deadeyesQuiverEquipped && (toCheck.arrow || References.bullets.Contains(type)))
             {
-                if (type == ProjectileID.WoodenArrowFriendly)
+                if (toCheck.arrow)
                     type = ProjectileID.IchorArrow;
                 else
                     type = ProjectileID.ChlorophyteBullet;
@@ -39,7 +47,9 @@ namespace Decimation
 
         public override bool ConsumeAmmo(Item weapon, Item ammo)
         {
-            if (deadeyesQuiverEquipped && Main.rand.Next(20) > 3)
+            if (deadeyesQuiverEquipped && (ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet) && Main.rand.Next(20) > 3)
+                return false;
+            if (endlessPouchofLifeEquipped && ammo.ammo == AmmoID.Bullet)
                 return false;
 
             return base.ConsumeAmmo(weapon, ammo);

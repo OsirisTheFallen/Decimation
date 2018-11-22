@@ -64,7 +64,6 @@ namespace Decimation.NPCs
                 }
             }
 
-
             if (validBlockCount >= 15)
                 return SpawnCondition.Underworld.Chance * 2;
             return 0;
