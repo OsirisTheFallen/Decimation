@@ -135,10 +135,17 @@
     <Compile Include="Items\Weapons\TitanicStyngerBolt.cs" />
     <Compile Include="Items\Weapons\Umbra.cs" />
     <Compile Include="Items\Weapons\VampiricShiv.cs" />
+    <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormBody.cs" />
+    <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormHead.cs" />
+    <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormTail.cs" />
+    <Compile Include="NPCs\AncientTombCrawlerHead.cs" />
+    <Compile Include="NPCs\AncientTombCrawlerBody.cs" />
+    <Compile Include="NPCs\AncientTombCrawlerTail.cs" />
     <Compile Include="NPCs\Arachnus\Arachnus.cs" />
     <Compile Include="NPCs\CoreSpider.cs" />
     <Compile Include="NPCs\CoreSpiderWall.cs" />
     <Compile Include="NPCs\LivingMagma.cs" />
+    <Compile Include="Projectiles\Ammonite.cs" />
     <Compile Include="Projectiles\ArchingSolarBlade.cs" />
     <Compile Include="Projectiles\BlastofHeat.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />

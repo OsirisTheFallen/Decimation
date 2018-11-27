@@ -32,13 +32,13 @@ namespace Decimation.Items
 
         public override void OpenBossBag(Player player)
         {                                         
-            player.QuickSpawnItem(mod.ItemType("SoulOfTime"), Main.rand.Next(20, 35));
+            player.QuickSpawnItem(mod.ItemType<SoulofTime>(), Main.rand.Next(20, 35));
 			player.QuickSpawnItem(ItemID.FossilOre, Main.rand.Next(10, 15));		
-			player.QuickSpawnItem(mod.ItemType("TheHourGlass"));
+			player.QuickSpawnItem(mod.ItemType<TheHourGlass>());
 			if (Main.rand.Next(7) == 0)
-			{
-				player.QuickSpawnItem(mod.ItemType("DuneWormMask"));
-			}
+				player.QuickSpawnItem(mod.ItemType<DuneWormMask>());
+            if (Main.rand.NextBool(13))
+                player.QuickSpawnItem(mod.ItemType<DuneWormTrophey>());
         }
     }
 }

@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Decimation.NPCs.Arachnus;
+using Decimation.NPCs.AncientDuneWorm;
 
 namespace Decimation
 {
@@ -19,7 +20,7 @@ namespace Decimation
             {
                 bossChecklist.Call("AddBossWithInfo", "Bloodshot Eye of Cthulhu", 2.5f, (Func<bool>)(() => DecimationWorld.downedBloodshotEye), "INSERT LATER");
                 bossChecklist.Call("AddBossWithInfo", "Ancient Dune Worm", 5.7f, (Func<bool>)(() => DecimationWorld.downedDuneWorm), "INSERT LATER");
-                bossChecklist.Call("AddBossWithInfo", "Arachnus", 7.2f, (Func<bool>)(() => DecimationWorld.downedArachnus), "INSERT LATER");
+                bossChecklist.Call("AddBossWithInfo", "Arachnus", 20f, (Func<bool>)(() => DecimationWorld.downedArachnus), "INSERT LATER");
             }
         }
 
@@ -57,9 +58,7 @@ namespace Decimation
                 case DecimationModMessageType.Arachnus:
                     Arachnus arachnus = Main.npc[reader.ReadInt32()].modNPC as Arachnus;
                     if (arachnus != null && arachnus.npc.active)
-                    {
                         arachnus.HandlePacket(reader);
-                    }
                     break;
                 default:
                     ErrorLogger.Log("DecimationMod: Unknown Message type: " + msgType);
@@ -70,6 +69,6 @@ namespace Decimation
 
     enum DecimationModMessageType : byte
     {
-        Arachnus,
+        Arachnus
     }
 }

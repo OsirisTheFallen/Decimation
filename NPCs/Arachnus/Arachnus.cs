@@ -333,7 +333,6 @@ namespace Decimation.NPCs.Arachnus
             packet.Write(npc.whoAmI);
             packet.Write((byte)type);
             return packet;
-            return null;
         }
 
         enum ArachnusMessageType : byte

@@ -17,6 +17,7 @@ namespace Decimation
         public static bool downedBloodshotEye = false;
         public static bool downedDuneWorm = false;
         public static bool downedArachnus = false;
+
         public override void Initialize()
         {
             downedBloodshotEye = false;
