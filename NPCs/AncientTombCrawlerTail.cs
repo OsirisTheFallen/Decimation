@@ -29,7 +29,6 @@ namespace Decimation.NPCs
             npc.noGravity = true;
             npc.dontCountMe = true;
             npc.HitSound = SoundID.NPCHit1;
-            npc.boss = true;
         }
 
         public override bool PreAI()
@@ -86,7 +85,6 @@ namespace Decimation.NPCs
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
-
             return false;      //this make that the npc does not have a health bar
         }
     }

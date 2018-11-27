@@ -34,6 +34,23 @@ namespace Decimation.NPCs
             npc.value = Item.buyPrice(0, 0, 1, 0);
             npc.npcSlots = 1f;
             npc.netAlways = true;
+            npc.boss = true;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            if (Main.rand.NextBool(20))
+            {
+                // target.AddBuff(BuffID.Bindness, 600); Don't know this debuff
+            }
+        }
+
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (Main.rand.NextBool(20))
+            {
+                // target.AddBuff(BuffID.Bindness, 600); Don't know this debuff
+            }
         }
 
         public override void NPCLoot()
@@ -44,7 +61,7 @@ namespace Decimation.NPCs
         public override void BossLoot(ref string name, ref int potionType)
         {
             name = "tombcrawler";
-            potionType = ItemID.LesserHealingPotion;
+            potionType = ItemID.HealingPotion;
 
             base.BossLoot(ref name, ref potionType);
         }
@@ -196,13 +213,8 @@ namespace Decimation.NPCs
             {
                 if (npc.soundDelay == 0)
                 {
-                    float num1 = length / 40f;
-                    if (num1 < 10.0)
-                        num1 = 10f;
-                    if (num1 > 20.0)
-                        num1 = 20f;
-                    npc.soundDelay = (int)num1;
-                    Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 1);
+                    npc.soundDelay = 120;
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Earthquake"), npc.Center);
                 }
                 float absDirX = Math.Abs(dirX);
                 float absDirY = Math.Abs(dirY);

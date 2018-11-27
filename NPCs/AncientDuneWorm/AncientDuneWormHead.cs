@@ -83,7 +83,8 @@ namespace Decimation.NPCs.AncientDuneWorm
             if (!Main.player[npc.target].ZoneDesert || npc.ai[2] == 1 || !playersActive)
             {
                 npc.ai[2] = 1;
-                npc.velocity = new Vector2(10f, 30f);
+                npc.velocity = new Vector2(0, 15);
+                npc.rotation = (int) (Math.PI * 3) / 2;
                 npc.netUpdate = true;
                 return true;
             }
@@ -102,7 +103,7 @@ namespace Decimation.NPCs.AncientDuneWorm
         private void SummonSandnado()
         {
             if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].type == 0 && npc.ai[1] == TileID.Sand)
-                Projectile.NewProjectile(npc.Center, new Vector2(0, 0), ProjectileID.SandnadoHostile, 30, 10f);
+                Projectile.NewProjectile(npc.Center, new Vector2(0, 0), ProjectileID.SandnadoHostile, 15, 10f);
         }
 
         private void ShootAmmonite()
@@ -144,7 +145,7 @@ namespace Decimation.NPCs.AncientDuneWorm
 
                 for (int i = 0; i < ammoniteNbre; i++)
                 {
-                    Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(8, 15)), mod.ProjectileType<Ammonite>(), 1, 5f);
+                    Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(8, 15)), mod.ProjectileType<Ammonite>(), 15, 5f);
                 }
             }
         }
@@ -170,7 +171,7 @@ namespace Decimation.NPCs.AncientDuneWorm
             name = "duneworm";
             DecimationWorld.downedDuneWorm = true;
 
-            potionType = ItemID.LesserHealingPotion;
+            potionType = ItemID.HealingPotion;
             base.BossLoot(ref name, ref potionType);
         }
 

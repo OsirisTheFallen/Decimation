@@ -11,7 +11,7 @@ namespace Decimation.Projectiles
         {
             projectile.CloneDefaults(ProjectileID.SpikyBall);
             projectile.damage = 30;
-            projectile.width = 20;
+            projectile.width = 10;
             projectile.height = 16;
             projectile.friendly = false;
             projectile.hostile = true;

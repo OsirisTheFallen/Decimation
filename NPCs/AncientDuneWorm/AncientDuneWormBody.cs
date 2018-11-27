@@ -20,7 +20,7 @@ namespace Decimation.NPCs.AncientDuneWorm
             npc.width = 92;               //this is where you put the npc sprite width.     important
             npc.height = 92;              //this is where you put the npc sprite height.   important
             //npc.scale = 1.5f;
-            npc.damage = 10;
+            npc.damage = 45;
             npc.defense = 5;
             npc.lifeMax = 1;
             npc.knockBackResist = 0.0f;
