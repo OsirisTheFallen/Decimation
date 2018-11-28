@@ -20,6 +20,7 @@ namespace Decimation.Structures
             {1, Decimation.decimation.TileType("ShrineBrick")},
             {2, Decimation.decimation.TileType("RedHotSpike")},
             {3, TileID.Platforms},
+            {4, Decimation.decimation.TileType("ShrineAltar")}
         };
 
         private readonly Dictionary<byte, int> _wallSet = new Dictionary<byte, int>()
@@ -281,7 +282,7 @@ namespace Decimation.Structures
             WorldGen.PlaceObject(px + 59, py - 46 - 9, TileID.Painting3X3, false, 15);
             WorldGen.PlaceBanner(px + 3, py - 46 - 15, TileID.Banners, 21);
             WorldGen.PlaceBanner(px + 66, py - 46 - 15, TileID.Banners, 21);
-            WorldGen.PlaceObject(px + 34, py - 46 - 3, TileID.LihzahrdAltar);
+            WorldGen.PlaceTile(px + 33, py - 46 - 3, Decimation.decimation.TileType("ShrineAltar"));
         }
 
         public void Generate()
