@@ -287,10 +287,7 @@ namespace Decimation.Structures
 
         public void Generate()
         {
-            do
-            {
-                X = Main.rand.Next(Main.maxTilesX);
-            } while (X - 200 < 0 && X + 200 > Main.maxTilesX);
+            X = Main.maxTilesX / 2;
 
             do
             {

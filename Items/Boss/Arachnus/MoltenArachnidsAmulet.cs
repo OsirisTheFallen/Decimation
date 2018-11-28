@@ -25,13 +25,6 @@ namespace Decimation.Items.Boss.Arachnus
             item.consumable = true;
         }
 
-        public override bool UseItem(Player player)
-        {
-            Main.PlaySound(SoundID.Roar, (int)player.position.X + 500, (int)player.position.Y, 0);
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Arachnus"));
-            return true;
-        }
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

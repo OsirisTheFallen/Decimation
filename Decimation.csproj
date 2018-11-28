@@ -169,6 +169,8 @@
     <Compile Include="Tiles\ShrineoftheMoltenOne\ShrineDoorClosed.cs" />
     <Compile Include="Tiles\ShrineoftheMoltenOne\ShrineDoorOpened.cs" />
     <Compile Include="Tiles\TitanForge.cs" />
+    <Compile Include="UI\AmuletItemSlotWrapper.cs" />
+    <Compile Include="UI\AmuletSlot.cs" />
     <Compile Include="Walls\DenziumWall.cs" />
   </ItemGroup>
   <ItemGroup>

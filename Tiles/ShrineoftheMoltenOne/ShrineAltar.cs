@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Decimation.Items;
+using Decimation.Items.Boss.Arachnus;
+using Decimation.NPCs.Arachnus;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -25,6 +28,20 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             AddMapEntry(new Color(33, 28, 25), name);
             dustType = DustID.LavaMoss;
             disableSmartCursor = true;
+        }
+
+        public override void RightClick(int i, int j)
+        {
+            if (Main.LocalPlayer.HeldItem.type == mod.ItemType<MoltenArachnidsAmulet>())
+                NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, mod.NPCType<Arachnus>());
+        }
+
+        public override void MouseOver(int i, int j)
+        {
+            Player player = Main.LocalPlayer;
+            player.noThrow = 2;
+            player.showItemIcon = true;
+            player.showItemIcon2 = mod.ItemType<MoltenArachnidsAmulet>();
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
