@@ -74,7 +74,6 @@ namespace Decimation.Tiles
                     {
                         if (Main.rand.Next(0, 11) == 5)
                         {
-                            Main.NewText("tt");
                             item.Prefix(PrefixID.Light);
                             return;
                         }

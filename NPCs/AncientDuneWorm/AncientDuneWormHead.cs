@@ -159,7 +159,7 @@ namespace Decimation.NPCs.AncientDuneWorm
                 if (Main.rand.NextBool(7))
                     Item.NewItem(npc.Center, mod.ItemType<DuneWormMask>());
                 if (Main.rand.NextBool(13))
-                    Item.NewItem(npc.Center, mod.ItemType<DuneWormTrophey>());
+                    Item.NewItem(npc.Center, mod.ItemType<DuneWormTrophy>());
             }
             else
             {

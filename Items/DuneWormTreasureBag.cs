@@ -38,7 +38,7 @@ namespace Decimation.Items
 			if (Main.rand.Next(7) == 0)
 				player.QuickSpawnItem(mod.ItemType<DuneWormMask>());
             if (Main.rand.NextBool(13))
-                player.QuickSpawnItem(mod.ItemType<DuneWormTrophey>());
+                player.QuickSpawnItem(mod.ItemType<DuneWormTrophy>());
         }
     }
 }
