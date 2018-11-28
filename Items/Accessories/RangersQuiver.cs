@@ -17,8 +17,8 @@ namespace Decimation.Items.Accessories
 		}
 		public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 30;
+            item.width = 32;
+            item.height = 32;
             item.value = 10;
             item.rare = 2;
             item.accessory = true;
