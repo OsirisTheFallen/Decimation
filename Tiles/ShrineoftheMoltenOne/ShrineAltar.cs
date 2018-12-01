@@ -32,7 +32,19 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
 
         public override void RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.HeldItem.type == mod.ItemType<MoltenArachnidsAmulet>())
+            Item[] inventory = Main.LocalPlayer.inventory;
+
+            bool inventoryContainAmulet = false;
+
+            for (int k = 0; k < inventory.Length; k++)
+                if (inventory[k].type == mod.ItemType<MoltenArachnidsAmulet>())
+                {
+                    inventoryContainAmulet = true;
+                    inventory[k].TurnToAir();
+                    break;
+                }
+
+            if (inventoryContainAmulet)
                 NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, mod.NPCType<Arachnus>());
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Decimation.Items;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -75,10 +76,14 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
 
         public override void RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.HeldItem.type == mod.ItemType("MoltenKey"))
-            {
-                Main.tile[i, j].type = (ushort)mod.TileType("ShrineDoorClosed");
-            }
+            bool inventoryContainKey = false;
+
+            foreach (Item item in Main.LocalPlayer.inventory)
+                if (item.type == mod.ItemType<MoltenKey>())
+                    inventoryContainKey = true;
+
+            if (inventoryContainKey)
+                Main.tile[i, j].type = (ushort)mod.TileType<ShrineDoorClosed>();
         }
     }
 }
