@@ -41,7 +41,7 @@ namespace Decimation.NPCs
         {
             if (Main.rand.NextBool(20))
             {
-                // target.AddBuff(BuffID.Bindness, 600); Don't know this debuff
+                target.AddBuff(BuffID.Darkness, 600);
             }
         }
 
@@ -49,7 +49,7 @@ namespace Decimation.NPCs
         {
             if (Main.rand.NextBool(20))
             {
-                // target.AddBuff(BuffID.Bindness, 600); Don't know this debuff
+                target.AddBuff(BuffID.Darkness, 600);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Decimation.NPCs
 
         public override void BossLoot(ref string name, ref int potionType)
         {
-            name = "tombcrawler";
+            name = "An Ancient Tomb Crawler";
             potionType = ItemID.HealingPotion;
 
             base.BossLoot(ref name, ref potionType);

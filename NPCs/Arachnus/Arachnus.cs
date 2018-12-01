@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using Decimation.Projectiles;
 
 namespace Decimation.NPCs.Arachnus
 {
@@ -66,14 +67,11 @@ namespace Decimation.NPCs.Arachnus
             // Check for possibilities to despawn
             if (!target.active || target.dead)
             {
-                if (!target.active || target.dead)
+                npc.velocity = new Vector2(0, 10f);
+                npc.noTileCollide = true;
+                if (npc.timeLeft > 10)
                 {
-                    npc.velocity = new Vector2(0, 10f);
-                    npc.noTileCollide = true;
-                    if (npc.timeLeft > 10)
-                    {
-                        npc.timeLeft = 10;
-                    }
+                    npc.timeLeft = 10;
                 }
             }
 
@@ -83,10 +81,7 @@ namespace Decimation.NPCs.Arachnus
             npc.rotation = (float)(angle + Math.PI * 0.5f);
 
             // Check if enraged
-            if (!target.ZoneUnderworldHeight || !Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0))
-                npc.ai[2] = 1;
-            else
-                npc.ai[2] = 0;
+            npc.ai[2] = !target.ZoneUnderworldHeight || !Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0) ? 1 : 0;
 
             // Check if Arachnus is in is Shrine
             if (counter % 60 == 0)
@@ -156,12 +151,12 @@ namespace Decimation.NPCs.Arachnus
                 {
                     float speedX = (float)(7 * Math.Cos(npc.rotation - Math.PI * 0.5f));
                     float speedY = (float)(7 * Math.Sin(npc.rotation - Math.PI * 0.5f));
-                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), mod.ProjectileType("BlastofHeat"), 30, 0f);
-                    //Main.PlaySound(SoundID.Item34, npc.position);
-                   /**ModPacket netMessage = GetPacket(ArachnusMessageType.Sound);
-                    netMessage.Write(SoundID.Item34);
-                    netMessage.Write(0);
-                    netMessage.Send();**/
+                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), npc.ai[2] == 1 ? mod.ProjectileType<BlastofShadowFlame>() : mod.ProjectileType<BlastofHeat>(), 30, 0f);
+                    Main.PlaySound(SoundID.Item34, npc.position);
+                    /**ModPacket netMessage = GetPacket(ArachnusMessageType.Sound);
+                     netMessage.Write(SoundID.Item34);
+                     netMessage.Write(0);
+                     netMessage.Send();**/
                 }
                 else if (npc.ai[1] == 2)
                 {

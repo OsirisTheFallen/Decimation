@@ -77,14 +77,19 @@ namespace Decimation.NPCs.AncientDuneWorm
         {
             // check active
             bool playersActive = false;
+            // check death
+            bool playersDead = true;
             foreach (Player player in Main.player)
+            {
                 if (player.active) playersActive = true;
+                if (!player.dead) playersDead = false;
+            }
 
-            if (!Main.player[npc.target].ZoneDesert || npc.ai[2] == 1 || !playersActive)
+            if (!Main.player[npc.target].ZoneDesert || npc.ai[2] == 1 || !playersActive || playersDead)
             {
                 npc.ai[2] = 1;
                 npc.velocity = new Vector2(0, 15);
-                npc.rotation = (int) (Math.PI * 3) / 2;
+                npc.rotation = (int)(Math.PI * 3) / 2;
                 npc.netUpdate = true;
                 return true;
             }
@@ -168,7 +173,7 @@ namespace Decimation.NPCs.AncientDuneWorm
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
-            name = "duneworm";
+            name = "The Ancient Dune Worm";
             DecimationWorld.downedDuneWorm = true;
 
             potionType = ItemID.HealingPotion;
@@ -178,12 +183,12 @@ namespace Decimation.NPCs.AncientDuneWorm
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (Main.rand.NextBool(5) || (!Main.expertMode && Main.rand.NextBool(2)))
-                target.AddBuff(mod.BuffType<Hyperthermic>(), Main.expertMode ? 600 : 300, false);
+                target.AddBuff(mod.BuffType<Hyperthermic>(), Main.expertMode ? 600 : 300);
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (Main.rand.NextBool(5) || (!Main.expertMode && Main.rand.NextBool(2)))
-                target.AddBuff(mod.BuffType<Hyperthermic>(), Main.expertMode ? 600 : 300, false);
+                target.AddBuff(mod.BuffType<Hyperthermic>(), Main.expertMode ? 600 : 300);
         }
 
         public override void SendExtraAI(BinaryWriter writer)

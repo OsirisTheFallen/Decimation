@@ -149,6 +149,7 @@
     <Compile Include="Projectiles\Ammonite.cs" />
     <Compile Include="Projectiles\ArchingSolarBlade.cs" />
     <Compile Include="Projectiles\BlastofHeat.cs" />
+    <Compile Include="Projectiles\BlastofShadowFlame.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
     <Compile Include="Projectiles\StingerM.cs" />

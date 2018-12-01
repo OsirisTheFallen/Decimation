@@ -292,7 +292,7 @@ namespace Decimation.Structures
             do
             {
                 Y = Main.maxTilesY - 110 + Main.rand.Next(20);
-            } while (Y - 160 < 0);
+            } while (Y + 160 < Main.maxTilesY);
 
             a = 75;
             b = 50;
@@ -309,7 +309,7 @@ namespace Decimation.Structures
                     {
                         WorldGen.PlaceTile(X + x, Y + y, TileID.Ash, false, true);
                         if (Main.rand.Next(60) == 0)
-                            WorldGen.TileRunner(X + x, Y + y, 5, 2, TileID.Obsidian, false);
+                            WorldGen.TileRunner(X + x, Y + y, 5, 2, TileID.Obsidian);
 
                         Framing.GetTileSafely(X + x, Y + y).slope(0);
                     }
