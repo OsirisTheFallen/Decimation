@@ -69,6 +69,13 @@ namespace Decimation
                         duneWorm.HandlePacket(reader);
                     }
                     break;
+                case DecimationModMessageType.SpawnBoss:
+                    int type = reader.ReadInt32();
+                    int player = reader.ReadInt32();
+                    Main.PlaySound(15, (int)Main.player[player].position.X, (int)Main.player[player].position.Y, 0);
+                    if (Main.netMode != 1)
+                        NPC.SpawnOnPlayer(player, type);
+                    break;
                 default:
                     ErrorLogger.Log("DecimationMod: Unknown Message type: " + msgType);
                     break;
@@ -79,6 +86,8 @@ namespace Decimation
     enum DecimationModMessageType : byte
     {
         Arachnus,
-        DuneWorm
+        DuneWorm,
+
+        SpawnBoss
     }
 }

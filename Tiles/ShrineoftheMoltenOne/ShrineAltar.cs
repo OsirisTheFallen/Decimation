@@ -8,6 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.World.Generation;
 
 namespace Decimation.Tiles.ShrineoftheMoltenOne
 {
@@ -47,8 +48,19 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
 
             if (inventoryContainAmulet)
             {
-                Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<Arachnus>());
+                if (Main.netMode == 1)
+                {
+                    ModPacket packet = mod.GetPacket();
+                    packet.Write((byte)DecimationModMessageType.SpawnBoss);
+                    packet.Write(mod.NPCType<Arachnus>());
+                    packet.Write(player.whoAmI);
+                    packet.Send();
+                }
+                else if (Main.netMode == 0)
+                {
+                    Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<Arachnus>());
+                }
             }
         }
 

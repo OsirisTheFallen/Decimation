@@ -369,7 +369,8 @@ namespace Decimation.NPCs.AncientDuneWorm
                 {
                     npc.soundDelay = 120;
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Earthquake"), npc.Center);
-                    GetPacket(DuneWormMessageType.UndergroundSound).Send();
+                    if (Main.netMode == 2)
+                        GetPacket(DuneWormMessageType.UndergroundSound).Send();
                 }
                 float absDirX = Math.Abs(dirX);
                 float absDirY = Math.Abs(dirY);

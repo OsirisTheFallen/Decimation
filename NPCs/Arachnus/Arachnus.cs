@@ -160,7 +160,8 @@ namespace Decimation.NPCs.Arachnus
                     if (counter == 1321)
                     {
                         Main.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
-                        GetPacket(ArachnusMessageType.RoarSound).Send();
+                        if (Main.netMode == 2)
+                            GetPacket(ArachnusMessageType.RoarSound).Send();
                     }
                     npc.ai[1] = 2;
                 }
@@ -178,7 +179,8 @@ namespace Decimation.NPCs.Arachnus
                     float speedY = (float)(7 * Math.Sin(npc.rotation - Math.PI * 0.5f));
                     Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), npc.ai[2] == 1 ? mod.ProjectileType<BlastofShadowFlame>() : mod.ProjectileType<BlastofHeat>(), 30, 0f, 255);
                     Main.PlaySound(SoundID.Item34, npc.position);
-                    GetPacket(ArachnusMessageType.FlamesSound).Send();
+                    if (Main.netMode == 2)
+                        GetPacket(ArachnusMessageType.FlamesSound).Send();
                 }
                 else if (npc.ai[1] == 2)
                 {
