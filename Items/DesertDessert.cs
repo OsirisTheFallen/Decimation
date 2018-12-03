@@ -33,7 +33,6 @@ namespace Decimation.Items
             if (player.ZoneDesert)
             {
                 Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
-                //NPC.NewNPC((int)player.position.X - 100, (int)player.position.Y + 100, mod.NPCType<AncientDuneWormHead>());
                 NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<AncientDuneWormHead>());
                 return true;
             }

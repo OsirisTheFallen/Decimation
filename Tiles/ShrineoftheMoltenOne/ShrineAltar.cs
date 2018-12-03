@@ -32,7 +32,8 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
 
         public override void RightClick(int i, int j)
         {
-            Item[] inventory = Main.LocalPlayer.inventory;
+            Player player = Main.LocalPlayer;
+            Item[] inventory = player.inventory;
 
             bool inventoryContainAmulet = false;
 
@@ -45,7 +46,10 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
                 }
 
             if (inventoryContainAmulet)
-                NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, mod.NPCType<Arachnus>());
+            {
+                Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<Arachnus>());
+            }
         }
 
         public override void MouseOver(int i, int j)

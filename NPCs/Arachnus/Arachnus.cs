@@ -6,12 +6,16 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Decimation.Projectiles;
+using Decimation.Tiles.ShrineoftheMoltenOne;
 
 namespace Decimation.NPCs.Arachnus
 {
     [AutoloadBossHead]
     class Arachnus : ModNPC
     {
+        private int counter = 0;
+        private int counterMax = 1320;
+        private float speed = 2;
 
         public override void SetStaticDefaults()
         {
@@ -47,43 +51,48 @@ namespace Decimation.NPCs.Arachnus
             npc.defense = (int)(npc.defense + numPlayers * 2);
         }
 
-        private Player target;
-        private float speed = 2f;
-        private Vector2 moveTo;
-        private float turnResistance;
-        private float counter = 0;
-        private float counterMax = 1200;
-        private float mouthX;
-        private float mouthY;
-        private bool tooFarFromShrine = false;
-
-        public override void AI()
+        private bool CheckDispawn()
         {
-            npc.noTileCollide = false;
+            bool playersActive = false;
+            bool playersDead = true;
 
-            npc.TargetClosest(false);
-            target = Main.player[npc.target];
-
-            // Check for possibilities to despawn
-            if (!target.active || target.dead)
+            foreach (Player player in Main.player)
             {
-                npc.velocity = new Vector2(0, 10f);
-                npc.noTileCollide = true;
-                if (npc.timeLeft > 10)
-                {
-                    npc.timeLeft = 10;
-                }
+                if (player.active) playersActive = true;
+                if (!player.dead) playersDead = false;
             }
 
+            return playersDead || !playersActive;
+        }
+
+        private void Move()
+        {
             // Rotate to player
-            moveTo = target.Center - npc.Center;
+            Vector2 moveTo = Main.player[npc.target].Center - npc.Center;
             float angle = (float)Math.Atan2(moveTo.Y, moveTo.X);
             npc.rotation = (float)(angle + Math.PI * 0.5f);
 
-            // Check if enraged
-            npc.ai[2] = !target.ZoneUnderworldHeight || !Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0) ? 1 : 0;
+            // Move
+            Vector2 move = moveTo;
+            float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+            if (magnitude > speed)
+            {
+                move *= speed / magnitude;
+            }
+            float turnResistance = 50f;
+            move = (npc.velocity * turnResistance + move) / (turnResistance + 1f);
+            magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+            if (magnitude > speed)
+            {
+                move *= speed / magnitude;
+            }
 
-            // Check if Arachnus is in is Shrine
+            npc.velocity = npc.ai[1] != 99 ? move : new Vector2(0, 0);
+        }
+
+        private bool CheckForShrine()
+        {
+            bool tooFarFromShrine = false;
             if (counter % 60 == 0)
             {
                 int validBlockCount = 0;
@@ -93,7 +102,7 @@ namespace Decimation.NPCs.Arachnus
                     {
                         if (i >= 0 && i <= Main.maxTilesX && j >= 0 && j <= Main.maxTilesY)
                         {
-                            if (Main.tile[i, j].type == mod.TileType("ShrineBrick") || (Main.tile[i, j].type == mod.TileType("LockedShrineDoor") || Main.tile[i, j].type == mod.TileType("ShrineDoorClosed") || Main.tile[i, j].type == mod.TileType("ShrineDoorOpened")) || Main.tile[i, j].type == mod.TileType("RedHotSpike"))
+                            if (Main.tile[i, j].type == mod.TileType<ShrineBrick>() || (Main.tile[i, j].type == mod.TileType<LockedShrineDoor>() || Main.tile[i, j].type == mod.TileType<ShrineDoorClosed>() || Main.tile[i, j].type == mod.TileType<ShrineDoorOpened>()) || Main.tile[i, j].type == mod.TileType<RedHotSpike>() || Main.tile[i, j].type == mod.TileType<ShrineAltar>())
                                 validBlockCount++;
                         }
                     }
@@ -101,18 +110,37 @@ namespace Decimation.NPCs.Arachnus
 
                 if (validBlockCount < 15)
                     tooFarFromShrine = true;
-                else
-                    tooFarFromShrine = false;
             }
 
-            if (tooFarFromShrine) npc.ai[2] = 1;
+            return tooFarFromShrine;
+        }
+        private void CheckEnraged()
+        {
+            npc.ai[2] = !Main.player[npc.target].ZoneUnderworldHeight || !Collision.CanHit(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) || CheckForShrine() ? 1 : 0;
+        }
+
+        public override void AI()
+        {
+            if (CheckDispawn())
+            {
+                npc.velocity = new Vector2(0, 10f);
+                npc.noTileCollide = true;
+                if (npc.timeLeft > 10)
+                {
+                    npc.timeLeft = 10;
+                }
+            }
+
+            npc.TargetClosest(true);
+
+            CheckEnraged();
 
             // Normal ai
             if (npc.ai[0] == 0)
             {
 
-                mouthX = (float)(((npc.height) / 2) * Math.Cos(npc.rotation - Math.PI * 0.5f)) + npc.Center.X;
-                mouthY = (float)(((npc.height) / 2) * Math.Sin(npc.rotation - Math.PI * 0.5f)) + npc.Center.Y;
+                float mouthX = (float)(((npc.height) / 2) * Math.Cos(npc.rotation - Math.PI * 0.5f)) + npc.Center.X;
+                float mouthY = (float)(((npc.height) / 2) * Math.Sin(npc.rotation - Math.PI * 0.5f)) + npc.Center.Y;
 
                 //Counter
                 if (npc.life <= npc.lifeMax / 2) counterMax = 1500;
@@ -132,48 +160,46 @@ namespace Decimation.NPCs.Arachnus
                     if (counter == 1321)
                     {
                         Main.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
-                        /**ModPacket netMessage = GetPacket(ArachnusMessageType.Sound);
-                        netMessage.Write(SoundID.Roar);
-                        netMessage.Write(0);
-                        netMessage.Send();**/
+                        GetPacket(ArachnusMessageType.RoarSound).Send();
                     }
                     npc.ai[1] = 2;
                 }
                 else npc.ai[1] = 99;
 
-                if (Math.Abs((counter) / 40 % 1) <= (Double.Epsilon * 100) && npc.ai[1] == 0)
+                if (counter % 40 == 0 && npc.ai[1] == 0)
                 {
                     float speedX = (float)(6 * Math.Cos(npc.rotation - Math.PI * 0.5f)) * 2;
                     float speedY = (float)(6 * Math.Sin(npc.rotation - Math.PI * 0.5f)) * 2;
-                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), ProjectileID.Fireball, 30, 0f);
+                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), mod.ProjectileType<ArachnusFireball>(), 30, 0f);
                 }
-                else if (Math.Abs((counter) / 5 % 1) <= (Double.Epsilon * 100) && npc.ai[1] == 1)
+                else if (counter % 5 == 0 && npc.ai[1] == 1)
                 {
                     float speedX = (float)(7 * Math.Cos(npc.rotation - Math.PI * 0.5f));
                     float speedY = (float)(7 * Math.Sin(npc.rotation - Math.PI * 0.5f));
-                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), npc.ai[2] == 1 ? mod.ProjectileType<BlastofShadowFlame>() : mod.ProjectileType<BlastofHeat>(), 30, 0f);
+                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), npc.ai[2] == 1 ? mod.ProjectileType<BlastofShadowFlame>() : mod.ProjectileType<BlastofHeat>(), 30, 0f, 255);
                     Main.PlaySound(SoundID.Item34, npc.position);
-                    /**ModPacket netMessage = GetPacket(ArachnusMessageType.Sound);
-                     netMessage.Write(SoundID.Item34);
-                     netMessage.Write(0);
-                     netMessage.Send();**/
+                    GetPacket(ArachnusMessageType.FlamesSound).Send();
                 }
                 else if (npc.ai[1] == 2)
                 {
-                    speed = 20f;
-                    if (Main.expertMode)
+                    if (Main.netMode != 1)
                     {
-                        speed = (npc.lifeMax - npc.life) / 500;
-                        if (npc.ai[2] == 1)
-                            speed += 20;
+                        speed = 20f;
+                        if (Main.expertMode)
+                        {
+                            speed = (npc.lifeMax - npc.life) / 500;
+                            if (npc.ai[2] == 1)
+                                speed += 20;
+                        }
+                        else if (npc.ai[2] == 1)
+                            speed = 40f;
                     }
-                    else if (npc.ai[2] == 1)
-                        speed = 40f;
                 }
 
                 if (npc.ai[1] != 2)
                 {
-                    speed = 2f;
+                    if (Main.netMode != 1)
+                        speed = 2f;
                 }
 
                 // Enraged
@@ -184,43 +210,51 @@ namespace Decimation.NPCs.Arachnus
 
                     if (npc.ai[1] != 2)
                     {
-                        speed = 6f;
+                        if (Main.netMode != 1)
+                            speed = 6f;
                         npc.defense = 300;
                     }
                 }
 
-                counter++;
+                if (Main.netMode != 1)
+                    counter++;
             }
 
-            //Move
-            Vector2 move = moveTo;
-            float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
-            if (magnitude > speed)
-            {
-                move *= speed / magnitude;
-            }
-            turnResistance = 50f;
-            move = (npc.velocity * turnResistance + move) / (turnResistance + 1f);
-            magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
-            if (magnitude > speed)
-            {
-                move *= speed / magnitude;
-            }
-            npc.velocity = npc.ai[1] != 99 ? move : new Vector2(0, 0);
+            Move();
         }
 
-        public void Target()
+        public override void SendExtraAI(BinaryWriter writer)
         {
-            if (Main.netMode != 1)
-            {
-                target = Main.player[npc.target];
+            writer.Write(counter);
+            writer.Write(counterMax);
+            writer.Write(speed);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            counter = reader.ReadInt32();
+            counterMax = reader.ReadInt32();
+            speed = reader.ReadSingle();
+        }
 
-                if (Main.netMode == 2)
-                {
-                    ModPacket netMessage = GetPacket(ArachnusMessageType.Target);
-                    netMessage.Write(npc.target);
-                    netMessage.Send();
-                }
+        private ModPacket GetPacket(ArachnusMessageType type)
+        {
+            ModPacket packet = mod.GetPacket();
+            packet.Write((byte)DecimationModMessageType.Arachnus);
+            packet.Write(npc.whoAmI);
+            packet.Write((byte)type);
+            return packet;
+        }
+        public void HandlePacket(BinaryReader reader)
+        {
+            ArachnusMessageType type = (ArachnusMessageType)reader.ReadByte();
+            switch (type)
+            {
+                case ArachnusMessageType.RoarSound:
+                    Main.PlaySound(SoundID.Roar, (int)npc.position.X, (int)npc.position.Y, 0);
+                    break;
+                case ArachnusMessageType.FlamesSound:
+                    Main.PlaySound(SoundID.Item34, npc.position);
+                    break;
             }
         }
 
@@ -240,7 +274,6 @@ namespace Decimation.NPCs.Arachnus
                 npc.frameCounter = 0;
             npc.frame.Y = ((int)npc.frameCounter / 10) * frameHeight;
         }
-
 
         public override void NPCLoot()
         {
@@ -301,57 +334,10 @@ namespace Decimation.NPCs.Arachnus
             return false;
         }
 
-        public void HandlePacket(BinaryReader reader)
+        public enum ArachnusMessageType
         {
-            ArachnusMessageType msgType = (ArachnusMessageType)reader.ReadByte();
-
-            switch (msgType)
-            {
-                case ArachnusMessageType.Target:
-                    target = Main.player[reader.ReadInt32()];
-                    break;
-                case ArachnusMessageType.Sound:
-                    int soundID = reader.ReadInt32();
-                    int style = reader.ReadInt32();
-                    Main.PlaySound(soundID, (int)npc.position.X, (int)npc.position.Y, style);
-                    break;
-                default:
-                    ErrorLogger.Log("DecimationMod: Unknown Message type: " + msgType);
-                    break;
-            }
-        }
-
-        private ModPacket GetPacket(ArachnusMessageType type)
-        {
-            ModPacket packet = mod.GetPacket();
-            packet.Write((byte)DecimationModMessageType.Arachnus);
-            packet.Write(npc.whoAmI);
-            packet.Write((byte)type);
-            return packet;
-        }
-
-        enum ArachnusMessageType : byte
-        {
-            Target,
-            Sound,
-            Downed
-        }
-    }
-
-    public class FireBallsEffect : GlobalProjectile
-    {
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
-        {
-            if (projectile.type == ProjectileID.Fireball)
-                target.AddBuff(BuffID.OnFire, 120);
-            base.OnHitNPC(projectile, target, damage, knockback, crit);
-        }
-
-        public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
-        {
-            if (projectile.type == ProjectileID.Fireball)
-                target.AddBuff(BuffID.OnFire, 120);
-            base.OnHitPlayer(projectile, target, damage, crit);
+            RoarSound,
+            FlamesSound
         }
     }
 }

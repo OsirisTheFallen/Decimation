@@ -43,6 +43,7 @@ namespace Decimation.NPCs.AncientDuneWorm
             npc.npcSlots = 1f;
             npc.netAlways = true;
             npc.aiStyle = -1;
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/The_Deserts_Call");
             bossBag = mod.ItemType<DuneWormTreasureBag>();
 
             // Speed
@@ -91,6 +92,7 @@ namespace Decimation.NPCs.AncientDuneWorm
                 npc.velocity = new Vector2(0, 15);
                 npc.rotation = (int)(Math.PI * 3) / 2;
                 npc.netUpdate = true;
+                npc.timeLeft = 10;
                 return true;
             }
 
@@ -198,6 +200,25 @@ namespace Decimation.NPCs.AncientDuneWorm
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             spawnedAncientTombCrawler = reader.ReadBoolean();
+        }
+
+        private ModPacket GetPacket(DuneWormMessageType type)
+        {
+            ModPacket packet = mod.GetPacket();
+            packet.Write((byte)DecimationModMessageType.DuneWorm);
+            packet.Write(npc.whoAmI);
+            packet.Write((byte)type);
+            return packet;
+        }
+        public void HandlePacket(BinaryReader reader)
+        {
+            DuneWormMessageType type = (DuneWormMessageType)reader.ReadByte();
+            switch (type)
+            {
+                case DuneWormMessageType.UndergroundSound:
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Earthquake"), npc.Center);
+                    break;
+            }
         }
 
         public override bool PreAI()
@@ -348,6 +369,7 @@ namespace Decimation.NPCs.AncientDuneWorm
                 {
                     npc.soundDelay = 120;
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Earthquake"), npc.Center);
+                    GetPacket(DuneWormMessageType.UndergroundSound).Send();
                 }
                 float absDirX = Math.Abs(dirX);
                 float absDirY = Math.Abs(dirY);
@@ -441,6 +463,11 @@ namespace Decimation.NPCs.AncientDuneWorm
         {
             scale = 1.9f;   //this make the NPC Health Bar biger
             return null;
+        }
+
+        public enum DuneWormMessageType
+        {
+            UndergroundSound
         }
     }
 }

@@ -56,9 +56,18 @@ namespace Decimation
             switch (msgType)
             {
                 case DecimationModMessageType.Arachnus:
-                    Arachnus arachnus = Main.npc[reader.ReadInt32()].modNPC as Arachnus;
+                    Arachnus arachnus = (Arachnus)Main.npc[reader.ReadInt32()].modNPC;
                     if (arachnus != null && arachnus.npc.active)
+                    {
                         arachnus.HandlePacket(reader);
+                    }
+                    break;
+                case DecimationModMessageType.DuneWorm:
+                    AncientDuneWormHead duneWorm = (AncientDuneWormHead)Main.npc[reader.ReadInt32()].modNPC;
+                    if (duneWorm != null && duneWorm.npc.active)
+                    {
+                        duneWorm.HandlePacket(reader);
+                    }
                     break;
                 default:
                     ErrorLogger.Log("DecimationMod: Unknown Message type: " + msgType);
@@ -69,6 +78,7 @@ namespace Decimation
 
     enum DecimationModMessageType : byte
     {
-        Arachnus
+        Arachnus,
+        DuneWorm
     }
 }

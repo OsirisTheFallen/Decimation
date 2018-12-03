@@ -22,6 +22,7 @@ namespace Decimation.Projectiles
             projectile.alpha = 255;
             projectile.penetrate = -1;
             projectile.extraUpdates = 3;
+            projectile.light = 0.8f;
         }
 
         public override void AI()
