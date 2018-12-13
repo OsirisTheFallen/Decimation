@@ -19,7 +19,7 @@ namespace Decimation.Items.Weapons
         {
             item.damage = 7; 
             item.noMelee = true; 
-            item.ranged = true; 
+            item.thrown = true; 
             item.width = 32; 
             item.height = 32; 
             item.useTime = 16; 

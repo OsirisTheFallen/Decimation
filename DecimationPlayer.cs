@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace Decimation
 {
@@ -12,12 +13,35 @@ namespace Decimation
         public bool deadeyesQuiverEquipped = false;
         public bool endlessPouchofLifeEquipped = false;
 
+        public Item amuletSlotItem;
+
+        public override void Initialize()
+        {
+            amuletSlotItem = new Item();
+            amuletSlotItem.SetDefaults(0, true);
+        }
+
         public override void ResetEffects()
         {
             closeToEnchantedAnvil = false;
             jestersQueverEquiped = false;
             deadeyesQuiverEquipped = false;
             endlessPouchofLifeEquipped = false;
+        }
+
+        public override TagCompound Save()
+        {
+            return new TagCompound() {
+                {"amuletSlotItem", ItemIO.Save(amuletSlotItem) }
+            };
+        }
+
+        public override void Load(TagCompound tag)
+        {
+            amuletSlotItem = ItemIO.Load(tag.GetCompound("amuletSlotItem"));
+
+            // Load to slot
+            Decimation.amuletSlotState.LoadItem(amuletSlotItem);
         }
 
         // FIND AN ALTERNATIVE! THIS METHOD DOESN'T GET CALLED WITH ALL THE WEAPONS

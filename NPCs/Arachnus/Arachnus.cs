@@ -42,6 +42,10 @@ namespace Decimation.NPCs.Arachnus
             npc.DeathSound = SoundID.NPCDeath10;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Drums_of_hell");
             bossBag = mod.ItemType("ArachnusBag");
+
+            npc.lavaImmune = true;
+            npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.Burning] = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -92,7 +96,7 @@ namespace Decimation.NPCs.Arachnus
 
         private bool CheckForShrine()
         {
-            bool tooFarFromShrine = false;
+            bool tooFarFromShrine = true;
             if (counter % 60 == 0)
             {
                 int validBlockCount = 0;
@@ -110,6 +114,8 @@ namespace Decimation.NPCs.Arachnus
 
                 if (validBlockCount < 15)
                     tooFarFromShrine = true;
+                else
+                    tooFarFromShrine = false;
             }
 
             return tooFarFromShrine;

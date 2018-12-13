@@ -22,6 +22,10 @@ namespace Decimation.NPCs
             npc.height = 24;
             npc.lifeMax = 750;
             animationType = NPCID.BlackRecluse;
+
+            npc.lavaImmune = true;
+            npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.Burning] = true;
         }
 
         int frame = 0;

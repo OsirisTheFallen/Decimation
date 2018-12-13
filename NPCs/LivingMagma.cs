@@ -31,6 +31,10 @@ namespace Decimation.NPCs
             npc.knockBackResist = 0.8f;
             aiType = NPCID.ToxicSludge;
             animationType = NPCID.ToxicSludge;
+
+            npc.lavaImmune = true;
+            npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.Burning] = true;
         }
 
         public override void AI()
