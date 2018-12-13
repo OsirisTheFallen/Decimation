@@ -1,6 +1,14 @@
-Decimation Mod(WIP)
+Decimation mod description for first release:
 
--
--
--
--
+Decimation Mod V1.0
+
+Welcome to the Decimation mod!
+
+This mod Currently adds the following:
+3 bosses
+1 new structire/mini biome
+and a new class based accesory type with its own unique acessory slot: Amulets!
+
+Future updates will expand the endgame and include two new biomes and 1 new structure
+
+This mod would not have been possible if it werent for the time and effort FyloZ has put into it
