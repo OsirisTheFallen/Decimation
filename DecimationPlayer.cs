@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Decimation.Buffs;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,6 +16,8 @@ namespace Decimation
         public bool endlessPouchofLifeEquipped = false;
 
         public Item amuletSlotItem;
+
+        private bool wasJumping = false;
 
         public override void Initialize()
         {
@@ -42,6 +46,31 @@ namespace Decimation
 
             // Load to slot
             Decimation.amuletSlotState.LoadItem(amuletSlotItem);
+        }
+
+        public override void PostUpdate()
+        {
+            // Not working
+            /*Keys[] pressedKeys = Main.keyState.GetPressedKeys();
+
+            for (int j = 0; j < pressedKeys.Length; j++)
+            {
+                string a = string.Concat(pressedKeys[j]);
+                
+                if (a == Main.cJump)
+                {
+                    if (!wasJumping && Main.LocalPlayer.wingTime == Main.LocalPlayer.wingTimeMax)
+                    {
+                        //Main.NewText(Player.jumpHeight);
+                    }
+                    wasJumping = true;
+                    break;
+                }
+                wasJumping = false;
+            }
+
+            Player.jumpHeight = 0;
+            Player.jumpSpeed = 0f;*/
         }
 
         // FIND AN ALTERNATIVE! THIS METHOD DOESN'T GET CALLED WITH ALL THE WEAPONS
@@ -77,6 +106,11 @@ namespace Decimation
                 return false;
 
             return base.ConsumeAmmo(weapon, ammo);
+        }
+
+        public override void OnHitPvp(Item item, Player target, int damage, bool crit)
+        {
+            if (target.HasBuff(mod.BuffType<ScarabEndurance>())) player.AddBuff(BuffID.OnFire, 300);
         }
     }
 }

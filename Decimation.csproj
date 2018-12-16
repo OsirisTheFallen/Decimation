@@ -60,6 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buffs\DemonicallyBewitched.cs" />
+    <Compile Include="Buffs\MysticFlame.cs" />
+    <Compile Include="Buffs\ScarabEndurance.cs" />
+    <Compile Include="Buffs\SlimyFeet.cs" />
+    <Compile Include="Buffs\Ubered.cs" />
+    <Compile Include="Buffs\Vampire.cs" />
     <Compile Include="Buffs\Commander.cs" />
     <Compile Include="Buffs\Amnesia.cs" />
     <Compile Include="Buffs\FatesSmile.cs" />
@@ -68,6 +74,7 @@
     <Compile Include="Buffs\Singed.cs" />
     <Compile Include="Buffs\Slimed.cs" />
     <Compile Include="Buffs\Warlock.cs" />
+    <Compile Include="Buffs\Werepire.cs" />
     <Compile Include="DecimationPlayer.cs" />
     <Compile Include="DecimationWorld.cs" />
     <Compile Include="Items\Accessories\CrystalSkull.cs" />
