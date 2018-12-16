@@ -21,8 +21,6 @@ namespace Decimation.Buffs
             player.AddBuff(BuffID.Poisoned, 1);
 
             player.statDefense -= (int)(player.statDefense * 0.25f);
-
-            // Bot test
         }
 
         public override void Update(NPC npc, ref int buffIndex)
