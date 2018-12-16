@@ -60,8 +60,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buffs\AvianFlu.cs" />
+    <Compile Include="Buffs\Corrosion.cs" />
     <Compile Include="Buffs\DemonicallyBewitched.cs" />
+    <Compile Include="Buffs\Discombobulated.cs" />
+    <Compile Include="Buffs\Enveloped.cs" />
+    <Compile Include="Buffs\InfernalGaze.cs" />
     <Compile Include="Buffs\MysticFlame.cs" />
+    <Compile Include="Buffs\PiercingGaze.cs" />
     <Compile Include="Buffs\ScarabEndurance.cs" />
     <Compile Include="Buffs\SlimyFeet.cs" />
     <Compile Include="Buffs\Ubered.cs" />
