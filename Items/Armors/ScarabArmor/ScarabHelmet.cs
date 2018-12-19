@@ -64,7 +64,7 @@ namespace Decimation.Items.Armors.ScarabArmor
             player.buffImmune[BuffID.CursedInferno] = true;
             player.lavaImmune = true;
 
-            /*player.setSolar = true;
+            player.setSolar = true;
             player.setBonus = "Scarab set";
             modPlayer.solarCounter++;
             int num11 = 240;
@@ -120,7 +120,7 @@ namespace Decimation.Items.Armors.ScarabArmor
             if (player.solarShields > 0 | flag)
             {
                 player.dash = 3;
-            }*/
+            }
         }
 
         public override void AddRecipes()
