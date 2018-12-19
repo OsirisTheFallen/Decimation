@@ -98,6 +98,9 @@
     <Compile Include="Items\Accessories\SlimeBracelet.cs" />
     <Compile Include="Items\Antidote.cs" />
     <Compile Include="Decimation.cs" />
+    <Compile Include="Items\Armors\ScarabArmor\ScarabBody.cs" />
+    <Compile Include="Items\Armors\ScarabArmor\ScarabHelmet.cs" />
+    <Compile Include="Items\Armors\ScarabArmor\ScarabLeggings.cs" />
     <Compile Include="Items\BloodiedEssence.cs" />
     <Compile Include="Items\Boss\Arachnus\ArachnusBag.cs" />
     <Compile Include="Items\CommanderPotion.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="Projectiles\BlastofShadowFlame.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
+    <Compile Include="Projectiles\Scarab.cs" />
     <Compile Include="Projectiles\StingerM.cs" />
     <Compile Include="Projectiles\TitanicPikeProjectile.cs" />
     <Compile Include="Projectiles\TitanicStyngerBolt.cs" />

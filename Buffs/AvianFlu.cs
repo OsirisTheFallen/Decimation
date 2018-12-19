@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs
 {
-    class InfernalGaze : ModBuff
+    public class AvianFlu : ModBuff
     {
         public override void SetDefaults()
         {
-            DisplayName.SetDefault("Infernal Gaze");
+            DisplayName.SetDefault("Avian Flu");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = false;
             Main.buffNoTimeDisplay[Type] = false;
@@ -18,18 +18,24 @@ namespace Decimation.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense -= (int)(player.statDefense * 0.1f);
-            player.meleeDamage *= 0.90f;
+            if (player.lifeRegen > 0)
+            {
+                player.lifeRegen = 0;
+            }
+            player.lifeRegenTime = 0;
+            player.lifeRegen -= 3;
 
-            player.AddBuff(BuffID.CursedInferno, 1);
+            player.jumpSpeedBoost += -2;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.defense -= (int)(npc.defense * 0.1f);
-            npc.damage -= (int)(npc.damage * 0.1f);
-
-            npc.AddBuff(BuffID.CursedInferno, 1);
+            if (npc.lifeRegen > 0)
+            {
+                npc.lifeRegen = 0;
+            }
+            npc.lifeRegenExpectedLossPerSecond += 3;
+            npc.lifeRegen -= 3;
         }
     }
 }

@@ -15,9 +15,27 @@ namespace Decimation
         public bool deadeyesQuiverEquipped = false;
         public bool endlessPouchofLifeEquipped = false;
 
+        // Amulets
+        public bool slimeAmulet = false;
+        public bool slimeAmuletOld = false;
+
+        // Amulet slot
         public Item amuletSlotItem;
 
-        private bool wasJumping = false;
+        // Slimy Feet buff
+        public bool wasJumping = false;
+        public float lastJumpBoost = 0;
+
+        // Scarab Endurance buff
+        public byte scarabEnduranceBuffTimeCounter = 0;
+        public byte scarabCounter = 0;
+        public int[] scarabs = new int[3];
+        public int oldStatDefense = 0;
+        public byte lastHitCounter = 0;
+        public bool wasHurt = false;
+
+        // Scarab shield
+        public int solarCounter = 0;
 
         public override void Initialize()
         {
@@ -31,6 +49,57 @@ namespace Decimation
             jestersQueverEquiped = false;
             deadeyesQuiverEquipped = false;
             endlessPouchofLifeEquipped = false;
+
+
+            if (!player.HasBuff(mod.BuffType<SlimyFeet>())) lastJumpBoost = 0;
+            if (!player.HasBuff(mod.BuffType<ScarabEndurance>()))
+            {
+                scarabEnduranceBuffTimeCounter = 0;
+                scarabCounter = 0;
+            }
+        }
+
+        public override void OnHitByNPC(NPC npc, int damage, bool crit)
+        {
+            if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
+            {
+                Main.projectile[scarabs[scarabCounter - 1]].Kill();
+                scarabCounter--;
+                wasHurt = true;
+            }
+
+            if (slimeAmuletOld)
+                if (Main.rand.NextBool(26))
+                    npc.AddBuff(mod.BuffType<Slimed>(), 300);
+        }
+
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        {
+            if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
+            {
+                Main.projectile[scarabs[scarabCounter - 1]].Kill();
+                scarabCounter--;
+                wasHurt = true;
+            }
+        }
+
+        public override void PostUpdate()
+        {
+            oldStatDefense = player.statDefense;
+
+            if (lastHitCounter >= 60)
+            {
+                lastHitCounter = 0;
+                wasHurt = false;
+            }
+
+            if (wasHurt)
+                lastHitCounter++;
+
+            slimeAmuletOld = slimeAmulet;
+
+            // Reset amulets
+            slimeAmulet = false;
         }
 
         public override TagCompound Save()
@@ -46,31 +115,6 @@ namespace Decimation
 
             // Load to slot
             Decimation.amuletSlotState.LoadItem(amuletSlotItem);
-        }
-
-        public override void PostUpdate()
-        {
-            // Not working
-            /*Keys[] pressedKeys = Main.keyState.GetPressedKeys();
-
-            for (int j = 0; j < pressedKeys.Length; j++)
-            {
-                string a = string.Concat(pressedKeys[j]);
-                
-                if (a == Main.cJump)
-                {
-                    if (!wasJumping && Main.LocalPlayer.wingTime == Main.LocalPlayer.wingTimeMax)
-                    {
-                        //Main.NewText(Player.jumpHeight);
-                    }
-                    wasJumping = true;
-                    break;
-                }
-                wasJumping = false;
-            }
-
-            Player.jumpHeight = 0;
-            Player.jumpSpeed = 0f;*/
         }
 
         // FIND AN ALTERNATIVE! THIS METHOD DOESN'T GET CALLED WITH ALL THE WEAPONS

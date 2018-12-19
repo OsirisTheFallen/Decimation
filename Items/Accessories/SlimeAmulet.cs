@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Decimation.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 
 namespace Decimation.Items.Accessories
 {
@@ -37,15 +39,42 @@ namespace Decimation.Items.Accessories
             recipe.AddRecipe();
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (Main.rand.NextBool(9))
+            TooltipLine amuletClass = new TooltipLine(mod, "Class", "SUMMONER")
             {
-                player.AddBuff(BuffID.Slimed, Main.rand.Next(300, 601), false);
-            }
+                overrideColor = ChatManager.WaveColor(Color.Fuchsia)
+            };
+            TooltipLine effect1 = new TooltipLine(mod, "Effect", "Makes slimes friendly")
+            {
+                overrideColor = Color.ForestGreen
+            };
+            TooltipLine effect2 = new TooltipLine(mod, "Effect", "+3% minion damages")
+            {
+                overrideColor = Color.ForestGreen
+            };
+            TooltipLine effect3 = new TooltipLine(mod, "Effect", "+3% minion knockback")
+            {
+                overrideColor = Color.ForestGreen
+            };
+            TooltipLine effect4 = new TooltipLine(mod, "Effect", "+4% chances to inflict \"Slimed!\" debuff to attackers for 5 seconds")
+            {
+                overrideColor = Color.ForestGreen
+            };
 
-            player.minionDamage += 0.03f;
-            player.minionKB += 3f;
+            tooltips.Add(amuletClass);
+            tooltips.Add(effect1);
+            tooltips.Add(effect2);
+            tooltips.Add(effect3);
+            tooltips.Add(effect4);
+        }
+
+        public override void Update(ref float gravity, ref float maxFallSpeed)
+        {
+            Player player = Main.LocalPlayer;
+
+            player.minionDamage *= 0.03f;
+            player.minionKB *= 0.03f;
             player.npcTypeNoAggro[1] = true;
             player.npcTypeNoAggro[16] = true;
             player.npcTypeNoAggro[59] = true;
@@ -69,15 +98,8 @@ namespace Decimation.Items.Accessories
             player.npcTypeNoAggro[336] = true;
             player.npcTypeNoAggro[535] = true;
             player.npcTypeNoAggro[537] = true;
-        }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-        }
-
-        public override void Update(ref float gravity, ref float maxFallSpeed)
-        {
-            UpdateAccessory(Main.LocalPlayer, false);
+            player.GetModPlayer<DecimationPlayer>().slimeAmulet = true;
         }
     }
 }

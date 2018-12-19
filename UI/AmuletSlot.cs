@@ -59,7 +59,8 @@ namespace Decimation.UI
         {
             Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem = item;
 
-            item.UpdateItem(0);
+            if (!item.IsAir)
+                item.UpdateItem(0);
         }
 
         public void LoadItem(Item item)

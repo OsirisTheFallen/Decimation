@@ -6,9 +6,7 @@ namespace Decimation.Buffs
 {
     public class Slimed : ModBuff
     {
-
         private int i = 0;
-
 
         public override void SetDefaults()
         {
@@ -22,28 +20,17 @@ namespace Decimation.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            i++;
-            player.moveSpeed -= 0.2f;
-            player.jump += 15;
+            player.moveSpeed *= 0.80f;
+            player.jumpBoost = true;
 
-            if (i >= 300)
-            {
+            if (player.miscCounter % 300 == 0)
                 player.Hurt(PlayerDeathReason.LegacyDefault(), 2, 0);
-                i = 0;
-            }
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            i++;
-            npc.velocity *= 0.98f;
-
-            if (i >= 300)
-            {
-                npc.lifeRegen -= 2;
-                npc.HitEffect(0, 2);
-                i = 0;
-            }
+            npc.velocity *= 0.80f;
+            npc.lifeRegen -= 1;
         }
     }
 
