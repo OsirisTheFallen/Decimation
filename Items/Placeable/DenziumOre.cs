@@ -10,6 +10,7 @@ namespace Decimation.Items.Placeable
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Denzium Ore");
+            Tooltip.SetDefault("Interstellar!");
         }
         public override void SetDefaults()
         {

@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Decimation.Tiles;
+using Decimation.Items.Misc.Souls;
 
 namespace Decimation.Items.Armors.ScarabArmor
 {

@@ -8,6 +8,11 @@ namespace Decimation.Items.Weapons
 {
     class TitanicGatliStynger : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("Rage of Kronos");
+        }
+
         public override void SetDefaults()
         {
             item.width = 52;

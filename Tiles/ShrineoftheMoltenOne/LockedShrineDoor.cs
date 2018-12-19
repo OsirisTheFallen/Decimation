@@ -1,4 +1,5 @@
 ﻿using Decimation.Items;
+using Decimation.Items.Boss.Arachnus;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

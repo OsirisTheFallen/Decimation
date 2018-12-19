@@ -10,7 +10,7 @@ namespace Decimation.Items.Tools
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Multigrain Hamaxe");
-			Tooltip.SetDefault("");
+			Tooltip.SetDefault("Smells like honeysuckle");
 		}
         public override void SetDefaults()
         {

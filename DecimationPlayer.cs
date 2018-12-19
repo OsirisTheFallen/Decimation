@@ -1,4 +1,6 @@
 ﻿using Decimation.Buffs;
+using Decimation.Buffs.Buffs;
+using Decimation.Buffs.Debuffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Terraria;

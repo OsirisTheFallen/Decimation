@@ -8,6 +8,10 @@ using Decimation.Buffs;
 using Decimation.Projectiles;
 using Decimation.Items;
 using System.IO;
+using Decimation.Items.Vanity.DuneWorm;
+using Decimation.Items.Misc.Souls;
+using Decimation.Buffs.Debuffs;
+using Decimation.Items.Placeable.DuneWorm;
 
 namespace Decimation.NPCs.AncientDuneWorm
 {

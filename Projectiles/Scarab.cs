@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Decimation.Buffs.Buffs;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace Decimation.Projectiles
         public override void AI()
         {
             Player player = Main.player[(int)(projectile.ai[0])];
-            if (!player.HasBuff(mod.BuffType<Buffs.ScarabEndurance>()))
+            if (!player.HasBuff(mod.BuffType<ScarabEndurance>()))
                 projectile.Kill();
 
             // Loop through the 2 animation frames, spending 5 ticks on each.

@@ -10,6 +10,7 @@ namespace Decimation.Items.Placeable
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Basalt");
+            Tooltip.SetDefault("Volcanic stone");
         }
         public override void SetDefaults()
         {

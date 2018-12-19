@@ -10,7 +10,7 @@ namespace Decimation.Items.Tools
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Greatwood Mallet");
-			Tooltip.SetDefault("");
+			Tooltip.SetDefault("Who needs metal?");
 		}
         public override void SetDefaults()
         {

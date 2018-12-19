@@ -10,6 +10,8 @@ using Decimation.Tiles;
 using Decimation.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria.Graphics.Shaders;
+using Decimation.Buffs.Buffs;
+using Decimation.Items.Misc.Souls;
 
 namespace Decimation.Items.Armors.ScarabArmor
 {
@@ -65,7 +67,7 @@ namespace Decimation.Items.Armors.ScarabArmor
             player.lavaImmune = true;
 
             player.setSolar = true;
-            player.setBonus = "Scarab set";
+            player.setBonus = "Summons scarabs to protect you, add 5% damages to each attacks, gives immunity to On Fire!, Cursed Inferno and Lava.";
             modPlayer.solarCounter++;
             int num11 = 240;
             if (modPlayer.solarCounter >= num11)

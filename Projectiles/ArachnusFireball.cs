@@ -1,4 +1,5 @@
 ﻿using Decimation.Buffs;
+using Decimation.Buffs.Debuffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -7,6 +7,11 @@ namespace Decimation.Items.Placeable
 {
     class DenziumWall : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("Interstellar!");
+        }
+
         public override void SetDefaults()
         {
             item.width = 32;

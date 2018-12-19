@@ -13,7 +13,7 @@ namespace Decimation.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Greatwood Sword");
-			Tooltip.SetDefault("");
+			Tooltip.SetDefault("Who needs metal?");
 		}		
         public override void SetDefaults()
         {

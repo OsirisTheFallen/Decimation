@@ -13,7 +13,7 @@ namespace Decimation.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Multigrain Sword");
-			Tooltip.SetDefault("");
+			Tooltip.SetDefault("Smells like honeysuckle");
 		}
         public override void SetDefaults()
         {

@@ -1,4 +1,5 @@
 ﻿using Decimation.Items;
+using Decimation.Items.Misc.Souls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
