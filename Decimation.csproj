@@ -144,6 +144,7 @@
     <Compile Include="Items\Weapons\MoltenStyngerBolt.cs" />
     <Compile Include="Items\Weapons\MultigrainSword.cs" />
     <Compile Include="Items\Weapons\Pebble.cs" />
+    <Compile Include="Items\Weapons\RasGaze.cs" />
     <Compile Include="Items\Weapons\Sling.cs" />
     <Compile Include="Items\Weapons\SlingshotWood.cs" />
     <Compile Include="Items\Weapons\TheGreatwoodSword.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Projectiles\BlastofShadowFlame.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
+    <Compile Include="Projectiles\RasGazeLaser.cs" />
     <Compile Include="Projectiles\Scarab.cs" />
     <Compile Include="Projectiles\StingerM.cs" />
     <Compile Include="Projectiles\TitanicPikeProjectile.cs" />
