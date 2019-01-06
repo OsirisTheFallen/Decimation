@@ -162,6 +162,8 @@
     <Compile Include="NPCs\AncientTombCrawlerBody.cs" />
     <Compile Include="NPCs\AncientTombCrawlerTail.cs" />
     <Compile Include="NPCs\Arachnus\Arachnus.cs" />
+    <Compile Include="NPCs\Bloodshot\BloodshotEye.cs" />
+    <Compile Include="NPCs\Bloodshot\MangledServant.cs" />
     <Compile Include="NPCs\CoreSpider.cs" />
     <Compile Include="NPCs\CoreSpiderWall.cs" />
     <Compile Include="NPCs\LivingMagma.cs" />
@@ -170,6 +172,7 @@
     <Compile Include="Projectiles\ArchingSolarBlade.cs" />
     <Compile Include="Projectiles\BlastofHeat.cs" />
     <Compile Include="Projectiles\BlastofShadowFlame.cs" />
+    <Compile Include="Projectiles\BloodBeam.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
     <Compile Include="Projectiles\RasGazeLaser.cs" />
