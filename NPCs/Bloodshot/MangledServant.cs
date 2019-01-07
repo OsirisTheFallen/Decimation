@@ -122,7 +122,11 @@ namespace Decimation.NPCs.Bloodshot
                 cloudPosition.Y += npc.height / 2;
 
                 if (Main.rand.NextBool(10))
-                    Projectile.NewProjectile(cloudPosition, new Vector2(0, 10), ProjectileID.BloodRain, Main.expertMode ? 14 : 7, 0);
+                {
+                    int proj = Projectile.NewProjectile(cloudPosition, new Vector2(0, 10), ProjectileID.BloodRain, Main.expertMode ? 14 : 7, 0);
+                    Main.projectile[proj].hostile = true;
+                    Main.projectile[proj].friendly = false;
+                }
 
                 npc.ai[2]++;
             }

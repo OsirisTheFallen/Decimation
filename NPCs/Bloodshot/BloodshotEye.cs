@@ -54,7 +54,11 @@ namespace Decimation.NPCs.Bloodshot
                 cloudPosition.Y += npc.height / 2;
 
                 if (Main.rand.NextBool(10))
-                    Projectile.NewProjectile(cloudPosition, new Vector2(0, 10), ProjectileID.BloodRain, Main.expertMode ? 20 : 12, 0);
+                {
+                    int proj = Projectile.NewProjectile(cloudPosition, new Vector2(0, 10), ProjectileID.BloodRain, Main.expertMode ? 20 : 12, 0);
+                    Main.projectile[proj].hostile = true;
+                    Main.projectile[proj].friendly = false;
+                }
 
                 // Minions
                 if (!hasSpawnedMinions)
