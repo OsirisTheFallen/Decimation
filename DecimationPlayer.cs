@@ -1,6 +1,7 @@
 ﻿using Decimation.Buffs;
 using Decimation.Buffs.Buffs;
 using Decimation.Buffs.Debuffs;
+using Decimation.Items.Amulets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Terraria;
@@ -13,7 +14,7 @@ namespace Decimation
     public class DecimationPlayer : ModPlayer
     {
         public bool closeToEnchantedAnvil = false;
-        public bool jestersQueverEquiped = false;
+        public bool jestersQuiverEquiped = false;
         public bool deadeyesQuiverEquipped = false;
         public bool endlessPouchofLifeEquipped = false;
 
@@ -48,7 +49,7 @@ namespace Decimation
         public override void ResetEffects()
         {
             closeToEnchantedAnvil = false;
-            jestersQueverEquiped = false;
+            jestersQuiverEquiped = false;
             deadeyesQuiverEquipped = false;
             endlessPouchofLifeEquipped = false;
 
@@ -86,7 +87,6 @@ namespace Decimation
                 wasHurt = true;
             }
         }
-
 
         public override void UpdateVanityAccessories()
         {
@@ -131,12 +131,15 @@ namespace Decimation
         {
             Projectile toCheck = Main.projectile[type];
 
-            if (jestersQueverEquiped && toCheck.arrow)
+            // Jester's Quiver
+            if (jestersQuiverEquiped && toCheck.arrow)
                 type = ProjectileID.JestersArrow;
 
+            // Endless Pouch of Life
             if (endlessPouchofLifeEquipped && References.bullets.Contains(type))
                 type = ProjectileID.ChlorophyteBullet;
 
+            // Deadeye's Quiver
             if (deadeyesQuiverEquipped && (toCheck.arrow || References.bullets.Contains(type)))
             {
                 if (toCheck.arrow)
@@ -148,6 +151,13 @@ namespace Decimation
                 speedY *= 1.15f;
             }
 
+            // Frost Amulet
+            if (amuletSlotItem.type == mod.ItemType<FrostAmulet>() && toCheck.arrow)
+            {
+                speedX *= 1.03f;
+                speedY *= 1.03f;
+            }
+
             return base.Shoot(item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
@@ -156,6 +166,8 @@ namespace Decimation
             if (deadeyesQuiverEquipped && (ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet) && Main.rand.Next(20) > 3)
                 return false;
             if (endlessPouchofLifeEquipped && ammo.ammo == AmmoID.Bullet)
+                return false;
+            if (amuletSlotItem.type == mod.ItemType<FrostAmulet>() && (ammo.ammo == AmmoID.Arrow) && Main.rand.Next(50) == 0)
                 return false;
 
             return base.ConsumeAmmo(weapon, ammo);

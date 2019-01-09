@@ -96,6 +96,7 @@
     <Compile Include="Items\Accessories\RangersPouch.cs" />
     <Compile Include="Items\Accessories\RangersQuiver.cs" />
     <Compile Include="Items\Accessories\RedHotShackle.cs" />
+    <Compile Include="Items\Amulets\FrostAmulet.cs" />
     <Compile Include="Items\Amulets\SlimeAmulet.cs" />
     <Compile Include="Items\Accessories\SlimeBracelet.cs" />
     <Compile Include="Items\Potions\Antidote.cs" />
