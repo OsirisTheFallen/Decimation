@@ -18,6 +18,9 @@ namespace Decimation
         public bool deadeyesQuiverEquipped = false;
         public bool endlessPouchofLifeEquipped = false;
 
+        public bool isInCombat = false;
+        public uint combatTime = 0;
+
         // Amulet slot
         public Item amuletSlotItem;
 
@@ -39,6 +42,7 @@ namespace Decimation
         // amulets
         public int amuletsSinged = 0;
         public int amuletBuffTime = 0;
+        public uint enchantedHeartDropTime = 0;
 
         public override void Initialize()
         {
@@ -53,6 +57,13 @@ namespace Decimation
             deadeyesQuiverEquipped = false;
             endlessPouchofLifeEquipped = false;
 
+            if (combatTime > 360)
+            {
+                combatTime = 0;
+                enchantedHeartDropTime = 0;
+                isInCombat = false;
+            }
+
             amuletsSinged = 0;
             amuletBuffTime = 0;
 
@@ -62,53 +73,6 @@ namespace Decimation
                 scarabEnduranceBuffTimeCounter = 0;
                 scarabCounter = 0;
             }
-        }
-
-        public override void OnHitByNPC(NPC npc, int damage, bool crit)
-        {
-            if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
-            {
-                Main.projectile[scarabs[scarabCounter - 1]].Kill();
-                scarabCounter--;
-                wasHurt = true;
-            }
-
-            if (amuletsSinged != 0 && amuletBuffTime != 0)
-                if (Main.rand.Next(amuletsSinged, 100) < amuletsSinged)
-                    npc.AddBuff(mod.BuffType<Slimed>(), amuletBuffTime);
-        }
-
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
-        {
-            if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
-            {
-                Main.projectile[scarabs[scarabCounter - 1]].Kill();
-                scarabCounter--;
-                wasHurt = true;
-            }
-        }
-
-        public override void UpdateVanityAccessories()
-        {
-            Decimation.amuletSlotState.UpdateAmulet();
-
-            base.UpdateVanityAccessories();
-        }
-
-        public override void PostUpdate()
-        {
-            oldStatDefense = player.statDefense;
-
-            if (lastHitCounter >= 60)
-            {
-                lastHitCounter = 0;
-                wasHurt = false;
-            }
-
-            if (wasHurt)
-                lastHitCounter++;
-
-            base.PostUpdate();
         }
 
         public override TagCompound Save()
@@ -173,9 +137,69 @@ namespace Decimation
             return base.ConsumeAmmo(weapon, ammo);
         }
 
+        public override void UpdateVanityAccessories()
+        {
+            Decimation.amuletSlotState.UpdateAmulet();
+
+            base.UpdateVanityAccessories();
+        }
+
+        public override void PostUpdate()
+        {
+            oldStatDefense = player.statDefense;
+
+            if (lastHitCounter >= 60)
+            {
+                lastHitCounter = 0;
+                wasHurt = false;
+            }
+
+            if (wasHurt)
+                lastHitCounter++;
+
+            if (isInCombat)
+            {
+                combatTime++;
+                enchantedHeartDropTime++;
+            }
+
+            base.PostUpdate();
+        }
+
         public override void OnHitPvp(Item item, Player target, int damage, bool crit)
         {
             if (target.HasBuff(mod.BuffType<ScarabEndurance>())) player.AddBuff(BuffID.OnFire, 300);
         }
+
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            isInCombat = true;
+            combatTime = 0;
+        }
+
+        public override void OnHitByNPC(NPC npc, int damage, bool crit)
+        {
+            if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
+            {
+                Main.projectile[scarabs[scarabCounter - 1]].Kill();
+                scarabCounter--;
+                wasHurt = true;
+            }
+
+            if (amuletsSinged != 0 && amuletBuffTime != 0)
+                if (Main.rand.Next(amuletsSinged, 100) < amuletsSinged)
+                    npc.AddBuff(mod.BuffType<Slimed>(), amuletBuffTime);
+        }
+
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        {
+            if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
+            {
+                Main.projectile[scarabs[scarabCounter - 1]].Kill();
+                scarabCounter--;
+                wasHurt = true;
+            }
+        }
+
     }
 }

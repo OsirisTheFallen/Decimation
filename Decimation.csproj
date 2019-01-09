@@ -97,8 +97,10 @@
     <Compile Include="Items\Accessories\RangersQuiver.cs" />
     <Compile Include="Items\Accessories\RedHotShackle.cs" />
     <Compile Include="Items\Amulets\FrostAmulet.cs" />
+    <Compile Include="Items\Amulets\HealtyAmulet.cs" />
     <Compile Include="Items\Amulets\SlimeAmulet.cs" />
     <Compile Include="Items\Accessories\SlimeBracelet.cs" />
+    <Compile Include="Items\Misc\EnchantedHeart.cs" />
     <Compile Include="Items\Potions\Antidote.cs" />
     <Compile Include="Decimation.cs" />
     <Compile Include="Items\Armors\ScarabArmor\ScarabBody.cs" />
