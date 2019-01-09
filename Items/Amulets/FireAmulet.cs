@@ -1,50 +1,71 @@
 using System;
 using System.Collections.Generic;
+using Decimation.Items.Accessories;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 
 namespace Decimation.Items.Amulets
 {
-    public class FireAmulet : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Fire Amulet");
-			Tooltip.SetDefault("WIP");
-		}
-		public override void SetDefaults()
+    public class FireAmulet : Amulet
+    {
+        public override void SetAmuletDefaults()
         {
-            item.width = 24;
-            item.height = 24;
-            item.value = 10;
-            item.rare = 2;
-
-            Decimation.amulets.Add(item.type);
+            item.width = 28;
+            item.height = 34;
         }
+
+        public override void UpdateAmulet(Player player)
+        {
+            player.meleeDamage *= 1.03f;
+            player.meleeSpeed *= 1.03f;
+            player.meleeCrit += 3;
+            player.lavaMax += 420;
+
+            player.GetModPlayer<DecimationPlayer>().amuletsSinged = 4;
+            player.GetModPlayer<DecimationPlayer>().amuletBuffTime = 300;
+        }
+
+        public override List<TooltipLine> GetTooltipLines()
+        {
+            return new List<TooltipLine>()
+            {
+                new TooltipLine(mod, "Effect", "+3% melee speed")
+                {
+                   overrideColor = Color.ForestGreen
+                },
+                new TooltipLine(mod, "Effect", "+3% melee damages")
+                {
+                    overrideColor = Color.ForestGreen
+                },
+                new TooltipLine(mod, "Effect", "+3% melee critical strike chances")
+                {
+                    overrideColor = Color.ForestGreen
+                },
+                new TooltipLine(mod, "Effect", "+7 seconds of immunity to lava")
+                {
+                    overrideColor = Color.ForestGreen
+                },
+                new TooltipLine(mod, "Effect", "+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes")
+                {
+                    overrideColor = Color.ForestGreen
+                }
+            };
+        }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
+            recipe.AddIngredient(mod.ItemType<RedHotShackle>());
             recipe.AddIngredient(ItemID.Obsidian, 6);
-			recipe.AddIngredient(ItemID.Gel, 20);
-			recipe.AddIngredient(ItemID.Chain, 2);
-			recipe.AddIngredient(null, "RedHotShackle");
+            recipe.AddIngredient(ItemID.Chain, 2);
+            recipe.AddIngredient(ItemID.Gel, 20);
             recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this, 1);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-        public override void Update(ref float gravity, ref float maxFallSpeed)
-        {
-            Player player = Main.LocalPlayer;
-
-            player.meleeDamage += 0.03f;
-            player.meleeCrit += 3;
-            player.meleeSpeed += 0.03f;
-            player.lavaMax += 420;
-        }
-	}
+    }
 }

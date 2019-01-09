@@ -17,10 +17,6 @@ namespace Decimation
         public bool deadeyesQuiverEquipped = false;
         public bool endlessPouchofLifeEquipped = false;
 
-        // Amulets
-        public bool slimeAmulet = false;
-        public bool slimeAmuletOld = false;
-
         // Amulet slot
         public Item amuletSlotItem;
 
@@ -39,6 +35,10 @@ namespace Decimation
         // Scarab shield
         public int solarCounter = 0;
 
+        // amulets
+        public int amuletsSinged = 0;
+        public int amuletBuffTime = 0;
+
         public override void Initialize()
         {
             amuletSlotItem = new Item();
@@ -52,6 +52,8 @@ namespace Decimation
             deadeyesQuiverEquipped = false;
             endlessPouchofLifeEquipped = false;
 
+            amuletsSinged = 0;
+            amuletBuffTime = 0;
 
             if (!player.HasBuff(mod.BuffType<SlimyFeet>())) lastJumpBoost = 0;
             if (!player.HasBuff(mod.BuffType<ScarabEndurance>()))
@@ -70,9 +72,9 @@ namespace Decimation
                 wasHurt = true;
             }
 
-            if (slimeAmuletOld)
-                if (Main.rand.NextBool(26))
-                    npc.AddBuff(mod.BuffType<Slimed>(), 300);
+            if (amuletsSinged != 0 && amuletBuffTime != 0)
+                if (Main.rand.Next(amuletsSinged, 100) < amuletsSinged)
+                    npc.AddBuff(mod.BuffType<Slimed>(), amuletBuffTime);
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
@@ -83,6 +85,14 @@ namespace Decimation
                 scarabCounter--;
                 wasHurt = true;
             }
+        }
+
+
+        public override void UpdateVanityAccessories()
+        {
+            Decimation.amuletSlotState.UpdateAmulet();
+
+            base.UpdateVanityAccessories();
         }
 
         public override void PostUpdate()
@@ -98,10 +108,7 @@ namespace Decimation
             if (wasHurt)
                 lastHitCounter++;
 
-            slimeAmuletOld = slimeAmulet;
-
-            // Reset amulets
-            slimeAmulet = false;
+            base.PostUpdate();
         }
 
         public override TagCompound Save()

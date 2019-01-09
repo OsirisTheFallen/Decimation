@@ -88,6 +88,7 @@
     <Compile Include="Items\Accessories\DeadeyesQuiver.cs" />
     <Compile Include="Items\Accessories\EnchantedFocuser.cs" />
     <Compile Include="Items\Accessories\EnergyFocuser.cs" />
+    <Compile Include="Items\Amulets\Amulet.cs" />
     <Compile Include="Items\Amulets\FireAmulet.cs" />
     <Compile Include="Items\Accessories\Focuser.cs" />
     <Compile Include="Items\Accessories\JestersQuiver.cs" />
