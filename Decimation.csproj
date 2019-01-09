@@ -108,7 +108,7 @@
     <Compile Include="Items\Boss\Arachnus\ArachnusTreasureBag.cs" />
     <Compile Include="Items\Potions\CommanderPotion.cs" />
     <Compile Include="Items\Ores\DenziumBar.cs" />
-    <Compile Include="Items\Ores\DesertDessert.cs" />
+    <Compile Include="Items\Misc\DuneWorm\DesertDessert.cs" />
     <Compile Include="Items\Vanity\DuneWorm\DuneWormMask.cs" />
     <Compile Include="Items\Vanity\DuneWorm\DuneWormTreasureBag.cs" />
     <Compile Include="Items\Placeable\DuneWorm\DuneWormTrophy.cs" />

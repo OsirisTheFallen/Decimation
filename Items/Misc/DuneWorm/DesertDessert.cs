@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Decimation.Items.Ores
+namespace Decimation.Items.Misc.DuneWorm
 {
 
     public class DesertDessert : ModItem
@@ -32,8 +32,19 @@ namespace Decimation.Items.Ores
         {
             if (player.ZoneDesert)
             {
-                Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<AncientDuneWormHead>());
+                if (Main.netMode == 1)
+                {
+                    ModPacket packet = mod.GetPacket();
+                    packet.Write((byte)DecimationModMessageType.SpawnBoss);
+                    packet.Write(mod.NPCType<AncientDuneWormHead>());
+                    packet.Write(player.whoAmI);
+                    packet.Send();
+                }
+                else if (Main.netMode == 0)
+                {
+                    Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<AncientDuneWormHead>());
+                }
                 return true;
             }
 

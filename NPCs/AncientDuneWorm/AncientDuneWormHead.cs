@@ -69,7 +69,8 @@ namespace Decimation.NPCs.AncientDuneWorm
 
                 if (npc.life <= npc.lifeMax * 0.15f && !NPC.AnyNPCs(mod.NPCType<AncientTombCrawlerHead>()) && !spawnedAncientTombCrawler)
                 {
-                    NPC.SpawnOnPlayer(npc.target, mod.NPCType<AncientTombCrawlerHead>());
+                    if (Main.netMode != 1)
+                        NPC.SpawnOnPlayer(npc.target, mod.NPCType<AncientTombCrawlerHead>());
                     spawnedAncientTombCrawler = true;
                 }
 
@@ -113,7 +114,7 @@ namespace Decimation.NPCs.AncientDuneWorm
 
         private void SummonSandnado()
         {
-            if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].type == 0 && npc.ai[1] == TileID.Sand)
+            if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].type == 0 && npc.ai[1] == TileID.Sand && Main.netMode != 1)
                 Projectile.NewProjectile(npc.Center, new Vector2(0, 0), ProjectileID.SandnadoHostile, 15, 10f);
         }
 
@@ -154,10 +155,11 @@ namespace Decimation.NPCs.AncientDuneWorm
                 Vector2 explosionPos = new Vector2(npc.Center.X / 16, npc.Center.Y / 16);
                 int ammoniteNbre = Main.rand.Next(5, 9);
 
-                for (int i = 0; i < ammoniteNbre; i++)
-                {
-                    Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(8, 15)), mod.ProjectileType<Ammonite>(), 15, 5f);
-                }
+                if (Main.netMode != 1)
+                    for (int i = 0; i < ammoniteNbre; i++)
+                    {
+                        Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(8, 15)), mod.ProjectileType<Ammonite>(), 15, 5f);
+                    }
             }
         }
 

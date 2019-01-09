@@ -144,13 +144,16 @@ namespace Decimation.NPCs.Arachnus
             // Normal ai
             if (npc.ai[0] == 0)
             {
-
                 float mouthX = (float)(((npc.height) / 2) * Math.Cos(npc.rotation - Math.PI * 0.5f)) + npc.Center.X;
                 float mouthY = (float)(((npc.height) / 2) * Math.Sin(npc.rotation - Math.PI * 0.5f)) + npc.Center.Y;
 
                 //Counter
                 if (npc.life <= npc.lifeMax / 2) counterMax = 1500;
-                if (counter >= counterMax) counter = 0;
+                if (counter >= counterMax && Main.netMode != 1)
+                {
+                    counter = 0;
+                    npc.netUpdate = true;
+                }
 
                 // Fireballs
                 if (counter <= 600) npc.ai[1] = 0;
@@ -173,7 +176,7 @@ namespace Decimation.NPCs.Arachnus
                 }
                 else npc.ai[1] = 99;
 
-                if (counter % 40 == 0 && npc.ai[1] == 0)
+                if (counter % 40 == 0 && npc.ai[1] == 0 && Main.netMode != 1)
                 {
                     float speedX = (float)(6 * Math.Cos(npc.rotation - Math.PI * 0.5f)) * 2;
                     float speedY = (float)(6 * Math.Sin(npc.rotation - Math.PI * 0.5f)) * 2;
@@ -181,33 +184,32 @@ namespace Decimation.NPCs.Arachnus
                 }
                 else if (counter % 5 == 0 && npc.ai[1] == 1)
                 {
-                    float speedX = (float)(7 * Math.Cos(npc.rotation - Math.PI * 0.5f));
-                    float speedY = (float)(7 * Math.Sin(npc.rotation - Math.PI * 0.5f));
-                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), npc.ai[2] == 1 ? mod.ProjectileType<BlastofShadowFlame>() : mod.ProjectileType<BlastofHeat>(), 30, 0f, 255);
+                    if (Main.netMode != 1)
+                    {
+                        float speedX = (float)(7 * Math.Cos(npc.rotation - Math.PI * 0.5f));
+                        float speedY = (float)(7 * Math.Sin(npc.rotation - Math.PI * 0.5f));
+                        Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), npc.ai[2] == 1 ? mod.ProjectileType<BlastofShadowFlame>() : mod.ProjectileType<BlastofHeat>(), 30, 0f, 255);
+                    }
                     Main.PlaySound(SoundID.Item34, npc.position);
                     if (Main.netMode == 2)
                         GetPacket(ArachnusMessageType.FlamesSound).Send();
                 }
                 else if (npc.ai[1] == 2)
                 {
-                    if (Main.netMode != 1)
+                    speed = 20f;
+                    if (Main.expertMode)
                     {
-                        speed = 20f;
-                        if (Main.expertMode)
-                        {
-                            speed = (npc.lifeMax - npc.life) / 500;
-                            if (npc.ai[2] == 1)
-                                speed += 20;
-                        }
-                        else if (npc.ai[2] == 1)
-                            speed = 40f;
+                        speed = (npc.lifeMax - npc.life) / 500;
+                        if (npc.ai[2] == 1)
+                            speed += 20;
                     }
+                    else if (npc.ai[2] == 1)
+                        speed = 40f;
                 }
 
                 if (npc.ai[1] != 2)
                 {
-                    if (Main.netMode != 1)
-                        speed = 2f;
+                    speed = 2f;
                 }
 
                 // Enraged
@@ -218,14 +220,12 @@ namespace Decimation.NPCs.Arachnus
 
                     if (npc.ai[1] != 2)
                     {
-                        if (Main.netMode != 1)
-                            speed = 6f;
+                        speed = 6f;
                         npc.defense = 300;
                     }
                 }
 
-                if (Main.netMode != 1)
-                    counter++;
+                counter++;
             }
 
             Move();
