@@ -17,6 +17,7 @@ namespace Decimation
         public bool jestersQuiverEquiped = false;
         public bool deadeyesQuiverEquipped = false;
         public bool endlessPouchofLifeEquipped = false;
+        public bool graniteLinedTunicEquipped = false;
 
         public bool isInCombat = false;
         public uint combatTime = 0;
@@ -56,6 +57,7 @@ namespace Decimation
             jestersQuiverEquiped = false;
             deadeyesQuiverEquipped = false;
             endlessPouchofLifeEquipped = false;
+            graniteLinedTunicEquipped = false;
 
             if (combatTime > 360)
             {
@@ -177,6 +179,12 @@ namespace Decimation
             combatTime = 0;
         }
 
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        {
+            isInCombat = true;
+            combatTime = 0;
+        }
+
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
             if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
@@ -189,6 +197,24 @@ namespace Decimation
             if (amuletsSinged != 0 && amuletBuffTime != 0)
                 if (Main.rand.Next(amuletsSinged, 100) < amuletsSinged)
                     npc.AddBuff(mod.BuffType<Slimed>(), amuletBuffTime);
+
+            if (graniteLinedTunicEquipped)
+            {
+                player.statLife += (int)(damage * 0.04f);
+
+                if (Main.rand.Next(3, 100) < 3)
+                    npc.AddBuff(BuffID.Confused, 600);
+            }
+
+            foreach (Player otherPlayer in Main.player)
+            {
+                if (otherPlayer.whoAmI != player.whoAmI)
+                    if (otherPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type == mod.ItemType<GraniteAmulet>() && otherPlayer.team == player.team)
+                    {
+                        player.statLife += (int)(damage * 0.03f);
+                        break;
+                    }
+            }
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
@@ -199,7 +225,21 @@ namespace Decimation
                 scarabCounter--;
                 wasHurt = true;
             }
-        }
 
+            if (graniteLinedTunicEquipped)
+            {
+                player.statLife += (int)(damage * 0.04f);
+            }
+
+            foreach (Player otherPlayer in Main.player)
+            {
+                if (otherPlayer.whoAmI != player.whoAmI)
+                    if (otherPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type == mod.ItemType<GraniteAmulet>() && otherPlayer.team == player.team)
+                    {
+                        player.statLife += (int)(damage * 0.03f);
+                        break;
+                    }
+            }
+        }
     }
 }
