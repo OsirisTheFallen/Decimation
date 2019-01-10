@@ -41,8 +41,10 @@ namespace Decimation
         public int solarCounter = 0;
 
         // amulets
-        public int amuletsSinged = 0;
-        public int amuletBuffTime = 0;
+        public int amuletsBuff = 0;
+        public byte amuletsBuffChances = 0;
+        public int amuletsBuffTime = 0;
+        public bool amuletsBuffWhenAttacking = false;
         public uint enchantedHeartDropTime = 0;
 
         public override void Initialize()
@@ -66,8 +68,10 @@ namespace Decimation
                 isInCombat = false;
             }
 
-            amuletsSinged = 0;
-            amuletBuffTime = 0;
+            amuletsBuff = 0;
+            amuletsBuffChances = 0;
+            amuletsBuffTime = 0;
+            amuletsBuffWhenAttacking = false;
 
             if (!player.HasBuff(mod.BuffType<SlimyFeet>())) lastJumpBoost = 0;
             if (!player.HasBuff(mod.BuffType<ScarabEndurance>()))
@@ -133,7 +137,9 @@ namespace Decimation
                 return false;
             if (endlessPouchofLifeEquipped && ammo.ammo == AmmoID.Bullet)
                 return false;
-            if (amuletSlotItem.type == mod.ItemType<FrostAmulet>() && (ammo.ammo == AmmoID.Arrow) && Main.rand.Next(50) == 0)
+            if (amuletSlotItem.type == mod.ItemType<FrostAmulet>() && (ammo.ammo == AmmoID.Arrow) && Main.rand.NextBool(50))
+                return false;
+            if (amuletSlotItem.type == mod.ItemType<MarbleAmulet>() && weapon.thrown && Main.rand.NextBool(50) && weapon.thrown)
                 return false;
 
             return base.ConsumeAmmo(weapon, ammo);
@@ -171,18 +177,37 @@ namespace Decimation
         public override void OnHitPvp(Item item, Player target, int damage, bool crit)
         {
             if (target.HasBuff(mod.BuffType<ScarabEndurance>())) player.AddBuff(BuffID.OnFire, 300);
+
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && amuletSlotItem.type != mod.ItemType<MarbleAmulet>())
+                if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
+                    target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             isInCombat = true;
             combatTime = 0;
+
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && amuletSlotItem.type != mod.ItemType<MarbleAmulet>())
+                if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
+                    target.AddBuff(amuletsBuff, amuletsBuffTime);
+        }
+
+        public override void OnHitPvpWithProj(Projectile proj, Player target, int damage, bool crit)
+        {
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && (amuletSlotItem.type != mod.ItemType<MarbleAmulet>() || (amuletSlotItem.type == mod.ItemType<MarbleAmulet>() && proj.thrown)))
+                if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
+                    target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
             isInCombat = true;
             combatTime = 0;
+
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && (amuletSlotItem.type != mod.ItemType<MarbleAmulet>() || (amuletSlotItem.type == mod.ItemType<MarbleAmulet>() && proj.thrown)))
+                if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
+                    target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -194,9 +219,9 @@ namespace Decimation
                 wasHurt = true;
             }
 
-            if (amuletsSinged != 0 && amuletBuffTime != 0)
-                if (Main.rand.Next(amuletsSinged, 100) < amuletsSinged)
-                    npc.AddBuff(mod.BuffType<Slimed>(), amuletBuffTime);
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && !amuletsBuffWhenAttacking)
+                if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
+                    npc.AddBuff(amuletsBuff, amuletsBuffTime);
 
             if (graniteLinedTunicEquipped)
             {
@@ -226,9 +251,22 @@ namespace Decimation
                 wasHurt = true;
             }
 
+            if (amuletsBuff != 0 && amuletsBuffTime != 0 && amuletsBuffChances != 0 && !amuletsBuffWhenAttacking)
+            {
+                if (proj.npcProj && Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
+                    Main.npc[proj.owner].AddBuff(amuletsBuff, amuletsBuffTime);
+                else if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
+                    Main.player[proj.owner].AddBuff(amuletsBuff, amuletsBuffTime);
+            }
+
             if (graniteLinedTunicEquipped)
             {
                 player.statLife += (int)(damage * 0.04f);
+
+                if (proj.npcProj && Main.rand.Next(3, 100) < 3)
+                    Main.npc[proj.owner].AddBuff(BuffID.Confused, 600);
+                else if (Main.rand.Next(3, 100) < 3)
+                    Main.player[proj.owner].AddBuff(BuffID.Confused, 600);
             }
 
             foreach (Player otherPlayer in Main.player)
@@ -241,5 +279,6 @@ namespace Decimation
                     }
             }
         }
+
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Decimation.Buffs.Debuffs;
 using Decimation.Items.Accessories;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -25,8 +26,10 @@ namespace Decimation.Items.Amulets
             player.meleeCrit += 3;
             player.lavaMax += 420;
 
-            player.GetModPlayer<DecimationPlayer>().amuletsSinged = 4;
-            player.GetModPlayer<DecimationPlayer>().amuletBuffTime = 300;
+            DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
+            modPlayer.amuletsBuff = mod.BuffType<Singed>();
+            modPlayer.amuletsBuffChances = 4;
+            modPlayer.amuletsBuffTime = 300;
         }
 
         public override List<TooltipLine> GetTooltipLines()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Decimation.Buffs;
+using Decimation.Buffs.Debuffs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -87,8 +88,10 @@ namespace Decimation.Items.Amulets
             player.npcTypeNoAggro[535] = true;
             player.npcTypeNoAggro[537] = true;
 
-            player.GetModPlayer<DecimationPlayer>().amuletsSinged = 4;
-            player.GetModPlayer<DecimationPlayer>().amuletBuffTime = 300;
+            DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
+            modPlayer.amuletsBuff = mod.BuffType<Singed>();
+            modPlayer.amuletsBuffChances = 4;
+            modPlayer.amuletsBuffTime = 300;
         }
     }
 }
