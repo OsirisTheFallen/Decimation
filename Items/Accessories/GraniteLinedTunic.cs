@@ -7,19 +7,11 @@ namespace Decimation.Items.Accessories
 {
     class GraniteLinedTunic : ModItem
     {
-        public override string Texture
-        {
-            get
-            {
-                return "Terraria/Item_" + ItemID.AncientBattleArmorShirt;
-            }
-        }
-
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.AncientBattleArmorShirt);
+            item.width = 30;
+            item.height = 20;
             item.accessory = true;
-            item.defense = 0;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
