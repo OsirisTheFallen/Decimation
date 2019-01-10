@@ -24,12 +24,12 @@ namespace Decimation.Items.Amulets
         public override void UpdateAmulet(Player player)
         {
             player.statDefense += 1;
-            player.noKnockback = true;
 
             if (player.statLife >= player.statLifeMax * 0.75f)
             {
                 player.moveSpeed *= 0.95f;
                 player.statDefense = (int)(player.statDefense * 1.05f);
+                player.noKnockback = true;
             }
         }
 
