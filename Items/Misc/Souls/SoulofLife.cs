@@ -10,7 +10,7 @@ namespace Decimation.Items.Misc.Souls
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul of Life");
-            Tooltip.SetDefault("The essence of organic beings.");
+            Tooltip.SetDefault("The essence of living cells.");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[item.type] = true;
             ItemID.Sets.ItemIconPulse[item.type] = true;

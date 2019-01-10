@@ -12,7 +12,7 @@ namespace Decimation.Buffs.Buffs
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             DisplayName.SetDefault("Natures Aura");
-            Description.SetDefault("Provide a greater life regeneration boost.");
+            Description.SetDefault("Nature strengthens your will and power.");
             canBeCleared = false;
         }
 

@@ -12,7 +12,7 @@ namespace Decimation.Items.Misc.DuneWorm
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Desert Dessert");
-            Tooltip.SetDefault("Summons the Ancient Dune Worm");
+            Tooltip.SetDefault("Used in the desert to feed a ravenous creature.");
         }
         public override void SetDefaults()
         {

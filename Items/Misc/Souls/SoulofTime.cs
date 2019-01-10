@@ -11,7 +11,7 @@ namespace Decimation.Items.Misc.Souls
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Soul of Time");
-			Tooltip.SetDefault("Essence of Existance");
+			Tooltip.SetDefault("The essence of fate.");
 			Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));				
 		}
         public override void SetDefaults()

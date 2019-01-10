@@ -9,7 +9,7 @@ namespace Decimation.Items.Boss.Arachnus
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Molten Arachnid's Amulet");
-            Tooltip.SetDefault("Summon Arachnus");
+            Tooltip.SetDefault("Infuriates the guardian of the planet's core.");
         }
 
         public override void SetDefaults()

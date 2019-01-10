@@ -9,7 +9,7 @@ namespace Decimation.Items.Placeable
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Interstellar!");
+            Tooltip.SetDefault("");
         }
 
         public override void SetDefaults()

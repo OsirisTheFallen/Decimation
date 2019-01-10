@@ -7,6 +7,10 @@ namespace Decimation.Items.Weapons
 {
     class MoltenStyngerBolt : ModItem
     {
+        public override void AutoStaticDefaults()
+        {
+            Tooltip.SetDefault("Explodes into molten shrapnel.");
+        }
 
         public override void SetDefaults()
         {

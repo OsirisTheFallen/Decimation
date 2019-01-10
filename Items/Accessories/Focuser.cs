@@ -13,7 +13,7 @@ namespace Decimation.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Focuser");
-			Tooltip.SetDefault("+5% Crit & Ranged damage");
+			Tooltip.SetDefault("Focuses one's inner strength.");
 		}
 		public override void SetDefaults()
         {

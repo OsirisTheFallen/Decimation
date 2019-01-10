@@ -10,7 +10,7 @@ namespace Decimation.Items.Potions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Enchanted Mushroom");
-            Tooltip.SetDefault("Cure poison \nGive Happy! buff");
+            Tooltip.SetDefault("Cures poison \nGives Happy! buff");
         }
 
         public override void SetDefaults()

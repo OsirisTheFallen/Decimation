@@ -9,7 +9,7 @@ namespace Decimation.Items.Boss.Arachnus
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shiny Sentinel");
-            Tooltip.SetDefault("Double life and mana regeneration \n+5 defense");
+            Tooltip.SetDefault("Doubles life and mana regeneration \n+5 defense");
         }
 
         public override void SetDefaults()

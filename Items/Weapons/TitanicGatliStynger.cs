@@ -10,7 +10,7 @@ namespace Decimation.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Rage of Kronos");
+            Tooltip.SetDefault("Feel the rage of Kronos by your side.");
         }
 
         public override void SetDefaults()

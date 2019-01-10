@@ -10,6 +10,7 @@ namespace Decimation.Items.Placeable
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Talonian Pillar");
+            Tooltip.SetDefault("A heavenly pillar created by powerful Talonian warlocks.");
         }
         public override void SetDefaults()
         {
