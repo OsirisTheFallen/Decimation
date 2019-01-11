@@ -70,7 +70,7 @@ namespace Decimation.Items.Amulets
     {
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
-            if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type == mod.ItemType<FrostAmulet>() && projectile.arrow)
+            if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type == mod.ItemType<FrostAmulet>() && projectile.arrow && Main.rand.NextBool(25))
                 npc.AddBuff(BuffID.Frostburn, 300);
         }
     }

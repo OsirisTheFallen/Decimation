@@ -9,7 +9,7 @@ namespace Decimation.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+5% thrown velocity\n+4% thrown damages\n+3% thrown critical strikes chances");
+            Tooltip.SetDefault("+5% throwing velocity\n+4% throwing damages\n+3% throwing critical strikes chances");
         }
 
         public override void SetDefaults()

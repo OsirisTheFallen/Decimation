@@ -54,7 +54,7 @@ namespace Decimation.Items.Amulets
                 {
                    overrideColor = Color.ForestGreen
                 },
-                new TooltipLine(mod, "Effect", "+3% throwing speed")
+                new TooltipLine(mod, "Effect", "+3% throwing velocity")
                 {
                    overrideColor = Color.ForestGreen
                 },
@@ -66,7 +66,7 @@ namespace Decimation.Items.Amulets
                 {
                    overrideColor = Color.ForestGreen
                 },
-                new TooltipLine(mod, "Effect", "+4% chances to inflict confusion the ennemis on throwing attacks")
+                new TooltipLine(mod, "Effect", "+4% chances to inflict confusion to enemies on throwing attacks")
                 {
                    overrideColor = Color.ForestGreen
                 }

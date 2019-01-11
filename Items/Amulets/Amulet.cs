@@ -54,6 +54,7 @@ namespace Decimation.Items.Amulets
         RANGER,
         THROWING,
         TANK,
-        HEALER
+        HEALER,
+        BUILDER
     }
 }
