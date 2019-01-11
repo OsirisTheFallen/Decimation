@@ -45,6 +45,16 @@ namespace Decimation.Items.Amulets
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Chain, 2);
+            recipe.AddIngredient(ItemID.CopperHammer);
+            recipe.AddIngredient(ItemID.Shackle, 1);
+            recipe.AddIngredient(ItemID.Torch, 10);
+            recipe.AddIngredient(ItemID.LeadBar);
+            recipe.AddTile(TileID.TinkerersWorkbench);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
         public override List<TooltipLine> GetTooltipLines()
