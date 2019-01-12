@@ -22,6 +22,11 @@ namespace Decimation.UI
             Append(amuletSlot);
         }
 
+        public void UpdateAmulet()
+        {
+            amuletSlot.UpdateAmulet();
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

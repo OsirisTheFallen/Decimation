@@ -9,6 +9,7 @@ namespace Decimation.Items.Weapons.Arachnus
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glaive Weaver");
+            Tooltip.SetDefault("Your palm burns as you wield this godly weapon.");
         }
 
         public override void SetDefaults()

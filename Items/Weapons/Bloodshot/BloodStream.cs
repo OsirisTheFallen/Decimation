@@ -10,7 +10,7 @@ namespace Decimation.Items.Weapons.Bloodshot
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blood Stream");
-			Tooltip.SetDefault("Bathe your ennemies in blood");
+			Tooltip.SetDefault("Bathe your enemies in blood");
 		}
         public override void SetDefaults()
         {

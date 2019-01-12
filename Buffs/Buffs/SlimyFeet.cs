@@ -10,7 +10,7 @@ namespace Decimation.Buffs.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Slimy feet!");
-            Description.SetDefault("You gain slimes abilities");
+            Description.SetDefault("You now have the abilities of slimes!");
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
         }

@@ -9,7 +9,7 @@ namespace Decimation.Items.Ores
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Titanite Bar");
-            Tooltip.SetDefault("It resonates with the strength of titans");
+            Tooltip.SetDefault("Pulsating with titan-like strengt.");
         }
 
         public override void SetDefaults()

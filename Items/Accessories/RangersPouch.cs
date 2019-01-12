@@ -9,7 +9,7 @@ namespace Decimation.Items.Accessories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ranger's Pouch");
-            Tooltip.SetDefault("25% Chance to not consume ammo \n+10% Ranged damages \n+5% Ranged critical chances");
+            Tooltip.SetDefault("25% Chance to not consume ammo \n+10% Ranged damage \n+5% Ranged critical chance");
         }
         public override void SetDefaults()
         {

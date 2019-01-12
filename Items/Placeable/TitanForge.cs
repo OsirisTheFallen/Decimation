@@ -9,6 +9,7 @@ namespace Decimation.Items.Placeable
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Titan Forge");
+            Tooltip.SetDefault("Used to craft powerful weapons and armor.");
         }
 
         public override void SetDefaults()

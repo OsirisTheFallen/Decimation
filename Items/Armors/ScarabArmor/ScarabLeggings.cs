@@ -20,7 +20,7 @@ namespace Decimation.Items.Armors.ScarabArmor
             DisplayName.SetDefault("Solar Scarab Greaves");
             Tooltip.SetDefault("Immunity to fire blocks" +
                 "\n20% increased movement and melee speed" + 
-                "\nEnnemis are more likely to target you");
+                "\nEnemies are more likely to target you");
         }
 
         public override void SetDefaults()

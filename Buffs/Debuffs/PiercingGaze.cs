@@ -9,7 +9,7 @@ namespace Decimation.Buffs.Debuffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Piercing Gaze");
-            Description.SetDefault("You are being looked through");
+            Description.SetDefault("Eyes are peering into your soul...");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = false;
             Main.buffNoTimeDisplay[Type] = false;

@@ -20,7 +20,7 @@ namespace Decimation.Items.Armors.ScarabArmor
             DisplayName.SetDefault("Solar Scarab Shell");
             Tooltip.SetDefault("Immunity to knockback" +
                 "\n25% increased melee damages" +
-                "\nEnnemis are more likely to target you");
+                "\nEnemies are more likely to target you");
         }
 
         public override void SetDefaults()

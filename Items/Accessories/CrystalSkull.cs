@@ -13,7 +13,7 @@ namespace Decimation.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Crystal Skull");
-			Tooltip.SetDefault("WIP");
+			Tooltip.SetDefault("It seems that this skull has been enchanted. (WIP)");
 		}
 		public override void SetDefaults()
         {

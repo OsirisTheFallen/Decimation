@@ -13,10 +13,7 @@ namespace Decimation.Items.Accessories
             DisplayName.SetDefault("Endless Pouch of Life");
             Tooltip.SetDefault("cancels ammunition consumption." +
                 "\nIncrease maximum life by 15" +
-                "\nChange ammunitions in Chlorophyte Bullets" +
-                "\n\nProvide a life regeneration boost" +
-                "\n+8% ranged damages" +
-                "\n+15% chances of critical stike on renged damages");
+                "\nChange ammunitions in Chlorophyte Bullets \nProvide a life regeneration boost \n+8% ranged damage \n+15% critical strike chance");
         }
 
         public override void SetDefaults()

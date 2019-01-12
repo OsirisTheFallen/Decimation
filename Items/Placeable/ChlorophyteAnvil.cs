@@ -9,6 +9,7 @@ namespace Decimation.Items.Placeable
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chlorophyte Anvil");
+            Tooltip.SetDefault("It reacts to the light.");
         }
 
         public override void SetDefaults()
