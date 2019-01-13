@@ -857,10 +857,10 @@ namespace Decimation.NPCs.Bloodshot
                 switch (random)
                 {
                     case 0:
-                        weapon = mod.ItemType<VampiricShiv>();
+                        //weapon = mod.ItemType<VampiricShiv>();
                         break;
                     case 1:
-                        weapon = mod.ItemType<Umbra>();
+                        //weapon = mod.ItemType<Umbra>();
                         break;
                     case 2:
                         weapon = mod.ItemType<BloodStream>();

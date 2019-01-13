@@ -22,7 +22,7 @@ namespace Decimation.Items.Weapons.Bloodshot
             item.rare = 2;
             item.maxStack = 1;
             item.useStyle = 5;
-            item.shoot = mod.ProjectileType<BloodBeam>();
+            item.shoot = mod.ProjectileType<BloodBeamFriendly>();
             item.shootSpeed = 5f;
             item.magic = true;
             item.damage = 20;

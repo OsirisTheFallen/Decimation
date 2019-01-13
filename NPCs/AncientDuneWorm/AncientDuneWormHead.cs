@@ -4,15 +4,12 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Decimation.Buffs;
 using Decimation.Projectiles;
-using Decimation.Items;
 using System.IO;
 using Decimation.Items.Vanity.DuneWorm;
 using Decimation.Items.Misc.Souls;
 using Decimation.Buffs.Debuffs;
 using Decimation.Items.Placeable.DuneWorm;
-using Decimation.Items.Boss.DuneWorm;
 
 namespace Decimation.NPCs.AncientDuneWorm
 {
@@ -49,7 +46,7 @@ namespace Decimation.NPCs.AncientDuneWorm
             npc.netAlways = true;
             npc.aiStyle = -1;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/The_Deserts_Call");
-            bossBag = mod.ItemType<DuneWormTreasureBag>();
+            //bossBag = mod.ItemType<DuneWormTreasureBag>();
 
             // Speed
             npc.localAI[1] = 0;

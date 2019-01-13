@@ -90,6 +90,7 @@
     <Compile Include="Items\Accessories\EnergyFocuser.cs" />
     <Compile Include="Items\Accessories\GraniteLinedTunic.cs" />
     <Compile Include="Items\Accessories\LightweightGlove.cs" />
+    <Compile Include="Items\Accessories\ShinySentinel.cs" />
     <Compile Include="Items\Amulets\Amulet.cs" />
     <Compile Include="Items\Amulets\BuildersAmulet.cs" />
     <Compile Include="Items\Amulets\FireAmulet.cs" />
@@ -105,6 +106,8 @@
     <Compile Include="Items\Amulets\MarbleAmulet.cs" />
     <Compile Include="Items\Amulets\SlimeAmulet.cs" />
     <Compile Include="Items\Accessories\SlimeBracelet.cs" />
+    <Compile Include="Items\Boss\DuneWorm\DesertDessert.cs" />
+    <Compile Include="Items\Boss\DuneWorm\DuneWormTreasureBag.cs" />
     <Compile Include="Items\Misc\EnchantedHeart.cs" />
     <Compile Include="Items\Placeable\TalonianPillar.cs" />
     <Compile Include="Items\Potions\Antidote.cs" />
@@ -116,9 +119,7 @@
     <Compile Include="Items\Boss\Arachnus\ArachnusTreasureBag.cs" />
     <Compile Include="Items\Potions\CommanderPotion.cs" />
     <Compile Include="Items\Ores\DenziumBar.cs" />
-    <Compile Include="Items\Misc\DuneWorm\DesertDessert.cs" />
     <Compile Include="Items\Vanity\DuneWorm\DuneWormMask.cs" />
-    <Compile Include="Items\Vanity\DuneWorm\DuneWormTreasureBag.cs" />
     <Compile Include="Items\Placeable\DuneWorm\DuneWormTrophy.cs" />
     <Compile Include="Items\Potions\EnchantedMushroom.cs" />
     <Compile Include="Items\Accessories\EndlessPouchofLife.cs" />
@@ -138,7 +139,6 @@
     <Compile Include="Items\Placeable\ShrineoftheMoltenOne\ShrineBrick.cs" />
     <Compile Include="Items\Placeable\ShrineoftheMoltenOne\ShrineDoor.cs" />
     <Compile Include="Items\Placeable\TitanForge.cs" />
-    <Compile Include="Items\Boss\Arachnus\ShinySentinel.cs" />
     <Compile Include="Items\Misc\Souls\SoulofLife.cs" />
     <Compile Include="Items\Misc\Souls\SoulofSpite.cs" />
     <Compile Include="Items\Misc\Souls\SoulofTime.cs" />
@@ -152,6 +152,8 @@
     <Compile Include="Items\Weapons\Arachnus\ChainStynger.cs" />
     <Compile Include="Items\Weapons\Arachnus\GlaiveWeaver.cs" />
     <Compile Include="Items\Weapons\Arachnus\Infernolizer.cs" />
+    <Compile Include="Items\Weapons\Bloodshot\Umbra.cs" />
+    <Compile Include="Items\Weapons\Bloodshot\VampiricShiv.cs" />
     <Compile Include="Items\Weapons\MoltenStyngerBolt.cs" />
     <Compile Include="Items\Weapons\MultigrainSword.cs" />
     <Compile Include="Items\Weapons\Pebble.cs" />
@@ -164,8 +166,6 @@
     <Compile Include="Items\Weapons\TitanicPike.cs" />
     <Compile Include="Items\Weapons\TitanicRepeater.cs" />
     <Compile Include="Items\Weapons\TitanicStyngerBolt.cs" />
-    <Compile Include="Items\Weapons\Umbra.cs" />
-    <Compile Include="Items\Weapons\VampiricShiv.cs" />
     <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormBody.cs" />
     <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormHead.cs" />
     <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormTail.cs" />
@@ -184,6 +184,7 @@
     <Compile Include="Projectiles\BlastofHeat.cs" />
     <Compile Include="Projectiles\BlastofShadowFlame.cs" />
     <Compile Include="Projectiles\BloodBeam.cs" />
+    <Compile Include="Projectiles\BloodBeamFriendly.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
     <Compile Include="Projectiles\RasGazeLaser.cs" />
