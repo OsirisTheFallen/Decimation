@@ -9,7 +9,7 @@ namespace Decimation.Items.Boss.Arachnus
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Hot enough to open the shrine door.");
+            Tooltip.SetDefault("A strange key used to open a forbidden temple deep inside this world");
         }
 
         public override void SetDefaults()

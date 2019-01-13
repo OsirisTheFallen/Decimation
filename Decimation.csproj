@@ -88,6 +88,10 @@
     <Compile Include="Items\Accessories\DeadeyesQuiver.cs" />
     <Compile Include="Items\Accessories\EnchantedFocuser.cs" />
     <Compile Include="Items\Accessories\EnergyFocuser.cs" />
+    <Compile Include="Items\Accessories\GraniteLinedTunic.cs" />
+    <Compile Include="Items\Accessories\LightweightGlove.cs" />
+    <Compile Include="Items\Amulets\Amulet.cs" />
+    <Compile Include="Items\Amulets\BuildersAmulet.cs" />
     <Compile Include="Items\Amulets\FireAmulet.cs" />
     <Compile Include="Items\Accessories\Focuser.cs" />
     <Compile Include="Items\Accessories\JestersQuiver.cs" />
@@ -95,8 +99,14 @@
     <Compile Include="Items\Accessories\RangersPouch.cs" />
     <Compile Include="Items\Accessories\RangersQuiver.cs" />
     <Compile Include="Items\Accessories\RedHotShackle.cs" />
+    <Compile Include="Items\Amulets\FrostAmulet.cs" />
+    <Compile Include="Items\Amulets\GraniteAmulet.cs" />
+    <Compile Include="Items\Amulets\HealtyAmulet.cs" />
+    <Compile Include="Items\Amulets\MarbleAmulet.cs" />
     <Compile Include="Items\Amulets\SlimeAmulet.cs" />
     <Compile Include="Items\Accessories\SlimeBracelet.cs" />
+    <Compile Include="Items\Misc\EnchantedHeart.cs" />
+    <Compile Include="Items\Placeable\TalonianPillar.cs" />
     <Compile Include="Items\Potions\Antidote.cs" />
     <Compile Include="Decimation.cs" />
     <Compile Include="Items\Armors\ScarabArmor\ScarabBody.cs" />
@@ -106,7 +116,7 @@
     <Compile Include="Items\Boss\Arachnus\ArachnusTreasureBag.cs" />
     <Compile Include="Items\Potions\CommanderPotion.cs" />
     <Compile Include="Items\Ores\DenziumBar.cs" />
-    <Compile Include="Items\Ores\DesertDessert.cs" />
+    <Compile Include="Items\Misc\DuneWorm\DesertDessert.cs" />
     <Compile Include="Items\Vanity\DuneWorm\DuneWormMask.cs" />
     <Compile Include="Items\Vanity\DuneWorm\DuneWormTreasureBag.cs" />
     <Compile Include="Items\Placeable\DuneWorm\DuneWormTrophy.cs" />

@@ -76,8 +76,8 @@ namespace Decimation
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "Bloodshot Eye of Cthulhu", 2.5f, (Func<bool>)(() => DecimationWorld.downedBloodshotEye), "INSERT LATER");
-                bossChecklist.Call("AddBossWithInfo", "Ancient Dune Worm", 5.7f, (Func<bool>)(() => DecimationWorld.downedDuneWorm), "INSERT LATER");
+                bossChecklist.Call("AddBossWithInfo", "The Bloodshot Eye", 2.5f, (Func<bool>)(() => DecimationWorld.downedBloodshotEye), "INSERT LATER");
+                bossChecklist.Call("AddBossWithInfo", "The Ancient Dune Worm", 5.7f, (Func<bool>)(() => DecimationWorld.downedDuneWorm), "INSERT LATER");
                 bossChecklist.Call("AddBossWithInfo", "Arachnus", 20f, (Func<bool>)(() => DecimationWorld.downedArachnus), "INSERT LATER");
             }
         }
@@ -134,7 +134,6 @@ namespace Decimation
     {
         Arachnus,
         DuneWorm,
-
         SpawnBoss
     }
 }

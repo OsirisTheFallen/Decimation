@@ -10,7 +10,7 @@ namespace Decimation.Items.Placeable.ShrineoftheMoltenOne
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dead Earth");
-            Tooltip.SetDefault("Smells like decay");
+            Tooltip.SetDefault("");
         }
         public override void SetDefaults()
         {

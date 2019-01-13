@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Decimation.Buffs;
+using Decimation.Buffs.Debuffs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -10,22 +11,14 @@ using Terraria.UI.Chat;
 
 namespace Decimation.Items.Amulets
 {
-    public class SlimeAmulet : ModItem
+    public class SlimeAmulet : Amulet
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Slime Amulet");
-        }
-
-        public override void SetDefaults()
+        public override void SetAmuletDefaults()
         {
             item.width = 24;
             item.height = 24;
-            item.value = 10;
-            item.rare = 2;
-
-            Decimation.amulets.Add(item.type);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -39,40 +32,36 @@ namespace Decimation.Items.Amulets
             recipe.AddRecipe();
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        public override AmuletClasses GetAmuletClass()
         {
-            TooltipLine amuletClass = new TooltipLine(mod, "Class", "SUMMONER")
-            {
-                overrideColor = ChatManager.WaveColor(Color.Fuchsia)
-            };
-            TooltipLine effect1 = new TooltipLine(mod, "Effect", "Makes slimes friendly")
-            {
-                overrideColor = Color.ForestGreen
-            };
-            TooltipLine effect2 = new TooltipLine(mod, "Effect", "+3% minion damages")
-            {
-                overrideColor = Color.ForestGreen
-            };
-            TooltipLine effect3 = new TooltipLine(mod, "Effect", "+3% minion knockback")
-            {
-                overrideColor = Color.ForestGreen
-            };
-            TooltipLine effect4 = new TooltipLine(mod, "Effect", "+4% chances to inflict \"Slimed!\" debuff to attackers for 5 seconds")
-            {
-                overrideColor = Color.ForestGreen
-            };
-
-            tooltips.Add(amuletClass);
-            tooltips.Add(effect1);
-            tooltips.Add(effect2);
-            tooltips.Add(effect3);
-            tooltips.Add(effect4);
+            return AmuletClasses.SUMMONER;
         }
 
-        public override void Update(ref float gravity, ref float maxFallSpeed)
+        public override List<TooltipLine> GetTooltipLines()
         {
-            Player player = Main.LocalPlayer;
+            return new List<TooltipLine>()
+            {
+                new TooltipLine(mod, "Effect", "Makes slimes friendly")
+                {
+                   overrideColor = Color.ForestGreen
+                },
+                new TooltipLine(mod, "Effect", "+3% minion damages")
+                {
+                    overrideColor = Color.ForestGreen
+                },
+                 new TooltipLine(mod, "Effect", "+3% minion knockback")
+                {
+                    overrideColor = Color.ForestGreen
+                },
+                 new TooltipLine(mod, "Effect", "+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes")
+                {
+                    overrideColor = Color.ForestGreen
+                }
+            };
+        }
 
+        public override void UpdateAmulet(Player player)
+        {
             player.minionDamage *= 0.03f;
             player.minionKB *= 0.03f;
             player.npcTypeNoAggro[1] = true;
@@ -99,7 +88,10 @@ namespace Decimation.Items.Amulets
             player.npcTypeNoAggro[535] = true;
             player.npcTypeNoAggro[537] = true;
 
-            player.GetModPlayer<DecimationPlayer>().slimeAmulet = true;
+            DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
+            modPlayer.amuletsBuff = mod.BuffType<Singed>();
+            modPlayer.amuletsBuffChances = 4;
+            modPlayer.amuletsBuffTime = 300;
         }
     }
 }

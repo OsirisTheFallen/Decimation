@@ -10,7 +10,7 @@ namespace Decimation.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vampiric Shiv");
-			Tooltip.SetDefault("Steals enemy hp");
+			Tooltip.SetDefault("Steals enemy hp on hit");
 		}
         public override void SetDefaults()
         {

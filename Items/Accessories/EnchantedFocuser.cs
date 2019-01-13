@@ -13,7 +13,7 @@ namespace Decimation.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Enchanted Focuser");
-			Tooltip.SetDefault("+2% Crit\n10% Magic & Ranged damage\nIncreaed mana & mana regen.");
+			Tooltip.SetDefault("Focuses one's Ki.");
 		}
 		public override void SetDefaults()
         {

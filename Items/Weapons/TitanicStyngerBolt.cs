@@ -7,6 +7,10 @@ namespace Decimation.Items.Weapons
 {
     class TitanicStyngerBolt : ModItem
     {
+        public override void AutoStaticDefaults()
+        {
+            Tooltip.SetDefault("Explodes into deadly shrapnel.");
+        }
 
         public override void SetDefaults()
         {
