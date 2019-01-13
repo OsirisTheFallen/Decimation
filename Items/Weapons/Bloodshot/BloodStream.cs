@@ -25,7 +25,7 @@ namespace Decimation.Items.Weapons.Bloodshot
             item.shoot = mod.ProjectileType<BloodBeamFriendly>();
             item.shootSpeed = 5f;
             item.magic = true;
-            item.damage = 20;
+            item.damage = 14;
             item.mana = 1;
             item.useTime = 5;
             item.useAnimation = 5;
