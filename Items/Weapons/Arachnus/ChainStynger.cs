@@ -9,7 +9,7 @@ namespace Decimation.Items.Weapons.Arachnus
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chain Stynger");
-            Tooltip.SetDefault("Unleash the fury");
+            Tooltip.SetDefault("Unleashe molten ashes upon your foes.");
         }
 
         public override void SetDefaults()

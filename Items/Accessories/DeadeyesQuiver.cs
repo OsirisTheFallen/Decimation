@@ -11,7 +11,7 @@ namespace Decimation.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Turns wooden arrows into ichor arrows\n+16% ranged damage\n+15% arrow and bullet velocity\n15% chance not to consume ammo\nTurns musket balls into chlorophyte bullets\n+2% ranged crit chance");
+            Tooltip.SetDefault("Turns wooden arrows into ichor arrows\n+16% ranged damage\n+15% arrow and bullet velocity\n15% chance not to consume ammo\nTurns musket balls into chlorophyte bullets\n+2% increased ranged crit chance");
             DisplayName.SetDefault("Deadeye's Quiver");
         }
 

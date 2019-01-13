@@ -9,7 +9,7 @@ namespace Decimation.Items.Ores
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Denzium Bar");
-            Tooltip.SetDefault("Interstellar!");
+            Tooltip.SetDefault("It pulsates with sheer density");
         }
 
         public override void SetDefaults()

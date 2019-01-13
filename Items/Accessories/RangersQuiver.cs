@@ -9,13 +9,13 @@ using Terraria.ModLoader;
 namespace Decimation.Items.Accessories
 {
     public class RangersQuiver : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ranger's Quiver");
-			Tooltip.SetDefault("25% Chance not to consume ammo\n+10%ranged damage\n+15% arrow velocity\n+5% ranged Crit Chance");
-		}
-		public override void SetDefaults()
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ranger's Quiver");
+            Tooltip.SetDefault("25% Chance not to consume ammo\n+10%ranged damage\n+15% arrow velocity\n+5% ranged Crit Chance");
+        }
+        public override void SetDefaults()
         {
             item.width = 32;
             item.height = 32;
@@ -27,9 +27,9 @@ namespace Decimation.Items.Accessories
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.anyIronBar = true;
-			recipe.AddIngredient(ItemID.MagicQuiver, 1);
-			recipe.AddIngredient(ItemID.RangerEmblem, 1);
-			recipe.AddIngredient(ItemID.SoulofSight, 5);
+            recipe.AddIngredient(ItemID.MagicQuiver, 1);
+            recipe.AddIngredient(ItemID.RangerEmblem, 1);
+            recipe.AddIngredient(ItemID.SoulofSight, 5);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this, 1);
             recipe.AddRecipe();
@@ -37,10 +37,10 @@ namespace Decimation.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.rangedDamage += 0.10f;
-			player.rangedCrit += 05;
-			player.ammoCost75 = true;
+            player.rangedDamage += 0.10f;
+            player.rangedCrit += 05;
+            player.ammoCost75 = true;
         }
-    
+
     }
 }

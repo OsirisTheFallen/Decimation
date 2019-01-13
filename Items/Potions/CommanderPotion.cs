@@ -10,7 +10,7 @@ namespace Decimation.Items.Potions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Commander Potion");
-            Tooltip.SetDefault("Max minions +1 \nMinions damages +10% \nMinions Knockback +10%");
+            Tooltip.SetDefault("Increases your max number of minions by 1 \nMinions damages +10% \nMinions Knockback +10%");
         }
 
         public override void SetDefaults()

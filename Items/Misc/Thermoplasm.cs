@@ -8,7 +8,7 @@ namespace Decimation.Items.Misc
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("It resonates with the heat of the sun");
+            Tooltip.SetDefault("It resonates with the heat of the planet's core");
         }
 
         public override void SetDefaults()

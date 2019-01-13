@@ -19,7 +19,7 @@ namespace Decimation.Items.Accessories
         {
             item.width = 24;
             item.height = 24;
-            item.value = 10;
+            item.value = 300;
             item.rare = 2;
             item.accessory = true;
 			item.defense = 1;

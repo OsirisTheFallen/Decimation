@@ -9,7 +9,7 @@ namespace Decimation.Buffs.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Ubered!");
-            Description.SetDefault("I AM ZE UBERMENSCH!");
+            Description.SetDefault("YOU ARE ZE UBERMENSCH!");
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
         }

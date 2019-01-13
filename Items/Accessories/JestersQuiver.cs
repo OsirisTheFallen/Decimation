@@ -9,7 +9,7 @@ namespace Decimation.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Jester's Quiver");
-			Tooltip.SetDefault("Turn wooden arrows into jesters arrows \n+15% Ranged Damages \n-20% Ammo Cost \n+5% Ranged Critical Chances");
+			Tooltip.SetDefault("Turns wooden arrows into jesters arrows \n+15% Ranged Damage \n-20% Ammo Cost \n+5% Ranged Critical Chance");
 		}
 
 		public override void SetDefaults()
