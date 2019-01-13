@@ -12,6 +12,7 @@ using Decimation.Items.Vanity.DuneWorm;
 using Decimation.Items.Misc.Souls;
 using Decimation.Buffs.Debuffs;
 using Decimation.Items.Placeable.DuneWorm;
+using Decimation.Items.Boss.DuneWorm;
 
 namespace Decimation.NPCs.AncientDuneWorm
 {

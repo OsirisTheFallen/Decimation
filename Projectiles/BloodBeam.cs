@@ -25,7 +25,7 @@ namespace Decimation.Projectiles
             projectile.aiStyle = -1;
             projectile.penetrate = -1;
             projectile.alpha = 255;
-            projectile.timeLeft = 60;
+            projectile.timeLeft = 40;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.damage = 25;
@@ -35,6 +35,12 @@ namespace Decimation.Projectiles
 
         public override void AI()
         {
+            if (!projectile.npcProj)
+            {
+                projectile.hostile = false;
+                projectile.friendly = true;
+            }
+
             projectile.velocity.Y += (60 - projectile.timeLeft) * 0.005f;
 
             Dust.NewDust(projectile.position, 26, 26, DustID.SomethingRed);

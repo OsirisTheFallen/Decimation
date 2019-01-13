@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Decimation.Projectiles;
 using System.IO;
 using Decimation.Items.Boss.Bloodshot;
+using Decimation.Items.Weapons;
+using Decimation.Items.Misc;
+using Decimation.Items.Weapons.Bloodshot;
 
 namespace Decimation.NPCs.Bloodshot
 {
@@ -19,13 +22,14 @@ namespace Decimation.NPCs.Bloodshot
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloodshot Eye");
+            DisplayName.SetDefault("The Bloodshot Eye");
         }
 
         public override void SetDefaults()
         {
             npc.width = 110;
             npc.height = 110;
+            npc.value = 70000;
             npc.aiStyle = -1;
             npc.defense = 18;
             npc.damage = 54;
@@ -36,7 +40,6 @@ namespace Decimation.NPCs.Bloodshot
             npc.aiStyle = -1;
             npc.knockBackResist = 0;
             npc.dontTakeDamage = true;
-            npc.timeLeft = 5;
             bossBag = mod.ItemType<TreasureBagBloodshotEye>();
         }
 
@@ -841,6 +844,39 @@ namespace Decimation.NPCs.Bloodshot
                     npc.velocity.Y = 0f;
                 }
                 // <-- EoC rotation between phases
+            }
+        }
+
+        public override void NPCLoot()
+        {
+            if (!Main.expertMode)
+            {
+                int random = Main.rand.Next(3);
+                int weapon = 0;
+
+                switch (random)
+                {
+                    case 0:
+                        weapon = mod.ItemType<VampiricShiv>();
+                        break;
+                    case 1:
+                        weapon = mod.ItemType<Umbra>();
+                        break;
+                    case 2:
+                        weapon = mod.ItemType<BloodStream>();
+                        break;
+                    default:
+                        Main.NewText("Unexpected error in Bloodshot Eye drops: weapon drop random is out of range (" + random + ").", Color.Red);
+                        break;
+                }
+
+                Item.NewItem(npc.Center, weapon);
+
+                Item.NewItem(npc.Center, mod.ItemType<BloodiedEssence>(), Main.rand.Next(35, 51));
+            }
+            else
+            {
+                npc.DropBossBags();
             }
         }
 
