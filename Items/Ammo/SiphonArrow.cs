@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Decimation.Items.Misc;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,6 +27,16 @@ namespace Decimation.Items.Ammo
             item.shoot = mod.ProjectileType<Projectiles.SiphonArrow>();
             item.shootSpeed = 2.5f;
             item.ammo = AmmoID.Arrow;
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.WoodenArrow, 50);
+            recipe.AddIngredient(mod.ItemType<BloodiedEssence>());
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

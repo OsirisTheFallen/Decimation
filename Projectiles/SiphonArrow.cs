@@ -20,6 +20,7 @@ namespace Decimation.Projectiles
             projectile.penetrate = 1;
             projectile.timeLeft = 600;
             projectile.tileCollide = true;
+            projectile.arrow = true;
             aiType = ProjectileID.WoodenArrowFriendly;
         }
 

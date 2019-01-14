@@ -19,7 +19,7 @@ namespace Decimation.Items.Weapons.Bloodshot
             item.width = 20;
             item.height = 20;
             item.value = 20000;
-            item.rare = 1;
+            item.rare = 2;
             item.maxStack = 1;
             item.ranged = true;
             item.damage = 18;

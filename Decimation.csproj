@@ -107,6 +107,7 @@
     <Compile Include="Items\Amulets\MarbleAmulet.cs" />
     <Compile Include="Items\Amulets\SlimeAmulet.cs" />
     <Compile Include="Items\Accessories\SlimeBracelet.cs" />
+    <Compile Include="Items\Boss\Bloodshot\BloodiedMaw.cs" />
     <Compile Include="Items\Boss\DuneWorm\DesertDessert.cs" />
     <Compile Include="Items\Boss\DuneWorm\DuneWormTreasureBag.cs" />
     <Compile Include="Items\Misc\EnchantedHeart.cs" />

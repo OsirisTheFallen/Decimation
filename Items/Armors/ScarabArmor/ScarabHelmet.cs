@@ -45,7 +45,6 @@ namespace Decimation.Items.Armors.ScarabArmor
         {
             if (head.type == item.type && body.type == mod.ItemType<ScarabBody>() && legs.type == mod.ItemType<ScarabLeggings>())
                 return true;
-            Main.LocalPlayer.GetModPlayer<DecimationPlayer>().solarCounter = 0;
             return false;
         }
 

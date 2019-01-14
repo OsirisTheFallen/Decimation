@@ -49,6 +49,10 @@ namespace Decimation
 
         public override void UpdateUI(GameTime gameTime)
         {
+            Player player = Main.LocalPlayer;
+            if (player.GetModPlayer<DecimationPlayer>().necrosisStoneEquipped && player.respawnTimer != 0)
+                player.respawnTimer -= 1;
+
             if (amuletSlotInterface != null)
                 amuletSlotInterface.Update(gameTime);
         }
