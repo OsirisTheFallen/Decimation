@@ -19,6 +19,7 @@ namespace Decimation.Items.Weapons.Bloodshot
             item.height = 20;
             item.value = 100;
             item.rare = 1;
+            item.crit = 4;
             item.maxStack = 999;
             item.melee = true;
             item.damage = 12;
@@ -29,6 +30,7 @@ namespace Decimation.Items.Weapons.Bloodshot
             item.maxStack = 1;
             item.knockBack = 5;
             item.value = 20000;
+            item.UseSound = SoundID.Item1;
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

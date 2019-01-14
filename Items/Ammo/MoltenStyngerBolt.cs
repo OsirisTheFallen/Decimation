@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Decimation.Items.Weapons
+namespace Decimation.Items.Ammo
 {
     class MoltenStyngerBolt : ModItem
     {

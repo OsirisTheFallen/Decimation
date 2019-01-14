@@ -32,6 +32,7 @@ namespace Decimation.Items.Weapons.Bloodshot
             item.useTime = 5;
             item.useAnimation = 5;
             item.autoReuse = true;
+            item.UseSound = SoundID.Item34;
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
