@@ -12,11 +12,11 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class BloodBeam : ModProjectile
+    class BloodBeamFriendly : ModProjectile
     {
         public override string Texture
         {
-            get { return "Terraria/Projectile_" + ProjectileID.CursedFlameHostile; }
+            get { return "Terraria/Projectile_" + ProjectileID.CursedFlameFriendly; }
         }
 
         public override void SetDefaults()
@@ -27,11 +27,11 @@ namespace Decimation.Projectiles
             projectile.penetrate = -1;
             projectile.alpha = 255;
             projectile.timeLeft = 40;
-            projectile.tileCollide = false;
+            projectile.tileCollide = true;
             projectile.ignoreWater = true;
-            projectile.damage = 25;
-            projectile.hostile = true;
-            projectile.friendly = false;
+            projectile.damage = 15;
+            projectile.hostile = false;
+            projectile.friendly = true;
         }
 
         public override void AI()
@@ -39,19 +39,6 @@ namespace Decimation.Projectiles
             projectile.velocity.Y += (60 - projectile.timeLeft) * 0.005f;
 
             Dust.NewDust(projectile.position, 26, 26, mod.DustType<Blood>());
-        }
-
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            if (Main.expertMode)
-                target.AddBuff(mod.BuffType<Slimed>(), 600);
-
-            int damages = Main.rand.Next(5, 11);
-            target.Hurt(PlayerDeathReason.LegacyDefault(), damages, 0);
-
-            NPC bloodshotEye = Main.npc[(int)projectile.ai[0]];
-            bloodshotEye.life += damages;
-            bloodshotEye.HealEffect(damages);
         }
     }
 }

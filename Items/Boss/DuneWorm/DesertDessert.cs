@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Decimation.Items.Misc.DuneWorm
+namespace Decimation.Items.Boss.DuneWorm
 {
 
     public class DesertDessert : ModItem
@@ -12,7 +12,7 @@ namespace Decimation.Items.Misc.DuneWorm
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Desert Dessert");
-            Tooltip.SetDefault("Used in the desert to feed a ravenous creature.");
+            Tooltip.SetDefault("Summons the Ancient Dune Worm");
         }
         public override void SetDefaults()
         {
@@ -27,12 +27,17 @@ namespace Decimation.Items.Misc.DuneWorm
             item.consumable = true;
         }
 
-
         public override bool UseItem(Player player)
         {
             if (player.ZoneDesert)
             {
-                if (Main.netMode == 1)
+                if (Main.netMode == 0)
+                {
+                    Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<AncientDuneWormHead>());
+                    return true;
+                }
+                else
                 {
                     ModPacket packet = mod.GetPacket();
                     packet.Write((byte)DecimationModMessageType.SpawnBoss);
@@ -40,12 +45,6 @@ namespace Decimation.Items.Misc.DuneWorm
                     packet.Write(player.whoAmI);
                     packet.Send();
                 }
-                else if (Main.netMode == 0)
-                {
-                    Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
-                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<AncientDuneWormHead>());
-                }
-                return true;
             }
 
             return false;

@@ -4,9 +4,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Decimation.Buffs;
 using Decimation.Projectiles;
-using Decimation.Items;
 using System.IO;
 using Decimation.Items.Vanity.DuneWorm;
 using Decimation.Items.Misc.Souls;
@@ -48,7 +46,7 @@ namespace Decimation.NPCs.AncientDuneWorm
             npc.netAlways = true;
             npc.aiStyle = -1;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/The_Deserts_Call");
-            bossBag = mod.ItemType<DuneWormTreasureBag>();
+            //bossBag = mod.ItemType<DuneWormTreasureBag>();
 
             // Speed
             npc.localAI[1] = 0;
@@ -77,10 +75,21 @@ namespace Decimation.NPCs.AncientDuneWorm
                 // Latest tile
                 npc.ai[1] = Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].type;
             }
+            else
+            {
+                npc.velocity.Y = npc.velocity.Y - 0.04f;
+                if (npc.timeLeft > 10)
+                {
+                    npc.timeLeft = 10;
+                }
+            }
         }
 
         private bool CheckDispawn()
         {
+            if (npc.ai[2] == 1)
+                return true;
+
             // check active
             bool playersActive = false;
             // check death
@@ -94,10 +103,6 @@ namespace Decimation.NPCs.AncientDuneWorm
             if (!Main.player[npc.target].ZoneDesert || npc.ai[2] == 1 || !playersActive || playersDead)
             {
                 npc.ai[2] = 1;
-                npc.velocity = new Vector2(0, 15);
-                npc.rotation = (int)(Math.PI * 3) / 2;
-                npc.netUpdate = true;
-                npc.timeLeft = 10;
                 return true;
             }
 

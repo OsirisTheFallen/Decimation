@@ -18,6 +18,7 @@ namespace Decimation
         public bool deadeyesQuiverEquipped = false;
         public bool endlessPouchofLifeEquipped = false;
         public bool graniteLinedTunicEquipped = false;
+        public bool necrosisStoneEquipped = false;
 
         public bool isInCombat = false;
         public uint combatTime = 0;
@@ -60,6 +61,7 @@ namespace Decimation
             deadeyesQuiverEquipped = false;
             endlessPouchofLifeEquipped = false;
             graniteLinedTunicEquipped = false;
+            necrosisStoneEquipped = false;
 
             if (combatTime > 360)
             {
@@ -170,6 +172,8 @@ namespace Decimation
                 combatTime++;
                 enchantedHeartDropTime++;
             }
+
+
 
             base.PostUpdate();
         }

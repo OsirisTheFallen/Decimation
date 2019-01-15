@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Decimation.Items.Boss.Arachnus
+namespace Decimation.Items.Accessories
 {
     class ShinySentinel : ModItem
     {

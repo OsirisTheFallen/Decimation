@@ -10,7 +10,7 @@ namespace Decimation.Items.Misc
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bloodied Essence");
-			Tooltip.SetDefault("Congealed to perfection");
+			Tooltip.SetDefault("It molds more and more as time resumes.");
 		}
         public override void SetDefaults()
         {
