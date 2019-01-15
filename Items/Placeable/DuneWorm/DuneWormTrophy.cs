@@ -7,7 +7,7 @@ namespace Decimation.Items.Placeable.DuneWorm
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Dune Worm Trophy");
-            Tooltip.SetDefault("Achievement get");
+            Tooltip.SetDefault("Acheivement get!");
         }
         public override void SetDefaults()
         {

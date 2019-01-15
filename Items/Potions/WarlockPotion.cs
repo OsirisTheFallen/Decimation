@@ -10,7 +10,7 @@ namespace Decimation.Items.Potions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("WarlockPotion");
-            Tooltip.SetDefault("Give Warlock buff for 10 minutes.");
+            Tooltip.SetDefault("Increased Mana Regeneration \nIncreased max mana \n10% increased magic damage");
         }
 
         public override void SetDefaults()

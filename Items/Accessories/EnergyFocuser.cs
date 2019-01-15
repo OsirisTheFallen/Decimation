@@ -13,7 +13,7 @@ namespace Decimation.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Energy Focuser");
-			Tooltip.SetDefault("+5% Crit\n10% Magic & Ranged damage & 4% melee damage\nIncreaed max mana & health\nIcreased mana & health regen.");
+			Tooltip.SetDefault("Opens one's chakra points.");
 		}
 		public override void SetDefaults()
         {

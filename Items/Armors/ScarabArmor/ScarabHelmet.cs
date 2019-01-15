@@ -23,7 +23,7 @@ namespace Decimation.Items.Armors.ScarabArmor
             base.SetStaticDefaults();
             DisplayName.SetDefault("Solar Scarab Helmet");
             Tooltip.SetDefault("25 % increased melee critical hit chances" +
-                "\nEnnemis are more likely to target you");
+                "\nEnemis are more likely to target you");
         }
 
         public override void SetDefaults()
@@ -45,7 +45,6 @@ namespace Decimation.Items.Armors.ScarabArmor
         {
             if (head.type == item.type && body.type == mod.ItemType<ScarabBody>() && legs.type == mod.ItemType<ScarabLeggings>())
                 return true;
-            Main.LocalPlayer.GetModPlayer<DecimationPlayer>().solarCounter = 0;
             return false;
         }
 

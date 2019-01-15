@@ -12,11 +12,12 @@ namespace Decimation.Items.Tools
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Hour Glass");
-			Tooltip.SetDefault("Currently no cooldown");
+			Tooltip.SetDefault("Costs 50 mana.");
 		}
         public override void SetDefaults()
         {
             item.noMelee = true;
+            item.mana = 50;
             item.width = 22;
             item.height = 36;
             item.useTime = 16;

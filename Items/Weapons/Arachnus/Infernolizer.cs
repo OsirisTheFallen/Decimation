@@ -7,6 +7,11 @@ namespace Decimation.Items.Weapons.Arachnus
 {
     class Infernolizer : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("Releases flares upon your foes");
+        }
+
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.HeatRay);

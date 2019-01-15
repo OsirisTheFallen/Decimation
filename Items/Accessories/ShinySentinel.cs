@@ -2,14 +2,14 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Decimation.Items.Boss.Arachnus
+namespace Decimation.Items.Accessories
 {
     class ShinySentinel : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shiny Sentinel");
-            Tooltip.SetDefault("Double life and mana regeneration \n+5 defense");
+            Tooltip.SetDefault("Doubles life and mana regeneration \n+5 defense");
         }
 
         public override void SetDefaults()

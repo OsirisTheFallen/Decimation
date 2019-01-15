@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Decimation.Items.Amulets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -55,12 +56,15 @@ namespace Decimation.UI
                 Main.hoverItemName = "Amulets";
         }
 
+        public void UpdateAmulet()
+        {
+            if (!item.IsAir)
+                item.modItem.UpdateAccessory(Main.LocalPlayer, false);
+        }
+
         public override void Update(GameTime gameTime)
         {
             Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem = item;
-
-            if (!item.IsAir)
-                item.UpdateItem(0);
         }
 
         public void LoadItem(Item item)

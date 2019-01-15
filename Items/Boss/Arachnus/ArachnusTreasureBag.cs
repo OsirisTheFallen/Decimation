@@ -20,7 +20,7 @@ namespace Decimation.Items.Boss.Arachnus
             item.height = 32;
             item.rare = 9;
             item.expert = true;
-            bossBagNPC = mod.NPCType("Arachnus");
+            bossBagNPC = mod.NPCType<NPCs.Arachnus.Arachnus>();
         }
 
         public override bool CanRightClick()

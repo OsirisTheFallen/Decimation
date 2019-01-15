@@ -3,13 +3,14 @@ using System.IO;
 using Decimation.Items.Misc.Souls;
 using Decimation.Items.Placeable.DuneWorm;
 using Decimation.Items.Tools;
+using Decimation.Items.Vanity.DuneWorm;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Decimation.Items.Vanity.DuneWorm
+namespace Decimation.Items.Boss.DuneWorm
 {
     public class DuneWormTreasureBag : ModItem
     {

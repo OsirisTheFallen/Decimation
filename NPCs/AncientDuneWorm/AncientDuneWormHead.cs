@@ -4,9 +4,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Decimation.Buffs;
 using Decimation.Projectiles;
-using Decimation.Items;
 using System.IO;
 using Decimation.Items.Vanity.DuneWorm;
 using Decimation.Items.Misc.Souls;
@@ -48,7 +46,7 @@ namespace Decimation.NPCs.AncientDuneWorm
             npc.netAlways = true;
             npc.aiStyle = -1;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/The_Deserts_Call");
-            bossBag = mod.ItemType<DuneWormTreasureBag>();
+            //bossBag = mod.ItemType<DuneWormTreasureBag>();
 
             // Speed
             npc.localAI[1] = 0;
@@ -69,17 +67,29 @@ namespace Decimation.NPCs.AncientDuneWorm
 
                 if (npc.life <= npc.lifeMax * 0.15f && !NPC.AnyNPCs(mod.NPCType<AncientTombCrawlerHead>()) && !spawnedAncientTombCrawler)
                 {
-                    NPC.SpawnOnPlayer(npc.target, mod.NPCType<AncientTombCrawlerHead>());
+                    if (Main.netMode != 1)
+                        NPC.SpawnOnPlayer(npc.target, mod.NPCType<AncientTombCrawlerHead>());
                     spawnedAncientTombCrawler = true;
                 }
 
                 // Latest tile
                 npc.ai[1] = Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].type;
             }
+            else
+            {
+                npc.velocity.Y = npc.velocity.Y - 0.04f;
+                if (npc.timeLeft > 10)
+                {
+                    npc.timeLeft = 10;
+                }
+            }
         }
 
         private bool CheckDispawn()
         {
+            if (npc.ai[2] == 1)
+                return true;
+
             // check active
             bool playersActive = false;
             // check death
@@ -93,10 +103,6 @@ namespace Decimation.NPCs.AncientDuneWorm
             if (!Main.player[npc.target].ZoneDesert || npc.ai[2] == 1 || !playersActive || playersDead)
             {
                 npc.ai[2] = 1;
-                npc.velocity = new Vector2(0, 15);
-                npc.rotation = (int)(Math.PI * 3) / 2;
-                npc.netUpdate = true;
-                npc.timeLeft = 10;
                 return true;
             }
 
@@ -113,7 +119,7 @@ namespace Decimation.NPCs.AncientDuneWorm
 
         private void SummonSandnado()
         {
-            if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].type == 0 && npc.ai[1] == TileID.Sand)
+            if (Main.tile[(int)npc.Center.X / 16, (int)npc.Center.Y / 16].type == 0 && npc.ai[1] == TileID.Sand && Main.netMode != 1)
                 Projectile.NewProjectile(npc.Center, new Vector2(0, 0), ProjectileID.SandnadoHostile, 15, 10f);
         }
 
@@ -154,10 +160,11 @@ namespace Decimation.NPCs.AncientDuneWorm
                 Vector2 explosionPos = new Vector2(npc.Center.X / 16, npc.Center.Y / 16);
                 int ammoniteNbre = Main.rand.Next(5, 9);
 
-                for (int i = 0; i < ammoniteNbre; i++)
-                {
-                    Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(8, 15)), mod.ProjectileType<Ammonite>(), 15, 5f);
-                }
+                if (Main.netMode != 1)
+                    for (int i = 0; i < ammoniteNbre; i++)
+                    {
+                        Projectile.NewProjectile(npc.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(8, 15)), mod.ProjectileType<Ammonite>(), 15, 5f);
+                    }
             }
         }
 
