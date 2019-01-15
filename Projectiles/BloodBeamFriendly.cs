@@ -1,4 +1,5 @@
 ﻿using Decimation.Buffs.Debuffs;
+using Decimation.Dusts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Decimation.Projectiles
         {
             projectile.velocity.Y += (60 - projectile.timeLeft) * 0.005f;
 
-            Dust.NewDust(projectile.position, 26, 26, DustID.SomethingRed);
+            Dust.NewDust(projectile.position, 26, 26, mod.DustType<Blood>());
         }
     }
 }

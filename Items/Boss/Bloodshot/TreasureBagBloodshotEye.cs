@@ -15,9 +15,9 @@ namespace Decimation.Items.Boss.Bloodshot
 {
     public class TreasureBagBloodshotEye : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Treasure Bag");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
         }
         public override void SetDefaults()
@@ -36,9 +36,9 @@ namespace Decimation.Items.Boss.Bloodshot
         }
 
         public override void OpenBossBag(Player player)
-        {                                         
-            player.QuickSpawnItem(mod.ItemType<BloodiedEssence>(), Main.rand.Next(35, 51));	
-			player.QuickSpawnItem(mod.ItemType<NecrosisStone>());
+        {
+            player.QuickSpawnItem(mod.ItemType<BloodiedEssence>(), Main.rand.Next(35, 51));
+            player.QuickSpawnItem(mod.ItemType<NecrosisStone>());
 
             int random = Main.rand.Next(3);
             int weapon = 0;
@@ -46,10 +46,10 @@ namespace Decimation.Items.Boss.Bloodshot
             switch (random)
             {
                 case 0:
-                    //weapon = mod.ItemType<VampiricShiv>();
+                    weapon = mod.ItemType<VampiricShiv>();
                     break;
                 case 1:
-                    //weapon = mod.ItemType<Umbra>();
+                    weapon = mod.ItemType<Umbra>();
                     break;
                 case 2:
                     weapon = mod.ItemType<BloodStream>();
@@ -58,6 +58,8 @@ namespace Decimation.Items.Boss.Bloodshot
                     Main.NewText("Unexpected error in Bloodshot Eye drops: weapon drop random is out of range (" + random + ").", Color.Red);
                     break;
             }
+
+            player.QuickSpawnItem(weapon);
         }
     }
 }

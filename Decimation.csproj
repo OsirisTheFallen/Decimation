@@ -84,6 +84,7 @@
     <Compile Include="Buffs\Buffs\Werepire.cs" />
     <Compile Include="DecimationPlayer.cs" />
     <Compile Include="DecimationWorld.cs" />
+    <Compile Include="Dusts\Blood.cs" />
     <Compile Include="Items\Accessories\CrystalSkull.cs" />
     <Compile Include="Items\Accessories\DeadeyesQuiver.cs" />
     <Compile Include="Items\Accessories\EnchantedFocuser.cs" />
@@ -187,6 +188,8 @@
     <Compile Include="Projectiles\BlastofShadowFlame.cs" />
     <Compile Include="Projectiles\BloodBeam.cs" />
     <Compile Include="Projectiles\BloodBeamFriendly.cs" />
+    <Compile Include="Projectiles\BloodClot.cs" />
+    <Compile Include="Projectiles\BloodClotSmall.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
     <Compile Include="Projectiles\RasGazeLaser.cs" />
