@@ -97,7 +97,7 @@ namespace Decimation.NPCs
                 }
             }
 
-            return validBlockCount >= 15;
+            return validBlockCount >= 15 && Main.hardMode;
         }
     }
 }

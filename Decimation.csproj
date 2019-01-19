@@ -201,6 +201,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="References.cs" />
     <Compile Include="Structures\ShrineoftheMoltenOne.cs" />
+    <Compile Include="Tiles\Basalt.cs" />
     <Compile Include="Tiles\ChlorophyteAnvil.cs" />
     <Compile Include="Tiles\DenziumOre.cs" />
     <Compile Include="Tiles\DuneWormTrophy.cs" />
