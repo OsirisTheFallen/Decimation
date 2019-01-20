@@ -24,6 +24,7 @@ namespace Decimation
             downedDuneWorm = false;
             downedArachnus = false;
         }
+
         public override TagCompound Save()
         {
             var downed = new List<string>();

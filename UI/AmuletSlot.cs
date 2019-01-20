@@ -60,16 +60,19 @@ namespace Decimation.UI
         {
             if (!item.IsAir)
                 item.modItem.UpdateAccessory(Main.LocalPlayer, false);
-        }
-
-        public override void Update(GameTime gameTime)
-        {
             Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem = item;
+            Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletOwner = Main.LocalPlayer.name;
         }
 
         public void LoadItem(Item item)
         {
             this.item = item;
+        }
+
+        public void UnLoad()
+        {
+            item = new Item();
+            item.SetDefaults(0);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Decimation
         public bool endlessPouchofLifeEquipped = false;
         public bool graniteLinedTunicEquipped = false;
         public bool necrosisStoneEquipped = false;
+        public bool vampire = false;
 
         public bool isInCombat = false;
         public uint combatTime = 0;
@@ -62,6 +63,7 @@ namespace Decimation
             endlessPouchofLifeEquipped = false;
             graniteLinedTunicEquipped = false;
             necrosisStoneEquipped = false;
+            vampire = false;
 
             if (combatTime > 360)
             {
@@ -83,19 +85,26 @@ namespace Decimation
             }
         }
 
+        public string amuletOwner = "";
+
         public override TagCompound Save()
         {
+            Decimation.amuletSlotState.UnLoad();
+
             return new TagCompound() {
-                {"amuletSlotItem", ItemIO.Save(amuletSlotItem) }
+                {"amuletSlotItem", ItemIO.Save(amuletSlotItem) },
+                {"amuletSlotItemOwner", amuletOwner }
             };
         }
 
         public override void Load(TagCompound tag)
         {
             amuletSlotItem = ItemIO.Load(tag.GetCompound("amuletSlotItem"));
+            amuletOwner = tag.GetString("amuletSlotItemOwner");
 
             // Load to slot
-            Decimation.amuletSlotState.LoadItem(amuletSlotItem);
+            if (amuletOwner == player.name)
+                Decimation.amuletSlotState.LoadItem(amuletSlotItem);
         }
 
         // FIND AN ALTERNATIVE! THIS METHOD DOESN'T GET CALLED WITH ALL THE WEAPONS
@@ -154,6 +163,16 @@ namespace Decimation
             base.UpdateVanityAccessories();
         }
 
+        public override void FrameEffects()
+        {
+            if (vampire)
+            {
+                player.head = 124;
+                player.body = 85;
+                player.legs = 72;
+            }
+        }
+
         public override void PostUpdate()
         {
             oldStatDefense = player.statDefense;
@@ -172,8 +191,6 @@ namespace Decimation
                 combatTime++;
                 enchantedHeartDropTime++;
             }
-
-
 
             base.PostUpdate();
         }
