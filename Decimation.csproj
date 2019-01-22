@@ -85,8 +85,11 @@
     <Compile Include="DecimationPlayer.cs" />
     <Compile Include="DecimationWorld.cs" />
     <Compile Include="Dusts\Blood.cs" />
+    <Compile Include="Items\Accessories\AlucardPendant.cs" />
+    <Compile Include="Items\Accessories\CelestialTransmogrifier.cs" />
     <Compile Include="Items\Accessories\CrystalSkull.cs" />
     <Compile Include="Items\Accessories\DeadeyesQuiver.cs" />
+    <Compile Include="Items\Accessories\DraculaPendant.cs" />
     <Compile Include="Items\Accessories\EnchantedFocuser.cs" />
     <Compile Include="Items\Accessories\EnergyFocuser.cs" />
     <Compile Include="Items\Accessories\GraniteLinedTunic.cs" />
