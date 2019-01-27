@@ -10,7 +10,8 @@ namespace Decimation.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives Vampire debuff\n" +
+            Tooltip.SetDefault("Dont tread under the suns gaze!\n\n" +
+                "Gives Vampire debuff\n" +
                 "Bats will be friendly\n" +
                 "You will burn at sun"
                 );

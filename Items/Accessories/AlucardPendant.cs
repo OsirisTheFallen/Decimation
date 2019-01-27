@@ -12,7 +12,8 @@ namespace Decimation.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives Vampire buff\n"
+            Tooltip.SetDefault("Stronger than your average vampire\n" +
+                "Gives Vampire buff\n"
                 + "Bats will be friendly"
                 );
         }

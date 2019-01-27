@@ -12,7 +12,8 @@ namespace Decimation.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives Werewolf buff\n"
+            Tooltip.SetDefault("Change form on a whim\n\n"
+                + "Gives Werewolf buff\n"
                 + "Transforms holder into merfolk when entering water\n"
                 + "Gives Celestial Stone effects\n"
                 + "Bats will be friendly"
