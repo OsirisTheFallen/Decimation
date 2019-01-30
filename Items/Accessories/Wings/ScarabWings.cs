@@ -12,6 +12,11 @@ namespace Decimation.Items.Accessories.Wings
     [AutoloadEquip(EquipType.Wings)]
     class ScarabWings : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("Blessed by the sun");
+        }
+
         public override void SetDefaults()
         {
             item.width = 26;

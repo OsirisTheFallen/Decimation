@@ -175,6 +175,7 @@
     <Compile Include="Items\Weapons\TitanicPike.cs" />
     <Compile Include="Items\Weapons\TitanicRepeater.cs" />
     <Compile Include="Items\Ammo\TitanicStyngerBolt.cs" />
+    <Compile Include="Items\Weapons\VampiricEdge.cs" />
     <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormBody.cs" />
     <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormHead.cs" />
     <Compile Include="NPCs\AncientDuneWorm\AncientDuneWormTail.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Projectiles\StingerM.cs" />
     <Compile Include="Projectiles\TitanicPikeProjectile.cs" />
     <Compile Include="Projectiles\TitanicStyngerBolt.cs" />
+    <Compile Include="Projectiles\Tooth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="References.cs" />
     <Compile Include="Structures\ShrineoftheMoltenOne.cs" />
