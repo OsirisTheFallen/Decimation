@@ -1,4 +1,6 @@
-﻿using Decimation.Projectiles;
+﻿using Decimation.Items.Misc.Souls;
+using Decimation.Items.Weapons.Bloodshot;
+using Decimation.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -47,6 +49,27 @@ namespace Decimation.Items.Weapons
             timeToShoot = shootDelay;
 
             return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.BloodButcherer);
+            recipe.AddIngredient(mod.ItemType<VampiricShiv>());
+            recipe.AddIngredient(mod.ItemType<SoulofTime>(), 10);
+            recipe.AddIngredient(ItemID.SoulofNight, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.LightsBane);
+            recipe.AddIngredient(mod.ItemType<VampiricShiv>());
+            recipe.AddIngredient(mod.ItemType<SoulofTime>(), 10);
+            recipe.AddIngredient(ItemID.SoulofNight, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

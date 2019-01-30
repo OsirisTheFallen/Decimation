@@ -35,10 +35,6 @@ namespace Decimation.Items.Accessories.Wings
                 Projectile.NewProjectile(player.Center, new Microsoft.Xna.Framework.Vector2(0, 0), mod.ProjectileType<Ember>(), 25, 5, player.whoAmI);
         }
 
-        public override void UpdateEquip(Player player)
-        {
-        }
-
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
             ascentWhenFalling = 0.85f;
