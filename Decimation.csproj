@@ -96,6 +96,7 @@
     <Compile Include="Items\Accessories\LightweightGlove.cs" />
     <Compile Include="Items\Accessories\ShinySentinel.cs" />
     <Compile Include="Items\Accessories\TideTurner.cs" />
+    <Compile Include="Items\Accessories\Wings\ScarabWings.cs" />
     <Compile Include="Items\Ammo\SiphonArrow.cs" />
     <Compile Include="Items\Amulets\Amulet.cs" />
     <Compile Include="Items\Amulets\BuildersAmulet.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Items\Boss\Bloodshot\BloodiedMaw.cs" />
     <Compile Include="Items\Boss\DuneWorm\DesertDessert.cs" />
     <Compile Include="Items\Boss\DuneWorm\DuneWormTreasureBag.cs" />
+    <Compile Include="Items\Misc\CondensedSouls\CondensedSpite.cs" />
     <Compile Include="Items\Misc\EnchantedHeart.cs" />
     <Compile Include="Items\Placeable\TalonianPillar.cs" />
     <Compile Include="Items\Potions\Antidote.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="Projectiles\BloodBeamFriendly.cs" />
     <Compile Include="Projectiles\BloodClot.cs" />
     <Compile Include="Projectiles\BloodClotSmall.cs" />
+    <Compile Include="Projectiles\Ember.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
     <Compile Include="Projectiles\RasGazeLaser.cs" />

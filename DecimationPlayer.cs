@@ -26,6 +26,7 @@ namespace Decimation
 
         public bool isInCombat = false;
         public uint combatTime = 0;
+        public uint counter = 0;
 
         // Amulet slot
         public Item amuletSlotItem;
@@ -90,6 +91,9 @@ namespace Decimation
 
             dash = 0;
             dashDamages = 0;
+
+            if (counter > uint.MaxValue - (uint.MaxValue % 60))
+                counter = 0;
         }
 
         public string amuletOwner = "";
@@ -205,6 +209,8 @@ namespace Decimation
                 combatTime++;
                 enchantedHeartDropTime++;
             }
+
+            counter++;
 
             base.PostUpdate();
         }
