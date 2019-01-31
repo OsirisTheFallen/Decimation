@@ -12,7 +12,6 @@ namespace Decimation.Items.Accessories
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Not one of ya’s going to survive this!\n" +
-                "+3 defense\n" +
                 "Deals the same amount of damage as held item\n" +
                 "Increase underwater mobility\n" +
                 "+10% chance to dodge attacks when charging");

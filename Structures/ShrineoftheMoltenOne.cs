@@ -407,8 +407,9 @@ namespace Decimation.Structures
                 }
             }
 
-            WorldGen.PlaceTile(px + 46, py - 117 + 19, Decimation.decimation.TileType("ShrineAltar"));
-            WorldGen.PlaceTile(px + 150, py - 117 + 19, Decimation.decimation.TileType("ShrineAltar"));
+            WorldGen.PlaceTile(px + 46, py - 117 + 19, TileID.WorkBenches, false, false, -1, 14);
+            WorldGen.PlaceTile(px + 151, py - 117 + 19, TileID.WorkBenches, false, false, -1, 14);
+            WorldGen.PlaceTile(px + 98, py - 117 + 53, Decimation.decimation.TileType("ShrineAltar"));
             WorldGen.PlaceObject(px + 60, py - 117 - 16, Decimation.decimation.TileType("LockedShrineDoor"));
             WorldGen.PlaceObject(px + 139, py - 117 - 16, Decimation.decimation.TileType("LockedShrineDoor"));
             WorldGen.PlaceObject(px + 63, py - 117 + 26, Decimation.decimation.TileType("LockedShrineDoor"));
