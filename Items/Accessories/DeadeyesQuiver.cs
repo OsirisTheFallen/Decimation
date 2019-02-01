@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Decimation;
+using Decimation.Items.Misc.Souls;
+using Decimation.Items.Misc;
 
 namespace Decimation.Items.Accessories
 {
@@ -11,7 +13,7 @@ namespace Decimation.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Turns wooden arrows into ichor arrows\n+16% ranged damage\n+15% arrow and bullet velocity\n15% chance not to consume ammo\nTurns musket balls into chlorophyte bullets\n+2% increased ranged crit chance");
+            Tooltip.SetDefault("Turns wooden arrows into ichor arrows and turns musket balls into chlorophyte bullets\n+16% ranged damage\n+15% arrow and bullet velocity\n15% chance not to consume ammo\n+2% increased ranged crit chance");
             DisplayName.SetDefault("Deadeye's Quiver");
         }
 
@@ -27,12 +29,13 @@ namespace Decimation.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe r = new ModRecipe(mod);
-            r.AddIngredient(mod.ItemType("JestersQuiver"));
-            r.AddIngredient(mod.ItemType("SoulofKight"));
+            r.AddIngredient(mod.ItemType<JestersQuiver>());
+            //r.AddIngredient(mod.ItemType<SoulofKight>());
+            r.AddIngredient(mod.ItemType<SoulofSpite>(), 15);
             r.AddIngredient(ItemID.SoulofSight, 15);
             r.AddIngredient(ItemID.SoulofFright, 15);
-            r.AddIngredient(mod.ItemType("EndlessPouchOfLife"));
-            r.AddIngredient(mod.ItemType("RedThread"), 5);
+            r.AddIngredient(mod.ItemType<EndlessPouchofLife>());
+            r.AddIngredient(mod.ItemType<RedThread>(), 5);
             r.AddIngredient(ItemID.FlaskofIchor, 5);
             r.AddIngredient(ItemID.BlackDye, 3);
             r.AddIngredient(ItemID.RedDye, 3);
