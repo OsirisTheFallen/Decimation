@@ -77,10 +77,10 @@ namespace Decimation.NPCs.AncientDuneWorm
             }
             else
             {
-                npc.velocity.Y = npc.velocity.Y - 0.04f;
-                if (npc.timeLeft > 10)
+                npc.velocity.Y = npc.velocity.Y + 0.04f;
+                if (npc.timeLeft > 600)
                 {
-                    npc.timeLeft = 10;
+                    npc.timeLeft = 600;
                 }
             }
         }

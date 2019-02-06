@@ -189,6 +189,7 @@
     <Compile Include="NPCs\CoreSpider.cs" />
     <Compile Include="NPCs\CoreSpiderWall.cs" />
     <Compile Include="NPCs\LivingMagma.cs" />
+    <Compile Include="NPCs\NecroCaster.cs" />
     <Compile Include="Projectiles\Ammonite.cs" />
     <Compile Include="Projectiles\ArachnusFireball.cs" />
     <Compile Include="Projectiles\ArchingSolarBlade.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Projectiles\BloodBeamFriendly.cs" />
     <Compile Include="Projectiles\BloodClot.cs" />
     <Compile Include="Projectiles\BloodClotSmall.cs" />
+    <Compile Include="Projectiles\Bone.cs" />
     <Compile Include="Projectiles\Ember.cs" />
     <Compile Include="Projectiles\MoltenStyngerBolt.cs" />
     <Compile Include="Projectiles\Pebble.cs" />
