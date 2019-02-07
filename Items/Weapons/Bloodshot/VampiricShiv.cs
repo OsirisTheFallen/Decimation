@@ -11,7 +11,7 @@ namespace Decimation.Items.Weapons.Bloodshot
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vampiric Shiv");
-            Tooltip.SetDefault("Heal 10% of damages inflicted");
+            Tooltip.SetDefault("Heal 10% of damage dealt");
         }
         public override void SetDefaults()
         {
