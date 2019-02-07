@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,6 +20,7 @@ namespace Decimation.Items.Accessories
         {
             player.statDefense += 2;
         }
+
 
         public override void AddRecipes()
         {

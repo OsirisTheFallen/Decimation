@@ -13,7 +13,7 @@ namespace Decimation.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Crystal Skull");
-			Tooltip.SetDefault("It seems that this skull has been enchanted. (WIP)");
+			Tooltip.SetDefault("It seems that this skull has been enchanted.");
 		}
 		public override void SetDefaults()
         {
@@ -39,7 +39,8 @@ namespace Decimation.Items.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.thorns = 1f;
-		}
+            player.AddBuff(BuffID.Thorns, 1);
+            Lighting.AddLight(player.Center, new Vector3(0.9f * 0.6f, 0.9f * 0.1f, 0.9f));
+        }
 	}
 }
