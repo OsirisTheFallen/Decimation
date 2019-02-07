@@ -15,7 +15,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileSolid[Type] = false;
-            Main.tileLavaDeath[Type] = true;
+            Main.tileLavaDeath[Type] = false;
             Main.tileNoSunLight[Type] = true;
             TileObjectData.newTile.Width = 2;
             TileObjectData.newTile.Height = 3;

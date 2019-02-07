@@ -17,7 +17,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             Main.tileBlockLight[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileNoAttach[Type] = true;
-            Main.tileLavaDeath[Type] = true;
+            Main.tileLavaDeath[Type] = false;
             TileID.Sets.NotReallySolid[Type] = true;
             TileID.Sets.DrawsWalls[Type] = true;
             TileID.Sets.HasOutlines[Type] = true;

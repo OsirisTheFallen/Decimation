@@ -24,7 +24,7 @@ namespace Decimation.Items.Misc.Souls
             item.width = refItem.width;
             item.height = refItem.height;
             item.maxStack = 999;
-            item.value = 0;
+            item.value = 50000;
             item.rare = 1;
         }
 

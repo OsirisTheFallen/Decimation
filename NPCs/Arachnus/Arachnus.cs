@@ -111,15 +111,19 @@ namespace Decimation.NPCs.Arachnus
                         }
                     }
                 }
-
                 if (validBlockCount < 15)
                     tooFarFromShrine = true;
                 else
                     tooFarFromShrine = false;
             }
+            else
+            {
+                return npc.ai[2] == 1;
+            }
 
             return tooFarFromShrine;
         }
+
         private void CheckEnraged()
         {
             npc.ai[2] = !Main.player[npc.target].ZoneUnderworldHeight || !Collision.CanHit(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) || CheckForShrine() ? 1 : 0;

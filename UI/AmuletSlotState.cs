@@ -12,7 +12,6 @@ namespace Decimation.UI
     public class AmuletSlotState : UIState
     {
         AmuletSlot amuletSlot;
-
         public AmuletSlotState()
         {
             amuletSlot = new AmuletSlot(scale: Main.inventoryScale);
@@ -46,6 +45,11 @@ namespace Decimation.UI
         public void LoadItem(Item item)
         {
             amuletSlot.LoadItem(item);
+        }
+
+        public void UnLoad()
+        {
+            amuletSlot.UnLoad();
         }
     }
 }

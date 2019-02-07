@@ -17,19 +17,23 @@ namespace Decimation
         public static bool downedBloodshotEye = false;
         public static bool downedDuneWorm = false;
         public static bool downedArachnus = false;
+        public static bool downedWyvern = false;
 
         public override void Initialize()
         {
             downedBloodshotEye = false;
             downedDuneWorm = false;
             downedArachnus = false;
+            downedWyvern = false;
         }
+
         public override TagCompound Save()
         {
             var downed = new List<string>();
             if (downedBloodshotEye) downed.Add("downedBloodshotEye");
             if (downedDuneWorm) downed.Add("downedDuneWorm");
             if (downedArachnus) downed.Add("downedArachnus");
+            if (downedWyvern) downed.Add("downedWyvern");
             return new TagCompound  {
                 {"downed", downed},
             };
@@ -40,6 +44,7 @@ namespace Decimation
             downedBloodshotEye = downed.Contains("downedBloodshotEye");
             downedDuneWorm = downed.Contains("downedDuneWorm");
             downedArachnus = downed.Contains("downedArachnus");
+            downedWyvern = downed.Contains("downedWyvern");
         }
         public override void NetSend(BinaryWriter writer)
         {
@@ -47,6 +52,7 @@ namespace Decimation
             flags[0] = downedBloodshotEye; //+1 flag number for each new boss
             flags[1] = downedDuneWorm;
             flags[2] = downedArachnus;
+            flags[3] = downedWyvern;
             writer.Write(flags);
         }
         public override void NetReceive(BinaryReader reader)
@@ -55,6 +61,7 @@ namespace Decimation
             downedBloodshotEye = flags[0];
             downedDuneWorm = flags[1];
             downedArachnus = flags[2];
+            downedWyvern = flags[3];
         }
         public override void LoadLegacy(BinaryReader reader)
         {
@@ -65,6 +72,7 @@ namespace Decimation
                 DecimationWorld.downedBloodshotEye = ((flags & 1) != 0);
                 DecimationWorld.downedDuneWorm = ((flags & 2) != 0); //double flag numbers with each new boss
                 DecimationWorld.downedArachnus = ((flags & 4) != 0);
+                DecimationWorld.downedWyvern = ((flags & 8) != 0);
             }
             else if (loadVersion == 2)
             {
@@ -73,6 +81,7 @@ namespace Decimation
                 DecimationWorld.downedBloodshotEye = ((flags & 1) != 0);
                 DecimationWorld.downedDuneWorm = ((flags & 2) != 0);
                 DecimationWorld.downedArachnus = ((flags & 4) != 0);
+                DecimationWorld.downedWyvern = ((flags & 8) != 0);
             }
         }
 

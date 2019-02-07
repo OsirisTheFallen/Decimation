@@ -22,6 +22,8 @@ namespace Decimation.Buffs.Buffs
             player.statDefense += 2;
             player.moveSpeed *= 1.05f;
             player.meleeSpeed *= 1.05f;
+
+            player.GetModPlayer<DecimationPlayer>().vampire = true;
         }
 
         public override void Update(NPC npc, ref int buffIndex)

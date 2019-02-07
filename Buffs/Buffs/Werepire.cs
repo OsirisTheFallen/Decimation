@@ -18,6 +18,8 @@ namespace Decimation.Buffs.Buffs
         {
             player.AddBuff(BuffID.Werewolf, 1);
             player.AddBuff(mod.BuffType<Vampire>(), 1);
+
+            player.wereWolf = false;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
