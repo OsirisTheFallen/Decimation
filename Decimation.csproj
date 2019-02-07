@@ -190,6 +190,7 @@
     <Compile Include="NPCs\CoreSpiderWall.cs" />
     <Compile Include="NPCs\LivingMagma.cs" />
     <Compile Include="NPCs\NecroCaster.cs" />
+    <Compile Include="NPCs\TownNPCs\Skeleton.cs" />
     <Compile Include="Projectiles\Ammonite.cs" />
     <Compile Include="Projectiles\ArachnusFireball.cs" />
     <Compile Include="Projectiles\ArchingSolarBlade.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Projectiles\RasGazeLaser.cs" />
     <Compile Include="Projectiles\Scarab.cs" />
     <Compile Include="Projectiles\SiphonArrow.cs" />
+    <Compile Include="Projectiles\SkeletonBone.cs" />
     <Compile Include="Projectiles\StingerM.cs" />
     <Compile Include="Projectiles\TitanicPikeProjectile.cs" />
     <Compile Include="Projectiles\TitanicStyngerBolt.cs" />

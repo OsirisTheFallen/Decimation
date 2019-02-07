@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class Bone : ModProjectile
+    class SkeletonBone : ModProjectile
     {
         private float maxSpeed = 5f;
 
@@ -19,7 +19,7 @@ namespace Decimation.Projectiles
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.ranged = true;
-            projectile.hostile = true;
+            projectile.friendly = true;
             projectile.penetrate = 2;
             projectile.timeLeft = 60;
 
@@ -33,7 +33,7 @@ namespace Decimation.Projectiles
 
         public override void AI()
         {
-            if (projectile.ai[1] == 0)
+            /*if (projectile.ai[1] == 0)
             {
                 projectile.localAI[0] = 15;
 
@@ -59,7 +59,7 @@ namespace Decimation.Projectiles
             }
             else if (projectile.ai[1] == 2)
             {
-                Player target = Main.player[(int)projectile.ai[0]];
+                NPC target = NPC.get
                 Vector2 velocity = target.position - projectile.position;
 
                 float magnitude = (float)Math.Sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
@@ -72,7 +72,7 @@ namespace Decimation.Projectiles
 
                 projectile.velocity = velocity;
                 projectile.ai[1]++;
-            }
+            }*/
 
             projectile.rotation += (float)(Math.PI / projectile.localAI[0]);
         }

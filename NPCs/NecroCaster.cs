@@ -29,7 +29,7 @@ namespace Decimation.NPCs
             npc.buffImmune[BuffID.Venom] = true;
             npc.buffImmune[BuffID.ShadowFlame] = true;
             npc.value = 10000;
-
+            npc.damage = 15;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
 
@@ -41,6 +41,7 @@ namespace Decimation.NPCs
             npc.lifeMax = 220;
             npc.knockBackResist = 0.51f;
             npc.defDamage = 5;
+            npc.damage = 23;
         }
 
         public override void NPCLoot()
