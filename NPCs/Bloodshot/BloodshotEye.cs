@@ -23,6 +23,7 @@ namespace Decimation.NPCs.Bloodshot
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Bloodshot Eye");
+            Main.npcFrameCount[npc.type] = 3;
         }
 
         public override void SetDefaults()
@@ -964,6 +965,14 @@ namespace Decimation.NPCs.Bloodshot
             );
 
             return false;
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            npc.frameCounter += 1.5f;
+            if (npc.frameCounter >= 30)
+                npc.frameCounter = 0;
+            npc.frame.Y = ((int)npc.frameCounter / 10) * frameHeight;
         }
     }
 }
