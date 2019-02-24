@@ -9,6 +9,8 @@ namespace Decimation.Items.Amulets
 {
     class CrystalAmulet : Amulet
     {
+        public override AmuletClasses AmuletClass { get { return AmuletClasses.MAGE; } }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Amulet");
@@ -18,11 +20,6 @@ namespace Decimation.Items.Amulets
         {
             item.width = 28;
             item.height = 32;
-        }
-
-        public override AmuletClasses GetAmuletClass()
-        {
-            return AmuletClasses.MAGE;
         }
 
         public override void UpdateAmulet(Player player)

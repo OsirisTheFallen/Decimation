@@ -13,6 +13,11 @@ namespace Decimation.Items.Amulets
 {
     public class SlimeAmulet : Amulet
     {
+        public override AmuletClasses AmuletClass
+        {
+            get { return AmuletClasses.SUMMONER; }
+        }
+
         public override void SetAmuletDefaults()
         {
             item.width = 24;
@@ -30,11 +35,6 @@ namespace Decimation.Items.Amulets
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this, 1);
             recipe.AddRecipe();
-        }
-
-        public override AmuletClasses GetAmuletClass()
-        {
-            return AmuletClasses.SUMMONER;
         }
 
         public override List<TooltipLine> GetTooltipLines()

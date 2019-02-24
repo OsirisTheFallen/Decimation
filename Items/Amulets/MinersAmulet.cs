@@ -7,51 +7,49 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Amulets
 {
-    class BuildersAmulet : Amulet
+    class MinersAmulet : Amulet
     {
         public override AmuletClasses AmuletClass
         {
-            get { return AmuletClasses.BUILDER; }
+            get { return AmuletClasses.MINER; }
         }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Builder's Amulet");
+            DisplayName.SetDefault("Miner's Amulet");
         }
 
         public override void SetAmuletDefaults()
         {
             item.width = 28;
-            item.height = 30;
+            item.height = 32;
         }
 
         public override void UpdateAmulet(Player player)
         {
-            player.blockRange += 2;
-            player.tileSpeed *= 1.05f;
-            player.wallSpeed *= 1.05f;
-
-            Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1.05f, 0.95f, 0.55f);
+            player.pickSpeed *= 1.03f;
+            player.meleeSpeed *= 1.04f;
+            player.blockRange += 1;
+            Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1, 1, 1);
+            //Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1.05f, 0.95f, 0.55f);
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Chain, 2);
-            recipe.AddIngredient(ItemID.CopperHammer);
-            recipe.AddIngredient(ItemID.Shackle, 1);
             recipe.AddIngredient(ItemID.Torch, 10);
-            recipe.AddIngredient(ItemID.IronBar);
+            recipe.AddIngredient(ItemID.CopperPickaxe);
+            recipe.AddIngredient(ItemID.IronOre, 2);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
 
             recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Chain, 2);
-            recipe.AddIngredient(ItemID.CopperHammer);
-            recipe.AddIngredient(ItemID.Shackle, 1);
             recipe.AddIngredient(ItemID.Torch, 10);
-            recipe.AddIngredient(ItemID.LeadBar);
+            recipe.AddIngredient(ItemID.CopperPickaxe);
+            recipe.AddIngredient(ItemID.IronOre, 2);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
@@ -61,17 +59,21 @@ namespace Decimation.Items.Amulets
         {
             return new List<TooltipLine>()
             {
-                new TooltipLine(mod, "Effect", "+2 block interaction range")
+                new TooltipLine(mod, "Effect", "+3% mining speed")
                 {
-                   overrideColor = Color.ForestGreen
+                    overrideColor = Color.ForestGreen
                 },
-                new TooltipLine(mod, "Effect", "+5% tile and wall placement speed")
+                new TooltipLine(mod, "Effect", "+4% melee speed")
                 {
-                   overrideColor = Color.ForestGreen
+                    overrideColor = Color.ForestGreen
+                },
+                new TooltipLine(mod, "Effect", "+1 block interaction range")
+                {
+                    overrideColor = Color.ForestGreen
                 },
                 new TooltipLine(mod, "Effect", "Provides light")
                 {
-                   overrideColor = Color.ForestGreen
+                    overrideColor = Color.ForestGreen
                 }
             };
         }

@@ -13,6 +13,11 @@ namespace Decimation.Items.Amulets
 {
     public class FireAmulet : Amulet
     {
+        public override AmuletClasses AmuletClass
+        {
+            get { return AmuletClasses.MELEE; }
+        }
+
         public override void SetAmuletDefaults()
         {
             item.width = 28;
