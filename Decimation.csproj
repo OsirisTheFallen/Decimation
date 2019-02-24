@@ -100,6 +100,7 @@
     <Compile Include="Items\Ammo\SiphonArrow.cs" />
     <Compile Include="Items\Amulets\Amulet.cs" />
     <Compile Include="Items\Amulets\BuildersAmulet.cs" />
+    <Compile Include="Items\Amulets\CrystalAmulet.cs" />
     <Compile Include="Items\Amulets\FireAmulet.cs" />
     <Compile Include="Items\Accessories\Focuser.cs" />
     <Compile Include="Items\Accessories\JestersQuiver.cs" />
