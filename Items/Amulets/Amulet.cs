@@ -10,16 +10,13 @@ namespace Decimation.Items.Amulets
 {
     public abstract class Amulet : ModItem
     {
+        public abstract AmuletClasses AmuletClass { get; }
+
         public virtual void SetAmuletDefaults() { }
 
         public virtual void UpdateAmulet(Player player) { }
 
         public virtual List<TooltipLine> GetTooltipLines() { return new List<TooltipLine>(); }
-
-        public virtual AmuletClasses GetAmuletClass()
-        {
-            return AmuletClasses.MELEE;
-        }
 
         public sealed override void SetDefaults()
         {
@@ -38,7 +35,7 @@ namespace Decimation.Items.Amulets
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(mod, "Class", GetAmuletClass().ToString("F"))
+            tooltips.Add(new TooltipLine(mod, "Class", AmuletClass.ToString("F"))
             {
                 overrideColor = ChatManager.WaveColor(Color.Fuchsia)
             });
@@ -55,6 +52,8 @@ namespace Decimation.Items.Amulets
         THROWING,
         TANK,
         HEALER,
-        BUILDER
+        BUILDER,
+        MINER,
+        CREATOR
     }
 }

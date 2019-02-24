@@ -10,15 +10,15 @@ namespace Decimation.Items.Amulets
 {
     class HealtyAmulet : Amulet
     {
+        public override AmuletClasses AmuletClass
+        {
+            get { return AmuletClasses.HEALER; }
+        }
+
         public override void SetAmuletDefaults()
         {
             item.width = 28;
             item.height = 30;
-        }
-
-        public override AmuletClasses GetAmuletClass()
-        {
-            return AmuletClasses.HEALER;
         }
 
         public override void UpdateAmulet(Player player)

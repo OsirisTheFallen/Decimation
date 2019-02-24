@@ -10,15 +10,15 @@ namespace Decimation.Items.Amulets
 {
     class GraniteAmulet : Amulet
     {
+        public override AmuletClasses AmuletClass
+        {
+            get { return AmuletClasses.TANK; }
+        }
+
         public override void SetAmuletDefaults()
         {
             item.width = 28;
             item.height = 30;
-        }
-
-        public override AmuletClasses GetAmuletClass()
-        {
-            return AmuletClasses.TANK;
         }
 
         public override void UpdateAmulet(Player player)

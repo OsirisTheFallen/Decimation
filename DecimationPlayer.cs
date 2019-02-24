@@ -222,6 +222,9 @@ namespace Decimation
             if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && amuletSlotItem.type != mod.ItemType<MarbleAmulet>())
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
+
+            if (amuletSlotItem.type == mod.ItemType<CrystalAmulet>())
+                CrystalAmuletEffect();
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
@@ -284,6 +287,9 @@ namespace Decimation
                         break;
                     }
             }
+
+            if (amuletSlotItem.type == mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
+                CrystalAmuletEffect();
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
@@ -322,6 +328,9 @@ namespace Decimation
                         break;
                     }
             }
+
+            if (amuletSlotItem.type == mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
+                CrystalAmuletEffect();
         }
 
         public int dash = 0;
@@ -752,5 +761,25 @@ namespace Decimation
             }
         }
 
+        private void CrystalAmuletEffect()
+        {
+            int shardNumber = Main.rand.Next(5, 11);
+            float angleDifference = (float)(Math.PI * 2) / shardNumber;
+            float speed = 5f;
+            float currentAngle = 0;
+
+            for (int i = 0; i < shardNumber; i++)
+            {
+                float angle = currentAngle - 0.5f + (float) Main.rand.NextDouble();
+                float positionX = player.position.X;
+                float positionY = player.position.Y;
+                float speedX = (float)Math.Cos(currentAngle) * speed;
+                float speedY = (float)Math.Sin(currentAngle) * speed;
+
+                Projectile.NewProjectile(player.Center, new Vector2(speedX, speedY), ProjectileID.CrystalShard, 20, 5, player.whoAmI);
+
+                currentAngle += angleDifference;
+            }
+        }
     }
 }

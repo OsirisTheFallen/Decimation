@@ -9,15 +9,15 @@ namespace Decimation.Items.Amulets
 {
     class FrostAmulet : Amulet
     {
+        public override AmuletClasses AmuletClass
+        {
+            get { return AmuletClasses.RANGER; }
+        }
+
         public override void SetAmuletDefaults()
         {
             item.width = 28;
             item.height = 32;
-        }
-
-        public override AmuletClasses GetAmuletClass()
-        {
-            return AmuletClasses.RANGER;
         }
 
         public override void UpdateAmulet(Player player)
