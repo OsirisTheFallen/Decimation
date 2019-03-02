@@ -119,8 +119,10 @@
     <Compile Include="Items\Boss\Bloodshot\BloodiedMaw.cs" />
     <Compile Include="Items\Boss\DuneWorm\DesertDessert.cs" />
     <Compile Include="Items\Boss\DuneWorm\DuneWormTreasureBag.cs" />
+    <Compile Include="Items\Misc\BloodyLunarTablet.cs" />
     <Compile Include="Items\Misc\CondensedSouls\CondensedSpite.cs" />
     <Compile Include="Items\Misc\EnchantedHeart.cs" />
+    <Compile Include="Items\Misc\LunarTablet.cs" />
     <Compile Include="Items\Misc\RedThread.cs" />
     <Compile Include="Items\Placeable\TalonianPillar.cs" />
     <Compile Include="Items\Potions\Antidote.cs" />

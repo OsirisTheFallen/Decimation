@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Decimation.Items.Boss.DuneWorm;
+using Decimation.Items.Misc;
 using Decimation.Items.Misc.Souls;
 using Decimation.Projectiles;
 using Terraria;
@@ -128,10 +129,10 @@ namespace Decimation.NPCs.TownNPCs
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.Skull);
             nextSlot++;
-            /*shop.item[nextSlot].SetDefaults(mod.ItemType<LunarTablet>());
+            shop.item[nextSlot].SetDefaults(mod.ItemType<LunarTablet>());
             nextSlot++;
             shop.item[nextSlot].SetDefaults(mod.ItemType<BloodyLunarTablet>());
-            nextSlot++;*/
+            nextSlot++;
 
             if (Main.hardMode)
             {
