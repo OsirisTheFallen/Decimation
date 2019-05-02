@@ -31,8 +31,8 @@ namespace Decimation
         public static ArrayList styngerBolts = new ArrayList()
         {
             ProjectileID.Stynger,
-            Decimation.decimation.ProjectileType<MoltenStyngerBolt>(),
-            Decimation.decimation.ProjectileType<TitanicStyngerBolt>()
+            Decimation.Instance.ProjectileType<MoltenStyngerBolt>(),
+            Decimation.Instance.ProjectileType<TitanicStyngerBolt>()
         };
     }
 }

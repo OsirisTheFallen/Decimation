@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Decimation.Items.Amulets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameInput;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace Decimation.UI
 {
-    class AmuletSlot : UIElement
+    public class AmuletSlot : UIElement
     {
-        internal Item item;
+        public Item item;
         private int context;
         private float scale;
+        private bool newItem = false;
         internal Func<Item, bool> validItem;
 
         public AmuletSlot(int context = ItemSlot.Context.BankItem, float scale = 1f)
@@ -44,11 +39,11 @@ namespace Decimation.UI
                 Main.LocalPlayer.mouseInterface = true;
                 if (validItem == null || validItem(Main.mouseItem))
                 {
-                    // Handle handles all the click and hover actions based on the context.
+                    newItem = true;
                     ItemSlot.Handle(ref item, context);
                 }
             }
-            // Draw draws the slot itself and Item. Depending on context, the color will change, as will drawing other things like stack counts.
+
             ItemSlot.Draw(spriteBatch, ref item, context, rectangle.TopLeft());
             Main.inventoryScale = oldScale;
 
@@ -56,23 +51,20 @@ namespace Decimation.UI
                 Main.hoverItemName = "Amulets";
         }
 
-        public void UpdateAmulet()
+        public void UpdateAmulet(DecimationPlayer player)
         {
             if (!item.IsAir)
                 item.modItem.UpdateAccessory(Main.LocalPlayer, false);
-            Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem = item;
-            Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletOwner = Main.LocalPlayer.name;
-        }
 
-        public void LoadItem(Item item)
-        {
-            this.item = item;
-        }
-
-        public void UnLoad()
-        {
-            item = new Item();
-            item.SetDefaults(0);
+            if (!newItem)
+            {
+                item = player.amuletSlotItem;
+            }
+            else
+            {
+                newItem = false;
+                player.amuletSlotItem = item;
+            }
         }
     }
 }

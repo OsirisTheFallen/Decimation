@@ -9,22 +9,23 @@ using Decimation.UI;
 using System.Collections.Generic;
 using Terraria.UI;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Decimation
 {
     public class Decimation : Mod
     {
-        public static Mod decimation;
+        public static Decimation Instance { set; get; }
 
         public static List<int> amulets;
 
         public static AmuletSlotState amuletSlotState;
         private UserInterface amuletSlotInterface;
 
+        internal UserInterface skeletonUserInterface;
+
         public Decimation()
         {
-            decimation = this;
+            Instance = this;
 
             Properties = new ModProperties()
             {
@@ -44,6 +45,7 @@ namespace Decimation
                 amuletSlotState.Activate();
                 amuletSlotInterface = new UserInterface();
                 amuletSlotInterface.SetState(amuletSlotState);
+                skeletonUserInterface = new UserInterface();
             }
         }
 
@@ -55,19 +57,32 @@ namespace Decimation
 
             if (amuletSlotInterface != null)
                 amuletSlotInterface.Update(gameTime);
+
+            if (skeletonUserInterface != null)
+                skeletonUserInterface.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-            if (MouseTextIndex != -1)
+            int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+            if (inventoryIndex != -1)
             {
-                layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
+                layers.Insert(inventoryIndex + 1, new LegacyGameInterfaceLayer(
                     "Decimation: Amulet Slot",
                     delegate
                     {
                         if (Main.playerInventory)
                             amuletSlotInterface.Draw(Main.spriteBatch, new GameTime());
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
+
+                layers.Insert(inventoryIndex + 2, new LegacyGameInterfaceLayer(
+                    "Decimation: Skeleton UI",
+                    delegate
+                    {
+                        skeletonUserInterface.Draw(Main.spriteBatch, new GameTime());
                         return true;
                     },
                     InterfaceScaleType.UI)

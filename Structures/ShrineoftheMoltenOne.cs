@@ -17,11 +17,11 @@ namespace Decimation.Structures
         private readonly Dictionary<byte, int> _tileSet = new Dictionary<byte, int>()
         {
             {1, 0},
-            {2, Decimation.decimation.TileType("DeadEarth")},
-            {3, Decimation.decimation.TileType("ShrineBrick")},
-            {5, Decimation.decimation.TileType("RedHotSpike")},
+            {2, Decimation.Instance.TileType("DeadEarth")},
+            {3, Decimation.Instance.TileType("ShrineBrick")},
+            {5, Decimation.Instance.TileType("RedHotSpike")},
             {4, TileID.Platforms},
-            {6, Decimation.decimation.TileType("ShrineAltar")}
+            {6, Decimation.Instance.TileType("ShrineAltar")}
         };
 
         private readonly Dictionary<byte, int> _wallSet = new Dictionary<byte, int>()
@@ -409,11 +409,11 @@ namespace Decimation.Structures
 
             WorldGen.PlaceTile(px + 46, py - 117 + 19, TileID.WorkBenches, false, false, -1, 14);
             WorldGen.PlaceTile(px + 151, py - 117 + 19, TileID.WorkBenches, false, false, -1, 14);
-            WorldGen.PlaceTile(px + 98, py - 117 + 53, Decimation.decimation.TileType("ShrineAltar"));
-            WorldGen.PlaceObject(px + 60, py - 117 - 16, Decimation.decimation.TileType("LockedShrineDoor"));
-            WorldGen.PlaceObject(px + 139, py - 117 - 16, Decimation.decimation.TileType("LockedShrineDoor"));
-            WorldGen.PlaceObject(px + 63, py - 117 + 26, Decimation.decimation.TileType("LockedShrineDoor"));
-            WorldGen.PlaceObject(px + 135, py - 117 + 26, Decimation.decimation.TileType("LockedShrineDoor"));
+            WorldGen.PlaceTile(px + 98, py - 117 + 53, Decimation.Instance.TileType("ShrineAltar"));
+            WorldGen.PlaceObject(px + 60, py - 117 - 16, Decimation.Instance.TileType("LockedShrineDoor"));
+            WorldGen.PlaceObject(px + 139, py - 117 - 16, Decimation.Instance.TileType("LockedShrineDoor"));
+            WorldGen.PlaceObject(px + 63, py - 117 + 26, Decimation.Instance.TileType("LockedShrineDoor"));
+            WorldGen.PlaceObject(px + 135, py - 117 + 26, Decimation.Instance.TileType("LockedShrineDoor"));
             WorldGen.PlaceBanner(px + 53, py - 117 + 21, TileID.Banners, 21);
             WorldGen.PlaceBanner(px + 145, py - 117 + 21, TileID.Banners, 21);
             WorldGen.PlaceBanner(px + 158, py - 117 + 21, TileID.Banners, 21);
@@ -458,7 +458,7 @@ namespace Decimation.Structures
 
                     if (d1 + d2 >= 2 * a - 10 && d1 + d2 <= 2 * a + 10)
                     {
-                        WorldGen.PlaceTile(X + x, Y + y, Decimation.decimation.TileType("Basalt"), false, true);
+                        WorldGen.PlaceTile(X + x, Y + y, Decimation.Instance.TileType("Basalt"), false, true);
                         if (Main.rand.Next(60) == 0)
                             WorldGen.TileRunner(X + x, Y + y, 5, 2, TileID.Obsidian);
 

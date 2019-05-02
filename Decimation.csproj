@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Decimation</RootNamespace>
     <AssemblyName>Decimation</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +47,9 @@
     <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Microsoft.Xna.Framework.Xact.dll</HintPath>
+    </Reference>
+    <Reference Include="ReLogicWindows">
+      <HintPath>..\..\References\ReLogicWindows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -119,6 +123,7 @@
     <Compile Include="Items\Boss\Bloodshot\BloodiedMaw.cs" />
     <Compile Include="Items\Boss\DuneWorm\DesertDessert.cs" />
     <Compile Include="Items\Boss\DuneWorm\DuneWormTreasureBag.cs" />
+    <Compile Include="Items\CursedItem.cs" />
     <Compile Include="Items\Misc\BloodyLunarTablet.cs" />
     <Compile Include="Items\Misc\CondensedSouls\CondensedSpite.cs" />
     <Compile Include="Items\Misc\EnchantedHeart.cs" />
@@ -193,6 +198,7 @@
     <Compile Include="NPCs\Bloodshot\MangledServant.cs" />
     <Compile Include="NPCs\CoreSpider.cs" />
     <Compile Include="NPCs\CoreSpiderWall.cs" />
+    <Compile Include="NPCs\CursedNPC.cs" />
     <Compile Include="NPCs\LivingMagma.cs" />
     <Compile Include="NPCs\NecroCaster.cs" />
     <Compile Include="NPCs\TownNPCs\Skeleton.cs" />
@@ -235,6 +241,8 @@
     <Compile Include="Tiles\TitanForge.cs" />
     <Compile Include="UI\AmuletSlot.cs" />
     <Compile Include="UI\AmuletSlotState.cs" />
+    <Compile Include="UI\VanillaItemSlotWrapper.cs" />
+    <Compile Include="UI\SkeletonUI.cs" />
     <Compile Include="Walls\DenziumWall.cs" />
   </ItemGroup>
   <ItemGroup>
