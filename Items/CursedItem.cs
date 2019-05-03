@@ -4,6 +4,7 @@ using System.IO;
 using Decimation.NPCs;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI.Chat;
@@ -16,12 +17,15 @@ namespace Decimation.Items
         public bool Cursed { get; set; }
         public CurseType Type { get; set; }
 
+        private string originalName;
+
         public override bool InstancePerEntity => true;
 
         public void Curse(Item item)
         {
             Cursed = true;
             Type = CurseType.GetRandomType();
+            originalName = item.Name;
 
             item.SetNameOverride($"{item.Name} {Type.Name}");
         }
@@ -31,7 +35,7 @@ namespace Decimation.Items
             Cursed = false;
             Type = null;
 
-            item.SetNameOverride(item.Name);
+            item.SetNameOverride(originalName);
         }
 
         public override GlobalItem Clone(Item item, Item itemClone)
@@ -39,6 +43,7 @@ namespace Decimation.Items
             CursedItem clone = (CursedItem)base.Clone(item, itemClone);
             clone.Cursed = Cursed;
             clone.Type = Type;
+            clone.originalName = originalName;
 
             return clone;
         }
@@ -80,6 +85,7 @@ namespace Decimation.Items
         {
             Cursed = tag.GetBool("Cursed");
             Type = CurseType.GetTypeFromName(tag.GetString("CurseType"));
+            originalName = tag.GetString("originalName");
 
             item.SetNameOverride($"{item.Name} {Type.Name}");
         }
@@ -93,8 +99,9 @@ namespace Decimation.Items
         {
             return new TagCompound
             {
-                {"Cursed", Cursed},
-                {"CurseType", Type.Name}
+                ["Cursed"] = Cursed,
+                ["CurseType"] = Type,
+                ["originalName"] = originalName
             };
         }
 
@@ -212,6 +219,61 @@ namespace Decimation.Items
                 Advantage = advantage;
                 Disadvantage = disadvantage;
             }
+        }
+    }
+
+    public class PixieDustCurseRemover : GlobalItem
+    {
+        public override void SetDefaults(Item item)
+        {
+            if (item.type == ItemID.PixieDust)
+            {
+                item.useStyle = 1;
+                item.useTime = 20;
+                item.useAnimation = 20;
+                item.consumable = true;
+            }
+
+            base.SetDefaults(item);
+        }
+
+        public override bool UseItem(Item item, Player player)
+        {
+            if (item.type == ItemID.PixieDust)
+            {
+                int index = Array.IndexOf<Item>(player.inventory, item);
+
+                Item itemUp = player.inventory[index + 1];
+                Item itemDown = player.inventory[index - 1];
+
+                if (!itemUp.IsAir)
+                {
+                    CursedItem cursedItemUp = itemUp.GetGlobalItem<CursedItem>();
+                    if (cursedItemUp.Cursed)
+                    {
+                        Main.PlaySound(SoundID.Item29, new Vector2(player.Center.X, player.Center.Y));
+                        cursedItemUp.RemoveCurse(itemUp);
+                        return true;
+                    }
+                }
+                else if (!itemDown.IsAir)
+                {
+                    CursedItem cursedItemDown = itemDown.GetGlobalItem<CursedItem>();
+                    if (cursedItemDown.Cursed)
+                    {
+                        Main.PlaySound(SoundID.Item29, new Vector2(player.Center.X, player.Center.Y));
+                        cursedItemDown.RemoveCurse(itemDown);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public override bool ConsumeItem(Item item, Player player)
+        {
+            return true;
         }
     }
 }
