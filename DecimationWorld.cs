@@ -14,10 +14,10 @@ namespace Decimation
 {
     public class DecimationWorld : ModWorld
     {
-        public static bool downedBloodshotEye = false;
-        public static bool downedDuneWorm = false;
-        public static bool downedArachnus = false;
-        public static bool downedWyvern = false;
+        public static bool downedBloodshotEye;
+        public static bool downedDuneWorm;
+        public static bool downedArachnus;
+        public static bool downedWyvern;
 
         public override void Initialize()
         {

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Decimation.Items.Boss.DuneWorm;
+using Decimation.Items.Misc;
 using Decimation.Items.Misc.Souls;
 using Decimation.Projectiles;
+using Decimation.UI;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -115,11 +117,21 @@ namespace Decimation.NPCs.TownNPCs
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
+            button2 = "Curse";
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
         {
-            if (firstButton) shop = true;
+            if (firstButton)
+            {
+                shop = true;
+            }
+            else
+            {
+                Main.playerInventory = true;
+                Main.npcChatText = "";
+                Decimation.Instance.skeletonUserInterface.SetState(new SkeletonUI());
+            }
         }
 
         public override void SetupShop(Chest shop, ref int nextSlot)
@@ -128,10 +140,10 @@ namespace Decimation.NPCs.TownNPCs
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.Skull);
             nextSlot++;
-            /*shop.item[nextSlot].SetDefaults(mod.ItemType<LunarTablet>());
+            shop.item[nextSlot].SetDefaults(mod.ItemType<LunarTablet>());
             nextSlot++;
             shop.item[nextSlot].SetDefaults(mod.ItemType<BloodyLunarTablet>());
-            nextSlot++;*/
+            nextSlot++;
 
             if (Main.hardMode)
             {

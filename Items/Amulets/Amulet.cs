@@ -35,7 +35,7 @@ namespace Decimation.Items.Amulets
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(mod, "Class", AmuletClass.ToString("F"))
+            tooltips.Add(new TooltipLine(mod, "DecimationAmuletClass", AmuletClass.ToString("F"))
             {
                 overrideColor = ChatManager.WaveColor(Color.Fuchsia)
             });

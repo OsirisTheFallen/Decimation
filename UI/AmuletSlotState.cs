@@ -11,45 +11,37 @@ namespace Decimation.UI
 {
     public class AmuletSlotState : UIState
     {
-        AmuletSlot amuletSlot;
+        public AmuletSlot slot;
+
         public AmuletSlotState()
         {
-            amuletSlot = new AmuletSlot(scale: Main.inventoryScale);
+            slot = new AmuletSlot(scale: Main.inventoryScale);
 
-            amuletSlot.SetPadding(0);
+            slot.SetPadding(0);
 
-            Append(amuletSlot);
+            Append(slot);
         }
 
-        public void UpdateAmulet()
+        public void UpdateAmulet(DecimationPlayer player)
         {
-            amuletSlot.UpdateAmulet();
+            slot.UpdateAmulet(player);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
+            // TODO to improve
             if (Main.screenHeight > 660 && (Main.mapStyle != 1 || Main.screenHeight > 900))
             {
-                amuletSlot.Left.Set(Main.screenWidth - 91f, 0f);
-                amuletSlot.Top.Set(Main.screenHeight - 100f, 0f);
+                slot.Left.Set(Main.screenWidth - 91f, 0f);
+                slot.Top.Set(Main.screenHeight - 100f, 0f);
             }
             else
             {
-                amuletSlot.Left.Set(Main.screenWidth - 234f, 0f);
-                amuletSlot.Top.Set(Main.screenHeight - 152f, 0f);
+                slot.Left.Set(Main.screenWidth - 234f, 0f);
+                slot.Top.Set(Main.screenHeight - 152f, 0f);
             }
-        }
-
-        public void LoadItem(Item item)
-        {
-            amuletSlot.LoadItem(item);
-        }
-
-        public void UnLoad()
-        {
-            amuletSlot.UnLoad();
         }
     }
 }

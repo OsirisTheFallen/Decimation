@@ -24,6 +24,9 @@ namespace Decimation
         public bool tideTurnerEquipped = false;
         public bool vampire = false;
 
+        // Effects
+        public bool hasCursedAccessory = false;
+
         public bool isInCombat = false;
         public uint combatTime = 0;
         public uint counter = 0;
@@ -70,6 +73,8 @@ namespace Decimation
             tideTurnerEquipped = false;
             vampire = false;
 
+            hasCursedAccessory = false;
+
             if (combatTime > 360)
             {
                 combatTime = 0;
@@ -100,22 +105,16 @@ namespace Decimation
 
         public override TagCompound Save()
         {
-            Decimation.amuletSlotState.UnLoad();
+            Decimation.amuletSlotState.slot.item = new Item();
 
             return new TagCompound() {
-                {"amuletSlotItem", ItemIO.Save(amuletSlotItem) },
-                {"amuletSlotItemOwner", amuletOwner }
+                {"amuletSlotItem", ItemIO.Save(amuletSlotItem) }
             };
         }
 
         public override void Load(TagCompound tag)
         {
             amuletSlotItem = ItemIO.Load(tag.GetCompound("amuletSlotItem"));
-            amuletOwner = tag.GetString("amuletSlotItemOwner");
-
-            // Load to slot
-            if (amuletOwner == player.name)
-                Decimation.amuletSlotState.LoadItem(amuletSlotItem);
         }
 
         // FIND AN ALTERNATIVE! THIS METHOD DOESN'T GET CALLED WITH ALL THE WEAPONS
@@ -169,7 +168,7 @@ namespace Decimation
 
         public override void UpdateVanityAccessories()
         {
-            Decimation.amuletSlotState.UpdateAmulet();
+            Decimation.amuletSlotState.UpdateAmulet(this);
 
             base.UpdateVanityAccessories();
         }
@@ -770,9 +769,9 @@ namespace Decimation
 
             for (int i = 0; i < shardNumber; i++)
             {
-                float angle = currentAngle - 0.5f + (float) Main.rand.NextDouble();
-                float positionX = player.position.X;
-                float positionY = player.position.Y;
+                //float angle = currentAngle - 0.5f + (float)Main.rand.NextDouble();
+                //float positionX = player.position.X;
+                //float positionY = player.position.Y;
                 float speedX = (float)Math.Cos(currentAngle) * speed;
                 float speedY = (float)Math.Sin(currentAngle) * speed;
 
