@@ -1,6 +1,5 @@
 ﻿using Decimation.Items.Accessories;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

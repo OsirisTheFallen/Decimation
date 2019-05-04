@@ -103,6 +103,7 @@
     <Compile Include="Items\Accessories\Wings\ScarabWings.cs" />
     <Compile Include="Items\Ammo\SiphonArrow.cs" />
     <Compile Include="Items\Amulets\Amulet.cs" />
+    <Compile Include="Items\Amulets\AmuletsSynergy.cs" />
     <Compile Include="Items\Amulets\BuildersAmulet.cs" />
     <Compile Include="Items\Amulets\CreatorAmulet.cs" />
     <Compile Include="Items\Amulets\CrystalAmulet.cs" />

@@ -45,6 +45,7 @@ namespace Decimation
                 amuletSlotState.Activate();
                 amuletSlotInterface = new UserInterface();
                 amuletSlotInterface.SetState(amuletSlotState);
+
                 skeletonUserInterface = new UserInterface();
             }
         }
@@ -65,6 +66,8 @@ namespace Decimation
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+            int healthBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Entity Health Bars"));
+
             if (inventoryIndex != -1)
             {
                 layers.Insert(inventoryIndex + 1, new LegacyGameInterfaceLayer(

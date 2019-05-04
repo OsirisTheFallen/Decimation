@@ -1,9 +1,6 @@
-﻿using Decimation.Buffs;
-using Decimation.Buffs.Buffs;
-using Decimation.Buffs.Debuffs;
+﻿using Decimation.Buffs.Buffs;
 using Decimation.Items.Amulets;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
 using Terraria;
 using Terraria.Graphics.Shaders;
@@ -23,6 +20,7 @@ namespace Decimation
         public bool necrosisStoneEquipped = false;
         public bool tideTurnerEquipped = false;
         public bool vampire = false;
+        public bool hasShield = false;
 
         // Effects
         public bool hasCursedAccessory = false;
@@ -56,10 +54,14 @@ namespace Decimation
         public bool amuletsBuffWhenAttacking = false;
         public uint enchantedHeartDropTime = 0;
 
+        private AmuletsSynergy synergy;
+
         public override void Initialize()
         {
             amuletSlotItem = new Item();
             amuletSlotItem.SetDefaults(0, true);
+
+            synergy = new AmuletsSynergy((Decimation) mod);
         }
 
         public override void ResetEffects()
@@ -72,6 +74,7 @@ namespace Decimation
             necrosisStoneEquipped = false;
             tideTurnerEquipped = false;
             vampire = false;
+            hasShield = false;
 
             hasCursedAccessory = false;
 
@@ -100,8 +103,6 @@ namespace Decimation
             if (counter > uint.MaxValue - (uint.MaxValue % 60))
                 counter = 0;
         }
-
-        public string amuletOwner = "";
 
         public override TagCompound Save()
         {
@@ -330,6 +331,16 @@ namespace Decimation
 
             if (amuletSlotItem.type == mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
                 CrystalAmuletEffect();
+        }
+
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+            synergy.OnHitPlayer(amuletSlotItem, this, ref damage);
+        }
+
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            synergy.OnHitPlayer(amuletSlotItem, this, ref damage);
         }
 
         public int dash = 0;
