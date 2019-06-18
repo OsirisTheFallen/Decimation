@@ -21,6 +21,7 @@ namespace Decimation
         public bool tideTurnerEquipped = false;
         public bool vampire = false;
         public bool hasShield = false;
+		public bool hasLavaCharm = false;
 
         // Effects
         public bool hasCursedAccessory = false;
@@ -75,6 +76,7 @@ namespace Decimation
             tideTurnerEquipped = false;
             vampire = false;
             hasShield = false;
+			hasLavaCharm = false;
 
             hasCursedAccessory = false;
 
@@ -170,6 +172,7 @@ namespace Decimation
         public override void UpdateVanityAccessories()
         {
             Decimation.amuletSlotState.UpdateAmulet(this);
+			synergy.Update(amuletSlotItem, this);
 
             base.UpdateVanityAccessories();
         }

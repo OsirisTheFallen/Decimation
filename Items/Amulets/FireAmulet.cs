@@ -39,12 +39,13 @@ namespace Decimation.Items.Amulets
 
         public override AmuletTooltip GetAmuletTooltips()
         {
-            return new AmuletTooltip(this)
-                .addEffect("+3% melee speed")
-                .addEffect("+3% melee damages")
-                .addEffect("+3% melee critical strike chances")
-                .addEffect("+7 seconds of immunity to lava")
-                .addEffect("+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes");
+			return new AmuletTooltip(this)
+				.addEffect("+3% melee speed")
+				.addEffect("+3% melee damages")
+				.addEffect("+3% melee critical strike chances")
+				.addEffect("+7 seconds of immunity to lava")
+				.addEffect("+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes")
+				.addSynergy("The lava charm grant an additional 5 seconds of lava immunity");
         }
 
         public override void AddRecipes()

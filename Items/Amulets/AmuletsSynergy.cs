@@ -5,33 +5,43 @@ using Terraria.ID;
 
 namespace Decimation.Items.Amulets
 {
-    class AmuletsSynergy
-    {
-        private Decimation decimation;
+	class AmuletsSynergy
+	{
+		private Decimation decimation;
 
-        public AmuletsSynergy(Decimation decimation)
-        {
-            this.decimation = decimation;
-        }
+		public AmuletsSynergy(Decimation decimation)
+		{
+			this.decimation = decimation;
+		}
 
-        public void OnHitPlayer(Item amulet, DecimationPlayer modPlayer, ref int damages)
-        {
-            if (amulet.type == decimation.ItemType<GraniteAmulet>())
-            {
-                if (modPlayer.hasShield && Main.rand.NextBool(10))
-                {
-                    damages = 0;
-                    CombatText.NewText(modPlayer.player.getRect(), Color.MediumPurple, "Blocked");
-                }
-            }
-        }
-    }
+		public void OnHitPlayer(Item amulet, DecimationPlayer modPlayer, ref int damages)
+		{
+			if (amulet.type == decimation.ItemType<GraniteAmulet>())
+			{
+				if (modPlayer.hasShield && Main.rand.NextBool(10))
+				{
+					damages = 0;
+					CombatText.NewText(modPlayer.player.getRect(), Color.MediumPurple, "Blocked");
+				}
+			}
+		}
 
-    public class GraniteAmuletDetectShields : GlobalItem
-    {
-        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
-        {
-            if (item.type == ItemID.CobaltShield || item.type == ItemID.AnkhShield || item.type == ItemID.PaladinsShield || item.type == ItemID.ObsidianShield) player.GetModPlayer<DecimationPlayer>().hasShield = true;
-        }
-    }
+		public void Update(Item amulet, DecimationPlayer modPlayer)
+		{
+			if (amulet.type == decimation.ItemType<FireAmulet>() && modPlayer.hasLavaCharm)
+			{
+				modPlayer.player.lavaMax += 500;
+			}
+		}
+	}
+
+	public class AmuletDetection : GlobalItem
+	{
+		public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+		{
+			DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
+			if (item.type == ItemID.CobaltShield || item.type == ItemID.AnkhShield || item.type == ItemID.PaladinsShield || item.type == ItemID.ObsidianShield) modPlayer.hasShield = true;
+			if (item.type == ItemID.LavaCharm) modPlayer.hasLavaCharm = true;
+		}
+	}
 }
