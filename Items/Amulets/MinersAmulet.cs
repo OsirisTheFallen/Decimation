@@ -55,27 +55,13 @@ namespace Decimation.Items.Amulets
             recipe.AddRecipe();
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+3% mining speed")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+4% melee speed")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+1 block interaction range")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "Provides light")
-                {
-                    overrideColor = Color.ForestGreen
-                }
-            };
+            return new AmuletTooltip(this)
+                .addEffect("+3% mining speed")
+                .addEffect("+4% melee speed")
+                .addEffect("+1 block interaction range")
+                .addEffect("Provides light");
         }
     }
 }

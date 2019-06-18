@@ -37,31 +37,14 @@ namespace Decimation.Items.Amulets
             modPlayer.amuletsBuffTime = 300;
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+3% melee speed")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% melee damages")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% melee critical strike chances")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+7 seconds of immunity to lava")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes")
-                {
-                    overrideColor = Color.ForestGreen
-                }
-            };
+            return new AmuletTooltip(this)
+                .addEffect("+3% melee speed")
+                .addEffect("+3% melee damages")
+                .addEffect("+3% melee critical strike chances")
+                .addEffect("+7 seconds of immunity to lava")
+                .addEffect("+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes");
         }
 
         public override void AddRecipes()

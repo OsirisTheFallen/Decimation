@@ -41,27 +41,13 @@ namespace Decimation.Items.Amulets
             recipe.AddRecipe();
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+5 maximum mana")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% magic damages")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% magic critical strike chances")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+4% chances to shoot out a burst of crystal shards when taking damages")
-                {
-                    overrideColor = Color.ForestGreen
-                }
-            };
+            return new AmuletTooltip(this)
+                .addEffect("+5 maximum mana")
+                .addEffect("+3% magic damages")
+                .addEffect("+3% magic critical strike chances")
+                .addEffect("+4% chances to shoot out a burst of crystal shards when taking damages");
         }
     }
 }

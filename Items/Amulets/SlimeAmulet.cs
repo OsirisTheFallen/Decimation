@@ -37,27 +37,13 @@ namespace Decimation.Items.Amulets
             recipe.AddRecipe();
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "Makes slimes friendly")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% minion damages")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                 new TooltipLine(mod, "Effect", "+3% minion knockback")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                 new TooltipLine(mod, "Effect", "+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes")
-                {
-                    overrideColor = Color.ForestGreen
-                }
-            };
+            return new AmuletTooltip(this)
+                .addEffect("Makes slimes friendly")
+                .addEffect("+3% minion damages")
+                .addEffect("+3% minion knockback")
+                .addEffect("+4% chances to inflict \"Slimed!\" debuff to enemies on strikes");
         }
 
         public override void UpdateAmulet(Player player)

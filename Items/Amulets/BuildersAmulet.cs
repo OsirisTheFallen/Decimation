@@ -57,23 +57,12 @@ namespace Decimation.Items.Amulets
             recipe.AddRecipe();
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+2 block interaction range")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+5% tile and wall placement speed")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "Provides light")
-                {
-                   overrideColor = Color.ForestGreen
-                }
-            };
+            return new AmuletTooltip(this)
+                .addEffect("+2 block interaction range")
+                .addEffect("+5% tile and wall placement speed")
+                .addEffect("Provides light");
         }
     }
 }

@@ -26,31 +26,14 @@ namespace Decimation.Items.Amulets
             player.rangedCrit += 3;
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+3% ranged damages")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% ranged velocity")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% ranged critical strike chances")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+2% chance to not consume ammo")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+4% chance that arrows will inflict \"Frostburn\"")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-            };
+            return new AmuletTooltip(this)
+                .addEffect("+3% ranged damages")
+                .addEffect("+3% ranged velocity")
+                .addEffect("+3% ranged critical strike chances")
+                .addEffect("+2% chance to not consume ammo")
+                .addEffect("+4% chance that arrows will inflict \"Forstburn\"");
         }
 
         public override void AddRecipes()

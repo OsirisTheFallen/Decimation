@@ -46,31 +46,14 @@ namespace Decimation.Items.Amulets
             recipe.AddRecipe();
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+3% throwing damages")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% throwing velocity")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% throwing critical strikes chances")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+2% chances to not consume ammo on throwing attacks")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+4% chances to inflict confusion to enemies on throwing attacks")
-                {
-                   overrideColor = Color.ForestGreen
-                }
-            };
+            return new AmuletTooltip(this)
+                .addEffect("+3% throwing damages")
+                .addEffect("+3% throwing velocity")
+                .addEffect("+3% throwing critical strikes chances")
+                .addEffect("+2% chances to not consume ammo on throwing attacks")
+                .addEffect("+4% chances to inflict confusion to enemies on throwing attacks");
         }
     }
 }

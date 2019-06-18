@@ -42,35 +42,15 @@ namespace Decimation.Items.Amulets
             recipe.AddRecipe();
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+4% tile placement speed")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+4% melee speed")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+4% mining speed")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+2 block interaction range")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "Provides light")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "Provides Night Owl buff")
-                {
-                    overrideColor = Color.ForestGreen
-                }
-            };
+            return new AmuletTooltip(this)
+                .addEffect("+4% tile placement speed")
+                .addEffect("+4% melee speed")
+                .addEffect("+4% mining speed")
+                .addEffect("+2 block interaction range")
+                .addEffect("Provides light")
+                .addEffect("Provides Night Owl buff");
         }
     }
 }

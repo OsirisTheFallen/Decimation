@@ -42,27 +42,13 @@ namespace Decimation.Items.Amulets
             recipe.AddRecipe();
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        public override AmuletTooltip GetAmuletTooltips()
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+10 to maximum mana")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+5% to maximum life")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "Drop enchanted hearts each 5 seconds when you are in combat")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "Your lifesteal will be given to your allies (WIP)")
-                {
-                    overrideColor = Color.ForestGreen
-                }
-            };
+            return new AmuletTooltip(this)
+                .addEffect("+10 to maximum mana")
+                .addEffect("+5% to maximum life")
+                .addEffect("Drop enchanted hearts each 5 seconds when you are in combat")
+                .addEffect("Your lifesteal will be given to your allies (WIP)");
         }
     }
 }
