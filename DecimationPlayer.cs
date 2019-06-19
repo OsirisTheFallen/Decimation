@@ -21,7 +21,7 @@ namespace Decimation
         public bool tideTurnerEquipped = false;
         public bool vampire = false;
         public bool hasShield = false;
-		public bool hasLavaCharm = false;
+        public bool hasLavaCharm = false;
 
         // Effects
         public bool hasCursedAccessory = false;
@@ -62,7 +62,7 @@ namespace Decimation
             amuletSlotItem = new Item();
             amuletSlotItem.SetDefaults(0, true);
 
-            synergy = new AmuletsSynergy((Decimation) mod);
+            synergy = new AmuletsSynergy((Decimation)mod);
         }
 
         public override void ResetEffects()
@@ -76,7 +76,7 @@ namespace Decimation
             tideTurnerEquipped = false;
             vampire = false;
             hasShield = false;
-			hasLavaCharm = false;
+            hasLavaCharm = false;
 
             hasCursedAccessory = false;
 
@@ -152,6 +152,8 @@ namespace Decimation
                 speedY *= 1.03f;
             }
 
+            synergy.OnShoot(amuletSlotItem, this, item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+
             return base.Shoot(item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
@@ -172,7 +174,7 @@ namespace Decimation
         public override void UpdateVanityAccessories()
         {
             Decimation.amuletSlotState.UpdateAmulet(this);
-			synergy.Update(amuletSlotItem, this);
+            synergy.Update(amuletSlotItem, this);
 
             base.UpdateVanityAccessories();
         }

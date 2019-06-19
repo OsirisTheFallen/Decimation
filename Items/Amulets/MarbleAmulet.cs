@@ -53,7 +53,8 @@ namespace Decimation.Items.Amulets
                 .addEffect("+3% throwing velocity")
                 .addEffect("+3% throwing critical strikes chances")
                 .addEffect("+2% chances to not consume ammo on throwing attacks")
-                .addEffect("+4% chances to inflict confusion to enemies on throwing attacks");
+                .addEffect("+4% chances to inflict confusion to enemies on throwing attacks")
+                .addSynergy("Javelins, Shurikens, Throwing Knives, Bone Throwing Knives, Star Anises, Bone Javelins,\nPoisoned Throwing Knives and Frost Daggerfish to have 25% chance to throw a second projectile.");
         }
     }
 }
