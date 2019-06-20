@@ -1,22 +1,14 @@
-using System;
-using System.Collections.Generic;
-using Decimation.Buffs;
 using Decimation.Buffs.Debuffs;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
 
 namespace Decimation.Items.Amulets
 {
     public class SlimeAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
-        {
-            get { return AmuletClasses.SUMMONER; }
-        }
+        public override AmuletClasses AmuletClass => AmuletClasses.SUMMONER;
 
         public override void SetAmuletDefaults()
         {
@@ -78,6 +70,42 @@ namespace Decimation.Items.Amulets
             modPlayer.amuletsBuff = mod.BuffType<Singed>();
             modPlayer.amuletsBuffChances = 4;
             modPlayer.amuletsBuffTime = 300;
+        }
+    }
+
+    public class SlimeAmuletSynergy : GlobalProjectile
+    {
+        private const int SpikeInterval = 500;
+
+        private int _spikeIntervalCounter;
+        public override bool InstancePerEntity => true;
+
+        public override void AI(Projectile projectile)
+        {
+            if (projectile.type == ProjectileID.BabySlime)
+            {
+                if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type ==
+                    Decimation.Instance.ItemType<SlimeAmulet>())
+                {
+                    if (_spikeIntervalCounter > SpikeInterval)
+                    {
+                        // Shoot
+                        Projectile proj1 = Projectile.NewProjectileDirect(projectile.Center, new Vector2(-1, -2.5f), ProjectileID.JungleSpike, 10, 10);
+                        proj1.friendly = true;
+                        proj1.hostile = false;
+
+                        Projectile proj2 = Projectile.NewProjectileDirect(projectile.Center, new Vector2(1, -2.5f), ProjectileID.JungleSpike, 10, 10);
+                        proj2.friendly = true;
+                        proj2.hostile = false;
+
+                        _spikeIntervalCounter = 0;
+                    }
+
+                    _spikeIntervalCounter++; 
+                }
+            }
+
+            base.AI(projectile);
         }
     }
 }

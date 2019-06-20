@@ -10,10 +10,7 @@ namespace Decimation.Items.Amulets
 {
     class MarbleAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
-        {
-            get { return AmuletClasses.THROWING; }
-        }
+        public override AmuletClasses AmuletClass => AmuletClasses.THROWING;
 
         public override void SetAmuletDefaults()
         {
