@@ -35,7 +35,8 @@ namespace Decimation.Items.Amulets
                 .addEffect("Makes slimes friendly")
                 .addEffect("+3% minion damages")
                 .addEffect("+3% minion knockback")
-                .addEffect("+4% chances to inflict \"Slimed!\" debuff to enemies on strikes");
+                .addEffect("+4% chances to inflict \"Slimed!\" debuff to enemies on strikes")
+                .addSynergy("Causes summoned Baby Slimes to shoot two slime spikes in a V formation, each 5 seconds.");
         }
 
         public override void UpdateAmulet(Player player)
@@ -75,7 +76,7 @@ namespace Decimation.Items.Amulets
 
     public class SlimeAmuletSynergy : GlobalProjectile
     {
-        private const int SpikeInterval = 500;
+        private const int SpikeInterval = 300;
 
         private int _spikeIntervalCounter;
         public override bool InstancePerEntity => true;
