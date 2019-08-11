@@ -6,21 +6,21 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc.Souls
 {
-    public class SoulofTime : ModItem
+    internal class SoulofTime : DecimationItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Soul of Time");
-			Tooltip.SetDefault("The essence of fate.");
-			Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));				
-		}
-        public override void SetDefaults()
+        protected override string ItemName => "Soul of Time";
+        protected override string ItemTooltip => "The essence of fate.";
+        protected override DrawAnimation Animation => new DrawAnimationVertical(5, 4);
+
+        protected override void Init()
         {
-            item.width = 22;
-            item.height = 24;
-            item.value = 100;
-            item.rare = 3;
+            width = 22;
+            height = 24;
+            value = Item.buyPrice(0, 0, 1);
+            rarity = Rarity.Orange;
+
             item.maxStack = 999;
+
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
     }

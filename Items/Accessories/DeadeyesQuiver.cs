@@ -1,46 +1,46 @@
 using Terraria.ModLoader;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Decimation;
 using Decimation.Items.Misc.Souls;
 using Decimation.Items.Misc;
+using Decimation.Tiles;
 
 namespace Decimation.Items.Accessories
 {
-    public class DeadeyesQuiver : ModItem
+    internal class DeadeyesQuiver : DecimationAccessory
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Deadeye's Quiver";
+
+        protected override string ItemTooltip =>
+            "Turns wooden arrows into ichor arrows and turns musket balls into chlorophyte bullets\n+16% ranged damage\n+15% arrow and bullet velocity\n15% chance not to consume ammo\n+2% increased ranged crit chance";
+
+        protected override void InitAccessory()
         {
-            Tooltip.SetDefault("Turns wooden arrows into ichor arrows and turns musket balls into chlorophyte bullets\n+16% ranged damage\n+15% arrow and bullet velocity\n15% chance not to consume ammo\n+2% increased ranged crit chance");
-            DisplayName.SetDefault("Deadeye's Quiver");
+            width = 30;
+            height = 30;
+            rarity = Rarity.Red;
+            item.value = Item.buyPrice(0, 15);
         }
 
-        public override void SetDefaults()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            item.width = 30;
-            item.height = 30;
-            item.maxStack = 1;
-            item.rare = 10;
-            item.value = 150000;
-            item.accessory = true;
-        }
-        public override void AddRecipes()
-        {
-            ModRecipe r = new ModRecipe(mod);
-            r.AddIngredient(mod.ItemType<JestersQuiver>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<ChlorophyteAnvil>() }, false);
+            recipe.AddIngredient(mod.ItemType<JestersQuiver>());
             //r.AddIngredient(mod.ItemType<SoulofKight>());
-            r.AddIngredient(mod.ItemType<SoulofSpite>(), 15);
-            r.AddIngredient(ItemID.SoulofSight, 15);
-            r.AddIngredient(ItemID.SoulofFright, 15);
-            r.AddIngredient(mod.ItemType<EndlessPouchofLife>());
-            r.AddIngredient(mod.ItemType<RedThread>(), 5);
-            r.AddIngredient(ItemID.FlaskofIchor, 5);
-            r.AddIngredient(ItemID.BlackDye, 3);
-            r.AddIngredient(ItemID.RedDye, 3);
-            r.SetResult(this);
-            r.AddRecipe();
+            recipe.AddIngredient(mod.ItemType<SoulofSpite>(), 15);
+            recipe.AddIngredient(ItemID.SoulofSight, 15);
+            recipe.AddIngredient(ItemID.SoulofFright, 15);
+            recipe.AddIngredient(mod.ItemType<EndlessPouchofLife>());
+            recipe.AddIngredient(mod.ItemType<RedThread>(), 5);
+            recipe.AddIngredient(ItemID.FlaskofIchor, 5);
+            recipe.AddIngredient(ItemID.BlackDye, 3);
+            recipe.AddIngredient(ItemID.RedDye, 3);
+
+            return new List<ModRecipe>() { recipe };
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -5,29 +5,27 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc.Souls
 {
-    public class SoulofLife : ModItem
+    internal class SoulofLife : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Soul of Life");
-            Tooltip.SetDefault("The essence of living cells.");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
-            ItemID.Sets.AnimatesAsSoul[item.type] = true;
-            ItemID.Sets.ItemIconPulse[item.type] = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-        }
+        protected override string ItemName => "Soul of Life";
+        protected override string ItemTooltip => "The essence of living cells.";
+        protected override DrawAnimation Animation => new DrawAnimationVertical(5, 4);
 
-        public override void SetDefaults()
+        protected override void Init()
         {
             Item refItem = new Item();
             refItem.SetDefaults(ItemID.SoulofSight);
-            item.width = refItem.width;
-            item.height = refItem.height;
-            item.width = 20;
-            item.height = 20;
+
+            width = refItem.width;
+            height = refItem.height;
+            width = 20;
+            height = 20;
+
             item.maxStack = 999;
-            item.value = 0;
-            item.rare = 1;
+
+            ItemID.Sets.AnimatesAsSoul[item.type] = true;
+            ItemID.Sets.ItemIconPulse[item.type] = true;
+            ItemID.Sets.ItemNoGravity[item.type] = true;
         }
 
         public class SoulGlobalNPC : GlobalNPC

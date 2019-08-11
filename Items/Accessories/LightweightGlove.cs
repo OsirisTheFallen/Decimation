@@ -1,22 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    class LightweightGlove : ModItem
+    internal class LightweightGlove : DecimationAccessory
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("+5% throwing velocity\n+4% throwing damages\n+3% throwing critical strikes chances");
-        }
+        protected override string ItemName => "Lightweight Glove";
 
-        public override void SetDefaults()
+        protected override string ItemTooltip =>
+            "+5% throwing velocity\n+4% throwing damages\n+3% throwing critical strikes chances";
+
+        protected override void InitAccessory()
         {
-            item.width = 22;
-            item.height = 28;
-            item.accessory = true;
+            width = 22;
+            height = 28;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -26,31 +26,15 @@ namespace Decimation.Items.Accessories
             player.thrownCrit += 3;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Leather, 6);
-            recipe.AddIngredient(ItemID.BlackThread, 2);
-            recipe.AddIngredient(ItemID.Sapphire, 2);
-            recipe.AddTile(TileID.Loom);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Loom }, false);
 
-            recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Leather, 6);
-            recipe.AddIngredient(ItemID.GreenThread, 2);
+            recipe.AddRecipeGroup("AnyThread", 2);
             recipe.AddIngredient(ItemID.Sapphire, 2);
-            recipe.AddTile(TileID.Loom);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
 
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Leather, 6);
-            recipe.AddIngredient(ItemID.PinkThread, 2);
-            recipe.AddIngredient(ItemID.Sapphire, 2);
-            recipe.AddTile(TileID.Loom);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

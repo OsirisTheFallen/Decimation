@@ -5,24 +5,23 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc
 {
-    class LunarTablet : ModItem
+    internal class LunarTablet : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Summons the full moon.");
-        }
+        protected override string ItemName => "Lunar Tablet";
+        protected override string ItemTooltip => "Summons the full moon.";
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            item.width = 30;
-            item.height = 40;
-            item.consumable = true;
-            item.value = 25000;
+            width = 30;
+            height = 40;
+            consumable = true;
+            value = 25000;
+            rarity = Rarity.Green;
+            useStyle = 1;
+            useTime = 20;
+            useAnimation = 20;
+
             item.maxStack = 1;
-            item.rare = 2;
-            item.useStyle = 1;
-            item.useTime = 20;
-            item.useAnimation = 20;
         }
 
         public override bool CanUseItem(Player player)

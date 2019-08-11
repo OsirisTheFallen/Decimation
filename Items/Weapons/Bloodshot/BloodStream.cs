@@ -8,31 +8,28 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Bloodshot
 {
-    public class BloodStream : ModItem
+    internal class BloodStream : DecimationWeapon
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Blood Stream");
-            Tooltip.SetDefault("Bathe your enemies in boiling blood.");
-        }
+        protected override string ItemName => "Blood Stream";
+        protected override string ItemTooltip => "Bathe your enemies in boiling blood.";
+        protected override DamageType DamagesType => DamageType.MAGIC;
+        protected override int Damages => 14;
+        protected override string Projectile => "BloodBeamFriendly";
 
-        public override void SetDefaults()
+
+        protected override void InitWeapon()
         {
-            item.width = 20;
-            item.height = 20;
-            item.value = 20000;
-            item.rare = 2;
-            item.maxStack = 1;
-            item.useStyle = 5;
-            item.shoot = mod.ProjectileType<BloodBeamFriendly>();
-            item.shootSpeed = 5f;
-            item.magic = true;
-            item.damage = 14;
+            width = 20;
+            height = 20;
+            value = Item.buyPrice(0, 2);
+            rarity = Rarity.Green;
+            useStyle = 5;
+            shootSpeed = 5f;
             item.mana = 1;
-            item.useTime = 5;
-            item.useAnimation = 5;
-            item.autoReuse = true;
-            item.UseSound = SoundID.Item34;
+            useTime = 5;
+            useAnimation = 5;
+            autoReuse = true;
+            useSound = SoundID.Item34;
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

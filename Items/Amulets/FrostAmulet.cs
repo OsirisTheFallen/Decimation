@@ -7,45 +7,42 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Amulets
 {
-    class FrostAmulet : Amulet
+    internal class FrostAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
+        protected override string ItemName => "Frost Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Ranger;
+
+        protected override void InitAmulet()
         {
-            get { return AmuletClasses.RANGER; }
+            height = 32;
         }
 
-        public override void SetAmuletDefaults()
-        {
-            item.width = 28;
-            item.height = 32;
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.rangedDamage *= 1.03f;
             player.rangedCrit += 3;
         }
 
-        public override AmuletTooltip GetAmuletTooltips()
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
         {
-            return new AmuletTooltip(this)
-                .addEffect("+3% ranged damages")
-                .addEffect("+3% ranged velocity")
-                .addEffect("+3% ranged critical strike chances")
-                .addEffect("+2% chance to not consume ammo")
-                .addEffect("+4% chance that arrows will inflict \"Forstburn\"");
+            tooltip
+                .AddEffect("+3% ranged damages")
+                .AddEffect("+3% ranged velocity")
+                .AddEffect("+3% ranged critical strike chances")
+                .AddEffect("+2% chance to not consume ammo")
+                .AddEffect("+4% chance that arrows will inflict \"Forstburn\"");
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, false);
+
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.IceBlock, 20);
             recipe.AddIngredient(ItemID.Lens, 2);
             recipe.AddIngredient(ItemID.ArcheryPotion);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe> { recipe };
         }
     }
 

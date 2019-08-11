@@ -5,26 +5,22 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Potions
 {
-    public class Antidote : ModItem
+    // Not an actual potion, since it doesn't give the player any buff.
+    internal class Antidote : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Antidote");
-            Tooltip.SetDefault("Cure poison and venom.");
-        }
+        protected override string ItemName => "Antidote";
+        protected override string ItemTooltip => "Cure poison and venom.";
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            item.width = 20;
-            item.height = 20;
+            width = 20;
+            height = 20;
             item.maxStack = 30;
-            item.value = 0;
-            item.rare = 1;
-            item.consumable = true;
-            item.useAnimation = 17;
-            item.useTime = 17;
+            consumable = true;
+            useAnimation = 17;
+            useTime = 17;
             item.useTurn = true;
-            item.useStyle = 2;
+            useStyle = 2;
         }
 
         public override bool UseItem(Player player)
@@ -34,15 +30,15 @@ namespace Decimation.Items.Potions
             return true;
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.AlchemyTable);
+
             recipe.AddIngredient(ItemID.Waterleaf);
             recipe.AddIngredient(ItemID.Moonglow);
             recipe.AddIngredient(ItemID.BottledHoney);
-            recipe.AddTile(TileID.AlchemyTable);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

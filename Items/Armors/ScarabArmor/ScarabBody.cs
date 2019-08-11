@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
@@ -12,22 +8,20 @@ using Decimation.Items.Misc.Souls;
 namespace Decimation.Items.Armors.ScarabArmor
 {
     [AutoloadEquip(EquipType.Body)]
-    class ScarabBody : ModItem
+    class ScarabBody : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            DisplayName.SetDefault("Solar Scarab Shell");
-            Tooltip.SetDefault("Immunity to knockback" +
-                "\n25% increased melee damages" +
-                "\nEnemies are more likely to target you");
-        }
+        protected override string ItemName => "Solar Scarab Shell";
+        protected override string ItemTooltip => "Immunity to knockback" +
+        "\n25% increased melee damages" +
+        "\nEnemies are more likely to target you";
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            item.width = 38;
-            item.height = 22;
-            item.rare = 10;
+            width = 38;
+            height = 22;
+            rarity = Rarity.Red;
+
+            item.maxStack = 1;
             item.defense = 45;
         }
 
@@ -38,9 +32,10 @@ namespace Decimation.Items.Armors.ScarabArmor
             player.noKnockback = true;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<TitanForge>() }, false);
+
             recipe.AddIngredient(ItemID.SolarFlareBreastplate);
             recipe.AddIngredient(ItemID.BeetleShell);
             recipe.AddIngredient(ItemID.LunarOre, 20);
@@ -48,9 +43,8 @@ namespace Decimation.Items.Armors.ScarabArmor
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddIngredient(mod.ItemType<SoulofSpite>(), 5);
             recipe.AddIngredient(ItemID.LavaBucket);
-            recipe.AddTile(mod.TileType<TitanForge>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

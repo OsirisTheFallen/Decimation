@@ -5,24 +5,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable.ShrineoftheMoltenOne
 {
-    class RedHotSpike : ModItem
+    internal class RedHotSpike : DecimationPlaceableItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Red Hot Spike";
+        protected override int Tile => mod.TileType<Tiles.ShrineoftheMoltenOne.RedHotSpike>();
+
+        protected override void InitPlaceable()
         {
-            DisplayName.SetDefault("Red Hot Spike");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 12;
-            item.height = 12;
-            item.maxStack = 999;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = 1;
-            item.consumable = true;
-            item.createTile = mod.TileType("RedHotSpike");
+            width = 12;
+            height = 12;
         }
     }
 }

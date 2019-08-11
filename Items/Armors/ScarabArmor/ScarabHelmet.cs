@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Decimation.Tiles;
-using Decimation.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria.Graphics.Shaders;
 using Decimation.Buffs.Buffs;
@@ -16,21 +11,20 @@ using Decimation.Items.Misc.Souls;
 namespace Decimation.Items.Armors.ScarabArmor
 {
     [AutoloadEquip(EquipType.Head)]
-    class ScarabHelmet : ModItem
+    class ScarabHelmet : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            DisplayName.SetDefault("Solar Scarab Helmet");
-            Tooltip.SetDefault("25 % increased melee critical hit chances" +
-                "\nEnemis are more likely to target you");
-        }
+        protected override string ItemName => "Solar Scarab Helmet";
 
-        public override void SetDefaults()
+        protected override string ItemTooltip => "25 % increased melee critical hit chances" +
+                                                 "\nEnemis are more likely to target you";
+
+        protected override void Init()
         {
-            item.width = 26;
-            item.height = 26;
-            item.rare = 10;
+            width = 26;
+            height = 26;
+            rarity = Rarity.Red;
+
+            item.maxStack = 1;
             item.defense = 30;
         }
 
@@ -124,9 +118,11 @@ namespace Decimation.Items.Armors.ScarabArmor
             }
         }
 
-        public override void AddRecipes()
+
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<TitanForge>() });
+
             recipe.AddIngredient(ItemID.SolarFlareHelmet);
             recipe.AddIngredient(ItemID.BeetleHelmet);
             recipe.AddIngredient(ItemID.LunarOre, 15);
@@ -134,9 +130,8 @@ namespace Decimation.Items.Armors.ScarabArmor
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddIngredient(mod.ItemType<SoulofSpite>(), 5);
             recipe.AddIngredient(ItemID.LavaBucket);
-            recipe.AddTile(mod.TileType<TitanForge>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

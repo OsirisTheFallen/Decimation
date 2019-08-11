@@ -6,25 +6,21 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    class DraculaPendant : ModItem
+    internal class DraculaPendant : DecimationAccessory
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Dont tread under the suns gaze!\n\n" +
-                "Gives Vampire debuff\n" +
-                "Bats will be friendly\n" +
-                "You will burn at sun"
-                );
-        }
+        protected override string ItemName => "Dracula's Pendant";
 
-        public override void SetDefaults()
+        protected override string ItemTooltip => "Dont tread under the suns gaze!\n\n" +
+                                                 "Gives Vampire debuff\n" +
+                                                 "Bats will be friendly\n" +
+                                                 "You will burn at sun";
+
+        protected override void InitAccessory()
         {
-            item.width = 46;
-            item.height = 62;
-            item.accessory = true;
-            item.maxStack = 1;
-            item.rare = 6;
-            item.value = 40000;
+            width = 46;
+            height = 62;
+            rarity = Rarity.LightPurple;
+            item.value = Item.buyPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

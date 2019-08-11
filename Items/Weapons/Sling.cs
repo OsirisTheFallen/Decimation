@@ -8,31 +8,26 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons
 {
-    public class Sling : ModItem
+    internal class Sling : DecimationWeapon
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Sling");
-			Tooltip.SetDefault("Uses pebbles and marbles as ammo");
-		}
-        public override void SetDefaults()
+			protected override string ItemName => "Sling";
+			protected override string ItemTooltip => "Uses pebbles and marbles as ammo";
+            protected override DamageType DamagesType => DamageType.RANGED;
+            protected override int Damages => 9;
+
+        protected override void InitWeapon()
         {
-            item.damage = 9; 
-            item.noMelee = true; 
-            item.ranged = true; 
-            item.width = 30; 
-            item.height = 22; 
-            item.useTime = 16; 
-            item.useAnimation = 16;  
-            item.useStyle = 1; 
+            width = 30; 
+            height = 22; 
+            useTime = 16; 
+            useAnimation = 16;  
             item.shoot = 1; 
 			item.useAmmo = mod.ItemType("Pebble");
-            item.knockBack = 6; 
-            item.rare = 3; 
-            item.UseSound = SoundID.Item5;
-            item.autoReuse = false; 
-            item.shootSpeed = 10f;
-            item.crit = 10; 
+            knockBack = 6; 
+            rarity = Rarity.Orange; 
+            useSound = SoundID.Item5;
+            shootSpeed = 10f;
+            criticalStrikeChance = 10; 
 		}	
 	}
 }

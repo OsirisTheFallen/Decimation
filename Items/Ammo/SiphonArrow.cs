@@ -1,42 +1,38 @@
 ﻿using Decimation.Items.Misc;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Ammo
 {
-    class SiphonArrow : ModItem
+    internal class SiphonArrow : DecimationAmmo
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Aspires other's life.");
-        }
+        protected override string ItemName => "Siphon Arrow";
+        protected override string ItemTooltip => "Aspires other's life";
+        protected override string Projectile => "SiphonArrow";
+        protected override int Ammo => AmmoID.Arrow;
 
-        public override void SetDefaults()
+        protected override void InitAmmo()
         {
-            item.damage = 11;
-            item.ranged = true;
-            item.width = 14;
-            item.height = 32;
-            item.maxStack = 999;
-            item.rare = 1;
-            item.consumable = true;
-            item.knockBack = 2;
-            item.value = 55;
-            item.shoot = mod.ProjectileType<Projectiles.SiphonArrow>();
+            damages = 11;
+            projKnockBack = 2;
+            width = 14;
+            height = 32;
+            value = Item.buyPrice(0, 0, 0, 55);
+
             item.shootSpeed = 2.5f;
-            item.ammo = AmmoID.Arrow;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Anvils }, false);
+
             recipe.AddIngredient(ItemID.WoodenArrow, 50);
             recipe.AddIngredient(mod.ItemType<BloodiedEssence>());
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

@@ -5,47 +5,35 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Potions
 {
-    public class EnchantedMushroom : ModItem
+    internal class EnchantedMushroom : DecimationPotion
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Enchanted Mushroom");
-            Tooltip.SetDefault("Cures poison \nGives Happy! buff");
-        }
+        protected override string ItemName => "Enchanted Mushroom";
+        protected override string ItemTooltip => "Cures poison \nGives Happy! buff";
+        protected override int BuffType => BuffID.Sunflower;
+        protected override int BuffTime => 7200;
+        protected override int HealLife => 90;
 
-        public override void SetDefaults()
+        protected override void InitPotion()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 30;
-            item.value = 1500;
-            item.rare = 1;
-            item.consumable = true;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.potion = true;
-            item.useTurn = true;
-            item.useStyle = 2;
-            item.healLife = 90;
+            value = Item.buyPrice(0, 0, 15);
         }
 
         public override bool UseItem(Player player)
         {
             player.ClearBuff(BuffID.Poisoned);
-            player.AddBuff(BuffID.Sunflower, 7200);
             return true;
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.AlchemyTable);
+
             recipe.AddIngredient(ItemID.Mushroom);
             recipe.AddIngredient(ItemID.GlowingMushroom);
             recipe.AddIngredient(ItemID.BottledHoney);
             recipe.AddIngredient(ItemID.FallenStar);
-            recipe.AddTile(TileID.AlchemyTable);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

@@ -8,49 +8,34 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons
 {
-    public class TheGreatwoodSword : ModItem
+    internal class TheGreatwoodSword : DecimationWeapon
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("The Greatwood Sword");
-			Tooltip.SetDefault("Who needs metal?");
-		}		
-        public override void SetDefaults()
+        protected override string ItemName => "The Greatwood Sword";
+        protected override string ItemTooltip => "Who needs metal?";
+        protected override int Damages => 20;
+
+        protected override void InitWeapon()
         {
-            item.damage = 20;
-            item.melee = true;
-            item.width = 44;
-            item.height = 44;
-            item.useTime = 25;
-            item.useAnimation = 25;     
-            item.useStyle = 1;
-            item.knockBack = 5;
-            item.value = 4000;        
-            item.rare = 2;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;
-			item.expert = false;
-		}	
-		public override void AddRecipes()
+            width = 44;
+            height = 44;
+            useTime = 25;
+            useAnimation = 25;
+            knockBack = 5;
+            item.value = Item.buyPrice(silver: 40);
+            rarity = Rarity.Green;
+            autoReuse = true;
+            item.expert = false;
+        }
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
-			recipe.AddIngredient(ItemID.WoodenSword, 1);
-			recipe.AddIngredient(ItemID.BorealWoodSword, 1);
-			recipe.AddIngredient(ItemID.ShadewoodSword, 1);
-			recipe.AddIngredient(ItemID.PalmWoodSword, 1);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.WoodenSword, 1);
-			recipe.AddIngredient(ItemID.BorealWoodSword, 1);
-			recipe.AddIngredient(ItemID.EbonwoodSword, 1);
-			recipe.AddIngredient(ItemID.PalmWoodSword, 1);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.Anvils, true);
+
+            recipe.AddIngredient(ItemID.WoodenSword, 1);
+            recipe.AddIngredient(ItemID.BorealWoodSword, 1);
+            recipe.AddIngredient(ItemID.ShadewoodSword, 1);
+            recipe.AddIngredient(ItemID.PalmWoodSword, 1);
+
+            return recipe;
         }
     }
 }

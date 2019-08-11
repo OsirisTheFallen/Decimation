@@ -5,42 +5,30 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Potions
 {
-    public class CommanderPotion : ModItem
+    internal class CommanderPotion : DecimationPotion
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Commander Potion";
+        protected override string ItemTooltip =>
+            "Increases your max number of minions by 1 \nMinions damages +10% \nMinions knockback +10%";
+        protected override int BuffType => mod.BuffType("Commander");
+        protected override int BuffTime => 36000;
+
+        protected override void InitPotion()
         {
-            DisplayName.SetDefault("Commander Potion");
-            Tooltip.SetDefault("Increases your max number of minions by 1 \nMinions damages +10% \nMinions Knockback +10%");
+            value = Item.buyPrice(0, 1);
         }
 
-        public override void SetDefaults()
+        protected override ModRecipe GetRecipe()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 30;
-            item.value = 10000;
-            item.rare = 1;
-            item.consumable = true;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            //item.potion = true;
-            item.useTurn = true;
-            item.useStyle = 2;
-            item.buffType = mod.BuffType("Commander");
-            item.buffTime = 36000;
-        }
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.AlchemyTable);
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.SummoningPotion);
             recipe.AddIngredient(ItemID.SoulofFlight, 20);
             recipe.AddIngredient(ItemID.VariegatedLardfish);
             recipe.AddIngredient(ItemID.MagicPowerPotion, 2);
             recipe.AddIngredient(ItemID.RottenChunk, 2);
-            recipe.AddTile(TileID.AlchemyTable);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

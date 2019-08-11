@@ -8,49 +8,45 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    public class EnergyFocuser : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Energy Focuser");
-			Tooltip.SetDefault("Opens one's chakra points.");
-		}
-		public override void SetDefaults()
+    internal class EnergyFocuser : DecimationAccessory
+    {
+        protected override string ItemName => "Energy Focuser";
+        protected override string ItemTooltip => "Opens one's chakra points.";
+
+        protected override void InitAccessory()
         {
-            item.width = 62;
-            item.height = 46;
-            item.value = 10;
-            item.rare = 2;
-            item.accessory = true;
+            width = 62;
+            height = 46;
+            rarity = Rarity.Green;
+            item.value = Item.buyPrice(0, 0, 0, 10);
         }
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
-            recipe.AddIngredient(null, "EnchantedFocuser", 1);
-			recipe.AddIngredient(ItemID.PixieDust, 40);
-			recipe.AddIngredient(ItemID.SoulofSight, 15);
-			recipe.AddIngredient(ItemID.SoulofLight, 15);
-			recipe.AddIngredient(null, "Focuser", 1);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.MythrilAnvil }, true);
+
+            recipe.AddIngredient(mod.ItemType<EnchantedFocuser>());
+            recipe.AddIngredient(ItemID.PixieDust, 40);
+            recipe.AddIngredient(ItemID.SoulofSight, 15);
+            recipe.AddIngredient(ItemID.SoulofLight, 15);
+            recipe.AddIngredient(mod.ItemType<Focuser>());
+
+            return new List<ModRecipe>() { recipe };
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.rangedDamage += 0.10f;
-			player.magicDamage += 0.10f;
-			player.rangedCrit += 05;
-			player.meleeCrit += 05;
-			player.magicCrit += 05;
-			player.thrownCrit += 05;
-			player.manaRegen += 2;
-			player.statManaMax2 += 20;
-			player.statLifeMax2 += 20;
-			player.lifeRegen += 2;
-			player.meleeDamage += 0.04f;
+            player.rangedDamage += 0.10f;
+            player.magicDamage += 0.10f;
+            player.rangedCrit += 05;
+            player.meleeCrit += 05;
+            player.magicCrit += 05;
+            player.thrownCrit += 05;
+            player.manaRegen += 2;
+            player.statManaMax2 += 20;
+            player.statLifeMax2 += 20;
+            player.lifeRegen += 2;
+            player.meleeDamage += 0.04f;
         }
-    
+
     }
 }

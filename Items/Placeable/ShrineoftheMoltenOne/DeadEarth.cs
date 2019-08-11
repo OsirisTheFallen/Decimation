@@ -5,25 +5,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable.ShrineoftheMoltenOne
 {
-    class DeadEarth : ModItem
+    internal class DeadEarth : DecimationPlaceableItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Dead Earth";
+        protected override int Tile => mod.TileType<Tiles.ShrineoftheMoltenOne.DeadEarth>();
+
+        protected override void InitPlaceable()
         {
-            DisplayName.SetDefault("Dead Earth");
-            Tooltip.SetDefault("");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 12;
-            item.height = 12;
-            item.maxStack = 999;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = 1;
-            item.consumable = true;
-            item.createTile = mod.TileType("DeadEarth");
+            width = 12;
+            height = 12;
         }
     }
 }

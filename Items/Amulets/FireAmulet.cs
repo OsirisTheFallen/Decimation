@@ -11,20 +11,17 @@ using Terraria.UI.Chat;
 
 namespace Decimation.Items.Amulets
 {
-    public class FireAmulet : Amulet
+    internal class FireAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
+        protected override string ItemName => "Fire Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Melee;
+
+        protected override void InitAmulet()
         {
-            get { return AmuletClasses.MELEE; }
+            height = 34;
         }
 
-        public override void SetAmuletDefaults()
-        {
-            item.width = 28;
-            item.height = 34;
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.meleeDamage *= 1.03f;
             player.meleeSpeed *= 1.03f;
@@ -37,27 +34,27 @@ namespace Decimation.Items.Amulets
             modPlayer.amuletsBuffTime = 300;
         }
 
-        public override AmuletTooltip GetAmuletTooltips()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-			return new AmuletTooltip(this)
-				.addEffect("+3% melee speed")
-				.addEffect("+3% melee damages")
-				.addEffect("+3% melee critical strike chances")
-				.addEffect("+7 seconds of immunity to lava")
-				.addEffect("+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes")
-				.addSynergy("The lava charm grant an additional 5 seconds of lava immunity");
-        }
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, false);
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType<RedHotShackle>());
             recipe.AddIngredient(ItemID.Obsidian, 6);
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.Gel, 20);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe> { recipe };
+        }
+
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
+        {
+            tooltip
+                .AddEffect("+3% melee speed")
+                .AddEffect("+3% melee damages")
+                .AddEffect("+3% melee critical strike chances")
+                .AddEffect("+7 seconds of immunity to lava")
+                .AddEffect("+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes")
+                .AddSynergy("The lava charm grant an additional 5 seconds of lava immunity");
         }
     }
 }

@@ -1,67 +1,47 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Amulets
 {
-    class MinersAmulet : Amulet
+    internal class MinersAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
+        protected override string ItemName => "Miner's Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Miner;
+
+        protected override void InitAmulet()
         {
-            get { return AmuletClasses.MINER; }
+            height = 32;
         }
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Miner's Amulet");
-        }
-
-        public override void SetAmuletDefaults()
-        {
-            item.width = 28;
-            item.height = 32;
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.pickSpeed *= 1.03f;
             player.meleeSpeed *= 1.04f;
             player.blockRange += 1;
-            Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1, 1, 1);
-            //Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1.05f, 0.95f, 0.55f);
+            Lighting.AddLight((int)(player.position.X + player.width / 2f) / 16, (int)(player.position.Y + player.height / 2f) / 16, 1, 1, 1);
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, true);
+
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.Torch, 10);
             recipe.AddIngredient(ItemID.CopperPickaxe);
             recipe.AddIngredient(ItemID.IronOre, 2);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
 
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Chain, 2);
-            recipe.AddIngredient(ItemID.Torch, 10);
-            recipe.AddIngredient(ItemID.CopperPickaxe);
-            recipe.AddIngredient(ItemID.IronOre, 2);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            return new List<ModRecipe> { recipe };
         }
 
-        public override AmuletTooltip GetAmuletTooltips()
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
         {
-            return new AmuletTooltip(this)
-                .addEffect("+3% mining speed")
-                .addEffect("+4% melee speed")
-                .addEffect("+1 block interaction range")
-                .addEffect("Provides light");
+            tooltip
+                .AddEffect("+3% mining speed")
+                .AddEffect("+4% melee speed")
+                .AddEffect("+1 block interaction range")
+                .AddEffect("Provides light");
         }
     }
 }

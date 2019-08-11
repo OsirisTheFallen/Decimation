@@ -1,29 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using Decimation.Items.Placeable;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ChlorophyteAnvil = Decimation.Tiles.ChlorophyteAnvil;
 
 namespace Decimation.Items.Accessories
 {
-    class EndlessPouchofLife : ModItem
+    internal class EndlessPouchofLife : DecimationAccessory
     {
+        protected override string ItemName => "Endless Pouch of Life";
+        protected override string ItemTooltip => "Cancels ammunition consumption." +
+                                                 "\nIncrease maximum life by 15" +
+                                                 "\nChange ammunitions in Chlorophyte Bullets \nProvide a life regeneration boost \n+8% ranged damage \n+15% critical strike chance";
 
-        public override void SetStaticDefaults()
+        protected override void InitAccessory()
         {
-            DisplayName.SetDefault("Endless Pouch of Life");
-            Tooltip.SetDefault("cancels ammunition consumption." +
-                "\nIncrease maximum life by 15" +
-                "\nChange ammunitions in Chlorophyte Bullets \nProvide a life regeneration boost \n+8% ranged damage \n+15% critical strike chance");
-        }
-
-        public override void SetDefaults()
-        {
-            item.width = 24;
-            item.height = 32;
-            item.accessory = true;
-            item.maxStack = 1;
-            item.value = 500000;
-            item.rare = 7;
+            width = 24;
+            height = 32;
+            rarity = Rarity.Lime;
+            item.value = Item.buyPrice(0, 50);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -35,16 +32,16 @@ namespace Decimation.Items.Accessories
             Main.LocalPlayer.GetModPlayer<DecimationPlayer>().endlessPouchofLifeEquipped = true;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<ChlorophyteAnvil>() }, false);
+
             recipe.AddIngredient(ItemID.ChlorophyteBar, 25);
-            recipe.AddIngredient(null, "EnergyFocuser");
+            recipe.AddIngredient(mod.ItemType<EnergyFocuser>());
             recipe.AddIngredient(ItemID.EndlessMusketPouch);
             recipe.AddIngredient(ItemID.SoulofSight, 50);
-            recipe.AddTile(null, "ChlorophyteAnvil");
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

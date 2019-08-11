@@ -1,34 +1,33 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    public class RangersPouch : ModItem
+    internal class RangersPouch : DecimationAccessory
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Ranger's Pouch";
+        protected override string ItemTooltip =>
+            "25% Chance to not consume ammo \n+10% Ranged damage \n+5% Ranged critical chance";
+
+        protected override void InitAccessory()
         {
-            DisplayName.SetDefault("Ranger's Pouch");
-            Tooltip.SetDefault("25% Chance to not consume ammo \n+10% Ranged damage \n+5% Ranged critical chance");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 30;
-            item.height = 30;
+            width = 30;
+            height = 30;
             item.value = 10;
-            item.rare = 2;
-            item.accessory = true;
+            rarity = Rarity.Green;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.MythrilAnvil }, false);
+
             recipe.AddIngredient(ItemID.EndlessMusketPouch);
             recipe.AddIngredient(ItemID.RangerEmblem);
             recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

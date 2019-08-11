@@ -182,7 +182,7 @@ namespace Decimation.Items
                 }
             }
 
-            public static CurseType GetTypeFromName(String name)
+            public static CurseType GetTypeFromName(string name)
             {
                 foreach (CurseType type in Values)
                 {

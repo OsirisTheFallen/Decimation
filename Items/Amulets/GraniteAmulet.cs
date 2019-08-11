@@ -1,24 +1,21 @@
-﻿using Decimation.Items.Accessories;
+﻿using System.Collections.Generic;
+using Decimation.Items.Accessories;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Amulets
 {
-    class GraniteAmulet : Amulet
+    internal class GraniteAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
+        protected override string ItemName => "Granite Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Tank;
+
+        protected override void InitAmulet()
         {
-            get { return AmuletClasses.TANK; }
         }
 
-        public override void SetAmuletDefaults()
-        {
-            item.width = 28;
-            item.height = 30;
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.statDefense += 1;
 
@@ -30,25 +27,25 @@ namespace Decimation.Items.Amulets
             }
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, false);
+
             recipe.AddIngredient(mod.ItemType<GraniteLinedTunic>());
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.Granite, 6);
             recipe.AddIngredient(ItemID.Gel, 20);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe> { recipe };
         }
 
-        public override AmuletTooltip GetAmuletTooltips()
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
         {
-            return new AmuletTooltip(this)
-                .addEffect("+1 to defense")
-                .addEffect("-3% of incoming damage to team members (WIP)")
-                .addEffect("When above " + (Main.LocalPlayer.statLifeMax * 0.75f) + " hp, your are slowed by 5%, but your defense is increased by 5% and the knockback is cancelled")
-                .addSynergy("Cobalt Shield, Ankh Shield, Paladins Shield and Obsidian Shield gives 10% chance to block attacks");
+            tooltip
+                .AddEffect("+1 to defense")
+                .AddEffect("-3% of incoming damage to team members (WIP)")
+                .AddEffect("When above " + (Main.LocalPlayer.statLifeMax * 0.75f) + " hp, your are slowed by 5%, but your defense is increased by 5% and the knockback is cancelled")
+                .AddSynergy("Cobalt Shield, Ankh Shield, Paladins Shield and Obsidian Shield gives 10% chance to block attacks");
         }
     }
 }

@@ -1,41 +1,43 @@
 ﻿using System;
+using Decimation.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons
 {
-    class TitanicRepeater : ModItem
+    internal class TitanicRepeater : DecimationWeapon
     {
-        public override void SetDefaults()
+        protected override string ItemName => "Titanic Repeater";
+        protected override DamageType DamagesType => DamageType.RANGED;
+        protected override int Damages => 120;
+
+        protected override void InitWeapon()
         {
-            item.width = 56;
-            item.height = 36;
-            item.ranged = true;
-            item.noMelee = true;
-            item.damage = 120;
-            item.crit = 20;
-            item.useStyle = 5;
-            item.useTime = 12;
-            item.useAnimation = 12;
-            item.knockBack = 7;
+            width = 56;
+            height = 36;
+            criticalStrikeChance = 20;
+            useStyle = 5;
+            useTime = 12;
+            useAnimation = 12;
+            knockBack = 7;
             item.shoot = 1;
             item.useAmmo = AmmoID.Arrow;
-            item.UseSound = SoundID.Item5;
-            item.shootSpeed = 25;
-            item.autoReuse = true;
+            useSound = SoundID.Item5;
+            shootSpeed = 25;
+            autoReuse = true;
             item.value = Item.buyPrice(gold: 45);
-            item.rare = 6;
+            rarity = Rarity.LightPurple;
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
+
             recipe.AddIngredient(mod.ItemType("TitaniteBar"), 12);
             recipe.AddIngredient(ItemID.SoulofMight, 15);
-            recipe.AddTile(mod.TileType("TitanForge"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

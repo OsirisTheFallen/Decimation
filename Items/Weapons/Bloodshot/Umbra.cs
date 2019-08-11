@@ -6,31 +6,27 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Bloodshot
 {
-    public class Umbra : ModItem
+    internal class Umbra : DecimationWeapon
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Umbra");
-            Tooltip.SetDefault("Turns wooden arrows into siphon arrows.");
-        }
+            protected override string ItemName => "Umbra";
+            protected override string ItemTooltip => "Turns wooden arrows into siphon arrows.";
+            protected override DamageType DamagesType => DamageType.RANGED;
+            protected override int Damages => 18;
+            protected override string Projectile => "WoodenArrowFriendly";
+            protected override bool VanillaProjectile => true;
 
-        public override void SetDefaults()
+            protected override void InitWeapon()
         {
-            item.width = 20;
-            item.height = 20;
-            item.value = 20000;
-            item.rare = 2;
-            item.maxStack = 1;
-            item.ranged = true;
-            item.damage = 18;
+            width = 20;
+            height = 20;
+            value = Item.buyPrice(0, 2);
+            rarity = Rarity.Green;
             item.useAmmo = AmmoID.Arrow;
-            item.noMelee = true;
-            item.shoot = ProjectileID.WoodenArrowFriendly;
-            item.shootSpeed = 6.8f;
-            item.useTime = 26;
-            item.useAnimation = 26;
-            item.useStyle = 5;
-            item.UseSound = SoundID.Item5;
+            shootSpeed = 6.8f;
+            useTime = 26;
+            useAnimation = 26;
+            useStyle = 5;
+            useSound = SoundID.Item5;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

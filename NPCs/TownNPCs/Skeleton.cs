@@ -82,7 +82,7 @@ namespace Decimation.NPCs.TownNPCs
             return score >= (right - left) * (bottom - top) / 2;
         }
 
-        private List<String> names = new List<string>()
+        private List<string> names = new List<string>()
         {
             "Tommy",
             "Johnny",

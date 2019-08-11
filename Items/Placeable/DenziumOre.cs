@@ -5,25 +5,16 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable
 {
-    class DenziumOre : ModItem
+    internal class DenziumOre : DecimationPlaceableItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Denzium Ore";
+        protected override string ItemTooltip => "A substance created from intense pressure and heat.";
+        protected override int Tile => mod.TileType<Tiles.DenziumOre>();
+
+        protected override void InitPlaceable()
         {
-            DisplayName.SetDefault("Denzium Ore");
-            Tooltip.SetDefault("A substance created from intense pressure and heat.");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 12;
-            item.height = 12;
-            item.maxStack = 999;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = 1;
-            item.consumable = true;
-            item.createTile = mod.TileType("DenziumOre");
+            width = 12;
+            height = 12;
         }
     }
 }

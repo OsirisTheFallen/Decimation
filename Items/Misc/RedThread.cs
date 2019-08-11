@@ -1,30 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc
 {
-    class RedThread : ModItem
+    internal class RedThread : DecimationItem
     {
-        public override void SetDefaults()
+        protected override string ItemName => "Red Thread";
+
+        protected override void Init()
         {
-            item.width = 28;
-            item.height = 20;
-            item.rare = 0;
-            item.value = 10000;
+            width = 28;
+            height = 20;
+            rarity = Rarity.Gray;
+            value = Item.buyPrice(0, 2);
+
             item.maxStack = 99;
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Tables, TileID.Chairs });
+
             recipe.AddIngredient(ItemID.RedDye);
             recipe.AddIngredient(ItemID.PinkThread, 5);
-            recipe.AddTile(TileID.Tables);
-            recipe.AddTile(TileID.Chairs);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

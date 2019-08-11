@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Decimation.Buffs.Debuffs;
+using Decimation.Items.Accessories;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -6,40 +8,18 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Amulets
 {
-    public class SlimeAmulet : Amulet
+    internal class SlimeAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass => AmuletClasses.SUMMONER;
+        protected override string ItemName => "Slime Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Summoner;
 
-        public override void SetAmuletDefaults()
+        protected override void InitAmulet()
         {
-            item.width = 24;
-            item.height = 24;
+            width = 24;
+            height = 24;
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
-            recipe.AddIngredient(ItemID.RoyalGel);
-            recipe.AddIngredient(ItemID.Gel, 10);
-            recipe.AddIngredient(ItemID.Chain, 2);
-            recipe.AddIngredient(null, "SlimeBracelet");
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
-        }
-
-        public override AmuletTooltip GetAmuletTooltips()
-        {
-            return new AmuletTooltip(this)
-                .addEffect("Makes slimes friendly")
-                .addEffect("+3% minion damages")
-                .addEffect("+3% minion knockback")
-                .addEffect("+4% chances to inflict \"Slimed!\" debuff to enemies on strikes")
-                .addSynergy("Causes summoned Baby Slimes to shoot two slime spikes in a V formation, each 5 seconds.");
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.minionDamage *= 0.03f;
             player.minionKB *= 0.03f;
@@ -72,6 +52,27 @@ namespace Decimation.Items.Amulets
             modPlayer.amuletsBuffChances = 4;
             modPlayer.amuletsBuffTime = 300;
         }
+        protected override List<ModRecipe> GetAdditionalRecipes()
+        {
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, true);
+
+            recipe.AddIngredient(ItemID.RoyalGel);
+            recipe.AddIngredient(ItemID.Gel, 10);
+            recipe.AddIngredient(ItemID.Chain, 2);
+            recipe.AddIngredient(mod.ItemType<SlimeBracelet>());
+
+            return new List<ModRecipe> { recipe };
+        }
+
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
+        {
+            tooltip
+                .AddEffect("Makes slimes friendly")
+                .AddEffect("+3% minion damages")
+                .AddEffect("+3% minion knockback")
+                .AddEffect("+4% chances to inflict \"Slimed!\" debuff to enemies on strikes")
+                .AddSynergy("Causes summoned Baby Slimes to shoot two slime spikes in a V formation, each 5 seconds.");
+        }
     }
 
     public class SlimeAmuletSynergy : GlobalProjectile
@@ -90,7 +91,7 @@ namespace Decimation.Items.Amulets
                 {
                     if (_spikeIntervalCounter > SpikeInterval)
                     {
-                        // Shoot
+                        // Projectile
                         Projectile proj1 = Projectile.NewProjectileDirect(projectile.Center, new Vector2(-1, -2.5f), ProjectileID.JungleSpike, 10, 10);
                         proj1.friendly = true;
                         proj1.hostile = false;
@@ -102,7 +103,7 @@ namespace Decimation.Items.Amulets
                         _spikeIntervalCounter = 0;
                     }
 
-                    _spikeIntervalCounter++; 
+                    _spikeIntervalCounter++;
                 }
             }
 

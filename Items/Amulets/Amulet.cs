@@ -2,28 +2,28 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
 namespace Decimation.Items.Amulets
 {
-    public abstract class Amulet : ModItem
+    internal abstract class Amulet : DecimationItem
     {
         public abstract AmuletClasses AmuletClass { get; }
 
-        public virtual void SetAmuletDefaults() { }
+        protected abstract void InitAmulet();
 
-        public virtual void UpdateAmulet(Player player) { }
+        protected virtual void UpdateAmulet(Player player) { }
 
-        public virtual AmuletTooltip GetAmuletTooltips() { return new AmuletTooltip(this); }
+        protected virtual void SetAmuletTooltips(ref AmuletTooltip tooltip) { }
 
-        public sealed override void SetDefaults()
+        protected sealed override void Init()
         {
-            SetAmuletDefaults();
+            width = 28;
+            height = 30;
+            rarity = Rarity.Green;
 
-            item.noMelee = true;
-            item.rare = 2;
+            InitAmulet();
 
             Decimation.amulets.Add(item.type);
         }
@@ -35,40 +35,42 @@ namespace Decimation.Items.Amulets
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.AddRange(GetAmuletTooltips().Lines);
+            AmuletTooltip tooltip = new AmuletTooltip(this);
+            SetAmuletTooltips(ref tooltip);
+            tooltips.AddRange(tooltip.Lines);
         }
     }
 
     public enum AmuletClasses
     {
-        MELEE,
-        SUMMONER,
-        MAGE,
-        RANGER,
-        THROWING,
-        TANK,
-        HEALER,
-        BUILDER,
-        MINER,
-        CREATOR
+        Melee,
+        Summoner,
+        Mage,
+        Ranger,
+        Throwing,
+        Tank,
+        Healer,
+        Builder,
+        Miner,
+        Creator
     }
 
     public class AmuletTooltip
     {
-        private readonly Color classColor = ChatManager.WaveColor(Color.Fuchsia);
-        private readonly Color effectColor = Color.ForestGreen;
-        private readonly Color synergyColor = Color.CadetBlue;
-        private readonly Mod mod = Decimation.Instance;
-        private readonly Amulet amulet;
+        private readonly Color _classColor = ChatManager.WaveColor(Color.Fuchsia);
+        private readonly Color _effectColor = Color.ForestGreen;
+        private readonly Color _synergyColor = Color.CadetBlue;
+        private readonly Mod _mod = Decimation.Instance;
+        private readonly Amulet _amulet;
 
-        private int effectCount = 0;
-        private bool hasSynergy = false;
+        private int _effectCount;
+        private bool _hasSynergy;
 
         public List<TooltipLine> Lines { get; set; }
 
-        public AmuletTooltip(Amulet amulet)
+        internal AmuletTooltip(Amulet amulet)
         {
-            this.amulet = amulet;
+            _amulet = amulet;
 
             Lines = new List<TooltipLine>();
 
@@ -77,36 +79,37 @@ namespace Decimation.Items.Amulets
 
         private void SetClassTooltip()
         {
-            Lines.Add(new TooltipLine(mod, "DecimationAmuletClass", amulet.AmuletClass.ToString("F"))
+            Lines.Add(new TooltipLine(_mod, "DecimationAmuletClass", _amulet.AmuletClass.ToString("F"))
             {
-                overrideColor = classColor
+                overrideColor = _classColor
             });
         }
 
-        public AmuletTooltip addEffect(String tooltip)
+        public AmuletTooltip AddEffect(string tooltip)
         {
-            Lines.Add(new TooltipLine(mod, $"Effect{effectCount}", tooltip)
+            Lines.Add(new TooltipLine(_mod, $"Effect{_effectCount}", tooltip)
             {
-                overrideColor = effectColor
+                overrideColor = _effectColor
             });
 
-            effectCount++;
+            _effectCount++;
             return this;
         }
 
-        public AmuletTooltip addSynergy(String tooltip)
+        public AmuletTooltip AddSynergy(string tooltip)
         {
-            if(!hasSynergy)
+            if (!_hasSynergy)
             {
-                Lines.Add(new TooltipLine(mod, "Synergy", tooltip)
+                Lines.Add(new TooltipLine(_mod, "Synergy", tooltip)
                 {
-                    overrideColor = synergyColor
+                    overrideColor = _synergyColor
                 });
 
-                hasSynergy = true;
-            } else
+                _hasSynergy = true;
+            }
+            else
             {
-                throw new InvalidOperationException($"Can't add more than one synergy tooltip to {amulet.Name}");
+                throw new InvalidOperationException($"Can't add more than one synergy tooltip to {_amulet.Name}");
             }
 
             return this;

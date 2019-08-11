@@ -7,48 +7,43 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Amulets
 {
-    class CrystalAmulet : Amulet
+    internal class CrystalAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass => AmuletClasses.MAGE;
+        protected override string ItemName => "Crystal Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Mage;
 
-        public override void SetStaticDefaults()
+        protected override void InitAmulet()
         {
-            DisplayName.SetDefault("Crystal Amulet");
+            height = 32;
         }
 
-        public override void SetAmuletDefaults()
-        {
-            item.width = 28;
-            item.height = 32;
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.statManaMax2 += 5;
             player.magicDamage *= 1.03f;
             player.magicCrit += 3;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, false);
+
             recipe.AddRecipeGroup("AnyGem", 2);
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.ManaCrystal);
             recipe.AddIngredient(ItemID.ManaRegenerationBand);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe> { recipe };
         }
 
-        public override AmuletTooltip GetAmuletTooltips()
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
         {
-            return new AmuletTooltip(this)
-                .addEffect("+5 maximum mana")
-                .addEffect("+3% magic damages")
-                .addEffect("+3% magic critical strike chances")
-                .addEffect("+4% chances to shoot out a burst of crystal shards when taking damages")
-                .addSynergy("Causes all basics staffs to burst into a quad spread of crystals on hit, dealing a small amount of extra damages");
+            tooltip
+                .AddEffect("+5 maximum mana")
+                .AddEffect("+3% magic damages")
+                .AddEffect("+3% magic critical strike chances")
+                .AddEffect("+4% chances to shoot out a burst of crystal shards when taking damages")
+                .AddSynergy("Causes all basics staffs to burst into a quad spread of crystals on hit, dealing a small amount of extra damages");
         }
     }
 

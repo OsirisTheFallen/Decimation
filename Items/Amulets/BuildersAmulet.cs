@@ -9,23 +9,15 @@ namespace Decimation.Items.Amulets
 {
     class BuildersAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
+        protected override string ItemName => "Builder's Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Builder;
+
+        protected override void InitAmulet()
         {
-            get { return AmuletClasses.BUILDER; }
+            height = 34;
         }
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Builder's Amulet");
-        }
-
-        public override void SetAmuletDefaults()
-        {
-            item.width = 28;
-            item.height = 30;
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.blockRange += 2;
             player.tileSpeed *= 1.05f;
@@ -34,35 +26,25 @@ namespace Decimation.Items.Amulets
             Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1.05f, 0.95f, 0.55f);
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, true);
+
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.CopperHammer);
             recipe.AddIngredient(ItemID.Shackle, 1);
             recipe.AddIngredient(ItemID.Torch, 10);
             recipe.AddIngredient(ItemID.IronBar);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
 
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Chain, 2);
-            recipe.AddIngredient(ItemID.CopperHammer);
-            recipe.AddIngredient(ItemID.Shackle, 1);
-            recipe.AddIngredient(ItemID.Torch, 10);
-            recipe.AddIngredient(ItemID.LeadBar);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            return new List<ModRecipe> { recipe };
         }
 
-        public override AmuletTooltip GetAmuletTooltips()
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
         {
-            return new AmuletTooltip(this)
-                .addEffect("+2 block interaction range")
-                .addEffect("+5% tile and wall placement speed")
-                .addEffect("Provides light");
+            tooltip
+                .AddEffect("+2 block interaction range")
+                .AddEffect("+5% tile and wall placement speed")
+                .AddEffect("Provides light");
         }
     }
 }

@@ -1,5 +1,6 @@
 using Decimation.NPCs.AncientDuneWorm;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,24 +8,22 @@ using Terraria.ModLoader;
 namespace Decimation.Items.Boss.DuneWorm
 {
 
-    public class DesertDessert : ModItem
+    internal class DesertDessert : DecimationItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Desert Dessert";
+        protected override string ItemTooltip => "Summons the Ancient Dune Worm";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Desert Dessert");
-            Tooltip.SetDefault("Summons the Ancient Dune Worm");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 32;
-            item.height = 32;
-            item.value = 1300;
-            item.rare = 1;
+            width = 32;
+            height = 32;
+            value = Item.buyPrice(0, 0, 13);
+            useStyle = 4;
+            useAnimation = 30;
+            useTime = 30;
+            consumable = true;
+
             item.maxStack = 20;
-            item.useStyle = 4;
-            item.useAnimation = 30;
-            item.useTime = 30;
-            item.consumable = true;
         }
 
         public override bool UseItem(Player player)
@@ -50,15 +49,14 @@ namespace Decimation.Items.Boss.DuneWorm
             return false;
         }
 
-        public override void AddRecipes()  //How to craft this item
+        protected override ModRecipe GetRecipe()  //How to craft this item
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Anvils });
+
             recipe.AddIngredient(ItemID.SandBlock, 10);
             recipe.AddIngredient(ItemID.WormTooth, 5);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
 
+            return recipe;
+        }
     }
 }

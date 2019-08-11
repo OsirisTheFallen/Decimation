@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
@@ -7,29 +8,22 @@ using Decimation.Tiles;
 
 namespace Decimation.Items.Accessories
 {
-    class TideTurner : ModItem
+    internal class TideTurner : DecimationAccessory
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Not one of ya’s going to survive this!\n" +
-                "Deals the same amount of damage as held item\n" +
-                "Increase underwater mobility\n" +
-                "+10% chance to dodge attacks when charging");
-        }
+        protected override string ItemName => "Tide Turner";
+        protected override string ItemTooltip => "Not one of ya’s going to survive this!\n" +
+        "Deals the same amount of damage as held item\n" +
+        "Increase underwater mobility\n" +
+        "+10% chance to dodge attacks when charging";
 
-        public override void SetDefaults()
+        protected override void InitAccessory()
         {
-            item.width = 46;
-            item.height = 36;
-            item.accessory = true;
-            item.value = 30000;
-            item.rare = -12;
-            item.melee = true;
-            item.damage = 0;
+            width = 46;
+            height = 36;
+            rarity = Rarity.Rainbow;
+            item.value = Item.buyPrice(0, 3);
             item.defense = 3;
             item.shieldSlot = 5;
-            item.crit = 1;
-            item.knockBack = 9;
             item.expert = true;
         }
 
@@ -44,15 +38,15 @@ namespace Decimation.Items.Accessories
             player.accFlipper = true;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<ChlorophyteAnvil>() }, false);
+
             recipe.AddIngredient(ItemID.EoCShield);
             recipe.AddIngredient(ItemID.Coral, 10);
             recipe.AddIngredient(mod.ItemType<DenziumBar>(), 5);
-            recipe.AddTile(mod.TileType<ChlorophyteAnvil>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

@@ -5,18 +5,15 @@ using Terraria.ID;
 
 namespace Decimation.Items.Placeable.ShrineoftheMoltenOne
 {
-    public class ShrineAltar : ModItem
+    internal class ShrineAltar : DecimationPlaceableItem
     {
-        public override void SetDefaults()
+        protected override string ItemName => "Shrine Altar";
+        protected override int Tile => mod.TileType<Tiles.ShrineoftheMoltenOne.ShrineAltar>();
+
+        protected override void InitPlaceable()
         {
-            item.width = 66;
-            item.height = 32;
-            item.useTime = 10;
-            item.useAnimation = 15;
-            item.useStyle = 1;
-            item.noMelee = true;
-            item.consumable = true;
-            item.createTile = mod.TileType<Tiles.ShrineoftheMoltenOne.ShrineAltar>();
+            width = 66;
+            height = 32;
         }
     }
 }

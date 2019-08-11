@@ -1,44 +1,33 @@
 using System;
+using Decimation.Buffs.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Potions
 {
-    public class WarlockPotion : ModItem
+    internal class WarlockPotion : DecimationPotion
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "WarlockPotion";
+        protected override string ItemTooltip => "Increased Mana Regeneration \nIncreased max mana \n10% increased magic damage";
+        protected override int BuffType => mod.BuffType<Warlock>();
+        protected override int BuffTime => 36000;
+
+        protected override void InitPotion()
         {
-            DisplayName.SetDefault("WarlockPotion");
-            Tooltip.SetDefault("Increased Mana Regeneration \nIncreased max mana \n10% increased magic damage");
+            value = Item.buyPrice(0, 0, 80);
         }
 
-        public override void SetDefaults()
+        protected override ModRecipe GetRecipe()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 30;
-            item.value = 8000;
-            item.rare = 1;
-            item.consumable = true;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.useTurn = true;
-            item.useStyle = 2;
-            item.buffType = mod.BuffType("Warlock");
-            item.buffTime = 36000;
-        }
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.AlchemyTable);
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.ManaRegenerationPotion);
             recipe.AddIngredient(ItemID.ManaCrystal);
             recipe.AddIngredient(ItemID.SoulofMight, 10);
             recipe.AddIngredient(ItemID.BottledHoney);
-            recipe.AddTile(TileID.AlchemyTable);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

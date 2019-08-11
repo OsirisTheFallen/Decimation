@@ -8,20 +8,16 @@ using System.Collections.Generic;
 
 namespace Decimation.Items.Amulets
 {
-    class HealtyAmulet : Amulet
+    internal class HealtyAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
+        protected override string ItemName => "Healty Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Healer;
+
+        protected override void InitAmulet()
         {
-            get { return AmuletClasses.HEALER; }
         }
 
-        public override void SetAmuletDefaults()
-        {
-            item.width = 28;
-            item.height = 30;
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.statManaMax2 += 10;
             player.statLifeMax2 += (int)(player.statLifeMax * 0.05f);
@@ -30,25 +26,25 @@ namespace Decimation.Items.Amulets
                 Item.NewItem(new Vector2(player.position.X, player.position.Y), mod.ItemType<EnchantedHeart>());
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, false);
+
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.LifeCrystal);
             recipe.AddIngredient(ItemID.BottledHoney);
             recipe.AddIngredient(ItemID.Gel, 5);
-            recipe.AddIngredient(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe> { recipe };
         }
 
-        public override AmuletTooltip GetAmuletTooltips()
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
         {
-            return new AmuletTooltip(this)
-                .addEffect("+10 to maximum mana")
-                .addEffect("+5% to maximum life")
-                .addEffect("Drop enchanted hearts each 5 seconds when you are in combat")
-                .addEffect("Your lifesteal will be given to your allies (WIP)");
+            tooltip
+                .AddEffect("+10 to maximum mana")
+                .AddEffect("+5% to maximum life")
+                .AddEffect("Drop enchanted hearts each 5 seconds when you are in combat")
+                .AddEffect("Your lifesteal will be given to your allies (WIP)");
         }
     }
 }

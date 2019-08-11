@@ -5,48 +5,35 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Tools
 {
-    public class GreatwoodHammer : ModItem
+    internal class GreatwoodHammer : DecimationTool
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Greatwood Mallet");
-			Tooltip.SetDefault("Who needs metal?");
-		}
-        public override void SetDefaults()
+        protected override string ItemName => "Greatwood Mallet";
+        protected override string ItemTooltip => "Who needs metal?";
+        protected override int MeleeDamages => 20;
+        protected override int HammerPower => 55;
+
+        protected override void InitTool()
         {
-            item.damage = 20;
-            item.melee = true;
-            item.width = 40;
-            item.height = 40;
-            item.useTime = 10;
-            item.useAnimation = 25;
-            item.hammer = 55;
-            item.useStyle = 1;
+            width = 40;
+            height = 40;
+            useTime = 10;
+            useAnimation = 25;
             item.knockBack = 5;
-            item.value = 1000;
-            item.rare = 2;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;
+            value = Item.buyPrice(0, 0, 10);
+            rarity = Rarity.Green;
+            useSound = SoundID.Item1;
         }
-        public override void AddRecipes()
+
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.WorkBenches, true);
+
             recipe.AddIngredient(ItemID.WoodenHammer);
-			recipe.AddIngredient(ItemID.BorealWoodHammer);
-			recipe.AddIngredient(ItemID.ShadewoodHammer);
-			recipe.AddIngredient(ItemID.PalmWoodHammer);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.WoodenHammer);
-			recipe.AddIngredient(ItemID.BorealWoodHammer);
-			recipe.AddIngredient(ItemID.EbonwoodHammer);
-			recipe.AddIngredient(ItemID.PalmWoodHammer);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-		}		
+            recipe.AddIngredient(ItemID.BorealWoodHammer);
+            recipe.AddIngredient(ItemID.ShadewoodHammer);
+            recipe.AddIngredient(ItemID.PalmWoodHammer);
+
+            return recipe;
+        }
     }
 }

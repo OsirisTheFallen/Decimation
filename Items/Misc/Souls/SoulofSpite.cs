@@ -5,27 +5,25 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc.Souls
 {
-    public class SoulofSpite : ModItem
+    internal class SoulofSpite : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Soul of Spite");
-            Tooltip.SetDefault("The essence of malice.");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
-            ItemID.Sets.AnimatesAsSoul[item.type] = true;
-            ItemID.Sets.ItemIconPulse[item.type] = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
-        }
+        protected override string ItemName => "Soul of Spite";
+        protected override string ItemTooltip => "The essence of malice.";
+        protected override DrawAnimation Animation => new DrawAnimationVertical(5, 4);
 
-        public override void SetDefaults()
+        protected override void Init()
         {
             Item refItem = new Item();
             refItem.SetDefaults(ItemID.SoulofSight);
-            item.width = refItem.width;
-            item.height = refItem.height;
+
+            width = refItem.width;
+            height = refItem.height;
             item.maxStack = 999;
-            item.value = 50000;
-            item.rare = 1;
+            value = 50000;
+
+            ItemID.Sets.AnimatesAsSoul[item.type] = true;
+            ItemID.Sets.ItemIconPulse[item.type] = true;
+            ItemID.Sets.ItemNoGravity[item.type] = true;
         }
 
         // Uncomment when Slime Prince will be done

@@ -5,25 +5,14 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable
 {
-    class TalonianPillar : ModItem
+    internal class TalonianPillar : DecimationPlaceableItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Talonian Pillar";
+        protected override string ItemTooltip => "A heavenly pillar created by powerful Talonian warlocks.";
+        protected override int Tile => mod.TileType("TalonianPillar");  // The tile doesn't exist yet
+
+        protected override void InitPlaceable()
         {
-            DisplayName.SetDefault("Talonian Pillar");
-            Tooltip.SetDefault("A heavenly pillar created by powerful Talonian warlocks.");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 12;
-            item.height = 12;
-            item.maxStack = 999;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = 1;
-            item.consumable = true;
-            item.createTile = mod.TileType("TalonianPillar");
         }
     }
 }

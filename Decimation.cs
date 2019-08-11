@@ -65,8 +65,8 @@ namespace Decimation
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-            int healthBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Entity Health Bars"));
+            int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("ShootVanilla: Inventory"));
+            int healthBarIndex = layers.FindIndex(layer => layer.Name.Equals("ShootVanilla: Entity Health Bars"));
 
             if (inventoryIndex != -1)
             {
@@ -106,7 +106,7 @@ namespace Decimation
 
         public override void AddRecipeGroups()
         {
-            RecipeGroup group = new RecipeGroup(() => Lang.misc[37] + " Gem", new int[]
+            RecipeGroup gems = new RecipeGroup(() => Lang.misc[37] + " Gem", new int[]
             {
                 ItemID.Amethyst,
                 ItemID.Topaz,
@@ -115,7 +115,16 @@ namespace Decimation
                 ItemID.Ruby,
                 ItemID.Diamond,
             });
-            RecipeGroup.RegisterGroup("AnyGem", group);
+
+            RecipeGroup threads = new RecipeGroup(() => Lang.misc[37] + " Thread", new int[]
+            {
+                ItemID.BlackThread,
+                ItemID.GreenThread,
+                ItemID.PinkThread
+            });
+
+            RecipeGroup.RegisterGroup("AnyGem", gems);
+            RecipeGroup.RegisterGroup("AnyThread", threads);
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)

@@ -8,43 +8,40 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    public class Focuser : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Focuser");
-			Tooltip.SetDefault("Focuses one's inner strength.");
-		}
-		public override void SetDefaults()
+    internal class Focuser : DecimationAccessory
+    {
+        protected override string ItemName => "Focuser";
+        protected override string ItemTooltip => "Focuses one's inner strength.";
+
+        protected override void InitAccessory()
         {
-            item.width = 54;
-            item.height = 46;
-            item.value = 10;
-            item.rare = 2;
-            item.accessory = true;
+            width = 54;
+            height = 46;
+            rarity = Rarity.Green;
+            item.value = Item.buyPrice(0, 0, 0, 10);
         }
-        public override void AddRecipes()
+
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Anvils }, true);
+
             recipe.AddIngredient(ItemID.Chain, 3);
-			recipe.AddIngredient(ItemID.CopperBar, 10);
-			recipe.AddIngredient(ItemID.GoldBar, 1);
-			recipe.AddIngredient(ItemID.Ruby, 1);
-			recipe.AddIngredient(ItemID.IronBar, 3);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
+            recipe.AddIngredient(ItemID.CopperBar, 10);
+            recipe.AddIngredient(ItemID.GoldBar, 1);
+            recipe.AddIngredient(ItemID.Ruby, 1);
+            recipe.AddIngredient(ItemID.IronBar, 3);
+
+            return new List<ModRecipe>() { recipe };
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.rangedDamage += 0.05f;
-			player.rangedCrit += 05;
-			player.meleeCrit += 05;
-			player.magicCrit += 05;
-			player.thrownCrit += 05;
+            player.rangedDamage += 0.05f;
+            player.rangedCrit += 05;
+            player.meleeCrit += 05;
+            player.magicCrit += 05;
+            player.thrownCrit += 05;
         }
-    
+
     }
 }
