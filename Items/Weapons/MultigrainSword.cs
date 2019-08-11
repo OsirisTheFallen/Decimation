@@ -1,52 +1,42 @@
-using System;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons
 {
-    public class MultigrainSword : ModItem
+    internal class MultigrainSword : DecimationWeapon
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Multigrain Sword");
-			Tooltip.SetDefault("Smells like honeysuckle");
-		}
-        public override void SetDefaults()
+        protected override string ItemName => "Multigrain Sword";
+        protected override string ItemTooltip => "Smells like honeysuckle";
+        protected override int Damages => 30;
+        protected override string Projectile => "StingerM";
+
+        protected override void InitWeapon()
         {
-            item.damage = 30;
-            item.melee = true;
-            item.width = 36;
-            item.height = 37;
-            item.useTime = 26;
-            item.useAnimation = 26;     
-            item.useStyle = 1;
-            item.knockBack = 5;
-            item.value = 4000;        
-            item.rare = 2;
-			item.crit = 4;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;
-			item.expert = false;
-            item.shoot = mod.ProjectileType("StingerM");
-			item.shootSpeed = 10f;
-		}	
-		public override void AddRecipes()
+            width = 36;
+            height = 37;
+            useTime = 26;
+            useAnimation = 26;
+            knockBack = 5;
+            value = Item.buyPrice(0, 0, 40);
+            rarity = Rarity.Green;
+            criticalStrikeChance = 4;
+            autoReuse = true;
+            item.expert = false;
+            shootSpeed = 10f;
+        }
+
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
-			recipe.AddIngredient(ItemID.CactusSword, 1);
-			recipe.AddIngredient(ItemID.Pumpkin, 15);
-			recipe.AddIngredient(ItemID.Acorn, 5);
-			recipe.AddIngredient(ItemID.Hay, 15);
-			recipe.AddIngredient(null, "TheGreatwoodSword", 1);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
-		}
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.Anvils, true);
+
+            recipe.AddIngredient(ItemID.CactusSword);
+            recipe.AddIngredient(ItemID.Pumpkin, 15);
+            recipe.AddIngredient(ItemID.Acorn, 5);
+            recipe.AddIngredient(ItemID.Hay, 15);
+            recipe.AddIngredient(mod.ItemType<TheGreatwoodSword>());
+
+            return recipe;
+        }
     }
 }

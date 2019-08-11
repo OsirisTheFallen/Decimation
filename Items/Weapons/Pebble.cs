@@ -4,35 +4,32 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons
 {
-	public class Pebble : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Pebble");
-			Tooltip.SetDefault("For use with slings and slingshots");
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 1;
-			item.ranged = true;
-			item.width = 8;
-			item.height = 8;
-			item.maxStack = 999;
-			item.consumable = true;
-			item.knockBack = 1f;
-			item.value = Item.sellPrice(0, 0, 1, 0);
-			item.rare = 0;
-			item.shoot = mod.ProjectileType("Pebble");
-			item.ammo = item.type; // The first item in an ammo class sets the AmmoID to it's type
-		}
+    internal class Pebble : DecimationWeapon
+    {
+        protected override string ItemName => "Pebble";
+        protected override string ItemTooltip => "For use with slings and slingshots";
+        protected override DamageType DamagesType => DamageType.RANGED;
+        protected override int Damages => 1;
+        protected override string Projectile => "Pebble";
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.StoneBlock);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 15);
-			recipe.AddRecipe();
-		}
-	}
-}	
+        protected override void InitWeapon()
+        {
+            width = 8;
+            height = 8;
+            item.maxStack = 999;
+            item.consumable = true;
+            knockBack = 1f;
+            item.value = Item.sellPrice(0, 0, 1, 0);
+            item.ammo = item.type; // The first item in an ammo class sets the AmmoID to it's type
+        }
+
+        protected override ModRecipe GetRecipe()
+        {
+            ModRecipe recipe = GetNewModRecipe(this, 15, TileID.WorkBenches);
+
+            recipe.AddIngredient(ItemID.StoneBlock);
+
+            return recipe;
+        }
+    }
+}

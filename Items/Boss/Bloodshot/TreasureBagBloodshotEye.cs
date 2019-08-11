@@ -13,21 +13,19 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Boss.Bloodshot
 {
-    public class TreasureBagBloodshotEye : ModItem
+    internal class TreasureBagBloodshotEye : DecimationItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Treasure Bag";
+        protected override string ItemTooltip => "{$CommonItemTooltip.RightClickToOpen}";
+        public override int BossBagNPC => mod.NPCType<BloodshotEye>();
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Treasure Bag");
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-        }
-        public override void SetDefaults()
-        {
-            item.maxStack = 999;
-            item.consumable = true;
-            item.width = 24;
-            item.height = 24;
-            item.rare = 11;
-            bossBagNPC = mod.NPCType<BloodshotEye>();
+            consumable = true;
+            width = 24;
+            height = 24;
+            rarity = Rarity.Rainbow;
+
             item.expert = true;
         }
         public override bool CanRightClick()

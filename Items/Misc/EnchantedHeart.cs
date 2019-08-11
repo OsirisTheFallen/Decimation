@@ -6,31 +6,27 @@ using Decimation.Items.Amulets;
 
 namespace Decimation.Items.Misc
 {
-    class EnchantedHeart : ModItem
+    class EnchantedHeart : DecimationItem
     {
-        public override string Texture
-        {
-            get
-            {
-                return "Terraria/Item_" + ItemID.Heart;
-            }
-        }
+        private const int HealAmount = 25;
+        private const int ManaAmount = 5;
 
-        private int healAmount = 25;
-        private int manaAmount = 5;
+        protected override string ItemName => "Enchanted Heart";
+        protected override bool IsClone => true;
+        public override string Texture => "Terraria/Item_" + ItemID.Heart;
 
-        public override void SetDefaults()
+        protected override void Init()
         {
             item.CloneDefaults(ItemID.Heart);
         }
 
         public override bool OnPickup(Player player)
         {
-            player.statLife += healAmount;
-            player.HealEffect(healAmount);
+            player.statLife += HealAmount;
+            player.HealEffect(HealAmount);
 
-            player.statMana += manaAmount;
-            player.ManaEffect(manaAmount);
+            player.statMana += ManaAmount;
+            player.ManaEffect(ManaAmount);
 
             return false;
         }

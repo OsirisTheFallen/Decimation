@@ -1,25 +1,22 @@
 ﻿using System;
+using Decimation.Tiles.ShrineoftheMoltenOne;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable.ShrineoftheMoltenOne
 {
-    class ShrineDoor : ModItem
+    internal class ShrineDoor : DecimationPlaceableItem
     {
-        public override void SetDefaults()
+        protected override string ItemName => "Shrine Door";
+        protected override int Tile => mod.TileType<LockedShrineDoor>();
+
+        protected override void InitPlaceable()
         {
-            item.width = 14;
-            item.height = 28;
+            width = 14;
+            height = 28;
             item.maxStack = 99;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = 1;
-            item.consumable = true;
-            item.value = 150;
-            item.createTile = mod.TileType("LockedShrineDoor");
+            value = Item.buyPrice(0, 0, 1, 50);
         }
     }
 }

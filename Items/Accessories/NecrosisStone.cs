@@ -6,23 +6,19 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    public class NecrosisStone : ModItem
+    internal class NecrosisStone : DecimationAccessory
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Necrosis Stone");
-            Tooltip.SetDefault("This stone breathes life into once deceased creatures\nReduces respawn time by 50%");
-        }
+        protected override string ItemName => "Necrosis Stone";
 
-        public override void SetDefaults()
+        protected override string ItemTooltip =>
+            "This stone breathes life into once deceased creatures\nReduces respawn time by 50%";
+
+        protected override void InitAccessory()
         {
-            item.width = 20;
-            item.height = 20;
-            item.value = 50000;
-            item.rare = 1;
-            item.maxStack = 1;
-            item.rare = -12;
-            item.accessory = true;
+            width = 20;
+            height = 20;
+            rarity = Rarity.Rainbow;
+            item.value = Item.buyPrice(0, 5);
             item.expert = true;
         }
 

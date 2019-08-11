@@ -5,25 +5,14 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable
 {
-    class Basalt : ModItem
+    internal class Basalt : DecimationPlaceableItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Basalt";
+        protected override string ItemTooltip => "Volcanic stone";
+        protected override int Tile => mod.TileType<Tiles.Basalt>();
+
+        protected override void InitPlaceable()
         {
-            DisplayName.SetDefault("Basalt");
-            Tooltip.SetDefault("Volcanic stone");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 12;
-            item.height = 12;
-            item.maxStack = 999;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = 1;
-            item.consumable = true;
-            item.createTile = mod.TileType("Basalt");
         }
     }
 }

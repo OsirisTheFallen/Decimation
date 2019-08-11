@@ -3,6 +3,7 @@ using Decimation.Items.Ores;
 using Decimation.Projectiles;
 using Decimation.Tiles;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,20 +11,18 @@ using Terraria.ModLoader;
 namespace Decimation.Items.Accessories.Wings
 {
     [AutoloadEquip(EquipType.Wings)]
-    class ScarabWings : ModItem
+    internal class ScarabWings : DecimationAccessory
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Blessed by the sun");
-        }
+        protected override string ItemName => "Scarab Wings";
+        protected override string ItemTooltip => "Blessed by the sun";
 
-        public override void SetDefaults()
+        protected override void InitAccessory()
         {
-            item.width = 26;
-            item.height = 26;
-            item.value = 50000;
-            item.rare = 10;
-            item.accessory = true;
+            width = 26;
+            height = 26;
+            rarity = Rarity.Red;
+
+            item.value = Item.buyPrice(0, 5);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -50,16 +49,16 @@ namespace Decimation.Items.Accessories.Wings
             acceleration *= 2.5f;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<TitanForge>() }, false);
+
             recipe.AddIngredient(ItemID.BeetleWings);
             recipe.AddIngredient(ItemID.WingsSolar);
             recipe.AddIngredient(mod.ItemType<CondensedSpite>(), 2);
             recipe.AddIngredient(mod.ItemType<DenziumBar>(), 5);
-            recipe.AddTile(mod.TileType<TitanForge>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

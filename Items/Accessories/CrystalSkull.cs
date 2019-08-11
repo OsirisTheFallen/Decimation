@@ -8,39 +8,35 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    public class CrystalSkull : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Crystal Skull");
-			Tooltip.SetDefault("It seems that this skull has been enchanted.");
-		}
-		public override void SetDefaults()
+    internal class CrystalSkull : DecimationAccessory
+    {
+        protected override string ItemName => "Crystal Skull";
+        protected override string ItemTooltip => "It seems that this skull has been enchanted.";
+
+        protected override void InitAccessory()
         {
-            item.width = 24;
-            item.height = 24;
-            item.value = 10;
-            item.rare = 2;
-            item.accessory = true;
-			item.defense = 2;
+            width = 24;
+            height = 24;
+            rarity = Rarity.Green;
+            item.value = Item.buyPrice(0, 0, 0, 10);
+            item.defense = 2;
         }
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.GlassKiln }, true);
+
             recipe.AddIngredient(ItemID.ObsidianSkull);
-			recipe.AddIngredient(ItemID.CrystalShard, 5);
-			recipe.AddRecipeGroup("AnyGem", 4);
-            recipe.AddIngredient(ItemID.Glass, 6);			
-            recipe.AddTile(TileID.GlassKiln);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
+            recipe.AddIngredient(ItemID.CrystalShard, 5);
+            recipe.AddRecipeGroup("AnyGem", 4);
+            recipe.AddIngredient(ItemID.Glass, 6);
+
+            return new List<ModRecipe>() { recipe };
         }
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
             player.AddBuff(BuffID.Thorns, 1);
             Lighting.AddLight(player.Center, new Vector3(0.9f * 0.6f, 0.9f * 0.1f, 0.9f));
         }
-	}
+    }
 }

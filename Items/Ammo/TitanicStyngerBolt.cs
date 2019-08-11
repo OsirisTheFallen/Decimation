@@ -1,31 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using Decimation.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Ammo
 {
-    class TitanicStyngerBolt : ModItem
+    internal class TitanicStyngerBolt : DecimationAmmo
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Explodes into deadly shrapnel.");
-        }
+        protected override string ItemName => "Titanic Stynger Bolt";
+        protected override string ItemTooltip => "Explodes into deadly shrapnel.";
+        protected override string Projectile => "TitanicStyngerBolt";
+        protected override int Ammo => AmmoID.StyngerBolt;
 
-        public override void SetDefaults()
+        protected override void InitAmmo()
         {
-            item.damage = 35;
-            item.knockBack = 2;
-            item.ranged = true;
-            item.width = 8;
-            item.height = 8;
-            item.maxStack = 999;
-            item.consumable = true;
-            item.value = 1000;
-            item.rare = 3;
-            item.shoot = mod.ProjectileType("TitanicStyngerBolt");
-            item.shootSpeed = 2;
-            item.ammo = AmmoID.StyngerBolt;
+            damages = 35;
+            projKnockBack = 2;
+            rarity = Rarity.Orange;
+            width = 8;
+            height = 8;
+            value = Item.buyPrice(0, 0, 10);
+            consumable = true;
+
+            item.shootSpeed = 2f;
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
@@ -40,14 +39,14 @@ namespace Decimation.Items.Ammo
                 target.AddBuff(mod.BuffType("Amnesia"), 600);
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 50, new List<int>() { mod.TileType<TitanForge>() }, false);
+
             recipe.AddIngredient(ItemID.StyngerBolt, 50);
             recipe.AddIngredient(mod.ItemType("TitaniteBar"), 3);
-            recipe.AddTile(mod.TileType("TitanForge"));
-            recipe.SetResult(this, 50);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

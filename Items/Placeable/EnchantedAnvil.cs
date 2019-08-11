@@ -4,68 +4,29 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable
 {
-    class EnchantedAnvil : ModItem
+    internal class EnchantedAnvil : DecimationPlaceableItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Enchanted Anvil");
-        }
+        protected override string ItemName => "Enchanted Anvil";
+        protected override int Tile => mod.TileType<Tiles.EnchantedAnvil>();
 
-        public override void SetDefaults()
+        protected override void InitPlaceable()
         {
-            item.width = 20;
-            item.height = 20;
+            width = 20;
+            height = 20;
             item.maxStack = 1;
-            item.value = 0;
-            item.rare = 1;
-            item.createTile = mod.TileType("EnchantedAnvil");
-            item.consumable = true;
-            item.useStyle = 1;
-            item.useTime = 15;
-            item.useAnimation = 15;
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.AdamantiteForge, true);
+
             recipe.AddIngredient(ItemID.MythrilAnvil, 1);
             recipe.AddIngredient(ItemID.IronAnvil, 1);
             recipe.AddIngredient(mod.ItemType("SoulofLife"), 5);
             recipe.AddIngredient(ItemID.SoulofNight, 5);
             recipe.AddIngredient(ItemID.SoulofMight, 5);
-            recipe.AddTile(TileID.AdamantiteForge);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
 
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.MythrilAnvil, 1);
-            recipe.AddIngredient(ItemID.LeadAnvil, 1);
-            recipe.AddIngredient(mod.ItemType("SoulofLife"), 5);
-            recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(ItemID.SoulofMight, 5);
-            recipe.AddTile(TileID.AdamantiteForge);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.OrichalcumAnvil, 1);
-            recipe.AddIngredient(ItemID.IronAnvil, 1);
-            recipe.AddIngredient(mod.ItemType("SoulofLife"), 5);
-            recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(ItemID.SoulofMight, 5);
-            recipe.AddTile(TileID.AdamantiteForge);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.OrichalcumAnvil, 1);
-            recipe.AddIngredient(ItemID.LeadAnvil, 1);
-            recipe.AddIngredient(mod.ItemType("SoulofLife"), 5);
-            recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(ItemID.SoulofMight, 5);
-            recipe.AddTile(TileID.AdamantiteForge);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            return recipe;
         }
     }
 }

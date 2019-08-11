@@ -1,66 +1,25 @@
-using System;
 using System.Collections.Generic;
-using Decimation.Buffs;
 using Decimation.Buffs.Debuffs;
+using Decimation.Items.Accessories;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
 
 namespace Decimation.Items.Amulets
 {
-    public class SlimeAmulet : Amulet
+    internal class SlimeAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
+        protected override string ItemName => "Slime Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Summoner;
+
+        protected override void InitAmulet()
         {
-            get { return AmuletClasses.SUMMONER; }
+            width = 24;
+            height = 24;
         }
 
-        public override void SetAmuletDefaults()
-        {
-            item.width = 24;
-            item.height = 24;
-        }
-
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
-            recipe.AddIngredient(ItemID.RoyalGel);
-            recipe.AddIngredient(ItemID.Gel, 10);
-            recipe.AddIngredient(ItemID.Chain, 2);
-            recipe.AddIngredient(null, "SlimeBracelet");
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
-        }
-
-        public override List<TooltipLine> GetTooltipLines()
-        {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "Makes slimes friendly")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% minion damages")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                 new TooltipLine(mod, "Effect", "+3% minion knockback")
-                {
-                    overrideColor = Color.ForestGreen
-                },
-                 new TooltipLine(mod, "Effect", "+4% chances to inflict \"Slimed!\" debuff to ennemies on strikes")
-                {
-                    overrideColor = Color.ForestGreen
-                }
-            };
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.minionDamage *= 0.03f;
             player.minionKB *= 0.03f;
@@ -92,6 +51,63 @@ namespace Decimation.Items.Amulets
             modPlayer.amuletsBuff = mod.BuffType<Singed>();
             modPlayer.amuletsBuffChances = 4;
             modPlayer.amuletsBuffTime = 300;
+        }
+        protected override List<ModRecipe> GetAdditionalRecipes()
+        {
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, true);
+
+            recipe.AddIngredient(ItemID.RoyalGel);
+            recipe.AddIngredient(ItemID.Gel, 10);
+            recipe.AddIngredient(ItemID.Chain, 2);
+            recipe.AddIngredient(mod.ItemType<SlimeBracelet>());
+
+            return new List<ModRecipe> { recipe };
+        }
+
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
+        {
+            tooltip
+                .AddEffect("Makes slimes friendly")
+                .AddEffect("+3% minion damages")
+                .AddEffect("+3% minion knockback")
+                .AddEffect("+4% chances to inflict \"Slimed!\" debuff to enemies on strikes")
+                .AddSynergy("Causes summoned Baby Slimes to shoot two slime spikes in a V formation, each 5 seconds.");
+        }
+    }
+
+    public class SlimeAmuletSynergy : GlobalProjectile
+    {
+        private const int SpikeInterval = 300;
+
+        private int _spikeIntervalCounter;
+        public override bool InstancePerEntity => true;
+
+        public override void AI(Projectile projectile)
+        {
+            if (projectile.type == ProjectileID.BabySlime)
+            {
+                if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type ==
+                    Decimation.Instance.ItemType<SlimeAmulet>())
+                {
+                    if (_spikeIntervalCounter > SpikeInterval)
+                    {
+                        // Projectile
+                        Projectile proj1 = Projectile.NewProjectileDirect(projectile.Center, new Vector2(-1, -2.5f), ProjectileID.JungleSpike, 10, 10);
+                        proj1.friendly = true;
+                        proj1.hostile = false;
+
+                        Projectile proj2 = Projectile.NewProjectileDirect(projectile.Center, new Vector2(1, -2.5f), ProjectileID.JungleSpike, 10, 10);
+                        proj2.friendly = true;
+                        proj2.hostile = false;
+
+                        _spikeIntervalCounter = 0;
+                    }
+
+                    _spikeIntervalCounter++;
+                }
+            }
+
+            base.AI(projectile);
         }
     }
 }

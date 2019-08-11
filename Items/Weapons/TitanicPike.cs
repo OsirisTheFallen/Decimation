@@ -1,34 +1,32 @@
 ﻿using System;
+using Decimation.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons
 {
-    class TitanicPike : ModItem
+    internal class TitanicPike : DecimationWeapon
     {
-        public override void SetDefaults()
+        protected override string ItemName => "Titanic Pike";
+        protected override int Damages => 120;
+        protected override string Projectile => "TitanicPikeProjectile";
+
+        protected override void InitWeapon()
         {
-            item.damage = 120;
-            item.crit = 14;
-            item.knockBack = 12;
-            item.useStyle = 5;
+            criticalStrikeChance = 14;
+            knockBack = 12;
+            useStyle = 5;
             item.value = Item.buyPrice(gold: 45);
-            item.rare = 6;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.noMelee = true;
+            rarity = Rarity.LightPurple;
             item.noUseGraphic = true;
             item.useTurn = true;
-            item.melee = true;
-            item.value = Item.buyPrice(gold: 45);
-            item.rare = 6;
-            item.width = 94;
-            item.height = 94;
-            item.shoot = mod.ProjectileType("TitanicPikeProjectile");
-            item.useAnimation = 18;
-            item.useTime = 24;
-            item.shootSpeed = 3.7f;
+            autoReuse = true;
+            width = 94;
+            height = 94;
+            useAnimation = 18;
+            useTime = 24;
+            shootSpeed = 3.7f;
         }
 
         public override bool CanUseItem(Player player)
@@ -37,14 +35,14 @@ namespace Decimation.Items.Weapons
             return player.ownedProjectileCounts[item.shoot] < 1;
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
+
             recipe.AddIngredient(mod.ItemType("TitaniteBar"), 12);
             recipe.AddIngredient(ItemID.SoulofMight, 15);
-            recipe.AddTile(mod.TileType("TitanForge"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

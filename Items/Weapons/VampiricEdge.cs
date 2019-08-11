@@ -9,32 +9,27 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons
 {
-    class VampiricEdge : ModItem
+    internal class VampiricEdge : DecimationWeapon
     {
         private int shootDelay = 72;
         private int timeToShoot = 72;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
+        protected override string ItemName => "Vampiric Edge";
+        protected override int Damages => 54;
+        protected override string Projectile => "Tooth";
 
-        public override void SetDefaults()
+        protected override void InitWeapon()
         {
-            item.width = 46;
-            item.height = 52;
-            item.melee = true;
-            item.damage = 54;
-            item.crit = 6;
-            item.knockBack = 4.5f;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.autoReuse = true;
-            item.shoot = mod.ProjectileType<Tooth>();
-            item.shootSpeed = 5f;
+            width = 46;
+            height = 52;
+            criticalStrikeChance = 6;
+            knockBack = 4.5f;
+            useTime = 20;
+            useAnimation = 20;
+            shootSpeed = 5f;
             item.value = Item.buyPrice(0, 3, 0, 0);
-            item.rare = 2;
-            item.useStyle = 1;
+            rarity = Rarity.Green;
+            autoReuse = true;
         }
 
         public override void UpdateInventory(Player player)
@@ -51,25 +46,16 @@ namespace Decimation.Items.Weapons
             return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.MythrilAnvil, true);
+
             recipe.AddIngredient(ItemID.BloodButcherer);
             recipe.AddIngredient(mod.ItemType<VampiricShiv>());
             recipe.AddIngredient(mod.ItemType<SoulofTime>(), 10);
             recipe.AddIngredient(ItemID.SoulofNight, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
 
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.LightsBane);
-            recipe.AddIngredient(mod.ItemType<VampiricShiv>());
-            recipe.AddIngredient(mod.ItemType<SoulofTime>(), 10);
-            recipe.AddIngredient(ItemID.SoulofNight, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            return recipe;
         }
     }
 }

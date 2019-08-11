@@ -8,20 +8,16 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Amulets
 {
-    class MarbleAmulet : Amulet
+    internal class MarbleAmulet : Amulet
     {
-        public override AmuletClasses AmuletClass
+        protected override string ItemName => "Marble Amulet";
+        public override AmuletClasses AmuletClass => AmuletClasses.Throwing;
+
+        protected override void InitAmulet()
         {
-            get { return AmuletClasses.THROWING; }
         }
 
-        public override void SetAmuletDefaults()
-        {
-            item.width = 28;
-            item.height = 30;
-        }
-
-        public override void UpdateAmulet(Player player)
+        protected override void UpdateAmulet(Player player)
         {
             player.thrownDamage *= 1.03f;
             player.thrownVelocity *= 1.03f;
@@ -34,43 +30,27 @@ namespace Decimation.Items.Amulets
             modPlayer.amuletsBuffWhenAttacking = true;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, false);
+
             recipe.AddIngredient(mod.ItemType<LightweightGlove>());
             recipe.AddIngredient(ItemID.Marble, 6);
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.Shuriken, 2);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe> { recipe };
         }
 
-        public override List<TooltipLine> GetTooltipLines()
+        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
         {
-            return new List<TooltipLine>()
-            {
-                new TooltipLine(mod, "Effect", "+3% throwing damages")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% throwing velocity")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+3% throwing critical strikes chances")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+2% chances to not consume ammo on throwing attacks")
-                {
-                   overrideColor = Color.ForestGreen
-                },
-                new TooltipLine(mod, "Effect", "+4% chances to inflict confusion to enemies on throwing attacks")
-                {
-                   overrideColor = Color.ForestGreen
-                }
-            };
+            tooltip
+                .AddEffect("+3% throwing damages")
+                .AddEffect("+3% throwing velocity")
+                .AddEffect("+3% throwing critical strikes chances")
+                .AddEffect("+2% chances to not consume ammo on throwing attacks")
+                .AddEffect("+4% chances to inflict confusion to enemies on throwing attacks")
+                .AddSynergy("Javelins, Shurikens, Throwing Knives, Bone Throwing Knives, Star Anises, Bone Javelins,\nPoisoned Throwing Knives and Frost Daggerfish to have 25% chance to throw a second projectile.");
         }
     }
 }

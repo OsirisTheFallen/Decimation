@@ -1,25 +1,23 @@
 ﻿using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Boss.Arachnus
 {
-    public class MoltenKey : ModItem
+    internal class MoltenKey : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("A strange key used to open a forbidden temple deep inside this world");
-        }
+        protected override string ItemName => "Molten Key";
+        protected override string ItemTooltip => "A strange key used to open a forbidden temple deep inside this world";
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            item.width = 20;
-            item.height = 20;
+            width = 20;
+            height = 20;
+            consumable = true;
+            value = Item.buyPrice(0, 45);
+            rarity = Rarity.Red;
+
             item.maxStack = 1;
-            item.value = 450000;
-            item.rare = 10;
-            item.consumable = true;
         }
 
         public class DropFromMoonLord : GlobalNPC

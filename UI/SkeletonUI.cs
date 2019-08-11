@@ -63,7 +63,7 @@ namespace Decimation.UI
 
                 string costText = Language.GetTextValue("LegacyInterface.46") + ": ";
                 string coinsText = "";
-                int[] coins = Utils.CoinsSplit(cursePrice);
+                int[] coins = Terraria.Utils.CoinsSplit(cursePrice);
                 if (coins[3] > 0)
                 {
                     coinsText = coinsText + "[c/" + Colors.AlphaDarken(Colors.CoinPlatinum).Hex3() + ":" + coins[3] + " " + Language.GetTextValue("LegacyInterface.15") + "] ";

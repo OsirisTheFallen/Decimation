@@ -52,7 +52,7 @@ player.Center + unit * 2000, (projectile.ai[0] == 0 ? 20 : 44), ref point);
 
             float angle = projectile.velocity.ToRotation();
             Vector2 v = new Vector2((float)(Math.Cos(angle) * laserHeight), (float)(Math.Sin(angle) * laserHeight));
-            Texture2D texture = projectile.ai[0] == 0 ? ModLoader.GetTexture("Decimation/Projectiles/RasGazeLaser") : ModLoader.GetTexture("Decimation/Projectiles/RasGazeBeam");
+            Texture2D texture = projectile.ai[0] == 0 ? ModContent.GetTexture("Decimation/Projectiles/RasGazeLaser") : ModContent.GetTexture("Decimation/Projectiles/RasGazeBeam");
             Vector2 position = projectile.position - Main.screenPosition + v;
             spriteBatch.Draw(texture, position, new Rectangle(0, 0, laserWidth, laserHeight), Color.White, (float)(angle + (Math.PI * 1 / 2)), new Vector2(0, 0), 1, SpriteEffects.None, 0);
 

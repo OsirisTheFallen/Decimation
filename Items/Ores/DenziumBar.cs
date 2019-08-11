@@ -1,34 +1,30 @@
+using Decimation.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Ores
 {
-    public class DenziumBar : ModItem
+    internal class DenziumBar : DecimationItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Denzium Bar";
+        protected override string ItemTooltip => "It pulsates with sheer density";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Denzium Bar");
-            Tooltip.SetDefault("It pulsates with sheer density");
+            width = 20;
+            height = 20;
+            rarity = Rarity.Cyan;
         }
 
-        public override void SetDefaults()
+        protected override ModRecipe GetRecipe()
         {
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 999;
-            item.value = 0;
-            item.rare = 9;
-        }
+            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.AdamantiteBar);
             recipe.AddIngredient(ItemID.TitaniumBar);
-            recipe.AddTile(mod.TileType("TitanForge"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

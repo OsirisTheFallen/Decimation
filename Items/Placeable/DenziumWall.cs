@@ -5,24 +5,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable
 {
-    class DenziumWall : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("");
-        }
+   internal class DenziumWall : DecimationPlaceableItem
+   {
+       protected override string ItemName => "Denzium Wall";
+       protected override int Tile => -1;
 
-        public override void SetDefaults()
+       protected override void InitPlaceable()
         {
-            item.width = 32;
-            item.height = 32;
-            item.maxStack = 999;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 7;
-            item.useStyle = 1;
-            item.consumable = true;
+            width = 32;
+            height = 32;
             item.createWall = mod.WallType("DenziumWall");
         }
     }

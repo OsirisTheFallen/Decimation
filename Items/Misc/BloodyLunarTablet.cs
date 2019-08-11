@@ -5,23 +5,22 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc
 {
-    class BloodyLunarTablet : ModItem
+    internal class BloodyLunarTablet : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Summon blood moon.");
-        }
+        protected override string ItemName => "Bloody Lunar Tablet";
+        protected override string ItemTooltip => "Summon blood moon.";
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            item.width = 30;
-            item.height = 40;
-            item.rare = 2;
-            item.value = 50000;
-            item.useStyle = 1;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.consumable = true;
+            width = 30;
+            height = 40;
+            rarity = Rarity.Green;
+            value = 50000;
+            useStyle = 1;
+            useTime = 20;
+            useAnimation = 20;
+            consumable = true;
+
             item.maxStack = 1;
         }
 

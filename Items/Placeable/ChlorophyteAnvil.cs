@@ -4,31 +4,23 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable
 {
-    class ChlorophyteAnvil : ModItem
+    internal class ChlorophyteAnvil : DecimationPlaceableItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Chlorophyte Anvil");
-            Tooltip.SetDefault("It reacts to the light.");
-        }
+        protected override string ItemName => "Chlorophyte Anvil";
+        protected override string ItemTooltip => "It reacts to the light.";
+        protected override int Tile => mod.TileType<Tiles.ChlorophyteAnvil>();
 
-        public override void SetDefaults()
+        protected override void InitPlaceable()
         {
-            item.width = 20;
-            item.height = 20;
+            width = 20;
+            height = 20;
             item.maxStack = 1;
-            item.value = 0;
-            item.rare = 1;
-            item.createTile = mod.TileType("ChlorophyteAnvil");
-            item.consumable = true;
-            item.useStyle = 1;
-            item.useTime = 15;
-            item.useAnimation = 15;
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.AdamantiteForge);
+
             recipe.AddIngredient(mod.TileType("EnchantedAnvil"));
             recipe.AddIngredient(ItemID.ChlorophyteBar, 5);
             recipe.AddIngredient(ItemID.Vine, 5);
@@ -37,9 +29,8 @@ namespace Decimation.Items.Placeable
             recipe.AddIngredient(mod.ItemType("SoulofLife"), 5);
             recipe.AddIngredient(mod.ItemType("SoulofTime"), 5);
             recipe.AddIngredient(ItemID.SoulofFlight, 5);
-            recipe.AddTile(TileID.AdamantiteForge);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

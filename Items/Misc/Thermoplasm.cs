@@ -4,20 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc
 {
-    class Thermoplasm : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("It resonates with the heat of the planet's core");
-        }
+   internal class Thermoplasm : DecimationItem
+   {
+       protected override string ItemName => "Thermoplasm";
+        protected override string ItemTooltip => "It resonates with the heat of the planet's core";
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            item.width = 26;
-            item.height = 36;
-            item.value = 5000;
-            item.rare = 8;
-            item.maxStack = 999;
+            width = 26;
+            height = 36;
+            value = 5000;
+            rarity = Rarity.Yellow;
         }
     }
 

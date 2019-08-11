@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -7,13 +8,14 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    class GraniteLinedTunic : ModItem
+    internal class GraniteLinedTunic : DecimationAccessory
     {
-        public override void SetDefaults()
+        protected override string ItemName => "Granite Lined Tunic";
+
+        protected override void InitAccessory()
         {
-            item.width = 30;
-            item.height = 20;
-            item.accessory = true;
+            width = 30;
+            height = 20;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -21,35 +23,16 @@ namespace Decimation.Items.Accessories
             player.statDefense += 2;
         }
 
-
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.FamiliarShirt);
-            recipe.AddIngredient(ItemID.Granite, 16);
-            recipe.AddIngredient(ItemID.BlackThread, 10);
-            recipe.AddIngredient(ItemID.Chain, 6);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Anvils }, false);
 
-            recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.FamiliarShirt);
             recipe.AddIngredient(ItemID.Granite, 16);
-            recipe.AddIngredient(ItemID.GreenThread, 10);
+            recipe.AddRecipeGroup("AnyThread", 10);
             recipe.AddIngredient(ItemID.Chain, 6);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
 
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.FamiliarShirt);
-            recipe.AddIngredient(ItemID.Granite, 16);
-            recipe.AddIngredient(ItemID.PinkThread, 10);
-            recipe.AddIngredient(ItemID.Chain, 6);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

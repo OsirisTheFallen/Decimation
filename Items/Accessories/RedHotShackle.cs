@@ -8,36 +8,27 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    public class RedHotShackle : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Red Hot Shackle");
-			Tooltip.SetDefault("WIP");
-		}
-		public override void SetDefaults()
+    internal class RedHotShackle : DecimationAccessory
+    {
+        protected override string ItemName => "Red Hot Shackle";
+        protected override string ItemTooltip => "WIP";
+
+        protected override void InitAccessory()
         {
-            item.width = 24;
-            item.height = 24;
-            item.value = 300;
-            item.rare = 2;
-            item.accessory = true;
-			item.defense = 1;
+            width = 24;
+            height = 24;
+            rarity = Rarity.Green;
+            item.value = Item.buyPrice(0, 0, 2);
+            item.defense = 1;
         }
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.anyIronBar = true;
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Furnaces }, true);
+
             recipe.AddIngredient(ItemID.Shackle);
-			recipe.AddIngredient(ItemID.Gel, 10);
-            recipe.AddTile(TileID.Furnaces);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
+            recipe.AddIngredient(ItemID.Gel, 10);
+
+            return new List<ModRecipe>() { recipe };
         }
-/*		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			player.statDefence += 1;
-		}*/
-    
     }
 }

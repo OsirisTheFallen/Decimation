@@ -1,37 +1,35 @@
-﻿using System;
-using Terraria;
+﻿using Decimation.Tiles;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Tools
 {
-    class TitanitePax : ModItem
+    internal class TitanitePax : DecimationTool
     {
-        public override void SetDefaults()
+        protected override string ItemName => "Titanite Pax";
+        protected override int MeleeDamages => 64;
+        protected override int PickaxePower => 250;
+        protected override int AxePower => 27;
+
+        protected override void InitTool()
         {
-            item.width = 48;
-            item.height = 52;
-            item.melee = true;
-            item.damage = 64;
+            width = 48;
+            height = 52;
             item.crit = 14;
-            item.pick = 250;
-            item.axe = 27;
-            item.useStyle = 1;
-            item.useTime = 13;
-            item.useAnimation = 13;
+            useTime = 5;
+            useAnimation = 15;
             item.knockBack = 7;
-            item.autoReuse = true;
-            item.useTurn = true;
+            rarity = Rarity.LightRed;
         }
 
-        public override void AddRecipes()
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
+
             recipe.AddIngredient(mod.ItemType("TitaniteBar"), 12);
             recipe.AddIngredient(ItemID.SoulofMight, 15);
-            recipe.AddTile(mod.TileType("TitanForge"));
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return recipe;
         }
     }
 }

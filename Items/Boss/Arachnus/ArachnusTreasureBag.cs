@@ -4,23 +4,21 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Boss.Arachnus
 {
-    class ArachnusTreasureBag : ModItem
+    internal class ArachnusTreasureBag : DecimationItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Treasure Bag");
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-        }
+        protected override string ItemName => "Treasure Bag";
+        protected override string ItemTooltip => "{$CommonItemTooltip.RightClickToOpen}";
+        public override int BossBagNPC => mod.NPCType<NPCs.Arachnus.Arachnus>();
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            item.maxStack = 999;
-            item.consumable = true;
-            item.width = 32;
-            item.height = 32;
-            item.rare = 9;
+            consumable = true;
+            width = 32;
+            height = 32;
+            rarity = Rarity.Cyan;
+
             item.expert = true;
-            bossBagNPC = mod.NPCType<NPCs.Arachnus.Arachnus>();
+            item.maxStack = 999;
         }
 
         public override bool CanRightClick()

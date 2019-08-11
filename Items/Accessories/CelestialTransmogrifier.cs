@@ -2,32 +2,30 @@
 using Decimation.Items.Misc.Souls;
 using Decimation.Tiles;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    class CelestialTransmogrifier : ModItem
+    class CelestialTransmogrifier : DecimationAccessory
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Change form on a whim\n\n"
-                + "Gives Werewolf buff\n"
-                + "Transforms holder into merfolk when entering water\n"
-                + "Gives Celestial Stone effects\n"
-                + "Bats will be friendly"
-                );
-        }
+        protected override string ItemName => "Celestial Transmogrifier";
 
-        public override void SetDefaults()
+        protected override string ItemTooltip => "Change form on a whim\n\n"
+                                                 + "Gives Werewolf buff\n"
+                                                 + "Transforms holder into merfolk when entering water\n"
+                                                 + "Gives Celestial Stone effects\n"
+                                                 + "Bats will be friendly";
+
+        protected override void InitAccessory()
         {
-            item.width = 46;
-            item.height = 62;
-            item.accessory = true;
-            item.maxStack = 1;
-            item.rare = 6;
-            item.value = 40000;
+            width = 46;
+            height = 62;
+            rarity = Rarity.LightPurple;
+
+            item.value = Item.buyPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -60,16 +58,16 @@ namespace Decimation.Items.Accessories
             player.npcTypeNoAggro[NPCID.Vampire] = true;
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<ChlorophyteAnvil>() }, false);
+
             recipe.AddIngredient(mod.ItemType<AlucardPendant>());
             recipe.AddIngredient(ItemID.CelestialShell);
             recipe.AddIngredient(mod.ItemType<SoulofSpite>(), 20);
             recipe.AddIngredient(ItemID.FallenStar, 5);
-            recipe.AddTile(mod.TileType<ChlorophyteAnvil>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

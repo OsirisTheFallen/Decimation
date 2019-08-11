@@ -5,28 +5,32 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Arachnus
 {
-    class Infernolizer : ModItem
+    internal class Infernolizer : DecimationWeapon
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Releases flares upon your foes");
-        }
+        protected override string ItemName => "Infernolizer";
+        protected override string ItemTooltip => "Releases flares upon your foes";
+        protected override bool IsClone => true;
+        protected override int Damages => 880;
+        protected override DamageType DamagesType => DamageType.MAGIC;
+        protected override bool VanillaProjectile => true;
+        protected override string Projectile => "HeatRay";
 
-        public override void SetDefaults()
+        protected override void InitWeapon()
         {
             item.CloneDefaults(ItemID.HeatRay);
-            item.damage *= 16;
-            item.crit *= 2;
-            item.knockBack *= 2;
-            item.useTime /= 2;
-            item.useAnimation /= 2;
-            item.value = 450000;
-            item.rare = 10;
+
+            criticalStrikeChance *= 2;
+            knockBack *= 2;
+            useTime /= 2;
+            useAnimation /= 2;
+            value = Item.buyPrice(0, 45);
+            rarity = Rarity.Red;
+            shootSpeed = 15f;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Projectile.NewProjectile(new Vector2(position.X, position.Y - 8), new Vector2(speedX, speedY), type, damage, knockBack);
+            Terraria.Projectile.NewProjectile(new Vector2(position.X, position.Y - 8), new Vector2(speedX, speedY), type, damage, knockBack);
             return true;
         }
     }

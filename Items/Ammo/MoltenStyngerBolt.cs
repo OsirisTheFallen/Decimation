@@ -1,51 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
+using Decimation.Buffs.Debuffs;
+using Decimation.Items.Misc;
+using Decimation.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Ammo
 {
-    class MoltenStyngerBolt : ModItem
+    internal class MoltenStyngerBolt : DecimationAmmo
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Explodes into molten shrapnel.");
-        }
+        protected override string ItemName => "Molten Stynger Bolt";
+        protected override string ItemTooltip => "Explodes into molten shrapnel.";
+        protected override string Projectile => "MoltenStyngerBolt";
+        protected override int Ammo => AmmoID.StyngerBolt;
 
-        public override void SetDefaults()
+        protected override void InitAmmo()
         {
-            item.damage = 25;
-            item.knockBack = 1;
-            item.ranged = true;
-            item.width = 8;
-            item.height = 8;
-            item.maxStack = 999;
-            item.consumable = true;
-            item.value = 1000;
-            item.rare = 3;
-            item.shoot = mod.ProjectileType("MoltenStyngerBolt");
+            width = 8;
+            height = 8;
+            damages = 25;
+            projKnockBack = 1;
+            rarity = Rarity.Orange;
+            value = Item.buyPrice(0, 0, 10);
+            consumable = true;
+
             item.shootSpeed = 2f;
-            item.ammo = AmmoID.StyngerBolt;
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool isCritical)
         {
-            target.AddBuff(mod.BuffType("Singed"), 600);
+            target.AddBuff(mod.BuffType<Singed>(), 600);
         }
 
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, int damage, bool isCritical)
         {
-            player.AddBuff(mod.BuffType("Singed"), 600);
+            player.AddBuff(mod.BuffType<Singed>(), 600);
         }
 
-        public override void AddRecipes()
+        protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 50, new List<int>() { mod.TileType<TitanForge>() }, false);
+
             recipe.AddIngredient(ItemID.StyngerBolt, 50);
-            recipe.AddIngredient(mod.ItemType("Thermoplasm"), 5);
-            recipe.AddTile(mod.TileType("TitanForge"));
-            recipe.SetResult(this, 50);
-            recipe.AddRecipe();
+            recipe.AddIngredient(mod.ItemType<Thermoplasm>(), 5);
+
+            return new List<ModRecipe>() { recipe };
         }
     }
 }

@@ -5,42 +5,37 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Tools
 {
-    public class MultigrainHammer : ModItem
+    internal class MultigrainHammer : DecimationTool
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Multigrain Hamaxe");
-			Tooltip.SetDefault("Smells like honeysuckle");
-		}
-        public override void SetDefaults()
+        protected override string ItemName => "Multigrain Hamaxe";
+        protected override string ItemTooltip => "Smells like honeysuckle";
+        protected override int MeleeDamages => 20;
+        protected override int HammerPower => 67;
+        protected override int AxePower => 13;
+
+        protected override void InitTool()
         {
-            item.damage = 20;
-            item.melee = true;
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.hammer = 67;
-			item.axe = 13;
-            item.useStyle = 1;
+            width = 32;
+            height = 32;
+            useTime = 20;
+            useAnimation = 20;
             item.knockBack = 5;
-            item.value = 1000;
-            item.rare = 2;
-			item.crit = 3;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;
+            value = Item.buyPrice(0, 0, 10);
+            rarity = Rarity.Green;
+            item.crit = 3;
+            useSound = SoundID.Item1;
         }
-        public override void AddRecipes()
+
+        protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = GetNewModRecipe(this, 1, TileID.Loom);
+
             recipe.AddIngredient(null, "GreatwoodHammer");
-			recipe.AddIngredient(ItemID.CactusPickaxe);
-			recipe.AddIngredient(ItemID.Pumpkin, 10);
-			recipe.AddIngredient(ItemID.Vine, 2);
-            recipe.AddTile(TileID.Loom);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-		}		
+            recipe.AddIngredient(ItemID.CactusPickaxe);
+            recipe.AddIngredient(ItemID.Pumpkin, 10);
+            recipe.AddIngredient(ItemID.Vine, 2);
+
+            return recipe;
+        }
     }
 }

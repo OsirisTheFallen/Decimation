@@ -6,31 +6,23 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Bloodshot
 {
-    public class VampiricShiv : ModItem
+    internal class VampiricShiv : DecimationWeapon
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Vampiric Shiv";
+        protected override string ItemTooltip => "Heal 10% of damages inflicted";
+        protected override int Damages => 12;
+
+        protected override void InitWeapon()
         {
-            DisplayName.SetDefault("Vampiric Shiv");
-            Tooltip.SetDefault("Heal 10% of damage dealt");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 20;
-            item.height = 20;
-            item.value = 100;
-            item.rare = 1;
-            item.crit = 4;
-            item.maxStack = 999;
-            item.melee = true;
-            item.damage = 12;
-            item.useStyle = 3;
-            item.useTime = 12;
-            item.useAnimation = 12;
-            item.rare = 2;
-            item.maxStack = 1;
-            item.knockBack = 5;
-            item.value = 20000;
-            item.UseSound = SoundID.Item1;
+            width = 20;
+            height = 20;
+            criticalStrikeChance = 4;
+            useStyle = 3;
+            useTime = 12;
+            useAnimation = 12;
+            rarity = Rarity.Green;
+            knockBack = 5;
+            value = Item.buyPrice(0, 2);
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

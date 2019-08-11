@@ -4,22 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    class ShinySentinel : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Shiny Sentinel");
-            Tooltip.SetDefault("Doubles life and mana regeneration \n+5 defense");
-        }
+   internal class ShinySentinel : DecimationAccessory
+   {
+       protected override string ItemName => "Shiny Sentinel";
+       protected override string ItemTooltip => "Doubles life and mana regeneration \n+5 defense";
 
-        public override void SetDefaults()
+        protected override void InitAccessory()
         {
-            item.width = 30;
-            item.height = 28;
-            item.accessory = true;
-            item.maxStack = 1;
-            item.value = 450000;
-            item.rare = -12;
+            width = 30;
+            height = 28;
+            rarity = Rarity.Rainbow;
+            item.value = Item.buyPrice(0, 45);
             item.expert = true;
         }
 

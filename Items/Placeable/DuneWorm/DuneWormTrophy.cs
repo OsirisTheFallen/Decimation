@@ -1,28 +1,20 @@
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable.DuneWorm
 {
-    public class DuneWormTrophy : ModItem
+    internal class DuneWormTrophy : DecimationPlaceableItem
     {
-        public override void SetStaticDefaults()
+        protected override string ItemName => "Ancient Dune Worm Trophy";
+        protected override string ItemTooltip => "Achievement get!";
+        protected override int Tile => mod.TileType<Tiles.DuneWormTrophy>();
+
+        protected override void InitPlaceable()
         {
-            DisplayName.SetDefault("Ancient Dune Worm Trophy");
-            Tooltip.SetDefault("Acheivement get!");
-        }
-        public override void SetDefaults()
-        {
-            item.width = 30;
-            item.height = 30;
+            width = 30;
+            height = 30;
             item.maxStack = 99;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 10;
-            item.useStyle = 1;
-            item.consumable = true;
-            item.value = 50000;
-            item.rare = 1;
-            item.createTile = mod.TileType<Tiles.DuneWormTrophy>();
+            item.value = Item.buyPrice(0, 5);
         }
     }
 }

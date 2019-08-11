@@ -4,33 +4,25 @@ using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Arachnus
 {
-    class GlaiveWeaver : ModItem
+    internal class GlaiveWeaver : DecimationWeapon
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Glaive Weaver");
-            Tooltip.SetDefault("Your palm burns as you wield this godly weapon.");
-        }
+        protected override string ItemName => "Glaive Weaver";
+        protected override string ItemTooltip => "Your palm burns as you wield this godly weapon.";
+        protected override int Damages => 850;
+        protected override string Projectile => "ArchingSolarBlade";
 
-        public override void SetDefaults()
+        protected override void InitWeapon()
         {
-            item.width = 42;
-            item.height = 46;
-            item.value = 450000;
-            item.rare = 10;
-            item.maxStack = 1;
-            item.useTime = 15;
-            item.useAnimation = 15;
-            item.useStyle = 1;
-            item.melee = true;
-            item.damage = 850;
-            item.shoot = mod.ProjectileType("ArchingSolarBlade");
-            item.shootSpeed = 15;
-            item.crit = 10;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;
-            item.knockBack = 4;
+            width = 42;
+            height = 46;
+            value = Item.buyPrice(0, 45);
+            rarity = Rarity.Red;
+            useTime = 15;
+            useAnimation = 15;
+            shootSpeed = 15;
+            criticalStrikeChance = 10;
+            autoReuse = true;
+            knockBack = 4;
         }
     }
 }
