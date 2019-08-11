@@ -8,9 +8,9 @@ namespace Decimation.Items.Weapons.Bloodshot
 {
     internal class VampiricShiv : DecimationWeapon
     {
-            protected override string ItemName => "Vampiric Shiv";
-            protected override string ItemTooltip => "Heal 10% of damages inflicted";
-            protected override int Damages => 12;
+        protected override string ItemName => "Vampiric Shiv";
+        protected override string ItemTooltip => "Heal 10% of damages inflicted";
+        protected override int Damages => 12;
 
         protected override void InitWeapon()
         {

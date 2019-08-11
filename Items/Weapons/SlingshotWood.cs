@@ -31,6 +31,7 @@ namespace Decimation.Items.Weapons
             shootSpeed = 10f;
             criticalStrikeChance = 10;
         }
+        
         protected override ModRecipe GetRecipe()
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, TileID.WorkBenches);
