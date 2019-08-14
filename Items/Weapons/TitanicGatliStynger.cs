@@ -1,4 +1,6 @@
 ﻿using System;
+using Decimation.Items.Ores;
+using Decimation.Items.Weapons.Arachnus;
 using Decimation.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -20,26 +22,27 @@ namespace Decimation.Items.Weapons
         {
             item.CloneDefaults(ItemID.Stynger);
 
-            width = 52;
-            height = 26;
-            criticalStrikeChance = 8;
             knockBack = 11;
-            useTime = 10;
-            useAnimation = 10;
-            rarity = Rarity.Red;
-            autoReuse = true;
             shootSpeed = 9f;
-            value = Item.buyPrice(0, 60);
+            criticalStrikeChance = 8;
+
+            item.width = 52;
+            item.height = 26;
+            item.useTime = 10;
+            item.useAnimation = 10;
+            item.rare = 10;
+            item.autoReuse = true;
+            item.value = Item.buyPrice(0, 60);
         }
 
         protected override ModRecipe GetRecipe()
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
 
-            recipe.AddIngredient(null, "ChainStynger");
-            recipe.AddIngredient(null, "TitaniteBar", 15);
-            // recipe.AddIngredient(null, "CondensedMight", 5);
-            recipe.AddIngredient(null, "DenziumBar");
+            recipe.AddIngredient(mod.ItemType<ChainStynger>());
+            recipe.AddIngredient(mod.ItemType<TitaniteBar>(), 15);
+            // TODO recipe.AddIngredient(null, "CondensedMight", 5);
+            recipe.AddIngredient(mod.ItemType<DenziumBar>());
 
             return recipe;
         }

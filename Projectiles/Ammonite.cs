@@ -5,9 +5,11 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    public class Ammonite : ModProjectile
+    internal class Ammonite : DecimationProjectile
     {
-        public override void SetDefaults()
+        protected override bool IsClone => true;
+
+        protected override void Init()
         {
             projectile.CloneDefaults(ProjectileID.SpikyBall);
             projectile.damage = 30;

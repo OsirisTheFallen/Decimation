@@ -65,8 +65,8 @@ namespace Decimation
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("ShootVanilla: Inventory"));
-            int healthBarIndex = layers.FindIndex(layer => layer.Name.Equals("ShootVanilla: Entity Health Bars"));
+            int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+            int healthBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Entity Health Bars"));
 
             if (inventoryIndex != -1)
             {

@@ -1,29 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.IO;
+using Decimation.Items.Weapons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class Bone : ModProjectile
+   internal class Bone : DecimationProjectile
     {
         private float maxSpeed = 5f;
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 14;
-            projectile.height = 34;
-            projectile.aiStyle = -1;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.ranged = true;
-            projectile.hostile = true;
-            projectile.penetrate = 2;
-            projectile.timeLeft = 60;
+            width = 14;
+            height = 34;
+            aiStyle = -1;
+            ignoreWater = true;
+            tileCollide = false;
+            damageType = DecimationWeapon.DamageType.RANGED;
+            hostile = true;
+            penetrate = 2;
+            timeLeft = 60;
 
-            projectile.damage = Main.expertMode ? 57 : 20;
+            damages = Main.expertMode ? 57 : 20;
             projectile.localAI[0] = 15;
         }
 
@@ -37,10 +38,10 @@ namespace Decimation.Projectiles
             {
                 projectile.localAI[0] = 15;
 
-                if (projectile.timeLeft < 10)
+                if (timeLeft < 10)
                 {
                     projectile.ai[1]++;
-                    projectile.timeLeft = 600;
+                    timeLeft = 600;
                     projectile.velocity *= 0;
                 }
             }

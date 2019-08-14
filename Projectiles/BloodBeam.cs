@@ -12,31 +12,27 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class BloodBeam : ModProjectile
+   internal class BloodBeam : DecimationProjectile
     {
-        public override string Texture
-        {
-            get { return "Terraria/Projectile_" + ProjectileID.CursedFlameHostile; }
-        }
+        public override string Texture => "Terraria/Projectile_" + ProjectileID.CursedFlameHostile;
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 26;
-            projectile.height = 26;
-            projectile.aiStyle = -1;
-            projectile.penetrate = -1;
+            width = 26;
+            height = 26;
+            aiStyle = -1;
+            penetrate = -1;
             projectile.alpha = 255;
-            projectile.timeLeft = 40;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
-            projectile.damage = 25;
-            projectile.hostile = true;
-            projectile.friendly = false;
+            timeLeft = 40;
+            tileCollide = false;
+            ignoreWater = true;
+            damages = 25;
+            hostile = true;
         }
 
         public override void AI()
         {
-            projectile.velocity.Y += (60 - projectile.timeLeft) * 0.005f;
+            projectile.velocity.Y += (60 - timeLeft) * 0.005f;
 
             Dust.NewDust(projectile.position, 26, 26, mod.DustType<Blood>());
         }

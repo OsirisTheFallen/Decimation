@@ -1,25 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Decimation.Items.Weapons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class SiphonArrow : ModProjectile
+   internal class SiphonArrow : DecimationProjectile
     {
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 14;
-            projectile.height = 32;
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.ranged = true;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 600;
-            projectile.tileCollide = true;
+            width = 14;
+            height = 32;
+            aiStyle = 1;
+            damageType = DecimationWeapon.DamageType.RANGED;
+            penetrate = 1;
+            timeLeft = 600;
+            tileCollide = true;
             projectile.arrow = true;
             aiType = ProjectileID.WoodenArrowFriendly;
         }

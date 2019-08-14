@@ -6,32 +6,32 @@ using Microsoft.Xna.Framework;
 
 namespace Decimation.Projectiles
 {
-    class BlastofShadowFlame : ModProjectile
+   internal class BlastofShadowFlame : DecimationProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Blast of Shadowflame");
         }
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 6;
-            projectile.height = 6;
-            projectile.aiStyle = -1;
-            projectile.hostile = true;
+            width = 6;
+            height = 6;
+            aiStyle = -1;
+            hostile = true;
             projectile.alpha = 255;
-            projectile.penetrate = -1;
+            penetrate = -1;
             projectile.extraUpdates = 3;
-            projectile.light = 0.8f;
+            light = 0.8f;
         }
 
         public override void AI()
         {
             int num4;
 
-            if (projectile.timeLeft > 60)
+            if (timeLeft > 60)
             {
-                projectile.timeLeft = 60;
+                timeLeft = 60;
             }
             if (projectile.ai[0] > 7f)
             {
@@ -55,8 +55,6 @@ namespace Decimation.Projectiles
                     for (int i = 0; i < 2; i = num4 + 1)
                     {
                         Vector2 position = new Vector2(projectile.position.X, projectile.position.Y);
-                        int width = projectile.width;
-                        int height = projectile.height;
                         //int num300 = dustType;
                         float speedX = projectile.velocity.X * 0.2f;
                         float speedY = projectile.velocity.Y * 0.2f;

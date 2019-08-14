@@ -1,24 +1,25 @@
 ﻿using System;
+using Decimation.Items.Weapons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class Tooth : ModProjectile
+   internal class Tooth : DecimationProjectile
     {
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 10;
-            projectile.height = 18;
-            projectile.aiStyle = 1;
-            projectile.damage = 20;
-            projectile.ranged = true;
-            projectile.tileCollide = true;
-            projectile.ignoreWater = false;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 600;
-            projectile.friendly = true;
+            width = 10;
+            height = 18;
+            aiStyle = 1;
+            damages = 20;
+            tileCollide = true;
+            ignoreWater = false;
+            penetrate = 1;
+            timeLeft = 600;
+
+            damageType = DecimationWeapon.DamageType.RANGED;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

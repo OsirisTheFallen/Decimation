@@ -6,22 +6,20 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class TitanicPikeProjectile : ModProjectile
+   internal class TitanicPikeProjectile : DecimationProjectile
     {
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 18;
-            projectile.height = 18;
-            projectile.aiStyle = 19;
-            projectile.penetrate = -1;
+            width = 18;
+            height = 18;
+            aiStyle = 19;
+            penetrate = -1;
             projectile.scale = 1.3f;
             projectile.alpha = 0;
 
             projectile.hide = true;
             projectile.ownerHitCheck = true;
-            projectile.melee = true;
-            projectile.tileCollide = false;
-            projectile.friendly = true;
+            tileCollide = false;
         }
 
         public float movementFactor // Change this value to alter how fast the spear moves
@@ -40,8 +38,8 @@ namespace Decimation.Projectiles
             projectile.direction = projOwner.direction;
             projOwner.heldProj = projectile.whoAmI;
             projOwner.itemTime = projOwner.itemAnimation;
-            projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
-            projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
+            projectile.position.X = ownerMountedCenter.X - (float)(width / 2);
+            projectile.position.Y = ownerMountedCenter.Y - (float)(height / 2);
             // As long as the player isn't frozen, the spear can move
             if (!projOwner.frozen)
             {

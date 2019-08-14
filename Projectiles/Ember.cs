@@ -7,35 +7,27 @@ using Microsoft.Xna.Framework;
 
 namespace Decimation.Projectiles
 {
-    class Ember : ModProjectile
+   internal class Ember : DecimationProjectile
     {
-        public override string Texture
-        {
-            get
-            {
-                return "Terraria/Projectile_" + ProjectileID.Flames;
-            }
-        }
+        public override string Texture => "Terraria/Projectile_" + ProjectileID.Flames;
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 20;
-            projectile.height = 20;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
+            width = 20;
+            height = 20;
+            aiStyle = -1;
             projectile.alpha = 255;
-            projectile.penetrate = 1;
-            projectile.light = 0.8f;
-            projectile.damage = 25;
-            projectile.timeLeft = 60;
-            projectile.melee = true;
-            projectile.tileCollide = false;
-            projectile.ignoreWater = true;
+            penetrate = 1;
+            light = 0.8f;
+            damages = 25;
+            timeLeft = 60;
+            tileCollide = false;
+            ignoreWater = true;
         }
 
         public override void AI()
         {
-            Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0, 0, 0, new Microsoft.Xna.Framework.Color(240, 94, 27));
+            Dust.NewDust(projectile.position, width, height, 6, 0, 0, 0, new Microsoft.Xna.Framework.Color(240, 94, 27));
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

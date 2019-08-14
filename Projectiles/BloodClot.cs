@@ -1,4 +1,5 @@
 ﻿using System;
+using Decimation.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -7,37 +8,36 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class BloodClot : ModProjectile
+   internal class BloodClot : DecimationProjectile
     {
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 24;
-            projectile.height = 24;
-            projectile.damage = 22;
-            projectile.ranged = true;
-            projectile.tileCollide = true;
+            width = 24;
+            height = 24;
+            damages = 22;
+            damageType = DecimationWeapon.DamageType.RANGED;
+            tileCollide = true;
             projectile.knockBack = 7f;
-            projectile.aiStyle = -1;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 600;
-            projectile.hostile = true;
-            projectile.friendly = false;
+            aiStyle = -1;
+            penetrate = 1;
+            timeLeft = 600;
+            hostile = true;
         }
 
         public override void AI()
         {
-            projectile.velocity.Y += (600 - projectile.timeLeft) * 0.002f;
+            projectile.velocity.Y += (600 - timeLeft) * 0.002f;
 
             Dust.NewDust(projectile.position, 26, 26, DustID.SomethingRed);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            for (int i = 0; i < projectile.width; i++)
+            for (int i = 0; i < width; i++)
             {
-                for (int j = 0; j < projectile.height; j++)
+                for (int j = 0; j < height; j++)
                 {
-                    Dust.NewDust(new Vector2(projectile.position.X + i, projectile.position.Y + j), projectile.width, projectile.height, DustID.Blood);
+                    Dust.NewDust(new Vector2(projectile.position.X + i, projectile.position.Y + j), width, height, DustID.Blood);
                 }
             }
 

@@ -6,11 +6,11 @@ namespace Decimation.Items.Ammo
     internal abstract class DecimationAmmo : DecimationItem
     {
         protected int damages = 0;
-        protected int projKnockBack = 0;
+        protected float projKnockBack = 0;
 
         protected abstract string Projectile { get; }
         protected abstract int Ammo { get; }
-        protected virtual bool ShootVanilla { get; } = false;
+        protected virtual bool VanillaProjectile { get; } = false;
         protected abstract void InitAmmo();
 
         protected sealed override void Init()
@@ -23,7 +23,7 @@ namespace Decimation.Items.Ammo
             item.damage = damages;
             item.knockBack = projKnockBack;
 
-            item.shoot = ItemUtils.GetIdFromName(Projectile, typeof(Projectile), ShootVanilla);
+            item.shoot = ItemUtils.GetIdFromName(Projectile, typeof(Projectile), VanillaProjectile);
             item.ammo = Ammo;
 
             item.ranged = true;

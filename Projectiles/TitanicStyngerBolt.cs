@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Decimation.Items.Weapons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class TitanicStyngerBolt : ModProjectile
+   internal class TitanicStyngerBolt : DecimationProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -16,20 +17,18 @@ namespace Decimation.Projectiles
             ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 40;
-            projectile.height = 10;
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.ranged = true;
-            projectile.penetrate = 5;
-            projectile.timeLeft = 600;
+            width = 40;
+            height = 10;
+            aiStyle = 1;
+            damageType = DecimationWeapon.DamageType.RANGED;
+            penetrate = 5;
+            timeLeft = 600;
             projectile.alpha = 255;
-            projectile.light = 0.1f;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = true;
+            light = 0.1f;
+            ignoreWater = true;
+            tileCollide = true;
             projectile.extraUpdates = 1;
             aiType = ProjectileID.Bullet;
         }
@@ -47,13 +46,13 @@ namespace Decimation.Projectiles
                 sqrt = 8f / sqrt;
                 velocityX *= sqrt;
                 velocityY *= sqrt;
-                Projectile.NewProjectile(projectile.Center.X - projectile.oldVelocity.X, projectile.Center.Y - projectile.oldVelocity.Y, velocityX, velocityY, ProjectileID.StyngerShrapnel, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X - projectile.oldVelocity.X, projectile.Center.Y - projectile.oldVelocity.Y, velocityX, velocityY, ProjectileID.StyngerShrapnel, damages, projectile.knockBack, projectile.owner, 0f, 0f);
             }
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
+            Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, height * 0.5f);
             for (int k = 0; k < projectile.oldPos.Length; k++)
             {
                 Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);

@@ -6,14 +6,12 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class ArachnusFireball : ModProjectile
+    class ArachnusFireball : DecimationProjectile
     {
-        public override string Texture
-        {
-            get { return "Terraria/Projectile_" + ProjectileID.Fireball; }
-        }
+        public override string Texture => "Terraria/Projectile_" + ProjectileID.Fireball;
+        protected override bool IsClone => true;
 
-        public override void SetDefaults()
+        protected override void Init()
         {
             projectile.CloneDefaults(ProjectileID.Fireball);
             projectile.light = 1f;

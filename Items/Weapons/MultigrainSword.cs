@@ -9,7 +9,7 @@ namespace Decimation.Items.Weapons
         protected override string ItemName => "Multigrain Sword";
         protected override string ItemTooltip => "Smells like honeysuckle";
         protected override int Damages => 30;
-        protected override string Projectile => "StingerM";
+        protected override string Projectile => "Stinger";
 
         protected override void InitWeapon()
         {

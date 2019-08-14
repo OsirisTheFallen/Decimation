@@ -10,8 +10,10 @@ namespace Decimation.Items.Weapons
         protected float shootSpeed = 0;
 
         protected virtual DamageType DamagesType { get; } = DamageType.MELEE;
-        protected virtual string Projectile { get; } = "DefaultProjectile";
+        protected virtual string Projectile { get; }
+        protected virtual string Ammo { get; }
         protected virtual bool VanillaProjectile { get; } = false;
+        protected virtual bool VanillaAmmo { get; } = false;
 
         protected abstract int Damages { get; }
         protected abstract void InitWeapon();
@@ -45,8 +47,17 @@ namespace Decimation.Items.Weapons
             item.damage = Damages;
             item.crit = criticalStrikeChance;
             item.knockBack = knockBack;
-            item.shoot = ItemUtils.GetIdFromName(Projectile, typeof(Projectile), VanillaProjectile);
             item.shootSpeed = shootSpeed;
+
+            if (Projectile != null)
+            {
+                item.shoot = ItemUtils.GetIdFromName(Projectile, typeof(Projectile), VanillaProjectile);
+            }
+
+            if (Ammo != null)
+            {
+                item.useAmmo = ItemUtils.GetIdFromName(Ammo, typeof(Item), VanillaAmmo);
+            }
 
             if (!item.melee)
             {
@@ -54,7 +65,7 @@ namespace Decimation.Items.Weapons
             }
         }
 
-        protected enum DamageType
+        internal enum DamageType
         {
             MELEE,
             MAGIC,

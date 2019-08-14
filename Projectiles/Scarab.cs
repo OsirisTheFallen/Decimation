@@ -11,23 +11,23 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class Scarab : ModProjectile
+   internal class Scarab : DecimationProjectile
     {
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 2;
         }
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.damage = 0;
-            projectile.width = 22;
-            projectile.height = 22;
-            projectile.friendly = true;
-            projectile.aiStyle = -1;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.penetrate = -1;
+            damages = 0;
+            width = 22;
+            height = 22;
+            aiStyle = -1;
+            ignoreWater = true;
+            tileCollide = false;
+            penetrate = -1;
+            timeLeft = int.MaxValue;
         }
 
         public override void AI()
@@ -57,9 +57,9 @@ namespace Decimation.Projectiles
             float x = projectile.position.X;
             float y = projectile.position.Y;
 
-            if (x < player.Center.X - 32 || x > player.Center.X + 32)
+            if (x < player.Center.X - 60 || x > player.Center.X + 60)
                 projectile.velocity.X *= -1;
-            if (y < player.Center.Y - 32 || y > player.Center.Y + 32)
+            if (y < player.Center.Y - 60 || y > player.Center.Y + 60)
                 projectile.velocity.Y *= -1;
 
             // Follow the player
@@ -67,14 +67,14 @@ namespace Decimation.Projectiles
             float diffX = projectile.Center.X - player.Center.X;
             float diffY = projectile.Center.Y - player.Center.Y;
 
-            if (diffX > 40)
+            if (diffX > 70)
                 projectile.position.X -= diffX / 60;
-            else if (diffX < -40)
+            else if (diffX < -70)
                 projectile.position.X -= diffX / 60;
 
-            if (diffY > 40)
+            if (diffY > 70)
                 projectile.position.Y -= diffY / 60;
-            else if (diffY < -40)
+            else if (diffY < -70)
                 projectile.position.Y -= diffY / 60;
         }
     }

@@ -1,42 +1,30 @@
-﻿using Decimation.Buffs.Debuffs;
-using Decimation.Dusts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Decimation.Dusts;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class BloodBeamFriendly : ModProjectile
+   internal class BloodBeamFriendly : DecimationProjectile
     {
-        public override string Texture
-        {
-            get { return "Terraria/Projectile_" + ProjectileID.CursedFlameFriendly; }
-        }
+        public override string Texture =>"Terraria/Projectile_" + ProjectileID.CursedFlameFriendly;
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 26;
-            projectile.height = 26;
-            projectile.aiStyle = -1;
-            projectile.penetrate = -1;
+            width = 26;
+            height = 26;
+            aiStyle = -1;
+            penetrate = -1;
             projectile.alpha = 255;
-            projectile.timeLeft = 40;
-            projectile.tileCollide = true;
-            projectile.ignoreWater = true;
-            projectile.damage = 15;
-            projectile.hostile = false;
-            projectile.friendly = true;
+            timeLeft = 40;
+            tileCollide = true;
+            ignoreWater = true;
+            damages = 15;
+            hostile = false;
         }
 
         public override void AI()
         {
-            projectile.velocity.Y += (60 - projectile.timeLeft) * 0.005f;
+            projectile.velocity.Y += (60 - timeLeft) * 0.005f;
 
             Dust.NewDust(projectile.position, 26, 26, mod.DustType<Blood>());
         }

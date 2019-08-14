@@ -7,21 +7,21 @@ using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
-    class BlastofHeat : ModProjectile
+   internal class BlastofHeat : DecimationProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Blast of Heat");
         }
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            projectile.width = 6;
-            projectile.height = 6;
-            projectile.aiStyle = 23;
-            projectile.hostile = true;
+            width = 6;
+            height = 6;
+            aiStyle = 23;
+            hostile = true;
             projectile.alpha = 255;
-            projectile.penetrate = -1;
+            penetrate = -1;
             projectile.extraUpdates = 3;
         }
 
