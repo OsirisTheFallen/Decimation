@@ -4,16 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Debuffs
 {
-    class InfernalGaze : ModBuff
+   internal class InfernalGaze : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Infernal Gaze";
+        protected override string Description => "You feel your sins burning inside of you";
+        public override bool Debuff => true;
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Infernal Gaze");
-            Description.SetDefault("You feel your sins burning inside of you");
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = false;
-            Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
             longerExpertDebuff = true;
         }
 

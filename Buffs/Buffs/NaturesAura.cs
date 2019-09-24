@@ -4,16 +4,16 @@ using Terraria.DataStructures;
 
 namespace Decimation.Buffs.Buffs
 {
-    public class NaturesAura : ModBuff
+    internal class NaturesAura : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Natures Aura";
+        protected override string Description => "Nature strengthens your will and power.";
+
+        protected override void Init()
         {
-            Main.debuff[Type] = false;
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true;
-            DisplayName.SetDefault("Natures Aura");
-            Description.SetDefault("Nature strengthens your will and power.");
-            canBeCleared = false;
+            save = false;
+            displayTime = false;
+            clearable = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

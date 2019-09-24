@@ -4,16 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Debuffs
 {
-    class Singed : ModBuff
+   internal class Singed : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Singed!";
+        protected override string Description => "Burn target \nSlow target by 5% \nLower target defense by 5% \n Block potion use";
+        public override bool Debuff => true;
+
+        protected override void Init()
         {
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = false;
-            DisplayName.SetDefault("Singed!");
-            Description.SetDefault("Burn target \nSlow target by 5% \nLower target defense by 5% \n Block potion use");
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

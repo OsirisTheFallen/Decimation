@@ -5,14 +5,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Buffs
 {
-    class MysticFlame : ModBuff
+   internal class MysticFlame : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Mystic Flame";
+        protected override string Description => "A warmth envelops you";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Mystic Flame");
-            Description.SetDefault("A warmth envelops you");
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
+            save = true;
+            clearable = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

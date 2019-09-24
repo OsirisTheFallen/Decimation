@@ -4,14 +4,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Buffs
 {
-    class Ubered : ModBuff
+   internal class Ubered : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Ubered!";
+        protected override string Description => "YOU ARE ZE UBERMENSCH!";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Ubered!");
-            Description.SetDefault("YOU ARE ZE UBERMENSCH!");
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
+            save = true;
+            clearable = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

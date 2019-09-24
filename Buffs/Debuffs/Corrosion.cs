@@ -4,16 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Debuffs
 {
-    class Corrosion : ModBuff
+   internal class Corrosion : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Corrosion";
+        protected override string Description => "Your armor is getting lighter...";
+        public override bool Debuff => true;
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Corrosion");
-            Description.SetDefault("Your armor is getting lighter...");
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = false;
-            Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
             longerExpertDebuff = true;
         }
 

@@ -8,7 +8,7 @@ namespace Decimation.Items.Potions
 {
     internal class WarlockPotion : DecimationPotion
     {
-        protected override string ItemName => "WarlockPotion";
+        protected override string ItemName => "Warlock Potion";
         protected override string ItemTooltip => "Increased Mana Regeneration \nIncreased max mana \n10% increased magic damage";
         protected override int BuffType => mod.BuffType<Warlock>();
         protected override int BuffTime => 36000;

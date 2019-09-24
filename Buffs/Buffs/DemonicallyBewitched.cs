@@ -4,14 +4,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Buffs
 {
-    class DemonicallyBewitched : ModBuff
+    internal class DemonicallyBewitched : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Demonically Bewitched";
+        protected override string Description => "+1 minion" + "\nIncrease minions damages and knockback";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Demonically Bewitched");
-            Description.SetDefault("+1 minion" + "\nIncrease minions damages and knockback");
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
+            save = true;
+            clearable = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

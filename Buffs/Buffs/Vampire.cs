@@ -5,15 +5,16 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Buffs
 {
-    class Vampire : ModBuff
+   internal class Vampire : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Vampire!";
+        protected override string Description => "You are now a vampire!";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Vampire!");
-            Description.SetDefault("You are now a vampire!");
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = true;
+            save = true;
+            displayTime = true;
+            clearable = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

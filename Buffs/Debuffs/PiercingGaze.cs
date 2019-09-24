@@ -4,16 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Debuffs
 {
-    class PiercingGaze : ModBuff
+   internal class PiercingGaze : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Piercing Gaze";
+        protected override string Description => "Eyes are peering into your soul...";
+        public override bool Debuff => true;
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Piercing Gaze");
-            Description.SetDefault("Eyes are peering into your soul...");
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = false;
-            Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
             longerExpertDebuff = true;
         }
 

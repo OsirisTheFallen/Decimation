@@ -4,16 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Debuffs
 {
-    class Enveloped : ModBuff
+   internal class Enveloped : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Enveloped!";
+        protected override string Description => "Is it frostbite? Or are your nerves burnt out?";
+        public override bool Debuff => true;
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Enveloped!");
-            Description.SetDefault("Is it frostbite? Or are your nerves burnt out?");
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = false;
-            Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
             longerExpertDebuff = true;
         }
 

@@ -1,20 +1,19 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Debuffs
 {
-    class Amnesia : ModBuff
+   internal class Amnesia : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Amnesia";
+        protected override string Description => "Discombobulate";
+        public override bool Debuff => true;
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Amnesia");
-            Description.SetDefault("Discombobulate");
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = false;
-            Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
             longerExpertDebuff = true;
         }
 

@@ -4,16 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Debuffs
 {
-    public class AvianFlu : ModBuff
+    internal class AvianFlu : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Avian Flu";
+        protected override string Description => "Your wings don't feel too hot...";
+        public override bool Debuff => true;
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Avian Flu");
-            Description.SetDefault("Your wings don't feel too hot...");
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = false;
-            Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
             longerExpertDebuff = true;
         }
 

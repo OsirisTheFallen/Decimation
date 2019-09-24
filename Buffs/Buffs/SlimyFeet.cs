@@ -5,14 +5,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Buffs
 {
-    class SlimyFeet : ModBuff
+   internal class SlimyFeet : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Slimy feet!";
+        protected override string Description => "You now have the abilities of slimes!";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Slimy feet!");
-            Description.SetDefault("You now have the abilities of slimes!");
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
+            save = true;
+            clearable = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

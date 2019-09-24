@@ -4,14 +4,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Buffs
 {
-    class Werepire : ModBuff
+   internal class Werepire : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Werepire!";
+        protected override string Description => "Grants both Vampire! and Werewolf effects";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Werepire!");
-            Description.SetDefault("Grants both Vampire! and Werewolf effects");
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
+            save = true;
+            clearable = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

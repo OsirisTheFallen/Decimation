@@ -4,16 +4,17 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Debuffs
 {
-    class Discombobulated : ModBuff
+   internal class Discombobulated : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Discombobulated?";
+        protected override string Description => "";
+        public override bool Debuff => true;
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Discombobulated?");
-            Description.SetDefault("");
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = false;
-            Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
             longerExpertDebuff = true;
         }
 

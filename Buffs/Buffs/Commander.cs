@@ -3,19 +3,18 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Buffs
 {
-	public class Commander : ModBuff
+	internal class Commander : DecimationBuff
 	{
-		public override void SetDefaults()
-		{
-			Main.debuff[Type] = false;
-			Main.buffNoSave[Type] = true;
-			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Commander");
-			Description.SetDefault("Max minions +1 \nMinions damages +10% \nMinions Knockback +10%");
-			canBeCleared = true;
-		}
+        protected override string DisplayName => "Commander";
+        protected override string Description => "Max minions +1 \nMinions damages +10% \nMinions Knockback +10%";
 
-		public override void Update(Player player, ref int buffIndex)
+        protected override void Init()
+        {
+            save = true;
+            clearable = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
 		{
 			player.maxMinions++;
 			player.minionDamage += 0.1f;

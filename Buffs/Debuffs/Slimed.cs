@@ -4,18 +4,17 @@ using Terraria.DataStructures;
 
 namespace Decimation.Buffs.Debuffs
 {
-    public class Slimed : ModBuff
+    internal class Slimed : DecimationBuff
     {
-        private int i = 0;
+        protected override string DisplayName => "Slimed!";
+        protected override string Description => "Movement speed -20% \nDeal 2 damages each 5 seconds \nIncrease jump height \n Block potion use";
+        public override bool Debuff => true;
 
-        public override void SetDefaults()
+        protected override void Init()
         {
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = false;
-            DisplayName.SetDefault("Slimed!");
-            Description.SetDefault("Movement speed -20% \nDeal 2 damages each 5 seconds \nIncrease jump height \n Block potion use");
-            canBeCleared = false;
+            save = false;
+            displayTime = true;
+            clearable = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

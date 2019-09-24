@@ -7,13 +7,15 @@ using Terraria.ModLoader;
 
 namespace Decimation.Buffs.Buffs
 {
-    class ScarabEndurance : ModBuff
+    internal class ScarabEndurance : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Scarab Endurance";
+        protected override string Description => "";
+
+        protected override void Init()
         {
-            DisplayName.SetDefault("Scarab Endurance");
-            Main.buffNoSave[Type] = true;
-            canBeCleared = true;
+            save = false;
+            clearable = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

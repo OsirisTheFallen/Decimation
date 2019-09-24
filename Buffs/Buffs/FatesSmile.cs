@@ -4,16 +4,16 @@ using Terraria.DataStructures;
 
 namespace Decimation.Buffs.Buffs
 {
-    public class FatesSmile : ModBuff
+    internal class FatesSmile : DecimationBuff
     {
-        public override void SetDefaults()
+        protected override string DisplayName => "Fate's Smile";
+        protected override string Description => "Provide a slight life regeneration boost.";
+
+        protected override void Init()
         {
-            Main.debuff[Type] = false;
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true;
-            DisplayName.SetDefault("Fate's Smile");
-            Description.SetDefault("Provide a slight life regeneration boost.");
-            canBeCleared = false;
+            save = false;
+            displayTime = false;
+            clearable = false;
         }
 
         public override void Update(Player player, ref int buffIndex)
