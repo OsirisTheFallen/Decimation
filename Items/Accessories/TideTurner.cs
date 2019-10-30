@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using System.Collections.Generic;
 using Decimation.Items.Ores;
 using Decimation.Tiles;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
     internal class TideTurner : DecimationAccessory
     {
         protected override string ItemName => "Tide Turner";
+
         protected override string ItemTooltip => "Not one of ya’s going to survive this!\n" +
-        "Deals the same amount of damage as held item\n" +
-        "Increase underwater mobility\n" +
-        "+10% chance to dodge attacks when charging";
+                                                 "Deals the same amount of damage as held item\n" +
+                                                 "Increase underwater mobility\n" +
+                                                 "+10% chance to dodge attacks when charging";
 
         protected override void InitAccessory()
         {
@@ -40,13 +42,13 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<ChlorophyteAnvil>() }, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {mod.TileType<ChlorophyteAnvil>()}, false);
 
             recipe.AddIngredient(ItemID.EoCShield);
             recipe.AddIngredient(ItemID.Coral, 10);
             recipe.AddIngredient(mod.ItemType<DenziumBar>(), 5);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
     }
 }

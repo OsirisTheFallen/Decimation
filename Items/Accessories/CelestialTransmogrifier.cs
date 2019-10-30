@@ -1,15 +1,16 @@
-﻿using Decimation.Buffs.Buffs;
+﻿using System.Collections.Generic;
+using Decimation.Buffs.Buffs;
 using Decimation.Items.Misc.Souls;
 using Decimation.Tiles;
-using System;
-using System.Collections.Generic;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
-    class CelestialTransmogrifier : DecimationAccessory
+    internal class CelestialTransmogrifier : DecimationAccessory
     {
         protected override string ItemName => "Celestial Transmogrifier";
 
@@ -25,12 +26,12 @@ namespace Decimation.Items.Accessories
             height = 62;
             rarity = Rarity.LightPurple;
 
-            item.value = Item.buyPrice(0, 4);
+            this.item.value = Item.buyPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.AddBuff(mod.BuffType<Werepire>(), 1);
+            player.AddBuff(this.mod.BuffType<Werepire>(), 1);
 
             player.meleeSpeed *= 1.1f;
             player.meleeDamage *= 1.1f;
@@ -60,14 +61,14 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<ChlorophyteAnvil>() }, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {this.mod.TileType<ChlorophyteAnvil>()});
 
-            recipe.AddIngredient(mod.ItemType<AlucardPendant>());
+            recipe.AddIngredient(this.mod.ItemType<AlucardPendant>());
             recipe.AddIngredient(ItemID.CelestialShell);
-            recipe.AddIngredient(mod.ItemType<SoulofSpite>(), 20);
+            recipe.AddIngredient(this.mod.ItemType<SoulofSpite>(), 20);
             recipe.AddIngredient(ItemID.FallenStar, 5);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
     }
 }

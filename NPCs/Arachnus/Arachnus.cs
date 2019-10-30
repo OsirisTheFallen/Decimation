@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using Decimation.Items.Boss.Arachnus;
+using Decimation.Items.Misc.Souls;
+using Decimation.Items.Weapons.Arachnus;
 using Decimation.Projectiles;
 using Decimation.Tiles.ShrineoftheMoltenOne;
 
@@ -41,7 +44,7 @@ namespace Decimation.NPCs.Arachnus
             npc.HitSound = SoundID.NPCHit6;
             npc.DeathSound = SoundID.NPCDeath10;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Drums_of_hell");
-            bossBag = mod.ItemType("ArachnusBag");
+            bossBag = mod.ItemType<ArachnusTreasureBag>();
 
             npc.lavaImmune = true;
             npc.buffImmune[BuffID.OnFire] = true;
@@ -289,17 +292,17 @@ namespace Decimation.NPCs.Arachnus
 
         public override void NPCLoot()
         {
-            Item.NewItem(npc.Center, mod.ItemType("SoulofSpite"), Main.rand.Next(15, 31));
+            Item.NewItem(npc.Center, mod.ItemType<SoulofSpite>(), Main.rand.Next(15, 31));
 
             if (!Main.expertMode)
             {
                 int rand = Main.rand.Next(3);
                 if (rand == 0)
-                    Item.NewItem(npc.Center, mod.ItemType("ChainStynger"));
+                    Item.NewItem(npc.Center, mod.ItemType<ChainStynger>());
                 else if (rand == 1)
-                    Item.NewItem(npc.Center, mod.ItemType("GlaiveWeaver"));
+                    Item.NewItem(npc.Center, mod.ItemType<GlaiveWeaver>());
                 else if (rand == 2)
-                    Item.NewItem(npc.Center, mod.ItemType("Infernolizer"));
+                    Item.NewItem(npc.Center, mod.ItemType<Infernolizer>());
             }
             else
             {

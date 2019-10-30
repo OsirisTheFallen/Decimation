@@ -1,4 +1,7 @@
-﻿using Decimation.Tiles;
+﻿using Decimation.Items.Misc;
+using Decimation.Tiles;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,15 +24,15 @@ namespace Decimation.Items.Boss.Arachnus
             useAnimation = 30;
             useTime = 30;
 
-            item.maxStack = 1;
+            this.item.maxStack = 1;
         }
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
 
             recipe.AddIngredient(ItemID.FragmentSolar, 3);
-            recipe.AddIngredient(mod.ItemType("Thermoplasm"));
+            recipe.AddIngredient(this.mod.ItemType<Thermoplasm>());
 
             return recipe;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Decimation.Core.Amulets;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,22 +21,23 @@ namespace Decimation.Items.Amulets
             player.pickSpeed *= 1.03f;
             player.meleeSpeed *= 1.04f;
             player.blockRange += 1;
-            Lighting.AddLight((int)(player.position.X + player.width / 2f) / 16, (int)(player.position.Y + player.height / 2f) / 16, 1, 1, 1);
+            Lighting.AddLight((int) (player.position.X + player.width / 2f) / 16,
+                (int) (player.position.Y + player.height / 2f) / 16, 1, 1, 1);
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, true);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench}, true);
 
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.Torch, 10);
             recipe.AddIngredient(ItemID.CopperPickaxe);
             recipe.AddIngredient(ItemID.IronOre, 2);
 
-            return new List<ModRecipe> { recipe };
+            return new List<ModRecipe> {recipe};
         }
 
-        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
+        protected override void GetAmuletTooltip(ref AmuletTooltip tooltip)
         {
             tooltip
                 .AddEffect("+3% mining speed")

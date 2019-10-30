@@ -1,4 +1,4 @@
-using System;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,11 +15,11 @@ namespace Decimation.Items.Potions
         {
             width = 20;
             height = 20;
-            item.maxStack = 30;
+            this.item.maxStack = 30;
             consumable = true;
             useAnimation = 17;
             useTime = 17;
-            item.useTurn = true;
+            this.item.useTurn = true;
             useStyle = 2;
         }
 

@@ -1,3 +1,5 @@
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 
 namespace Decimation.Items.Tools
@@ -9,25 +11,21 @@ namespace Decimation.Items.Tools
 
         protected override void InitTool()
         {
-            item.mana = 50;
+            this.item.mana = 50;
             width = 22;
             height = 36;
             useTime = 16;
             useAnimation = 16;
             useStyle = 4;
             rarity = Rarity.Purple;
-            item.expert = true;
+            this.item.expert = true;
         }
+
         public override bool UseItem(Player player)
         {
             if (Main.dayTime)
-            {
                 Main.dayTime = false;
-            }
-            else if (!Main.dayTime)
-            {
-                Main.dayTime = true;
-            }
+            else if (!Main.dayTime) Main.dayTime = true;
             return true;
         }
     }

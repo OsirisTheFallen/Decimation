@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,17 +18,18 @@ namespace Decimation.Items.Accessories
             height = 24;
             rarity = Rarity.Green;
 
-            item.value = Item.buyPrice(0, 0, 0, 10);
+            this.item.value = Item.buyPrice(0, 0, 0, 10);
         }
+
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.WorkBenches }, true);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.WorkBenches}, true);
 
             recipe.AddIngredient(ItemID.Shackle);
             recipe.AddIngredient(ItemID.Gel, 5);
             recipe.AddIngredient(ItemID.Aglet);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
     }
 }

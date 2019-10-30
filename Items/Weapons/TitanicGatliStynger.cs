@@ -1,7 +1,8 @@
-﻿using System;
-using Decimation.Items.Ores;
+﻿using Decimation.Items.Ores;
 using Decimation.Items.Weapons.Arachnus;
+using Decimation.Projectiles;
 using Decimation.Tiles;
+using Decimation.Core.Items;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -20,36 +21,37 @@ namespace Decimation.Items.Weapons
 
         protected override void InitWeapon()
         {
-            item.CloneDefaults(ItemID.Stynger);
+            this.item.CloneDefaults(ItemID.Stynger);
 
             knockBack = 11;
             shootSpeed = 9f;
             criticalStrikeChance = 8;
 
-            item.width = 52;
-            item.height = 26;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.rare = 10;
-            item.autoReuse = true;
-            item.value = Item.buyPrice(0, 60);
+            this.item.width = 52;
+            this.item.height = 26;
+            this.item.useTime = 10;
+            this.item.useAnimation = 10;
+            this.item.rare = 10;
+            this.item.autoReuse = true;
+            this.item.value = Item.buyPrice(0, 60);
         }
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
 
-            recipe.AddIngredient(mod.ItemType<ChainStynger>());
-            recipe.AddIngredient(mod.ItemType<TitaniteBar>(), 15);
+            recipe.AddIngredient(this.mod.ItemType<ChainStynger>());
+            recipe.AddIngredient(this.mod.ItemType<TitaniteBar>(), 15);
             // TODO recipe.AddIngredient(null, "CondensedMight", 5);
-            recipe.AddIngredient(mod.ItemType<DenziumBar>());
+            recipe.AddIngredient(this.mod.ItemType<DenziumBar>());
 
             return recipe;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-         {
-            type = mod.ProjectileType<Projectiles.TitanicStyngerBolt>();
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
+        {
+            type = this.mod.ProjectileType<TitanicStyngerBolt>();
             return true;
         }
     }

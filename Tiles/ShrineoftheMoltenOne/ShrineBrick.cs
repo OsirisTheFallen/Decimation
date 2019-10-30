@@ -16,7 +16,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
             dustType = DustID.Stone;
-            drop = mod.ItemType("ShrineBrick");
+            drop = mod.ItemType<Items.Placeable.ShrineoftheMoltenOne.ShrineBrick>();
             AddMapEntry(new Color(33, 28, 25));
         }
 

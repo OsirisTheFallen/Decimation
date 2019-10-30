@@ -1,10 +1,8 @@
-using Terraria;
-using System;
+using Decimation.Items.Ammo;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria.ID;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-
 
 namespace Decimation.Items.Weapons
 {
@@ -17,21 +15,21 @@ namespace Decimation.Items.Weapons
 
         protected override void InitWeapon()
         {
-            item.noMelee = true;
+            this.item.noMelee = true;
             width = 32;
             height = 32;
             useTime = 16;
             useAnimation = 16;
             useStyle = 5;
-            item.shoot = 1;
-            item.useAmmo = mod.ItemType("Pebble");
+            this.item.shoot = 1;
+            this.item.useAmmo = this.mod.ItemType<Pebble>();
             knockBack = 6;
             rarity = Rarity.Orange;
             useSound = SoundID.Item5;
             shootSpeed = 10f;
             criticalStrikeChance = 10;
         }
-        
+
         protected override ModRecipe GetRecipe()
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, TileID.WorkBenches);

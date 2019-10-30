@@ -1,7 +1,4 @@
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
+using Decimation.Core.Items;
 
 namespace Decimation.Items.Misc
 {
@@ -16,7 +13,7 @@ namespace Decimation.Items.Misc
             height = 16;
             value = 100;
 
-            item.maxStack = 999;
+            this.item.maxStack = 999;
         }
     }
 }

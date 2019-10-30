@@ -1,7 +1,11 @@
-﻿using Decimation.Buffs.Buffs;
+﻿using System;
+using Decimation.Buffs.Buffs;
 using Decimation.Items.Amulets;
+using Decimation.Core;
+using Decimation.Core.Amulets;
+using Decimation.Core.Collections;
+using Decimation.Core.Util;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -10,59 +14,73 @@ using Terraria.ModLoader.IO;
 
 namespace Decimation
 {
-    public class DecimationPlayer : ModPlayer
+    public class DecimationPlayer : DecimationModPlayer
     {
-        public bool closeToEnchantedAnvil = false;
-        public bool jestersQuiverEquiped = false;
-        public bool deadeyesQuiverEquipped = false;
-        public bool endlessPouchofLifeEquipped = false;
-        public bool graniteLinedTunicEquipped = false;
-        public bool necrosisStoneEquipped = false;
-        public bool tideTurnerEquipped = false;
-        public bool vampire = false;
-        public bool hasShield = false;
-        public bool hasLavaCharm = false;
+        // Amulet slot
+        private Amulet _amuletSlotAmulet;
+        private Item _amuletSlotItem;
+
+        // amulets
+        public int amuletsBuff;
+        public byte amuletsBuffChances;
+        public int amuletsBuffTime;
+        public bool amuletsBuffWhenAttacking;
+        public bool closeToEnchantedAnvil;
+        public uint combatTime;
+        public uint counter;
+
+        public int dash;
+        public int dashDamages;
+        public int dashDelay;
+        public int dashTime;
+        public bool deadeyesQuiverEquipped;
+        public uint enchantedHeartDropTime;
+        public bool endlessPouchofLifeEquipped;
+        public bool graniteLinedTunicEquipped;
 
         // Effects
-        public bool hasCursedAccessory = false;
+        public bool hasCursedAccessory;
 
-        public bool isInCombat = false;
-        public uint combatTime = 0;
-        public uint counter = 0;
-
-        // Amulet slot
-        public Item amuletSlotItem;
-
-        // Slimy Feet buff
-        public bool wasJumping = false;
-        public float lastJumpBoost = 0;
+        public bool isInCombat;
+        public bool jestersQuiverEquiped;
+        public byte lastHitCounter;
+        public float lastJumpBoost;
+        public bool necrosisStoneEquipped;
+        public int oldStatDefense;
+        public byte scarabCounter;
 
         // Scarab Endurance buff
-        public byte scarabEnduranceBuffTimeCounter = 0;
-        public byte scarabCounter = 0;
+        public byte scarabEnduranceBuffTimeCounter;
         public int[] scarabs = new int[3];
-        public int oldStatDefense = 0;
-        public byte lastHitCounter = 0;
-        public bool wasHurt = false;
 
         // Scarab shield
         public int solarCounter = 0;
+        public bool tideTurnerEquipped;
+        public int ttDash;
+        public int ttHit;
+        public bool vampire;
+        public bool wasHurt;
 
-        // amulets
-        public int amuletsBuff = 0;
-        public byte amuletsBuffChances = 0;
-        public int amuletsBuffTime = 0;
-        public bool amuletsBuffWhenAttacking = false;
-        public uint enchantedHeartDropTime = 0;
+        // Slimy Feet buff
+        public bool wasJumping = false;
 
-        private AmuletsSynergy synergy;
+        public override bool HasShield { get; set; }
+        public override bool HasLavaCharm { get; set; }
+
+        public Item AmuletSlotItem
+        {
+            get => _amuletSlotItem;
+            set
+            {
+                _amuletSlotAmulet = AmuletList.Instance.GetAmuletForItem(value);
+                _amuletSlotItem = value;
+            }
+        }
 
         public override void Initialize()
         {
-            amuletSlotItem = new Item();
-            amuletSlotItem.SetDefaults(0, true);
-
-            synergy = new AmuletsSynergy((Decimation)mod);
+            this.AmuletSlotItem = new Item();
+            this.AmuletSlotItem.SetDefaults(0, true);
         }
 
         public override void ResetEffects()
@@ -75,8 +93,9 @@ namespace Decimation
             necrosisStoneEquipped = false;
             tideTurnerEquipped = false;
             vampire = false;
-            hasShield = false;
-            hasLavaCharm = false;
+
+            HasLavaCharm = false;
+            HasShield = false;
 
             hasCursedAccessory = false;
 
@@ -92,8 +111,8 @@ namespace Decimation
             amuletsBuffTime = 0;
             amuletsBuffWhenAttacking = false;
 
-            if (!player.HasBuff(mod.BuffType<SlimyFeet>())) lastJumpBoost = 0;
-            if (!player.HasBuff(mod.BuffType<ScarabEndurance>()))
+            if (!this.player.HasBuff(this.mod.BuffType<SlimyFeet>())) lastJumpBoost = 0;
+            if (!this.player.HasBuff(this.mod.BuffType<ScarabEndurance>()))
             {
                 scarabEnduranceBuffTimeCounter = 0;
                 scarabCounter = 0;
@@ -102,7 +121,7 @@ namespace Decimation
             dash = 0;
             dashDamages = 0;
 
-            if (counter > uint.MaxValue - (uint.MaxValue % 60))
+            if (counter > uint.MaxValue - uint.MaxValue % 60)
                 counter = 0;
         }
 
@@ -110,18 +129,20 @@ namespace Decimation
         {
             Decimation.amuletSlotState.slot.item = new Item();
 
-            return new TagCompound() {
-                {"amuletSlotItem", ItemIO.Save(amuletSlotItem) }
+            return new TagCompound
+            {
+                {"amuletSlotItem", ItemIO.Save(this.AmuletSlotItem)}
             };
         }
 
         public override void Load(TagCompound tag)
         {
-            amuletSlotItem = ItemIO.Load(tag.GetCompound("amuletSlotItem"));
+            this.AmuletSlotItem = ItemIO.Load(tag.GetCompound("amuletSlotItem"));
         }
 
         // FIND AN ALTERNATIVE! THIS METHOD DOESN'T GET CALLED WITH ALL THE WEAPONS
-        public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type,
+            ref int damage, ref float knockBack)
         {
             Projectile toCheck = Main.projectile[type];
 
@@ -146,26 +167,30 @@ namespace Decimation
             }
 
             // Frost Amulet
-            if (amuletSlotItem.type == mod.ItemType<FrostAmulet>() && toCheck.arrow)
+            if (this.AmuletSlotItem.type == this.mod.ItemType<FrostAmulet>() && toCheck.arrow)
             {
                 speedX *= 1.03f;
                 speedY *= 1.03f;
             }
 
-            synergy.OnShoot(amuletSlotItem, this, item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+            _amuletSlotAmulet?.Synergy.OnShoot(this, item, ref position, ref speedX, ref speedY, ref type, ref damage,
+                ref knockBack);
 
             return base.Shoot(item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         public override bool ConsumeAmmo(Item weapon, Item ammo)
         {
-            if (deadeyesQuiverEquipped && (ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet) && Main.rand.Next(20) > 3)
+            if (deadeyesQuiverEquipped && (ammo.ammo == AmmoID.Arrow || ammo.ammo == AmmoID.Bullet) &&
+                Main.rand.Next(20) > 3)
                 return false;
             if (endlessPouchofLifeEquipped && ammo.ammo == AmmoID.Bullet)
                 return false;
-            if (amuletSlotItem.type == mod.ItemType<FrostAmulet>() && (ammo.ammo == AmmoID.Arrow) && Main.rand.NextBool(50))
+            if (this.AmuletSlotItem.type == this.mod.ItemType<FrostAmulet>() && ammo.ammo == AmmoID.Arrow &&
+                Main.rand.NextBool(50))
                 return false;
-            if (amuletSlotItem.type == mod.ItemType<MarbleAmulet>() && weapon.thrown && Main.rand.NextBool(50) && weapon.thrown)
+            if (this.AmuletSlotItem.type == this.mod.ItemType<MarbleAmulet>() && weapon.thrown &&
+                Main.rand.NextBool(50) && weapon.thrown)
                 return false;
 
             return base.ConsumeAmmo(weapon, ammo);
@@ -174,7 +199,7 @@ namespace Decimation
         public override void UpdateVanityAccessories()
         {
             Decimation.amuletSlotState.UpdateAmulet(this);
-            synergy.Update(amuletSlotItem, this);
+            _amuletSlotAmulet?.Synergy.Update(this);
 
             base.UpdateVanityAccessories();
         }
@@ -190,15 +215,15 @@ namespace Decimation
         {
             if (vampire)
             {
-                player.head = 124;
-                player.body = 85;
-                player.legs = 72;
+                this.player.head = 124;
+                this.player.body = 85;
+                this.player.legs = 72;
             }
         }
 
         public override void PostUpdate()
         {
-            oldStatDefense = player.statDefense;
+            oldStatDefense = this.player.statDefense;
 
             if (lastHitCounter >= 60)
             {
@@ -222,13 +247,14 @@ namespace Decimation
 
         public override void OnHitPvp(Item item, Player target, int damage, bool crit)
         {
-            if (target.HasBuff(mod.BuffType<ScarabEndurance>())) player.AddBuff(BuffID.OnFire, 300);
+            if (target.HasBuff(this.mod.BuffType<ScarabEndurance>())) this.player.AddBuff(BuffID.OnFire, 300);
 
-            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && amuletSlotItem.type != mod.ItemType<MarbleAmulet>())
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking &&
+                this.AmuletSlotItem.type != this.mod.ItemType<MarbleAmulet>())
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
 
-            if (amuletSlotItem.type == mod.ItemType<CrystalAmulet>())
+            if (this.AmuletSlotItem.type == this.mod.ItemType<CrystalAmulet>())
                 CrystalAmuletEffect();
         }
 
@@ -237,14 +263,17 @@ namespace Decimation
             isInCombat = true;
             combatTime = 0;
 
-            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && amuletSlotItem.type != mod.ItemType<MarbleAmulet>())
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking &&
+                this.AmuletSlotItem.type != this.mod.ItemType<MarbleAmulet>())
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
 
         public override void OnHitPvpWithProj(Projectile proj, Player target, int damage, bool crit)
         {
-            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && (amuletSlotItem.type != mod.ItemType<MarbleAmulet>() || (amuletSlotItem.type == mod.ItemType<MarbleAmulet>() && proj.thrown)))
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking &&
+                (this.AmuletSlotItem.type != this.mod.ItemType<MarbleAmulet>() ||
+                 this.AmuletSlotItem.type == this.mod.ItemType<MarbleAmulet>() && proj.thrown))
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
@@ -254,14 +283,17 @@ namespace Decimation
             isInCombat = true;
             combatTime = 0;
 
-            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking && (amuletSlotItem.type != mod.ItemType<MarbleAmulet>() || (amuletSlotItem.type == mod.ItemType<MarbleAmulet>() && proj.thrown)))
+            if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking &&
+                (this.AmuletSlotItem.type != this.mod.ItemType<MarbleAmulet>() ||
+                 this.AmuletSlotItem.type == this.mod.ItemType<MarbleAmulet>() && proj.thrown))
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
-            if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
+            if (this.player.HasBuff(this.mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 &&
+                !wasHurt)
             {
                 Main.projectile[scarabs[scarabCounter - 1]].Kill();
                 scarabCounter--;
@@ -274,32 +306,31 @@ namespace Decimation
 
             if (graniteLinedTunicEquipped)
             {
-                player.statLife += (int)(damage * 0.04f);
+                this.player.statLife += (int)(damage * 0.04f);
 
                 if (Main.rand.Next(3, 100) < 3)
                     npc.AddBuff(BuffID.Confused, 600);
             }
 
-            if (tideTurnerEquipped && Main.rand.NextBool(2))
-                player.statLife += damage;
+            if (tideTurnerEquipped && Main.rand.NextBool(2)) this.player.statLife += damage;
 
             foreach (Player otherPlayer in Main.player)
-            {
-                if (otherPlayer.whoAmI != player.whoAmI)
-                    if (otherPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type == mod.ItemType<GraniteAmulet>() && otherPlayer.team == player.team)
+                if (otherPlayer.whoAmI != this.player.whoAmI)
+                    if (otherPlayer.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type ==
+                        this.mod.ItemType<GraniteAmulet>() && otherPlayer.team == this.player.team)
                     {
-                        player.statLife += (int)(damage * 0.03f);
+                        this.player.statLife += (int)(damage * 0.03f);
                         break;
                     }
-            }
 
-            if (amuletSlotItem.type == mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
+            if (this.AmuletSlotItem.type == this.mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
                 CrystalAmuletEffect();
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
-            if (player.HasBuff(mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 && !wasHurt)
+            if (this.player.HasBuff(this.mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 &&
+                !wasHurt)
             {
                 Main.projectile[scarabs[scarabCounter - 1]].Kill();
                 scarabCounter--;
@@ -316,7 +347,7 @@ namespace Decimation
 
             if (graniteLinedTunicEquipped)
             {
-                player.statLife += (int)(damage * 0.04f);
+                this.player.statLife += (int)(damage * 0.04f);
 
                 if (proj.npcProj && Main.rand.Next(3, 100) < 3)
                     Main.npc[proj.owner].AddBuff(BuffID.Confused, 600);
@@ -325,35 +356,27 @@ namespace Decimation
             }
 
             foreach (Player otherPlayer in Main.player)
-            {
-                if (otherPlayer.whoAmI != player.whoAmI)
-                    if (otherPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type == mod.ItemType<GraniteAmulet>() && otherPlayer.team == player.team)
+                if (otherPlayer.whoAmI != this.player.whoAmI)
+                    if (otherPlayer.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type ==
+                        this.mod.ItemType<GraniteAmulet>() && otherPlayer.team == this.player.team)
                     {
-                        player.statLife += (int)(damage * 0.03f);
+                        this.player.statLife += (int)(damage * 0.03f);
                         break;
                     }
-            }
 
-            if (amuletSlotItem.type == mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
+            if (this.AmuletSlotItem.type == this.mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
                 CrystalAmuletEffect();
         }
 
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
-            synergy.OnHitPlayer(amuletSlotItem, this, ref damage);
+            _amuletSlotAmulet?.Synergy.OnHitPlayer(this, ref damage);
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
-            synergy.OnHitPlayer(amuletSlotItem, this, ref damage);
+            _amuletSlotAmulet?.Synergy.OnHitPlayer(this, ref damage);
         }
-
-        public int dash = 0;
-        public int dashDamages = 0;
-        public int dashTime = 0;
-        public int dashDelay = 0;
-        public int ttDash = 0;
-        public int ttHit = 0;
 
         public void DashMovement()
         {
@@ -361,149 +384,134 @@ namespace Decimation
             {
                 if (ttHit < 0)
                 {
-                    Rectangle rectangle = new Rectangle((int)((double)player.position.X + (double)player.velocity.X * 0.5 - 4.0), (int)((double)player.position.Y + (double)player.velocity.Y * 0.5 - 4.0), player.width + 8, player.height + 8);
+                    Rectangle rectangle =
+                        new Rectangle((int)(this.player.position.X + this.player.velocity.X * 0.5 - 4.0),
+                            (int)(this.player.position.Y + this.player.velocity.Y * 0.5 - 4.0), this.player.width + 8,
+                            this.player.height + 8);
                     for (int i = 0; i < 200; i++)
-                    {
                         if (Main.npc[i].active && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
                         {
                             NPC nPC = Main.npc[i];
                             Rectangle rect = nPC.getRect();
-                            if (rectangle.Intersects(rect) && (nPC.noTileCollide || player.CanHit(nPC)))
+                            if (rectangle.Intersects(rect) && (nPC.noTileCollide || this.player.CanHit(nPC)))
                             {
-                                float num = dashDamages * player.meleeDamage;
+                                float num = dashDamages * this.player.meleeDamage;
                                 float num2 = 9f;
                                 bool crit = false;
-                                if (player.kbGlove)
-                                {
-                                    num2 *= 2f;
-                                }
-                                if (player.kbBuff)
-                                {
-                                    num2 *= 1.5f;
-                                }
-                                if (Main.rand.Next(100) < player.meleeCrit)
-                                {
-                                    crit = true;
-                                }
-                                int num3 = player.direction;
-                                if (player.velocity.X < 0f)
-                                {
-                                    num3 = -1;
-                                }
-                                if (player.velocity.X > 0f)
-                                {
-                                    num3 = 1;
-                                }
-                                if (player.whoAmI == Main.myPlayer)
-                                {
-                                    player.ApplyDamageToNPC(nPC, (int)num, num2, num3, crit);
-                                }
+                                if (this.player.kbGlove) num2 *= 2f;
+                                if (this.player.kbBuff) num2 *= 1.5f;
+                                if (Main.rand.Next(100) < this.player.meleeCrit) crit = true;
+                                int num3 = this.player.direction;
+                                if (this.player.velocity.X < 0f) num3 = -1;
+                                if (this.player.velocity.X > 0f) num3 = 1;
+                                if (this.player.whoAmI == Main.myPlayer)
+                                    this.player.ApplyDamageToNPC(nPC, (int)num, num2, num3, crit);
                                 ttDash = 10;
                                 dashDelay = 30;
-                                player.velocity.X = (0f - (float)num3) * 9f;
-                                player.velocity.Y = -4f;
-                                player.immune = true;
-                                player.immuneNoBlink = true;
-                                player.immuneTime = 4;
+                                this.player.velocity.X = (0f - num3) * 9f;
+                                this.player.velocity.Y = -4f;
+                                this.player.immune = true;
+                                this.player.immuneNoBlink = true;
+                                this.player.immuneTime = 4;
                                 ttHit = i;
                             }
                         }
-                    }
                 }
-                else if ((!player.controlLeft || player.velocity.X >= 0f) && (!player.controlRight || player.velocity.X <= 0f))
+                else if ((!this.player.controlLeft || this.player.velocity.X >= 0f) &&
+                         (!this.player.controlRight || this.player.velocity.X <= 0f))
                 {
-                    player.velocity.X = player.velocity.X * 0.95f;
+                    this.player.velocity.X = this.player.velocity.X * 0.95f;
                 }
             }
-            if (dash == 3 && dashDelay < 0 && player.whoAmI == Main.myPlayer)
+
+            if (dash == 3 && dashDelay < 0 && this.player.whoAmI == Main.myPlayer)
             {
-                Rectangle rectangle2 = new Rectangle((int)((double)player.position.X + (double)player.velocity.X * 0.5 - 4.0), (int)((double)player.position.Y + (double)player.velocity.Y * 0.5 - 4.0), player.width + 8, player.height + 8);
+                Rectangle rectangle2 =
+                    new Rectangle((int)(this.player.position.X + this.player.velocity.X * 0.5 - 4.0),
+                        (int)(this.player.position.Y + this.player.velocity.Y * 0.5 - 4.0), this.player.width + 8,
+                        this.player.height + 8);
                 for (int j = 0; j < 200; j++)
-                {
-                    if (Main.npc[j].active && !Main.npc[j].dontTakeDamage && !Main.npc[j].friendly && Main.npc[j].immune[player.whoAmI] <= 0)
+                    if (Main.npc[j].active && !Main.npc[j].dontTakeDamage && !Main.npc[j].friendly &&
+                        Main.npc[j].immune[this.player.whoAmI] <= 0)
                     {
                         NPC nPC2 = Main.npc[j];
                         Rectangle rect2 = nPC2.getRect();
-                        if (rectangle2.Intersects(rect2) && (nPC2.noTileCollide || player.CanHit(nPC2)))
+                        if (rectangle2.Intersects(rect2) && (nPC2.noTileCollide || this.player.CanHit(nPC2)))
                         {
-                            float num4 = 150f * player.meleeDamage;
+                            float num4 = 150f * this.player.meleeDamage;
                             float num5 = 9f;
                             bool crit2 = false;
-                            if (player.kbGlove)
+                            if (this.player.kbGlove) num5 *= 2f;
+                            if (this.player.kbBuff) num5 *= 1.5f;
+                            if (Main.rand.Next(100) < this.player.meleeCrit) crit2 = true;
+                            int direction = this.player.direction;
+                            if (this.player.velocity.X < 0f) direction = -1;
+                            if (this.player.velocity.X > 0f) direction = 1;
+                            if (this.player.whoAmI == Main.myPlayer)
                             {
-                                num5 *= 2f;
-                            }
-                            if (player.kbBuff)
-                            {
-                                num5 *= 1.5f;
-                            }
-                            if (Main.rand.Next(100) < player.meleeCrit)
-                            {
-                                crit2 = true;
-                            }
-                            int direction = player.direction;
-                            if (player.velocity.X < 0f)
-                            {
-                                direction = -1;
-                            }
-                            if (player.velocity.X > 0f)
-                            {
-                                direction = 1;
-                            }
-                            if (player.whoAmI == Main.myPlayer)
-                            {
-                                player.ApplyDamageToNPC(nPC2, (int)num4, num5, direction, crit2);
-                                int num6 = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, 608, 150, 15f, Main.myPlayer, 0f, 0f);
+                                this.player.ApplyDamageToNPC(nPC2, (int)num4, num5, direction, crit2);
+                                int num6 = Projectile.NewProjectile(this.player.Center.X, this.player.Center.Y, 0f, 0f,
+                                    608, 150, 15f, Main.myPlayer);
                                 Main.projectile[num6].Kill();
                             }
-                            nPC2.immune[player.whoAmI] = 6;
-                            player.immune = true;
-                            player.immuneNoBlink = true;
-                            player.immuneTime = 4;
+
+                            nPC2.immune[this.player.whoAmI] = 6;
+                            this.player.immune = true;
+                            this.player.immuneNoBlink = true;
+                            this.player.immuneTime = 4;
                         }
                     }
-                }
             }
+
             if (dashDelay > 0)
             {
-                if (ttDash > 0)
-                {
-                    ttDash--;
-                }
-                if (ttDash == 0)
-                {
-                    ttHit = -1;
-                }
+                if (ttDash > 0) ttDash--;
+                if (ttDash == 0) ttHit = -1;
                 dashDelay--;
             }
             else if (dashDelay < 0)
             {
                 float num7 = 12f;
                 float num8 = 0.992f;
-                float num9 = Math.Max(player.accRunSpeed, player.maxRunSpeed);
+                float num9 = Math.Max(this.player.accRunSpeed, this.player.maxRunSpeed);
                 float num10 = 0.96f;
                 int num11 = 20;
                 if (dash == 1)
                 {
                     for (int k = 0; k < 2; k++)
                     {
-                        int num12 = (player.velocity.Y != 0f) ? Dust.NewDust(new Vector2(player.position.X, player.position.Y + (float)(player.height / 2) - 8f), player.width, 16, 31, 0f, 0f, 100, default(Color), 1.4f) : Dust.NewDust(new Vector2(player.position.X, player.position.Y + (float)player.height - 4f), player.width, 8, 31, 0f, 0f, 100, default(Color), 1.4f);
+                        int num12 = this.player.velocity.Y != 0f
+                            ? Dust.NewDust(
+                                new Vector2(this.player.position.X,
+                                    this.player.position.Y + this.player.height / 2 - 8f), this.player.width, 16, 31,
+                                0f, 0f, 100, default, 1.4f)
+                            : Dust.NewDust(
+                                new Vector2(this.player.position.X, this.player.position.Y + this.player.height - 4f),
+                                this.player.width, 8, 31, 0f, 0f, 100, default, 1.4f);
                         Dust obj = Main.dust[num12];
                         obj.velocity *= 0.1f;
-                        Main.dust[num12].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
-                        Main.dust[num12].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
+                        Main.dust[num12].scale *= 1f + Main.rand.Next(20) * 0.01f;
+                        Main.dust[num12].shader = GameShaders.Armor.GetSecondaryShader(this.player.cShoe, this.player);
                     }
                 }
                 else if (dash == 2)
                 {
                     for (int l = 0; l < 0; l++)
                     {
-                        int num13 = (player.velocity.Y != 0f) ? Dust.NewDust(new Vector2(player.position.X, player.position.Y + (float)(player.height / 2) - 8f), player.width, 16, 31, 0f, 0f, 100, default(Color), 1.4f) : Dust.NewDust(new Vector2(player.position.X, player.position.Y + (float)player.height - 4f), player.width, 8, 31, 0f, 0f, 100, default(Color), 1.4f);
+                        int num13 = this.player.velocity.Y != 0f
+                            ? Dust.NewDust(
+                                new Vector2(this.player.position.X,
+                                    this.player.position.Y + this.player.height / 2 - 8f), this.player.width, 16, 31,
+                                0f, 0f, 100, default, 1.4f)
+                            : Dust.NewDust(
+                                new Vector2(this.player.position.X, this.player.position.Y + this.player.height - 4f),
+                                this.player.width, 8, 31, 0f, 0f, 100, default, 1.4f);
                         Dust obj2 = Main.dust[num13];
                         obj2.velocity *= 0.1f;
-                        Main.dust[num13].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
-                        Main.dust[num13].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
+                        Main.dust[num13].scale *= 1f + Main.rand.Next(20) * 0.01f;
+                        Main.dust[num13].shader = GameShaders.Armor.GetSecondaryShader(this.player.cShoe, this.player);
                     }
+
                     num8 = 0.985f;
                     num10 = 0.94f;
                     num11 = 30;
@@ -512,17 +520,17 @@ namespace Decimation
                 {
                     for (int m = 0; m < 4; m++)
                     {
-                        int num14 = Dust.NewDust(new Vector2(player.position.X, player.position.Y + 4f), player.width, player.height - 8, 6, 0f, 0f, 100, default(Color), 1.7f);
+                        int num14 = Dust.NewDust(new Vector2(this.player.position.X, this.player.position.Y + 4f),
+                            this.player.width, this.player.height - 8, 6, 0f, 0f, 100, default, 1.7f);
                         Dust obj3 = Main.dust[num14];
                         obj3.velocity *= 0.1f;
-                        Main.dust[num14].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
-                        Main.dust[num14].shader = GameShaders.Armor.GetSecondaryShader(player.ArmorSetDye(), player);
+                        Main.dust[num14].scale *= 1f + Main.rand.Next(20) * 0.01f;
+                        Main.dust[num14].shader =
+                            GameShaders.Armor.GetSecondaryShader(this.player.ArmorSetDye(), this.player);
                         Main.dust[num14].noGravity = true;
-                        if (Main.rand.Next(2) == 0)
-                        {
-                            Main.dust[num14].fadeIn = 0.5f;
-                        }
+                        if (Main.rand.Next(2) == 0) Main.dust[num14].fadeIn = 0.5f;
                     }
+
                     num7 = 14f;
                     num8 = 0.985f;
                     num10 = 0.94f;
@@ -532,61 +540,50 @@ namespace Decimation
                 {
                     for (int n = 0; n < 2; n++)
                     {
-                        int num15 = Dust.NewDust(new Vector2(player.position.X, player.position.Y + 4f), player.width, player.height - 8, 229, 0f, 0f, 100, default(Color), 1.2f);
+                        int num15 = Dust.NewDust(new Vector2(this.player.position.X, this.player.position.Y + 4f),
+                            this.player.width, this.player.height - 8, 229, 0f, 0f, 100, default, 1.2f);
                         Dust obj4 = Main.dust[num15];
                         obj4.velocity *= 0.1f;
-                        Main.dust[num15].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
-                        Main.dust[num15].shader = GameShaders.Armor.GetSecondaryShader(player.cWings, player);
+                        Main.dust[num15].scale *= 1f + Main.rand.Next(20) * 0.01f;
+                        Main.dust[num15].shader = GameShaders.Armor.GetSecondaryShader(this.player.cWings, this.player);
                         Main.dust[num15].noGravity = true;
-                        if (Main.rand.Next(2) == 0)
-                        {
-                            Main.dust[num15].fadeIn = 0.3f;
-                        }
+                        if (Main.rand.Next(2) == 0) Main.dust[num15].fadeIn = 0.3f;
                     }
+
                     num8 = 0.985f;
                     num10 = 0.94f;
                     num11 = 20;
                 }
+
                 if (dash > 0)
                 {
-                    player.vortexStealthActive = false;
-                    if (player.velocity.X > num7 || player.velocity.X < 0f - num7)
+                    this.player.vortexStealthActive = false;
+                    if (this.player.velocity.X > num7 || this.player.velocity.X < 0f - num7)
                     {
-                        player.velocity.X = player.velocity.X * num8;
+                        this.player.velocity.X = this.player.velocity.X * num8;
                     }
-                    else if (player.velocity.X > num9 || player.velocity.X < 0f - num9)
+                    else if (this.player.velocity.X > num9 || this.player.velocity.X < 0f - num9)
                     {
-                        player.velocity.X = player.velocity.X * num10;
+                        this.player.velocity.X = this.player.velocity.X * num10;
                     }
                     else
                     {
                         dashDelay = num11;
-                        if (player.velocity.X < 0f)
-                        {
-                            player.velocity.X = 0f - num9;
-                        }
-                        else if (player.velocity.X > 0f)
-                        {
-                            player.velocity.X = num9;
-                        }
+                        if (this.player.velocity.X < 0f)
+                            this.player.velocity.X = 0f - num9;
+                        else if (this.player.velocity.X > 0f) this.player.velocity.X = num9;
                     }
                 }
             }
-            else if (dash > 0 && !player.mount.Active)
+            else if (dash > 0 && !this.player.mount.Active)
             {
                 if (dash == 1)
                 {
                     int num16 = 0;
                     bool flag = false;
-                    if (dashTime > 0)
-                    {
-                        dashTime--;
-                    }
-                    if (dashTime < 0)
-                    {
-                        dashTime++;
-                    }
-                    if (player.controlRight && player.releaseRight)
+                    if (dashTime > 0) dashTime--;
+                    if (dashTime < 0) dashTime++;
+                    if (this.player.controlRight && this.player.releaseRight)
                     {
                         if (dashTime > 0)
                         {
@@ -599,7 +596,7 @@ namespace Decimation
                             dashTime = 15;
                         }
                     }
-                    else if (player.controlLeft && player.releaseLeft)
+                    else if (this.player.controlLeft && this.player.releaseLeft)
                     {
                         if (dashTime < 0)
                         {
@@ -612,36 +609,48 @@ namespace Decimation
                             dashTime = -15;
                         }
                     }
+
                     if (flag)
                     {
-                        player.velocity.X = 16.9f * (float)num16;
-                        Point point = (player.Center + new Vector2((float)(num16 * player.width / 2 + 2), player.gravDir * (0f - (float)player.height) / 2f + player.gravDir * 2f)).ToTileCoordinates();
-                        Point point2 = (player.Center + new Vector2((float)(num16 * player.width / 2 + 2), 0f)).ToTileCoordinates();
-                        if (WorldGen.SolidOrSlopedTile(point.X, point.Y) || WorldGen.SolidOrSlopedTile(point2.X, point2.Y))
-                        {
-                            player.velocity.X = player.velocity.X / 2f;
-                        }
+                        this.player.velocity.X = 16.9f * num16;
+                        Point point = (this.player.Center + new Vector2(num16 * this.player.width / 2 + 2,
+                                           this.player.gravDir * (0f - this.player.height) / 2f +
+                                           this.player.gravDir * 2f)).ToTileCoordinates();
+                        Point point2 = (this.player.Center + new Vector2(num16 * this.player.width / 2 + 2, 0f))
+                            .ToTileCoordinates();
+                        if (WorldGen.SolidOrSlopedTile(point.X, point.Y) ||
+                            WorldGen.SolidOrSlopedTile(point2.X, point2.Y))
+                            this.player.velocity.X = this.player.velocity.X / 2f;
                         dashDelay = -1;
                         for (int num17 = 0; num17 < 20; num17++)
                         {
-                            int num18 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 31, 0f, 0f, 100, default(Color), 2f);
+                            int num18 = Dust.NewDust(new Vector2(this.player.position.X, this.player.position.Y),
+                                this.player.width, this.player.height, 31, 0f, 0f, 100, default, 2f);
                             Dust dust = Main.dust[num18];
-                            dust.position.X = dust.position.X + (float)Main.rand.Next(-5, 6);
+                            dust.position.X = dust.position.X + Main.rand.Next(-5, 6);
                             Dust dust2 = Main.dust[num18];
-                            dust2.position.Y = dust2.position.Y + (float)Main.rand.Next(-5, 6);
+                            dust2.position.Y = dust2.position.Y + Main.rand.Next(-5, 6);
                             Dust obj5 = Main.dust[num18];
                             obj5.velocity *= 0.2f;
-                            Main.dust[num18].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
-                            Main.dust[num18].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
+                            Main.dust[num18].scale *= 1f + Main.rand.Next(20) * 0.01f;
+                            Main.dust[num18].shader =
+                                GameShaders.Armor.GetSecondaryShader(this.player.cShoe, this.player);
                         }
-                        int num19 = Gore.NewGore(new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 34f), default(Vector2), Main.rand.Next(61, 64), 1f);
-                        Main.gore[num19].velocity.X = (float)Main.rand.Next(-50, 51) * 0.01f;
-                        Main.gore[num19].velocity.Y = (float)Main.rand.Next(-50, 51) * 0.01f;
+
+                        int num19 = Gore.NewGore(
+                            new Vector2(this.player.position.X + this.player.width / 2 - 24f,
+                                this.player.position.Y + this.player.height / 2 - 34f), default,
+                            Main.rand.Next(61, 64));
+                        Main.gore[num19].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
+                        Main.gore[num19].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
                         Gore obj6 = Main.gore[num19];
                         obj6.velocity *= 0.4f;
-                        num19 = Gore.NewGore(new Vector2(player.position.X + (float)(player.width / 2) - 24f, player.position.Y + (float)(player.height / 2) - 14f), default(Vector2), Main.rand.Next(61, 64), 1f);
-                        Main.gore[num19].velocity.X = (float)Main.rand.Next(-50, 51) * 0.01f;
-                        Main.gore[num19].velocity.Y = (float)Main.rand.Next(-50, 51) * 0.01f;
+                        num19 = Gore.NewGore(
+                            new Vector2(this.player.position.X + this.player.width / 2 - 24f,
+                                this.player.position.Y + this.player.height / 2 - 14f), default,
+                            Main.rand.Next(61, 64));
+                        Main.gore[num19].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
+                        Main.gore[num19].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
                         Gore obj7 = Main.gore[num19];
                         obj7.velocity *= 0.4f;
                     }
@@ -650,15 +659,9 @@ namespace Decimation
                 {
                     int num20 = 0;
                     bool flag2 = false;
-                    if (dashTime > 0)
-                    {
-                        dashTime--;
-                    }
-                    if (dashTime < 0)
-                    {
-                        dashTime++;
-                    }
-                    if (player.controlRight && player.releaseRight)
+                    if (dashTime > 0) dashTime--;
+                    if (dashTime < 0) dashTime++;
+                    if (this.player.controlRight && this.player.releaseRight)
                     {
                         if (dashTime > 0)
                         {
@@ -671,7 +674,7 @@ namespace Decimation
                             dashTime = 15;
                         }
                     }
-                    else if (player.controlLeft && player.releaseLeft)
+                    else if (this.player.controlLeft && this.player.releaseLeft)
                     {
                         if (dashTime < 0)
                         {
@@ -684,28 +687,33 @@ namespace Decimation
                             dashTime = -15;
                         }
                     }
+
                     if (flag2)
                     {
-                        player.velocity.X = 14.5f * (float)num20;
-                        Point point3 = (player.Center + new Vector2((float)(num20 * player.width / 2 + 2), player.gravDir * (0f - (float)player.height) / 2f + player.gravDir * 2f)).ToTileCoordinates();
-                        Point point4 = (player.Center + new Vector2((float)(num20 * player.width / 2 + 2), 0f)).ToTileCoordinates();
-                        if (WorldGen.SolidOrSlopedTile(point3.X, point3.Y) || WorldGen.SolidOrSlopedTile(point4.X, point4.Y))
-                        {
-                            player.velocity.X = player.velocity.X / 2f;
-                        }
+                        this.player.velocity.X = 14.5f * num20;
+                        Point point3 = (this.player.Center + new Vector2(num20 * this.player.width / 2 + 2,
+                                            this.player.gravDir * (0f - this.player.height) / 2f +
+                                            this.player.gravDir * 2f)).ToTileCoordinates();
+                        Point point4 = (this.player.Center + new Vector2(num20 * this.player.width / 2 + 2, 0f))
+                            .ToTileCoordinates();
+                        if (WorldGen.SolidOrSlopedTile(point3.X, point3.Y) ||
+                            WorldGen.SolidOrSlopedTile(point4.X, point4.Y))
+                            this.player.velocity.X = this.player.velocity.X / 2f;
                         dashDelay = -1;
                         ttDash = 15;
                         for (int num21 = 0; num21 < 0; num21++)
                         {
-                            int num22 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 31, 0f, 0f, 100, default(Color), 2f);
+                            int num22 = Dust.NewDust(new Vector2(this.player.position.X, this.player.position.Y),
+                                this.player.width, this.player.height, 31, 0f, 0f, 100, default, 2f);
                             Dust dust3 = Main.dust[num22];
-                            dust3.position.X = dust3.position.X + (float)Main.rand.Next(-5, 6);
+                            dust3.position.X = dust3.position.X + Main.rand.Next(-5, 6);
                             Dust dust4 = Main.dust[num22];
-                            dust4.position.Y = dust4.position.Y + (float)Main.rand.Next(-5, 6);
+                            dust4.position.Y = dust4.position.Y + Main.rand.Next(-5, 6);
                             Dust obj8 = Main.dust[num22];
                             obj8.velocity *= 0.2f;
-                            Main.dust[num22].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
-                            Main.dust[num22].shader = GameShaders.Armor.GetSecondaryShader(player.cShield, player);
+                            Main.dust[num22].scale *= 1f + Main.rand.Next(20) * 0.01f;
+                            Main.dust[num22].shader =
+                                GameShaders.Armor.GetSecondaryShader(this.player.cShield, this.player);
                         }
                     }
                 }
@@ -713,15 +721,9 @@ namespace Decimation
                 {
                     int num23 = 0;
                     bool flag3 = false;
-                    if (dashTime > 0)
-                    {
-                        dashTime--;
-                    }
-                    if (dashTime < 0)
-                    {
-                        dashTime++;
-                    }
-                    if (player.controlRight && player.releaseRight)
+                    if (dashTime > 0) dashTime--;
+                    if (dashTime < 0) dashTime++;
+                    if (this.player.controlRight && this.player.releaseRight)
                     {
                         if (dashTime > 0)
                         {
@@ -734,7 +736,7 @@ namespace Decimation
                             dashTime = 15;
                         }
                     }
-                    else if (player.controlLeft && player.releaseLeft)
+                    else if (this.player.controlLeft && this.player.releaseLeft)
                     {
                         if (dashTime < 0)
                         {
@@ -747,27 +749,32 @@ namespace Decimation
                             dashTime = -15;
                         }
                     }
+
                     if (flag3)
                     {
-                        player.velocity.X = 21.9f * (float)num23;
-                        Point point5 = (player.Center + new Vector2((float)(num23 * player.width / 2 + 2), player.gravDir * (0f - (float)player.height) / 2f + player.gravDir * 2f)).ToTileCoordinates();
-                        Point point6 = (player.Center + new Vector2((float)(num23 * player.width / 2 + 2), 0f)).ToTileCoordinates();
-                        if (WorldGen.SolidOrSlopedTile(point5.X, point5.Y) || WorldGen.SolidOrSlopedTile(point6.X, point6.Y))
-                        {
-                            player.velocity.X = player.velocity.X / 2f;
-                        }
+                        this.player.velocity.X = 21.9f * num23;
+                        Point point5 = (this.player.Center + new Vector2(num23 * this.player.width / 2 + 2,
+                                            this.player.gravDir * (0f - this.player.height) / 2f +
+                                            this.player.gravDir * 2f)).ToTileCoordinates();
+                        Point point6 = (this.player.Center + new Vector2(num23 * this.player.width / 2 + 2, 0f))
+                            .ToTileCoordinates();
+                        if (WorldGen.SolidOrSlopedTile(point5.X, point5.Y) ||
+                            WorldGen.SolidOrSlopedTile(point6.X, point6.Y))
+                            this.player.velocity.X = this.player.velocity.X / 2f;
                         dashDelay = -1;
                         for (int num24 = 0; num24 < 20; num24++)
                         {
-                            int num25 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 6, 0f, 0f, 100, default(Color), 2f);
+                            int num25 = Dust.NewDust(new Vector2(this.player.position.X, this.player.position.Y),
+                                this.player.width, this.player.height, 6, 0f, 0f, 100, default, 2f);
                             Dust dust5 = Main.dust[num25];
-                            dust5.position.X = dust5.position.X + (float)Main.rand.Next(-5, 6);
+                            dust5.position.X = dust5.position.X + Main.rand.Next(-5, 6);
                             Dust dust6 = Main.dust[num25];
-                            dust6.position.Y = dust6.position.Y + (float)Main.rand.Next(-5, 6);
+                            dust6.position.Y = dust6.position.Y + Main.rand.Next(-5, 6);
                             Dust obj9 = Main.dust[num25];
                             obj9.velocity *= 0.2f;
-                            Main.dust[num25].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
-                            Main.dust[num25].shader = GameShaders.Armor.GetSecondaryShader(player.ArmorSetDye(), player);
+                            Main.dust[num25].scale *= 1f + Main.rand.Next(20) * 0.01f;
+                            Main.dust[num25].shader =
+                                GameShaders.Armor.GetSecondaryShader(this.player.ArmorSetDye(), this.player);
                             Main.dust[num25].noGravity = true;
                             Main.dust[num25].fadeIn = 0.5f;
                         }
@@ -785,16 +792,24 @@ namespace Decimation
 
             for (int i = 0; i < shardNumber; i++)
             {
-                //float angle = currentAngle - 0.5f + (float)Main.rand.NextDouble();
-                //float positionX = player.position.X;
-                //float positionY = player.position.Y;
                 float speedX = (float)Math.Cos(currentAngle) * speed;
                 float speedY = (float)Math.Sin(currentAngle) * speed;
 
-                Projectile.NewProjectile(player.Center, new Vector2(speedX, speedY), ProjectileID.CrystalShard, 20, 5, player.whoAmI);
+                Projectile.NewProjectile(this.player.Center, new Vector2(speedX, speedY), ProjectileID.CrystalShard, 20,
+                    5, this.player.whoAmI);
 
                 currentAngle += angleDifference;
             }
+        }
+    }
+
+    public class PlayerPropertiesUpdater : GlobalItem
+    {
+        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+            DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
+            if (item.type == ItemID.CobaltShield || item.type == ItemID.AnkhShield || item.type == ItemID.PaladinsShield || item.type == ItemID.ObsidianShield) modPlayer.HasShield = true;
+            if (item.type == ItemID.LavaCharm) modPlayer.HasLavaCharm = true;
         }
     }
 }

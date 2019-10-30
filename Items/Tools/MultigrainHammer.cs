@@ -1,4 +1,5 @@
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,10 +20,10 @@ namespace Decimation.Items.Tools
             height = 32;
             useTime = 20;
             useAnimation = 20;
-            item.knockBack = 5;
+            this.item.knockBack = 5;
             value = Item.buyPrice(0, 0, 10);
             rarity = Rarity.Green;
-            item.crit = 3;
+            this.item.crit = 3;
             useSound = SoundID.Item1;
         }
 

@@ -1,14 +1,11 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Decimation.Core.Items;
 
 namespace Decimation.Items.Placeable.ShrineoftheMoltenOne
 {
     internal class DeadEarth : DecimationPlaceableItem
     {
         protected override string ItemName => "Dead Earth";
-        protected override int Tile => mod.TileType<Tiles.ShrineoftheMoltenOne.DeadEarth>();
+        protected override int Tile => this.mod.TileType<Tiles.ShrineoftheMoltenOne.DeadEarth>();
 
         protected override void InitPlaceable()
         {

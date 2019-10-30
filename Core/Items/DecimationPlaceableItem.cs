@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Decimation.Items.Placeable
+﻿namespace Decimation.Core.Items
 {
-    internal abstract class DecimationPlaceableItem : DecimationItem
+    public abstract class DecimationPlaceableItem : DecimationItem
     {
         protected abstract int Tile { get; }
 
@@ -22,11 +16,11 @@ namespace Decimation.Items.Placeable
             useStyle = 1;
             consumable = true;
 
-            item.useTurn = true;
+            this.item.useTurn = true;
 
             InitPlaceable();
 
-            item.createTile = Tile;
+            this.item.createTile = this.Tile;
         }
     }
 }

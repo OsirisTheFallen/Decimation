@@ -1,6 +1,6 @@
-﻿namespace Decimation.Items.Potions
+﻿namespace Decimation.Core.Items
 {
-    internal abstract class DecimationPotion : DecimationItem
+    public abstract class DecimationPotion : DecimationItem
     {
         protected virtual int HealLife { get; } = 0;
         protected virtual int HealMana { get; } = 0;

@@ -1,6 +1,6 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Decimation.Core.Items;
+using Decimation.Core.Util;
+using Terraria;
 
 namespace Decimation.Items.Weapons.Arachnus
 {

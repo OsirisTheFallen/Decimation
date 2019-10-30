@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc
 {
@@ -21,7 +20,7 @@ namespace Decimation.Items.Misc
             useTime = 20;
             useAnimation = 20;
 
-            item.maxStack = 1;
+            this.item.maxStack = 1;
         }
 
         public override bool CanUseItem(Player player)

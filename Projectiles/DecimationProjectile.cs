@@ -1,21 +1,21 @@
-﻿using Decimation.Items.Weapons;
+﻿using Decimation.Core.Items;
 using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
     internal abstract class DecimationProjectile : ModProjectile
     {
-        protected int width = 16;
-        protected int height = 16;
-        protected int damages = 0;
-        protected int penetrate = 0;
-        protected int timeLeft = 180;
-        protected bool hostile = false;
-        protected bool tileCollide = true;
-        protected bool ignoreWater = false;
         protected int aiStyle = -1;
-        protected float light = 0f;
+        protected int damages = 0;
         protected DecimationWeapon.DamageType damageType = DecimationWeapon.DamageType.MELEE;
+        protected int height = 16;
+        protected bool hostile = false;
+        protected bool ignoreWater = false;
+        protected float light = 0f;
+        protected int penetrate = 0;
+        protected bool tileCollide = true;
+        protected int timeLeft = 180;
+        protected int width = 16;
 
         protected virtual bool IsClone { get; } = false;
 
@@ -25,35 +25,37 @@ namespace Decimation.Projectiles
         {
             Init();
 
-            if (!IsClone)
-            {
-                projectile.width = width;
-                projectile.height = height;
-                projectile.damage = damages;
-                projectile.penetrate = penetrate;
-                projectile.timeLeft = timeLeft;
-                projectile.hostile = hostile;
-                projectile.friendly = !hostile;
-                projectile.tileCollide = tileCollide;
-                projectile.ignoreWater = ignoreWater;
-                projectile.aiStyle = aiStyle;
-                projectile.light = light;
+            if (this.IsClone) return;
 
-                switch (damageType)
-                {
-                    case DecimationWeapon.DamageType.MAGIC:
-                        projectile.magic = true;
-                        break;
-                    case DecimationWeapon.DamageType.RANGED:
-                        projectile.ranged = true;
-                        break;
-                    case DecimationWeapon.DamageType.THROW:
-                        projectile.thrown = true;
-                        break;
-                    default:
-                        projectile.melee = true;
-                        break;
-                }
+            this.projectile.width = width;
+            this.projectile.height = height;
+            this.projectile.damage = damages;
+            this.projectile.penetrate = penetrate;
+            this.projectile.timeLeft = timeLeft;
+            this.projectile.hostile = hostile;
+            this.projectile.friendly = !hostile;
+            this.projectile.tileCollide = tileCollide;
+            this.projectile.ignoreWater = ignoreWater;
+            this.projectile.aiStyle = aiStyle;
+            this.projectile.light = light;
+
+            switch (damageType)
+            {
+                case DecimationWeapon.DamageType.MELEE:
+                    this.projectile.melee = true;
+                    break;
+                case DecimationWeapon.DamageType.MAGIC:
+                    this.projectile.magic = true;
+                    break;
+                case DecimationWeapon.DamageType.RANGED:
+                    this.projectile.ranged = true;
+                    break;
+                case DecimationWeapon.DamageType.THROW:
+                    this.projectile.thrown = true;
+                    break;
+                default:
+                    this.projectile.melee = true;
+                    break;
             }
         }
     }

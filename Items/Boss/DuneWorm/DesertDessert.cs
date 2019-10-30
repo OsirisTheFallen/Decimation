@@ -1,13 +1,12 @@
-using Decimation.NPCs.AncientDuneWorm;
-using System;
 using System.Collections.Generic;
+using Decimation.NPCs.AncientDuneWorm;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Boss.DuneWorm
 {
-
     internal class DesertDessert : DecimationItem
     {
         protected override string ItemName => "Desert Dessert";
@@ -23,7 +22,7 @@ namespace Decimation.Items.Boss.DuneWorm
             useTime = 30;
             consumable = true;
 
-            item.maxStack = 20;
+            this.item.maxStack = 20;
         }
 
         public override bool UseItem(Player player)
@@ -32,26 +31,24 @@ namespace Decimation.Items.Boss.DuneWorm
             {
                 if (Main.netMode == 0)
                 {
-                    Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
-                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<AncientDuneWormHead>());
+                    Main.PlaySound(15, (int) player.position.X, (int) player.position.Y, 0);
+                    NPC.SpawnOnPlayer(player.whoAmI, this.mod.NPCType<AncientDuneWormHead>());
                     return true;
                 }
-                else
-                {
-                    ModPacket packet = mod.GetPacket();
-                    packet.Write((byte)DecimationModMessageType.SpawnBoss);
-                    packet.Write(mod.NPCType<AncientDuneWormHead>());
-                    packet.Write(player.whoAmI);
-                    packet.Send();
-                }
+
+                ModPacket packet = this.mod.GetPacket();
+                packet.Write((byte) DecimationModMessageType.SpawnBoss);
+                packet.Write(this.mod.NPCType<AncientDuneWormHead>());
+                packet.Write(player.whoAmI);
+                packet.Send();
             }
 
             return false;
         }
 
-        protected override ModRecipe GetRecipe()  //How to craft this item
+        protected override ModRecipe GetRecipe() //How to craft this item
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Anvils });
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.Anvils});
 
             recipe.AddIngredient(ItemID.SandBlock, 10);
             recipe.AddIngredient(ItemID.WormTooth, 5);

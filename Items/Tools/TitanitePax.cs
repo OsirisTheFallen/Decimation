@@ -1,4 +1,7 @@
-﻿using Decimation.Tiles;
+﻿using Decimation.Items.Ores;
+using Decimation.Tiles;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,18 +18,18 @@ namespace Decimation.Items.Tools
         {
             width = 48;
             height = 52;
-            item.crit = 14;
+            this.item.crit = 14;
             useTime = 5;
             useAnimation = 15;
-            item.knockBack = 7;
+            this.item.knockBack = 7;
             rarity = Rarity.LightRed;
         }
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
 
-            recipe.AddIngredient(mod.ItemType("TitaniteBar"), 12);
+            recipe.AddIngredient(this.mod.ItemType<TitaniteBar>(), 12);
             recipe.AddIngredient(ItemID.SoulofMight, 15);
 
             return recipe;

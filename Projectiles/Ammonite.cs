@@ -1,7 +1,4 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria.ID;
 
 namespace Decimation.Projectiles
 {
@@ -11,12 +8,12 @@ namespace Decimation.Projectiles
 
         protected override void Init()
         {
-            projectile.CloneDefaults(ProjectileID.SpikyBall);
-            projectile.damage = 30;
-            projectile.width = 10;
-            projectile.height = 16;
-            projectile.friendly = false;
-            projectile.hostile = true;
+            this.projectile.CloneDefaults(ProjectileID.SpikyBall);
+            this.projectile.damage = 30;
+            this.projectile.width = 10;
+            this.projectile.height = 16;
+            this.projectile.friendly = false;
+            this.projectile.hostile = true;
         }
     }
 }

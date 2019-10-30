@@ -1,5 +1,6 @@
 ﻿using System;
 using Decimation.Items.Weapons;
+using Decimation.Core.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

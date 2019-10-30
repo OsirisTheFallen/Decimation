@@ -1,3 +1,5 @@
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria.ID;
 
 namespace Decimation.Items.Weapons

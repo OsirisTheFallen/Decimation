@@ -1,4 +1,4 @@
-using System;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -1,6 +1,5 @@
 ﻿using Decimation.Projectiles;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,14 +26,17 @@ namespace Decimation.Buffs.Buffs
                 if (modPlayer.scarabCounter < 3)
                 {
                     modPlayer.scarabCounter++;
-                    modPlayer.scarabs[modPlayer.scarabCounter - 1] = Projectile.NewProjectile(player.Center, new Vector2(0, 0), mod.ProjectileType<Scarab>(), 0, 0, 255, player.whoAmI);
+                    modPlayer.scarabs[modPlayer.scarabCounter - 1] = Projectile.NewProjectile(player.Center,
+                        new Vector2(0, 0), this.mod.ProjectileType<Scarab>(), 0, 0, 255, player.whoAmI);
                 }
+
                 modPlayer.scarabEnduranceBuffTimeCounter = 0;
             }
+
             modPlayer.scarabEnduranceBuffTimeCounter++;
 
             for (int i = 0; i < modPlayer.scarabCounter; i++)
-                player.statDefense += (int)(modPlayer.oldStatDefense * 0.15f);
+                player.statDefense += (int) (modPlayer.oldStatDefense * 0.15f);
         }
 
         public override void ModifyBuffTip(ref string tip, ref int rare)
@@ -43,7 +45,7 @@ namespace Decimation.Buffs.Buffs
             int defenseAdded = 0;
 
             for (int i = 0; i < modPlayer.scarabCounter; i++)
-                defenseAdded += (int)(modPlayer.oldStatDefense * 0.15f);
+                defenseAdded += (int) (modPlayer.oldStatDefense * 0.15f);
 
             tip += "Summons scarabs to protect you.";
             tip += "\nGive 15% more defense for each scarabs alive.";
@@ -56,7 +58,7 @@ namespace Decimation.Buffs.Buffs
     {
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
-            if (target.HasBuff(mod.BuffType<ScarabEndurance>())) npc.AddBuff(BuffID.OnFire, 300);
+            if (target.HasBuff(this.mod.BuffType<ScarabEndurance>())) npc.AddBuff(BuffID.OnFire, 300);
         }
     }
 }

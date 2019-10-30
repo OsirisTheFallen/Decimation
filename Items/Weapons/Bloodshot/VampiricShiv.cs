@@ -1,8 +1,6 @@
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Bloodshot
 {
@@ -27,7 +25,7 @@ namespace Decimation.Items.Weapons.Bloodshot
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            int lifeSteal = (int)(damage * 0.1f);
+            int lifeSteal = (int) (damage * 0.1f);
 
             player.lifeSteal += lifeSteal;
             player.HealEffect(lifeSteal);
@@ -35,7 +33,7 @@ namespace Decimation.Items.Weapons.Bloodshot
 
         public override void OnHitPvp(Player player, Player target, int damage, bool crit)
         {
-            int lifeSteal = (int)(damage * 0.1f);
+            int lifeSteal = (int) (damage * 0.1f);
 
             player.lifeSteal += lifeSteal;
             player.HealEffect(lifeSteal);

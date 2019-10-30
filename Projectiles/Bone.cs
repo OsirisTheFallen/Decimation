@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Decimation.Items.Weapons;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

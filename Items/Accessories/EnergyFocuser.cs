@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,19 +17,20 @@ namespace Decimation.Items.Accessories
             width = 62;
             height = 46;
             rarity = Rarity.Green;
-            item.value = Item.buyPrice(0, 0, 0, 10);
+            this.item.value = Item.buyPrice(0, 0, 0, 10);
         }
+
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.MythrilAnvil }, true);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.MythrilAnvil}, true);
 
-            recipe.AddIngredient(mod.ItemType<EnchantedFocuser>());
+            recipe.AddIngredient(this.mod.ItemType<EnchantedFocuser>());
             recipe.AddIngredient(ItemID.PixieDust, 40);
             recipe.AddIngredient(ItemID.SoulofSight, 15);
             recipe.AddIngredient(ItemID.SoulofLight, 15);
-            recipe.AddIngredient(mod.ItemType<Focuser>());
+            recipe.AddIngredient(this.mod.ItemType<Focuser>());
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -47,6 +47,5 @@ namespace Decimation.Items.Accessories
             player.lifeRegen += 2;
             player.meleeDamage += 0.04f;
         }
-
     }
 }

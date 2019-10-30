@@ -1,12 +1,13 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using Decimation.Core.Items;
+using Decimation.Core.Util;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc
 {
-   internal class Thermoplasm : DecimationItem
-   {
-       protected override string ItemName => "Thermoplasm";
+    internal class Thermoplasm : DecimationItem
+    {
+        protected override string ItemName => "Thermoplasm";
         protected override string ItemTooltip => "It resonates with the heat of the planet's core";
 
         protected override void Init()
@@ -22,8 +23,9 @@ namespace Decimation.Items.Misc
     {
         public override void NPCLoot(NPC npc)
         {
-            if(Main.LocalPlayer.ZoneUnderworldHeight && Main.rand.Next(1, 21) == 1)
-                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, mod.ItemType("Thermoplasm"));
+            if (Main.LocalPlayer.ZoneUnderworldHeight && Main.rand.Next(1, 21) == 1)
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    this.mod.ItemType<Thermoplasm>());
         }
     }
 }

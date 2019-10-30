@@ -1,6 +1,5 @@
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,15 +14,16 @@ namespace Decimation.Items.Tools
 
         protected override void InitTool()
         {
-            item.CloneDefaults(ItemID.Sickle);
+            this.item.CloneDefaults(ItemID.Sickle);
 
             width = 16;
             height = 16;
             value = Item.buyPrice(0, 0, 1);
-            item.knockBack = 5;
+            this.item.knockBack = 5;
             useTime = 14;
             useAnimation = 14;
         }
+
         protected override ModRecipe GetRecipe()
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, TileID.Anvils);

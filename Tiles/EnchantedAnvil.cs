@@ -32,7 +32,7 @@ namespace Decimation.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 32, mod.ItemType("EnchantedAnvil"));
+            Item.NewItem(i * 16, j * 16, 48, 32, mod.ItemType<Items.Placeable.EnchantedAnvil>());
         }
 
         public override void NearbyEffects(int i, int j, bool closer)
@@ -41,7 +41,8 @@ namespace Decimation.Tiles
             {
                 Main.LocalPlayer.AddBuff(mod.BuffType("FatesSmile"), 60);
                 Main.LocalPlayer.GetModPlayer<DecimationPlayer>(mod).closeToEnchantedAnvil = true;
-            } else
+            }
+            else
             {
                 Main.LocalPlayer.GetModPlayer<DecimationPlayer>(mod).closeToEnchantedAnvil = false;
             }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Decimation.Buffs.Debuffs;
 using Decimation.Items.Accessories;
+using Decimation.Core.Amulets;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -52,6 +53,7 @@ namespace Decimation.Items.Amulets
             modPlayer.amuletsBuffChances = 4;
             modPlayer.amuletsBuffTime = 300;
         }
+
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, true);
@@ -64,7 +66,7 @@ namespace Decimation.Items.Amulets
             return new List<ModRecipe> { recipe };
         }
 
-        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
+        protected override void GetAmuletTooltip(ref AmuletTooltip tooltip)
         {
             tooltip
                 .AddEffect("Makes slimes friendly")
@@ -86,7 +88,7 @@ namespace Decimation.Items.Amulets
         {
             if (projectile.type == ProjectileID.BabySlime)
             {
-                if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().amuletSlotItem.type ==
+                if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type ==
                     Decimation.Instance.ItemType<SlimeAmulet>())
                 {
                     if (_spikeIntervalCounter > SpikeInterval)

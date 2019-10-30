@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Decimation.Items.Ores;
 using Decimation.Tiles;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,10 +19,10 @@ namespace Decimation.Items.Weapons
             criticalStrikeChance = 14;
             knockBack = 12;
             useStyle = 5;
-            item.value = Item.buyPrice(gold: 45);
+            this.item.value = Item.buyPrice(gold: 45);
             rarity = Rarity.LightPurple;
-            item.noUseGraphic = true;
-            item.useTurn = true;
+            this.item.noUseGraphic = true;
+            this.item.useTurn = true;
             autoReuse = true;
             width = 94;
             height = 94;
@@ -32,14 +34,14 @@ namespace Decimation.Items.Weapons
         public override bool CanUseItem(Player player)
         {
             // Ensures no more than one spear can be thrown out, use this when using autoReuse
-            return player.ownedProjectileCounts[item.shoot] < 1;
+            return player.ownedProjectileCounts[this.item.shoot] < 1;
         }
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
 
-            recipe.AddIngredient(mod.ItemType("TitaniteBar"), 12);
+            recipe.AddIngredient(this.mod.ItemType<TitaniteBar>(), 12);
             recipe.AddIngredient(ItemID.SoulofMight, 15);
 
             return recipe;

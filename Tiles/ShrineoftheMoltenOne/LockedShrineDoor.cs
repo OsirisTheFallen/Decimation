@@ -2,6 +2,7 @@
 using Decimation.Items.Boss.Arachnus;
 using Microsoft.Xna.Framework;
 using System;
+using Decimation.Items.Placeable.ShrineoftheMoltenOne;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -59,7 +60,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType("ShrineDoor"));
+            Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType<ShrineDoor>());
         }
 
         public override void MouseOver(int i, int j)
@@ -67,7 +68,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.showItemIcon = true;
-            player.showItemIcon2 = mod.ItemType("MoltenKey");
+            player.showItemIcon2 = mod.ItemType<MoltenKey>();
         }
 
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)

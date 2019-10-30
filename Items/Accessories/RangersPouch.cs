@@ -2,6 +2,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+ using Decimation.Core.Items;
+using Decimation.Core.Util;
 
 namespace Decimation.Items.Accessories
 {

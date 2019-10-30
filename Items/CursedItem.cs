@@ -13,67 +13,64 @@ namespace Decimation.Items
 {
     internal class CursedItem : GlobalItem
     {
-
+        private string _originalName;
         public bool Cursed { get; set; }
         public CurseType Type { get; set; }
-
-        private string originalName;
 
         public override bool InstancePerEntity => true;
 
         public void Curse(Item item)
         {
-            Cursed = true;
-            Type = CurseType.GetRandomType();
-            originalName = item.Name;
+            this.Cursed = true;
+            this.Type = CurseType.GetRandomType();
+            _originalName = item.Name;
 
-            item.SetNameOverride($"{item.Name} {Type.Name}");
+            item.SetNameOverride($"{item.Name} {this.Type.Name}");
         }
 
         public void RemoveCurse(Item item)
         {
-            Cursed = false;
-            Type = null;
+            this.Cursed = false;
+            this.Type = null;
 
-            item.SetNameOverride(originalName);
+            item.SetNameOverride(_originalName);
         }
 
         public override GlobalItem Clone(Item item, Item itemClone)
         {
-            CursedItem clone = (CursedItem)base.Clone(item, itemClone);
-            clone.Cursed = Cursed;
-            clone.Type = Type;
-            clone.originalName = originalName;
+            CursedItem clone = (CursedItem) base.Clone(item, itemClone);
+            clone.Cursed = this.Cursed;
+            clone.Type = this.Type;
+            clone._originalName = _originalName;
 
             return clone;
         }
 
         public override bool OnPickup(Item item, Player player)
         {
-            if (item.accessory && Main.rand.NextBool(200))
-            {
-                Curse(item);
-            }
+            if (item.accessory && Main.rand.NextBool(200)) Curse(item);
 
             return base.OnPickup(item, player);
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (Cursed)
+            if (this.Cursed)
             {
                 tooltips.Add(new TooltipLine(Decimation.Instance, "DecimationCursed", "Cursed")
                 {
                     overrideColor = ChatManager.WaveColor(Color.DarkViolet)
                 });
 
-                tooltips.Add(new TooltipLine(Decimation.Instance, "DecimationCursedAdvantageTooltip", Type.Advantage)
+                tooltips.Add(new TooltipLine(Decimation.Instance, "DecimationCursedAdvantageTooltip",
+                    this.Type.Advantage)
                 {
                     overrideColor = ChatManager.WaveColor(Color.Violet),
                     isModifier = true
                 });
 
-                tooltips.Add(new TooltipLine(Decimation.Instance, "DecimationCursedDisadvantageTooltip", Type.Disadvantage)
+                tooltips.Add(new TooltipLine(Decimation.Instance, "DecimationCursedDisadvantageTooltip",
+                    this.Type.Disadvantage)
                 {
                     overrideColor = ChatManager.WaveColor(Color.DarkViolet),
                     isModifierBad = true
@@ -83,25 +80,25 @@ namespace Decimation.Items
 
         public override void Load(Item item, TagCompound tag)
         {
-            Cursed = tag.GetBool("Cursed");
-            Type = CurseType.GetTypeFromName(tag.GetString("CurseType"));
-            originalName = tag.GetString("originalName");
+            this.Cursed = tag.GetBool("Cursed");
+            this.Type = CurseType.GetTypeFromName(tag.GetString("CurseType"));
+            _originalName = tag.GetString("originalName");
 
-            item.SetNameOverride($"{item.Name} {Type.Name}");
+            item.SetNameOverride($"{item.Name} {this.Type.Name}");
         }
 
         public override bool NeedsSaving(Item item)
         {
-            return Cursed;
+            return this.Cursed;
         }
 
         public override TagCompound Save(Item item)
         {
             return new TagCompound
             {
-                ["Cursed"] = Cursed,
-                ["CurseType"] = Type,
-                ["originalName"] = originalName
+                ["Cursed"] = this.Cursed,
+                ["CurseType"] = this.Type,
+                ["originalName"] = _originalName
             };
         }
 
@@ -109,12 +106,12 @@ namespace Decimation.Items
         {
             DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
 
-            if (Cursed)
+            if (this.Cursed)
             {
                 modPlayer.hasCursedAccessory = true;
 
                 // Effects on player for each type of curse
-                if (Type == CurseType.Cursed)
+                if (this.Type == CurseType.Cursed)
                 {
                     player.magicDamage *= 1.08f;
                     player.meleeDamage *= 1.08f;
@@ -123,14 +120,14 @@ namespace Decimation.Items
 
                     CursedNPC.LifeBonus = 10;
                 }
-                else if (Type == CurseType.Sacrilegious)
+                else if (this.Type == CurseType.Sacrilegious)
                 {
                     player.manaCost *= 0.95f;
 
                     CursedNPC.ManaLeech = 5;
                     CursedNPC.DamageBonus = 5;
                 }
-                else if (Type == CurseType.Blasphemous)
+                else if (this.Type == CurseType.Blasphemous)
                 {
                     player.maxMinions += 1;
                     player.minionDamage *= 0.95f;
@@ -138,7 +135,7 @@ namespace Decimation.Items
                     CursedNPC.ManaLeech = 5;
                     CursedNPC.DamageBonus = 7;
                 }
-                else if (Type == CurseType.Heretic)
+                else if (this.Type == CurseType.Heretic)
                 {
                     player.statLifeMax2 += 10;
 
@@ -151,25 +148,40 @@ namespace Decimation.Items
         {
             // Maximize to one cursed item at once
             DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
-            return !modPlayer.hasCursedAccessory || (modPlayer.hasCursedAccessory && !item.GetGlobalItem<CursedItem>().Cursed);
+            return !modPlayer.hasCursedAccessory ||
+                   modPlayer.hasCursedAccessory && !item.GetGlobalItem<CursedItem>().Cursed;
         }
 
         public override void NetSend(Item item, BinaryWriter writer)
         {
-            writer.Write(Cursed);
+            writer.Write(this.Cursed);
         }
 
         public override void NetReceive(Item item, BinaryReader reader)
         {
-            Cursed = reader.ReadBoolean();
+            this.Cursed = reader.ReadBoolean();
         }
 
         public class CurseType
         {
-            public static readonly CurseType Cursed = new CurseType("The Cursed", "+8% damage", "Enemies have 10% more life.");
-            public static readonly CurseType Sacrilegious = new CurseType("The Sacrilegious", "-5% mana usage", "Enemies leech mana and deal 5% more damages.");
-            public static readonly CurseType Blasphemous = new CurseType("The Blasphemous", "+1 extra minion", "-5% minion damages \nEnemies leech mana and deal 7% more damage.");
-            public static readonly CurseType Heretic = new CurseType("Of the Heretic", "+10 maximum life", "Enemies deal 7% more damage.");
+            public static readonly CurseType Cursed =
+                new CurseType("The Cursed", "+8% damage", "Enemies have 10% more life.");
+
+            public static readonly CurseType Sacrilegious = new CurseType("The Sacrilegious", "-5% mana usage",
+                "Enemies leech mana and deal 5% more damages.");
+
+            public static readonly CurseType Blasphemous = new CurseType("The Blasphemous", "+1 extra minion",
+                "-5% minion damages \nEnemies leech mana and deal 7% more damage.");
+
+            public static readonly CurseType Heretic =
+                new CurseType("Of the Heretic", "+10 maximum life", "Enemies deal 7% more damage.");
+
+            public CurseType(string name, string advantage, string disadvantage)
+            {
+                this.Name = name;
+                this.Advantage = advantage;
+                this.Disadvantage = disadvantage;
+            }
 
             public static IEnumerable<CurseType> Values
             {
@@ -182,12 +194,15 @@ namespace Decimation.Items
                 }
             }
 
+            public string Name { get; }
+            public string Advantage { get; }
+            public string Disadvantage { get; }
+
             public static CurseType GetTypeFromName(string name)
             {
                 foreach (CurseType type in Values)
-                {
-                    if (name == type.Name) return type;
-                }
+                    if (name == type.Name)
+                        return type;
 
                 return null;
             }
@@ -207,17 +222,6 @@ namespace Decimation.Items
                     default:
                         return Cursed;
                 }
-            }
-
-            public string Name { get; }
-            public string Advantage { get; }
-            public string Disadvantage { get; }
-
-            public CurseType(string name, string advantage, string disadvantage)
-            {
-                Name = name;
-                Advantage = advantage;
-                Disadvantage = disadvantage;
             }
         }
     }
@@ -241,7 +245,7 @@ namespace Decimation.Items
         {
             if (item.type == ItemID.PixieDust)
             {
-                int index = Array.IndexOf<Item>(player.inventory, item);
+                int index = Array.IndexOf(player.inventory, item);
 
                 Item itemUp = player.inventory[index + 1];
                 Item itemDown = player.inventory[index - 1];

@@ -1,8 +1,6 @@
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
@@ -18,8 +16,8 @@ namespace Decimation.Items.Accessories
             width = 20;
             height = 20;
             rarity = Rarity.Rainbow;
-            item.value = Item.buyPrice(0, 5);
-            item.expert = true;
+            this.item.value = Item.buyPrice(0, 5);
+            this.item.expert = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

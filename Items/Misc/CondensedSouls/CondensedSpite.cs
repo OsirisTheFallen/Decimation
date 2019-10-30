@@ -1,6 +1,7 @@
 ﻿using Decimation.Items.Misc.Souls;
 using Decimation.Tiles;
-using System;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -17,23 +18,23 @@ namespace Decimation.Items.Misc.CondensedSouls
 
         protected override void Init()
         {
-            item.CloneDefaults(ItemID.SoulofSight);
+            this.item.CloneDefaults(ItemID.SoulofSight);
 
             width = 44;
             height = 44;
             value = Item.buyPrice(0, 50);
             rarity = Rarity.Red;
 
-            ItemID.Sets.AnimatesAsSoul[item.type] = true;
-            ItemID.Sets.ItemIconPulse[item.type] = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            ItemID.Sets.AnimatesAsSoul[this.item.type] = true;
+            ItemID.Sets.ItemIconPulse[this.item.type] = true;
+            ItemID.Sets.ItemNoGravity[this.item.type] = true;
         }
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<ChlorophyteAnvil>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<ChlorophyteAnvil>());
 
-            recipe.AddIngredient(mod.ItemType<SoulofSpite>(), 50);
+            recipe.AddIngredient(this.mod.ItemType<SoulofSpite>(), 50);
 
             return recipe;
         }

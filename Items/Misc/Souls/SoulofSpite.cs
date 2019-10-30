@@ -1,7 +1,7 @@
-﻿using Terraria;
+﻿using Decimation.Core.Items;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc.Souls
 {
@@ -18,12 +18,12 @@ namespace Decimation.Items.Misc.Souls
 
             width = refItem.width;
             height = refItem.height;
-            item.maxStack = 999;
+            this.item.maxStack = 999;
             value = 50000;
 
-            ItemID.Sets.AnimatesAsSoul[item.type] = true;
-            ItemID.Sets.ItemIconPulse[item.type] = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            ItemID.Sets.AnimatesAsSoul[this.item.type] = true;
+            ItemID.Sets.ItemIconPulse[this.item.type] = true;
+            ItemID.Sets.ItemNoGravity[this.item.type] = true;
         }
 
         // Uncomment when Slime Prince will be done
@@ -33,7 +33,7 @@ namespace Decimation.Items.Misc.Souls
             {
                 if (npc.type == mod.NPCType("SlimePrince"))
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SoulofSpite"), Main.rand.Next(12, 25));
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType<SoulofSpite>(), Main.rand.Next(12, 25));
                 }
             }
         }**/

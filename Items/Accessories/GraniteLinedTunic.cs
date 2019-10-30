@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System.Collections.Generic;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,14 +23,14 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Anvils }, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.Anvils});
 
             recipe.AddIngredient(ItemID.FamiliarShirt);
             recipe.AddIngredient(ItemID.Granite, 16);
             recipe.AddRecipeGroup("AnyThread", 10);
             recipe.AddIngredient(ItemID.Chain, 6);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
     }
 }

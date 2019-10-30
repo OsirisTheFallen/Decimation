@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,17 +19,18 @@ namespace Decimation.Items.Accessories
             width = 32;
             height = 32;
             rarity = Rarity.Green;
-            item.value = Item.buyPrice(0, 0, 0, 10);
+            this.item.value = Item.buyPrice(0, 0, 0, 10);
         }
+
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.MythrilAnvil }, true);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.MythrilAnvil}, true);
 
-            recipe.AddIngredient(ItemID.MagicQuiver, 1);
-            recipe.AddIngredient(ItemID.RangerEmblem, 1);
+            recipe.AddIngredient(ItemID.MagicQuiver);
+            recipe.AddIngredient(ItemID.RangerEmblem);
             recipe.AddIngredient(ItemID.SoulofSight, 5);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -39,6 +39,5 @@ namespace Decimation.Items.Accessories
             player.rangedCrit += 05;
             player.ammoCost75 = true;
         }
-
     }
 }

@@ -1,6 +1,6 @@
-﻿using Terraria;
+﻿using Decimation.Core.Items;
+using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Arachnus
 {
@@ -15,18 +15,18 @@ namespace Decimation.Items.Weapons.Arachnus
 
         protected override void InitWeapon()
         {
-            item.CloneDefaults(ItemID.Stynger);
+            this.item.CloneDefaults(ItemID.Stynger);
 
             shootSpeed = 9f;
-            item.crit *= 2;
-            item.knockBack *= 2;
-            item.rare = 10;
-            item.value = Item.buyPrice(0, 45);
+            this.item.crit *= 2;
+            this.item.knockBack *= 2;
+            this.item.rare = 10;
+            this.item.value = Item.buyPrice(0, 45);
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            target.AddBuff(mod.BuffType("Singed"), 480);
+            target.AddBuff(this.mod.BuffType("Singed"), 480);
         }
     }
 }

@@ -1,14 +1,11 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Decimation.Core.Items;
 
 namespace Decimation.Items.Placeable.ShrineoftheMoltenOne
 {
     internal class RedHotSpike : DecimationPlaceableItem
     {
         protected override string ItemName => "Red Hot Spike";
-        protected override int Tile => mod.TileType<Tiles.ShrineoftheMoltenOne.RedHotSpike>();
+        protected override int Tile => this.mod.TileType<Tiles.ShrineoftheMoltenOne.RedHotSpike>();
 
         protected override void InitPlaceable()
         {

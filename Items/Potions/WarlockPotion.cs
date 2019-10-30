@@ -1,5 +1,5 @@
-using System;
 using Decimation.Buffs.Buffs;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,8 +9,11 @@ namespace Decimation.Items.Potions
     internal class WarlockPotion : DecimationPotion
     {
         protected override string ItemName => "Warlock Potion";
-        protected override string ItemTooltip => "Increased Mana Regeneration \nIncreased max mana \n10% increased magic damage";
-        protected override int BuffType => mod.BuffType<Warlock>();
+
+        protected override string ItemTooltip =>
+            "Increased Mana Regeneration \nIncreased max mana \n10% increased magic damage";
+
+        protected override int BuffType => this.mod.BuffType<Warlock>();
         protected override int BuffTime => 36000;
 
         protected override void InitPotion()

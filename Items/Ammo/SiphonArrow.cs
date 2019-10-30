@@ -1,5 +1,6 @@
-﻿using Decimation.Items.Misc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Decimation.Items.Misc;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,17 +22,17 @@ namespace Decimation.Items.Ammo
             height = 32;
             value = Item.buyPrice(0, 0, 0, 55);
 
-            item.shootSpeed = 2.5f;
+            this.item.shootSpeed = 2.5f;
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Anvils }, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.Anvils});
 
             recipe.AddIngredient(ItemID.WoodenArrow, 50);
-            recipe.AddIngredient(mod.ItemType<BloodiedEssence>());
+            recipe.AddIngredient(this.mod.ItemType<BloodiedEssence>());
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
     }
 }

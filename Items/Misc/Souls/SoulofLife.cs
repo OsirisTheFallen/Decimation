@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Decimation.Core.Items;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,11 +22,11 @@ namespace Decimation.Items.Misc.Souls
             width = 20;
             height = 20;
 
-            item.maxStack = 999;
+            this.item.maxStack = 999;
 
-            ItemID.Sets.AnimatesAsSoul[item.type] = true;
-            ItemID.Sets.ItemIconPulse[item.type] = true;
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            ItemID.Sets.AnimatesAsSoul[this.item.type] = true;
+            ItemID.Sets.ItemIconPulse[this.item.type] = true;
+            ItemID.Sets.ItemNoGravity[this.item.type] = true;
         }
 
         public class SoulGlobalNPC : GlobalNPC
@@ -33,9 +34,8 @@ namespace Decimation.Items.Misc.Souls
             public override void NPCLoot(NPC npc)
             {
                 if (npc.type == NPCID.Plantera)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SoulofLife"), Main.rand.Next(12, 25));
-                }
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        this.mod.ItemType<SoulofLife>(), Main.rand.Next(12, 25));
             }
         }
     }

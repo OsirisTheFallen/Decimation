@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Decimation.Core.Items;
+using Decimation.Core.Util;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Arachnus
 {
@@ -17,7 +18,7 @@ namespace Decimation.Items.Weapons.Arachnus
 
         protected override void InitWeapon()
         {
-            item.CloneDefaults(ItemID.HeatRay);
+            this.item.CloneDefaults(ItemID.HeatRay);
 
             criticalStrikeChance *= 2;
             knockBack *= 2;
@@ -28,9 +29,11 @@ namespace Decimation.Items.Weapons.Arachnus
             shootSpeed = 15f;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
-            Terraria.Projectile.NewProjectile(new Vector2(position.X, position.Y - 8), new Vector2(speedX, speedY), type, damage, knockBack);
+            Terraria.Projectile.NewProjectile(new Vector2(position.X, position.Y - 8), new Vector2(speedX, speedY),
+                type, damage, knockBack);
             return true;
         }
     }

@@ -1,3 +1,5 @@
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Vanity.DuneWorm
@@ -13,7 +15,7 @@ namespace Decimation.Items.Vanity.DuneWorm
             width = 36;
             height = 32;
             rarity = Rarity.Orange;
-            item.vanity = true;
+            this.item.vanity = true;
         }
 
         public override bool DrawHead()

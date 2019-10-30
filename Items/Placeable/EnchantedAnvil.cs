@@ -1,6 +1,8 @@
-﻿using Terraria;
+﻿using Decimation.Items.Misc.Souls;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Decimation.Core.Items;
 
 namespace Decimation.Items.Placeable
 {
@@ -22,7 +24,7 @@ namespace Decimation.Items.Placeable
 
             recipe.AddIngredient(ItemID.MythrilAnvil, 1);
             recipe.AddIngredient(ItemID.IronAnvil, 1);
-            recipe.AddIngredient(mod.ItemType("SoulofLife"), 5);
+            recipe.AddIngredient(mod.ItemType<SoulofLife>(), 5);
             recipe.AddIngredient(ItemID.SoulofNight, 5);
             recipe.AddIngredient(ItemID.SoulofMight, 5);
 

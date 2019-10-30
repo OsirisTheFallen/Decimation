@@ -1,8 +1,7 @@
-﻿using Decimation.Items;
+﻿using System;
 using Decimation.Items.Misc.Souls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,50 +12,44 @@ namespace Decimation.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Tomb Crawler");
+            this.DisplayName.SetDefault("Ancient Tomb Crawler");
         }
 
         public override void SetDefaults()
         {
-            npc.lifeMax = 2500;        //this is the npc health
-            npc.damage = 50;    //this is the npc damage
-            npc.defense = 1;         //this is the npc defense
-            npc.knockBackResist = 0f;
-            npc.scale = 0.7f;
-            npc.width = 83; //this is where you put the npc sprite width.     important
-            npc.height = 83; //this is where you put the npc sprite height.   important
-            npc.lavaImmune = true;       //this make the npc immune to lava
-            npc.noGravity = true;           //this make the npc float
-            npc.noTileCollide = true;        //this make the npc go tru walls
-            npc.HitSound = SoundID.NPCHit1;
-            npc.behindTiles = true;
-            npc.DeathSound = SoundID.NPCDeath1;
-            Main.npcFrameCount[npc.type] = 1;
-            npc.value = Item.buyPrice(0, 0, 1, 0);
-            npc.npcSlots = 1f;
-            npc.netAlways = true;
-            npc.boss = true;
+            this.npc.lifeMax = 2500; //this is the npc health
+            this.npc.damage = 50; //this is the npc damage
+            this.npc.defense = 1; //this is the npc defense
+            this.npc.knockBackResist = 0f;
+            this.npc.scale = 0.7f;
+            this.npc.width = 83; //this is where you put the npc sprite width.     important
+            this.npc.height = 83; //this is where you put the npc sprite height.   important
+            this.npc.lavaImmune = true; //this make the npc immune to lava
+            this.npc.noGravity = true; //this make the npc float
+            this.npc.noTileCollide = true; //this make the npc go tru walls
+            this.npc.HitSound = SoundID.NPCHit1;
+            this.npc.behindTiles = true;
+            this.npc.DeathSound = SoundID.NPCDeath1;
+            Main.npcFrameCount[this.npc.type] = 1;
+            this.npc.value = Item.buyPrice(0, 0, 1);
+            this.npc.npcSlots = 1f;
+            this.npc.netAlways = true;
+            this.npc.boss = true;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (Main.rand.NextBool(20))
-            {
-                target.AddBuff(BuffID.Darkness, 600);
-            }
+            if (Main.rand.NextBool(20)) target.AddBuff(BuffID.Darkness, 600);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (Main.rand.NextBool(20))
-            {
-                target.AddBuff(BuffID.Darkness, 600);
-            }
+            if (Main.rand.NextBool(20)) target.AddBuff(BuffID.Darkness, 600);
         }
 
         public override void NPCLoot()
         {
-            Item.NewItem(npc.Center, mod.ItemType<SoulofTime>(), Main.rand.Next(5, 11));
+            Item.NewItem(this.npc.Center, this.mod.ItemType<SoulofTime>(), Main.rand.Next(5, 11));
         }
 
         public override void BossLoot(ref string name, ref int potionType)
@@ -70,18 +63,17 @@ namespace Decimation.NPCs
         public override bool PreAI()
         {
             if (Main.netMode != 1)
-            {
                 // So, we start the AI off by checking if npc.ai[0] is 0.
                 // This is practically ALWAYS the case with a freshly spawned NPC, so this means this is the first update.
                 // Since this is the first update, we can safely assume we need to spawn the rest of the worm (bodies + tail).
-                if (npc.ai[0] == 0)
+                if (this.npc.ai[0] == 0)
                 {
                     // So, here we assing the npc.realLife value.
                     // The npc.realLife value is mainly used to determine which NPC loses life when we hit this NPC.
                     // We don't want every single piece of the worm to have its own HP pool, so this is a neat way to fix that.
-                    npc.realLife = npc.whoAmI;
+                    this.npc.realLife = this.npc.whoAmI;
                     // LatestNPC is going to be used later on and I'll explain it there.
-                    int latestNPC = npc.whoAmI;
+                    int latestNPC = this.npc.whoAmI;
 
                     // Here we determine the length of the worm.
                     // In this case the worm will have a length of 10 to 14 body parts.
@@ -92,25 +84,27 @@ namespace Decimation.NPCs
                         // to set the parent of this new NPC. The parent of the new NPC (may it be a tail or body part)
                         // will determine the movement of this new NPC.
                         // Under there, we also set the realLife value of the new NPC, because of what is explained above.
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AncientTombCrawlerBody>(), npc.whoAmI, 0, latestNPC);
-                        Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                        Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                        latestNPC = NPC.NewNPC((int) this.npc.Center.X, (int) this.npc.Center.Y,
+                            this.mod.NPCType<AncientTombCrawlerBody>(), this.npc.whoAmI, 0, latestNPC);
+                        Main.npc[latestNPC].realLife = this.npc.whoAmI;
+                        Main.npc[latestNPC].ai[3] = this.npc.whoAmI;
                     }
+
                     // When we're out of that loop, we want to 'close' the worm with a tail part!
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AncientTombCrawlerTail>(), npc.whoAmI, 0, latestNPC);
-                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                    Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                    latestNPC = NPC.NewNPC((int) this.npc.Center.X, (int) this.npc.Center.Y,
+                        this.mod.NPCType<AncientTombCrawlerTail>(), this.npc.whoAmI, 0, latestNPC);
+                    Main.npc[latestNPC].realLife = this.npc.whoAmI;
+                    Main.npc[latestNPC].ai[3] = this.npc.whoAmI;
 
                     // We're setting npc.ai[0] to 1, so that this 'if' is not triggered again.
-                    npc.ai[0] = 1;
-                    npc.netUpdate = true;
+                    this.npc.ai[0] = 1;
+                    this.npc.netUpdate = true;
                 }
-            }
 
-            int minTilePosX = (int)(npc.position.X / 16.0) - 1;
-            int maxTilePosX = (int)((npc.position.X + npc.width) / 16.0) + 2;
-            int minTilePosY = (int)(npc.position.Y / 16.0) - 1;
-            int maxTilePosY = (int)((npc.position.Y + npc.height) / 16.0) + 2;
+            int minTilePosX = (int) (this.npc.position.X / 16.0) - 1;
+            int maxTilePosX = (int) ((this.npc.position.X + this.npc.width) / 16.0) + 2;
+            int minTilePosY = (int) (this.npc.position.Y / 16.0) - 1;
+            int maxTilePosY = (int) ((this.npc.position.Y + this.npc.height) / 16.0) + 2;
             if (minTilePosX < 0)
                 minTilePosX = 0;
             if (maxTilePosX > Main.maxTilesX)
@@ -123,41 +117,44 @@ namespace Decimation.NPCs
             bool collision = false;
             // This is the initial check for collision with tiles.
             for (int i = minTilePosX; i < maxTilePosX; ++i)
-            {
-                for (int j = minTilePosY; j < maxTilePosY; ++j)
+            for (int j = minTilePosY; j < maxTilePosY; ++j)
+                if (Main.tile[i, j] != null &&
+                    (Main.tile[i, j].nactive() && (Main.tileSolid[Main.tile[i, j].type] ||
+                                                   Main.tileSolidTop[Main.tile[i, j].type] &&
+                                                   Main.tile[i, j].frameY == 0) || Main.tile[i, j].liquid > 64))
                 {
-                    if (Main.tile[i, j] != null && (Main.tile[i, j].nactive() && (Main.tileSolid[(int)Main.tile[i, j].type] || Main.tileSolidTop[(int)Main.tile[i, j].type] && (int)Main.tile[i, j].frameY == 0) || (int)Main.tile[i, j].liquid > 64))
+                    Vector2 vector2;
+                    vector2.X = i * 16;
+                    vector2.Y = j * 16;
+                    if (this.npc.position.X + this.npc.width > vector2.X && this.npc.position.X < vector2.X + 16.0 &&
+                        this.npc.position.Y + this.npc.height > (double) vector2.Y &&
+                        this.npc.position.Y < vector2.Y + 16.0)
                     {
-                        Vector2 vector2;
-                        vector2.X = (float)(i * 16);
-                        vector2.Y = (float)(j * 16);
-                        if (npc.position.X + npc.width > vector2.X && npc.position.X < vector2.X + 16.0 && (npc.position.Y + npc.height > (double)vector2.Y && npc.position.Y < vector2.Y + 16.0))
-                        {
-                            collision = true;
-                            if (Main.rand.Next(100) == 0 && Main.tile[i, j].nactive())
-                                WorldGen.KillTile(i, j, true, true, false);
-                        }
+                        collision = true;
+                        if (Main.rand.Next(100) == 0 && Main.tile[i, j].nactive())
+                            WorldGen.KillTile(i, j, true, true);
                     }
                 }
-            }
+
             // If there is no collision with tiles, we check if the distance between this NPC and its target is too large, so that we can still trigger 'collision'.
             if (!collision)
             {
-                Rectangle rectangle1 = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+                Rectangle rectangle1 = new Rectangle((int) this.npc.position.X, (int) this.npc.position.Y,
+                    this.npc.width, this.npc.height);
                 int maxDistance = 1000;
                 bool playerCollision = true;
                 for (int index = 0; index < 255; ++index)
-                {
                     if (Main.player[index].active)
                     {
-                        Rectangle rectangle2 = new Rectangle((int)Main.player[index].position.X - maxDistance, (int)Main.player[index].position.Y - maxDistance, maxDistance * 2, maxDistance * 2);
+                        Rectangle rectangle2 = new Rectangle((int) Main.player[index].position.X - maxDistance,
+                            (int) Main.player[index].position.Y - maxDistance, maxDistance * 2, maxDistance * 2);
                         if (rectangle1.Intersects(rectangle2))
                         {
                             playerCollision = false;
                             break;
                         }
                     }
-                }
+
                 if (playerCollision)
                     collision = true;
             }
@@ -168,146 +165,154 @@ namespace Decimation.NPCs
             // acceleration is exactly what it sounds like. The speed at which this NPC accelerates.
             float acceleration = 0.12f;
 
-            Vector2 npcCenter = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
-            float targetXPos = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2);
-            float targetYPos = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2);
+            Vector2 npcCenter = new Vector2(this.npc.position.X + this.npc.width * 0.5f,
+                this.npc.position.Y + this.npc.height * 0.5f);
+            float targetXPos = Main.player[this.npc.target].position.X + Main.player[this.npc.target].width / 2f;
+            float targetYPos = Main.player[this.npc.target].position.Y + Main.player[this.npc.target].height / 2f;
 
-            float targetRoundedPosX = (float)((int)(targetXPos / 16.0) * 16);
-            float targetRoundedPosY = (float)((int)(targetYPos / 16.0) * 16);
-            npcCenter.X = (float)((int)(npcCenter.X / 16.0) * 16);
-            npcCenter.Y = (float)((int)(npcCenter.Y / 16.0) * 16);
+            float targetRoundedPosX = (int) (targetXPos / 16.0) * 16;
+            float targetRoundedPosY = (int) (targetYPos / 16.0) * 16;
+            npcCenter.X = (int) (npcCenter.X / 16.0) * 16;
+            npcCenter.Y = (int) (npcCenter.Y / 16.0) * 16;
             float dirX = targetRoundedPosX - npcCenter.X;
             float dirY = targetRoundedPosY - npcCenter.Y;
 
-            float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
+            float length = (float) Math.Sqrt(dirX * dirX + dirY * dirY);
             // If we do not have any type of collision, we want the NPC to fall down and de-accelerate along the X axis.
             if (!collision)
             {
-                npc.TargetClosest(true);
-                npc.velocity.Y = npc.velocity.Y + 0.11f;
-                if (npc.velocity.Y > speed)
-                    npc.velocity.Y = speed;
-                if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < speed * 0.4)
+                this.npc.TargetClosest();
+                this.npc.velocity.Y = this.npc.velocity.Y + 0.11f;
+                if (this.npc.velocity.Y > speed) this.npc.velocity.Y = speed;
+                if (Math.Abs(this.npc.velocity.X) + Math.Abs(this.npc.velocity.Y) < speed * 0.4)
                 {
-                    if (npc.velocity.X < 0.0)
-                        npc.velocity.X = npc.velocity.X - acceleration * 1.1f;
+                    if (this.npc.velocity.X < 0.0)
+                        this.npc.velocity.X = this.npc.velocity.X - acceleration * 1.1f;
                     else
-                        npc.velocity.X = npc.velocity.X + acceleration * 1.1f;
+                        this.npc.velocity.X = this.npc.velocity.X + acceleration * 1.1f;
                 }
-                else if (npc.velocity.Y == speed)
+                else if (this.npc.velocity.Y == speed)
                 {
-                    if (npc.velocity.X < dirX)
-                        npc.velocity.X = npc.velocity.X + acceleration;
-                    else if (npc.velocity.X > dirX)
-                        npc.velocity.X = npc.velocity.X - acceleration;
+                    if (this.npc.velocity.X < dirX)
+                        this.npc.velocity.X = this.npc.velocity.X + acceleration;
+                    else if (this.npc.velocity.X > dirX) this.npc.velocity.X = this.npc.velocity.X - acceleration;
                 }
-                else if (npc.velocity.Y > 4.0)
+                else if (this.npc.velocity.Y > 4.0)
                 {
-                    if (npc.velocity.X < 0.0)
-                        npc.velocity.X = npc.velocity.X + acceleration * 0.9f;
+                    if (this.npc.velocity.X < 0.0)
+                        this.npc.velocity.X = this.npc.velocity.X + acceleration * 0.9f;
                     else
-                        npc.velocity.X = npc.velocity.X - acceleration * 0.9f;
+                        this.npc.velocity.X = this.npc.velocity.X - acceleration * 0.9f;
                 }
             }
             // Else we want to play some audio (soundDelay) and move towards our target.
             else
             {
-                if (npc.soundDelay == 0)
+                if (this.npc.soundDelay == 0)
                 {
-                    npc.soundDelay = 120;
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Earthquake"), npc.Center);
+                    this.npc.soundDelay = 120;
+                    Main.PlaySound(this.mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Earthquake"),
+                        this.npc.Center);
                 }
+
                 float absDirX = Math.Abs(dirX);
                 float absDirY = Math.Abs(dirY);
                 float newSpeed = speed / length;
                 dirX = dirX * newSpeed;
                 dirY = dirY * newSpeed;
-                if (npc.velocity.X > 0.0 && dirX > 0.0 || npc.velocity.X < 0.0 && dirX < 0.0 || (npc.velocity.Y > 0.0 && dirY > 0.0 || npc.velocity.Y < 0.0 && dirY < 0.0))
+                if (this.npc.velocity.X > 0.0 && dirX > 0.0 || this.npc.velocity.X < 0.0 && dirX < 0.0 ||
+                    this.npc.velocity.Y > 0.0 && dirY > 0.0 || this.npc.velocity.Y < 0.0 && dirY < 0.0)
                 {
-                    if (npc.velocity.X < dirX)
-                        npc.velocity.X = npc.velocity.X + acceleration;
-                    else if (npc.velocity.X > dirX)
-                        npc.velocity.X = npc.velocity.X - acceleration;
-                    if (npc.velocity.Y < dirY)
-                        npc.velocity.Y = npc.velocity.Y + acceleration;
-                    else if (npc.velocity.Y > dirY)
-                        npc.velocity.Y = npc.velocity.Y - acceleration;
-                    if (Math.Abs(dirY) < speed * 0.2 && (npc.velocity.X > 0.0 && dirX < 0.0 || npc.velocity.X < 0.0 && dirX > 0.0))
+                    if (this.npc.velocity.X < dirX)
+                        this.npc.velocity.X = this.npc.velocity.X + acceleration;
+                    else if (this.npc.velocity.X > dirX) this.npc.velocity.X = this.npc.velocity.X - acceleration;
+                    if (this.npc.velocity.Y < dirY)
+                        this.npc.velocity.Y = this.npc.velocity.Y + acceleration;
+                    else if (this.npc.velocity.Y > dirY) this.npc.velocity.Y = this.npc.velocity.Y - acceleration;
+                    if (Math.Abs(dirY) < speed * 0.2 &&
+                        (this.npc.velocity.X > 0.0 && dirX < 0.0 || this.npc.velocity.X < 0.0 && dirX > 0.0))
                     {
-                        if (npc.velocity.Y > 0.0)
-                            npc.velocity.Y = npc.velocity.Y + acceleration * 2f;
+                        if (this.npc.velocity.Y > 0.0)
+                            this.npc.velocity.Y = this.npc.velocity.Y + acceleration * 2f;
                         else
-                            npc.velocity.Y = npc.velocity.Y - acceleration * 2f;
+                            this.npc.velocity.Y = this.npc.velocity.Y - acceleration * 2f;
                     }
-                    if (Math.Abs(dirX) < speed * 0.2 && (npc.velocity.Y > 0.0 && dirY < 0.0 || npc.velocity.Y < 0.0 && dirY > 0.0))
+
+                    if (Math.Abs(dirX) < speed * 0.2 &&
+                        (this.npc.velocity.Y > 0.0 && dirY < 0.0 || this.npc.velocity.Y < 0.0 && dirY > 0.0))
                     {
-                        if (npc.velocity.X > 0.0)
-                            npc.velocity.X = npc.velocity.X + acceleration * 2f;
+                        if (this.npc.velocity.X > 0.0)
+                            this.npc.velocity.X = this.npc.velocity.X + acceleration * 2f;
                         else
-                            npc.velocity.X = npc.velocity.X - acceleration * 2f;
+                            this.npc.velocity.X = this.npc.velocity.X - acceleration * 2f;
                     }
                 }
                 else if (absDirX > absDirY)
                 {
-                    if (npc.velocity.X < dirX)
-                        npc.velocity.X = npc.velocity.X + acceleration * 1.1f;
-                    else if (npc.velocity.X > dirX)
-                        npc.velocity.X = npc.velocity.X - acceleration * 1.1f;
-                    if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < speed * 0.5)
+                    if (this.npc.velocity.X < dirX)
+                        this.npc.velocity.X = this.npc.velocity.X + acceleration * 1.1f;
+                    else if (this.npc.velocity.X > dirX)
+                        this.npc.velocity.X = this.npc.velocity.X - acceleration * 1.1f;
+                    if (Math.Abs(this.npc.velocity.X) + Math.Abs(this.npc.velocity.Y) < speed * 0.5)
                     {
-                        if (npc.velocity.Y > 0.0)
-                            npc.velocity.Y = npc.velocity.Y + acceleration;
+                        if (this.npc.velocity.Y > 0.0)
+                            this.npc.velocity.Y = this.npc.velocity.Y + acceleration;
                         else
-                            npc.velocity.Y = npc.velocity.Y - acceleration;
+                            this.npc.velocity.Y = this.npc.velocity.Y - acceleration;
                     }
                 }
                 else
                 {
-                    if (npc.velocity.Y < dirY)
-                        npc.velocity.Y = npc.velocity.Y + acceleration * 1.1f;
-                    else if (npc.velocity.Y > dirY)
-                        npc.velocity.Y = npc.velocity.Y - acceleration * 1.1f;
-                    if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < speed * 0.5)
+                    if (this.npc.velocity.Y < dirY)
+                        this.npc.velocity.Y = this.npc.velocity.Y + acceleration * 1.1f;
+                    else if (this.npc.velocity.Y > dirY)
+                        this.npc.velocity.Y = this.npc.velocity.Y - acceleration * 1.1f;
+                    if (Math.Abs(this.npc.velocity.X) + Math.Abs(this.npc.velocity.Y) < speed * 0.5)
                     {
-                        if (npc.velocity.X > 0.0)
-                            npc.velocity.X = npc.velocity.X + acceleration;
+                        if (this.npc.velocity.X > 0.0)
+                            this.npc.velocity.X = this.npc.velocity.X + acceleration;
                         else
-                            npc.velocity.X = npc.velocity.X - acceleration;
+                            this.npc.velocity.X = this.npc.velocity.X - acceleration;
                     }
                 }
             }
+
             // Set the correct rotation for this NPC.
-            npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
+            this.npc.rotation = (float) Math.Atan2(this.npc.velocity.Y, this.npc.velocity.X) + 1.57f;
 
             // Some netupdate stuff (multiplayer compatibility).
             if (collision)
             {
-                if (npc.localAI[0] != 1)
-                    npc.netUpdate = true;
-                npc.localAI[0] = 1f;
+                if (this.npc.localAI[0] != 1) this.npc.netUpdate = true;
+                this.npc.localAI[0] = 1f;
             }
             else
             {
-                if (npc.localAI[0] != 0.0)
-                    npc.netUpdate = true;
-                npc.localAI[0] = 0.0f;
+                if (this.npc.localAI[0] != 0.0) this.npc.netUpdate = true;
+                this.npc.localAI[0] = 0.0f;
             }
-            if ((npc.velocity.X > 0.0 && npc.oldVelocity.X < 0.0 || npc.velocity.X < 0.0 && npc.oldVelocity.X > 0.0 || (npc.velocity.Y > 0.0 && npc.oldVelocity.Y < 0.0 || npc.velocity.Y < 0.0 && npc.oldVelocity.Y > 0.0)) && !npc.justHit)
-                npc.netUpdate = true;
+
+            if ((this.npc.velocity.X > 0.0 && this.npc.oldVelocity.X < 0.0 ||
+                 this.npc.velocity.X < 0.0 && this.npc.oldVelocity.X > 0.0 ||
+                 this.npc.velocity.Y > 0.0 && this.npc.oldVelocity.Y < 0.0 ||
+                 this.npc.velocity.Y < 0.0 && this.npc.oldVelocity.Y > 0.0) &&
+                !this.npc.justHit) this.npc.netUpdate = true;
 
             return false;
         }
 
-        public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Color drawColor)
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            Texture2D texture = Main.npcTexture[npc.type];
+            Texture2D texture = Main.npcTexture[this.npc.type];
             Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
-            Main.spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(), drawColor, npc.rotation, origin, npc.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(texture, this.npc.Center - Main.screenPosition, new Rectangle?(), drawColor,
+                this.npc.rotation, origin, this.npc.scale, SpriteEffects.None, 0);
             return false;
         }
+
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
-            scale = 1.9f;   //this make the NPC Health Bar biger
+            scale = 1.9f; //this make the NPC Health Bar biger
             return null;
         }
     }

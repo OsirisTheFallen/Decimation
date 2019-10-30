@@ -1,5 +1,6 @@
 ﻿using Decimation.Tiles;
-using Terraria;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,7 +20,7 @@ namespace Decimation.Items.Ores
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
 
             recipe.AddIngredient(ItemID.AdamantiteBar);
             recipe.AddIngredient(ItemID.TitaniumBar);

@@ -1,9 +1,11 @@
-﻿using Decimation.Items.Misc.CondensedSouls;
+﻿using System.Collections.Generic;
+using Decimation.Items.Misc.CondensedSouls;
 using Decimation.Items.Ores;
 using Decimation.Projectiles;
 using Decimation.Tiles;
-using System;
-using System.Collections.Generic;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,19 +24,22 @@ namespace Decimation.Items.Accessories.Wings
             height = 26;
             rarity = Rarity.Red;
 
-            item.value = Item.buyPrice(0, 5);
+            this.item.value = Item.buyPrice(0, 5);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.wingTimeMax = 240;
-            Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1.05f, 0.95f, 0.55f);
+            Lighting.AddLight((int)(player.position.X + player.width / 2f) / 16,
+                (int)(player.position.Y + player.height / 2f) / 16, 1.05f, 0.95f, 0.55f);
 
-            if (player.wingTime % 2 == 1)
-                Projectile.NewProjectile(player.Center, new Microsoft.Xna.Framework.Vector2(0, 0), mod.ProjectileType<Ember>(), 25, 5, player.whoAmI);
+            if ((int)player.wingTime % 2 == 1)
+                Projectile.NewProjectile(player.Center, new Vector2(0, 0), this.mod.ProjectileType<Ember>(), 25, 5,
+                    player.whoAmI);
         }
 
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
+            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
             ascentWhenFalling = 0.85f;
             ascentWhenRising = 0.15f;
@@ -51,14 +56,14 @@ namespace Decimation.Items.Accessories.Wings
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<TitanForge>() }, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { this.mod.TileType<TitanForge>() });
 
             recipe.AddIngredient(ItemID.BeetleWings);
             recipe.AddIngredient(ItemID.WingsSolar);
-            recipe.AddIngredient(mod.ItemType<CondensedSpite>(), 2);
-            recipe.AddIngredient(mod.ItemType<DenziumBar>(), 5);
+            recipe.AddIngredient(this.mod.ItemType<CondensedSpite>(), 2);
+            recipe.AddIngredient(this.mod.ItemType<DenziumBar>(), 5);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> { recipe };
         }
     }
 }

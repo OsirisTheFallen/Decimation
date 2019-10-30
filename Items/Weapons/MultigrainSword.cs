@@ -1,3 +1,5 @@
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +24,7 @@ namespace Decimation.Items.Weapons
             rarity = Rarity.Green;
             criticalStrikeChance = 4;
             autoReuse = true;
-            item.expert = false;
+            this.item.expert = false;
             shootSpeed = 10f;
         }
 
@@ -34,7 +36,7 @@ namespace Decimation.Items.Weapons
             recipe.AddIngredient(ItemID.Pumpkin, 15);
             recipe.AddIngredient(ItemID.Acorn, 5);
             recipe.AddIngredient(ItemID.Hay, 15);
-            recipe.AddIngredient(mod.ItemType<TheGreatwoodSword>());
+            recipe.AddIngredient(this.mod.ItemType<TheGreatwoodSword>());
 
             return recipe;
         }

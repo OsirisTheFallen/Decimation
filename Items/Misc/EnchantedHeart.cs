@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Decimation.Items.Amulets;
+using Decimation.Core.Items;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-using Decimation.Items.Amulets;
 
 namespace Decimation.Items.Misc
 {
-    class EnchantedHeart : DecimationItem
+    internal class EnchantedHeart : DecimationItem
     {
         private const int HealAmount = 25;
         private const int ManaAmount = 5;
@@ -17,7 +16,7 @@ namespace Decimation.Items.Misc
 
         protected override void Init()
         {
-            item.CloneDefaults(ItemID.Heart);
+            this.item.CloneDefaults(ItemID.Heart);
         }
 
         public override bool OnPickup(Player player)
@@ -33,7 +32,7 @@ namespace Decimation.Items.Misc
 
         public override bool CanPickup(Player player)
         {
-            return player.GetModPlayer<DecimationPlayer>().amuletSlotItem.type != mod.ItemType<HealtyAmulet>();
+            return player.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type != this.mod.ItemType<HealtyAmulet>();
         }
     }
 }

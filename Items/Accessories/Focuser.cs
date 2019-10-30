@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,20 +17,20 @@ namespace Decimation.Items.Accessories
             width = 54;
             height = 46;
             rarity = Rarity.Green;
-            item.value = Item.buyPrice(0, 0, 0, 10);
+            this.item.value = Item.buyPrice(0, 0, 0, 10);
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.Anvils }, true);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.Anvils}, true);
 
             recipe.AddIngredient(ItemID.Chain, 3);
             recipe.AddIngredient(ItemID.CopperBar, 10);
-            recipe.AddIngredient(ItemID.GoldBar, 1);
-            recipe.AddIngredient(ItemID.Ruby, 1);
+            recipe.AddIngredient(ItemID.GoldBar);
+            recipe.AddIngredient(ItemID.Ruby);
             recipe.AddIngredient(ItemID.IronBar, 3);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -42,6 +41,5 @@ namespace Decimation.Items.Accessories
             player.magicCrit += 05;
             player.thrownCrit += 05;
         }
-
     }
 }

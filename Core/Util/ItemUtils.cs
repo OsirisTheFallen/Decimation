@@ -2,15 +2,16 @@
 using System.Reflection;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 /**
  * <summary>Class <c>ItemUtils</c> provides several static methods to simplify items </summary>
  */
-namespace Decimation.Utils
+namespace Decimation.Core.Util
 {
     public class ItemUtils
     {
-        private static Decimation mod = Decimation.Instance;
+        private static readonly Mod Mod = References.mod;
 
         /**
          * <summary>Returns the identifier of an entity.</summary>
@@ -29,22 +30,13 @@ namespace Decimation.Utils
         {
             int id = int.MinValue;
             if (entityType == typeof(Item))
-            {
-                id = mod.ItemType(name);
-            }
+                id = Mod.ItemType(name);
             else if (entityType == typeof(Projectile))
-            {
-                id = mod.ProjectileType(name);
-            }
-            else if (entityType == typeof(NPC))
-            {
-                id = mod.NPCType(name);
-            }
+                id = Mod.ProjectileType(name);
+            else if (entityType == typeof(NPC)) id = Mod.NPCType(name);
 
             if (id == int.MinValue)
-            {
                 throw new ArgumentException($"No entity of type {entityType.Name} found with the name '{name}'");
-            }
 
             return id;
         }
@@ -57,30 +49,20 @@ namespace Decimation.Utils
             // Get which ID class to use
             Type idType;
             if (entityType == typeof(Item))
-            {
                 idType = typeof(ItemID);
-            }
             else if (entityType == typeof(Projectile))
-            {
                 idType = typeof(ProjectileID);
-            }
             else if (entityType == typeof(NPCID))
-            {
                 idType = typeof(NPCID);
-            }
             else
-            {
                 throw new ArgumentException($"There is no entity of type ${entityType.Name}");
-            }
 
             // Gets the field in the ID class and check if it's valid
             FieldInfo correspondingItemField = idType.GetField(name);
             if (correspondingItemField == null || correspondingItemField.FieldType != typeof(short))
-            {
                 throw new ArgumentException($"No entity of type {entityType.Name} found with the name '{name}'");
-            }
 
-            return (short)correspondingItemField.GetValue(null);
+            return (short) correspondingItemField.GetValue(null);
         }
     }
 }

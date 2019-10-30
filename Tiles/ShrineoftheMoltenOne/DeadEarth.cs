@@ -15,7 +15,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
             dustType = DustID.Sandnado;
-            drop = mod.ItemType("DeadEarth");
+            drop = mod.ItemType<Items.Placeable.ShrineoftheMoltenOne.DeadEarth>();
             AddMapEntry(new Color(33, 28, 25));
         }
 

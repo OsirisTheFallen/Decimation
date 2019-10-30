@@ -1,4 +1,4 @@
-using System;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,9 +8,11 @@ namespace Decimation.Items.Potions
     internal class CommanderPotion : DecimationPotion
     {
         protected override string ItemName => "Commander Potion";
+
         protected override string ItemTooltip =>
             "Increases your max number of minions by 1 \nMinions damages +10% \nMinions knockback +10%";
-        protected override int BuffType => mod.BuffType("Commander");
+
+        protected override int BuffType => this.mod.BuffType("Commander");
         protected override int BuffTime => 36000;
 
         protected override void InitPotion()

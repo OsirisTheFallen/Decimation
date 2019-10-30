@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Terraria.ID;
+using Decimation.Core.Items;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
@@ -27,15 +28,15 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { TileID.TinkerersWorkbench }, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench});
 
-            recipe.AddIngredient(mod.ItemType<RangersQuiver>());
-            recipe.AddIngredient(mod.ItemType<RangersPouch>());
+            recipe.AddIngredient(this.mod.ItemType<RangersQuiver>());
+            recipe.AddIngredient(this.mod.ItemType<RangersPouch>());
             recipe.AddIngredient(ItemID.SoulofSight, 25);
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddIngredient(ItemID.FallenStar, 15);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
     }
 }

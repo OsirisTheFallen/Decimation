@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Decimation.Core.Amulets;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,21 +24,22 @@ namespace Decimation.Items.Amulets
             player.pickSpeed *= 1.03f;
 
             player.AddBuff(BuffID.NightOwl, 1);
-            Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1, 1, 1);
+            Lighting.AddLight((int) (player.position.X + player.width / 2f) / 16,
+                (int) (player.position.Y + player.height / 2f) / 16, 1, 1, 1);
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench});
 
-            recipe.AddIngredient(mod.ItemType<MinersAmulet>());
-            recipe.AddIngredient(mod.ItemType<BuildersAmulet>());
+            recipe.AddIngredient(this.mod.ItemType<MinersAmulet>());
+            recipe.AddIngredient(this.mod.ItemType<BuildersAmulet>());
             recipe.AddIngredient(ItemID.MiningHelmet);
 
-            return new List<ModRecipe> { recipe };
+            return new List<ModRecipe> {recipe};
         }
 
-        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
+        protected override void GetAmuletTooltip(ref AmuletTooltip tooltip)
         {
             tooltip
                 .AddEffect("+4% tile placement speed")

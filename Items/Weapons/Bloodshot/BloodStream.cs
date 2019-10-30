@@ -1,10 +1,8 @@
 using Decimation.Buffs.Debuffs;
-using Decimation.Projectiles;
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Bloodshot
 {
@@ -25,7 +23,7 @@ namespace Decimation.Items.Weapons.Bloodshot
             rarity = Rarity.Green;
             useStyle = 5;
             shootSpeed = 5f;
-            item.mana = 1;
+            this.item.mana = 1;
             useTime = 5;
             useAnimation = 5;
             autoReuse = true;
@@ -34,12 +32,12 @@ namespace Decimation.Items.Weapons.Bloodshot
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            target.AddBuff(mod.BuffType<Slimed>(), 300);
+            target.AddBuff(this.mod.BuffType<Slimed>(), 300);
         }
 
         public override void OnHitPvp(Player player, Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType<Slimed>(), 300);
+            target.AddBuff(this.mod.BuffType<Slimed>(), 300);
         }
     }
 }

@@ -1,7 +1,4 @@
-using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+using Decimation.Core.Items;
 
 namespace Decimation.Items.Placeable
 {
@@ -9,7 +6,7 @@ namespace Decimation.Items.Placeable
     {
         protected override string ItemName => "Talonian Pillar";
         protected override string ItemTooltip => "A heavenly pillar created by powerful Talonian warlocks.";
-        protected override int Tile => mod.TileType("TalonianPillar");  // The tile doesn't exist yet
+        protected override int Tile => this.mod.TileType("TalonianPillar"); // The tile doesn't exist yet
 
         protected override void InitPlaceable()
         {

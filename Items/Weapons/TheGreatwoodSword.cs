@@ -1,8 +1,6 @@
-using System;
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,19 +19,20 @@ namespace Decimation.Items.Weapons
             useTime = 25;
             useAnimation = 25;
             knockBack = 5;
-            item.value = Item.buyPrice(silver: 40);
+            this.item.value = Item.buyPrice(silver: 40);
             rarity = Rarity.Green;
             autoReuse = true;
-            item.expert = false;
+            this.item.expert = false;
         }
+
         protected override ModRecipe GetRecipe()
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, TileID.Anvils, true);
 
-            recipe.AddIngredient(ItemID.WoodenSword, 1);
-            recipe.AddIngredient(ItemID.BorealWoodSword, 1);
-            recipe.AddIngredient(ItemID.ShadewoodSword, 1);
-            recipe.AddIngredient(ItemID.PalmWoodSword, 1);
+            recipe.AddIngredient(ItemID.WoodenSword);
+            recipe.AddIngredient(ItemID.BorealWoodSword);
+            recipe.AddIngredient(ItemID.ShadewoodSword);
+            recipe.AddIngredient(ItemID.PalmWoodSword);
 
             return recipe;
         }

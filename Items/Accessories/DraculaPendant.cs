@@ -1,5 +1,6 @@
 ﻿using Decimation.Buffs.Buffs;
-using System;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,12 +21,12 @@ namespace Decimation.Items.Accessories
             width = 46;
             height = 62;
             rarity = Rarity.LightPurple;
-            item.value = Item.buyPrice(0, 4);
+            this.item.value = Item.buyPrice(0, 4);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.AddBuff(mod.BuffType<Vampire>(), 1);
+            player.AddBuff(this.mod.BuffType<Vampire>(), 1);
 
             player.npcTypeNoAggro[NPCID.CaveBat] = true;
             player.npcTypeNoAggro[NPCID.JungleBat] = true;
@@ -53,7 +54,7 @@ namespace Decimation.Items.Accessories
         public override void NPCLoot(NPC npc)
         {
             if (npc.type == NPCID.Vampire && Main.rand.NextBool(50))
-                Item.NewItem(npc.getRect(), mod.ItemType<DraculaPendant>());
+                Item.NewItem(npc.getRect(), this.mod.ItemType<DraculaPendant>());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Decimation.Core.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -10,19 +11,19 @@ namespace Decimation.UI
     public class AmuletSlot : UIElement
     {
         public Item item;
-        private int context;
-        private float scale;
-        private bool newItem = false;
+        private readonly int _context;
+        private readonly float _scale;
+        private bool _newItem;
         internal Func<Item, bool> validItem;
 
         public AmuletSlot(int context = ItemSlot.Context.BankItem, float scale = 1f)
         {
-            this.context = context;
-            this.scale = scale;
-            item = new Item();
-            item.SetDefaults(0);
+            this._context = context;
+            this._scale = scale;
+            this.item = new Item();
+            this.item.SetDefaults(0);
 
-            validItem = selectedItem => selectedItem.IsAir || (!selectedItem.IsAir && Decimation.amulets.Contains(selectedItem.type));
+            this.validItem = selectedItem => selectedItem.IsAir || (!selectedItem.IsAir && AmuletList.Instance.Contains(selectedItem));
 
             Width.Set(Main.inventoryBack9Texture.Width * scale, 0f);
             Height.Set(Main.inventoryBack9Texture.Height * scale, 0f);
@@ -31,7 +32,7 @@ namespace Decimation.UI
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             float oldScale = Main.inventoryScale;
-            Main.inventoryScale = scale;
+            Main.inventoryScale = _scale;
             Rectangle rectangle = GetDimensions().ToRectangle();
 
             if (ContainsPoint(Main.MouseScreen) && !PlayerInput.IgnoreMouseInterface)
@@ -39,12 +40,12 @@ namespace Decimation.UI
                 Main.LocalPlayer.mouseInterface = true;
                 if (validItem == null || validItem(Main.mouseItem))
                 {
-                    newItem = true;
-                    ItemSlot.Handle(ref item, context);
+                    _newItem = true;
+                    ItemSlot.Handle(ref item, _context);
                 }
             }
 
-            ItemSlot.Draw(spriteBatch, ref item, context, rectangle.TopLeft());
+            ItemSlot.Draw(spriteBatch, ref item, _context, rectangle.TopLeft());
             Main.inventoryScale = oldScale;
 
             if (IsMouseHovering && item.IsAir)
@@ -56,14 +57,14 @@ namespace Decimation.UI
             if (!item.IsAir)
                 item.modItem.UpdateAccessory(Main.LocalPlayer, false);
 
-            if (!newItem)
+            if (!_newItem)
             {
-                item = player.amuletSlotItem;
+                item = player.AmuletSlotItem;
             }
             else
             {
-                newItem = false;
-                player.amuletSlotItem = item;
+                _newItem = false;
+                player.AmuletSlotItem = item;
             }
         }
     }

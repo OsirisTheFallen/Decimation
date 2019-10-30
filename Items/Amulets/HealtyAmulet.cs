@@ -1,10 +1,10 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using System.Collections.Generic;
+using Decimation.Core.Amulets;
 using Decimation.Items.Misc;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Amulets
 {
@@ -13,32 +13,29 @@ namespace Decimation.Items.Amulets
         protected override string ItemName => "Healty Amulet";
         public override AmuletClasses AmuletClass => AmuletClasses.Healer;
 
-        protected override void InitAmulet()
-        {
-        }
-
         protected override void UpdateAmulet(Player player)
         {
             player.statManaMax2 += 10;
-            player.statLifeMax2 += (int)(player.statLifeMax * 0.05f);
+            player.statLifeMax2 += (int) (player.statLifeMax * 0.05f);
 
-            if (player.GetModPlayer<DecimationPlayer>().isInCombat && player.GetModPlayer<DecimationPlayer>().enchantedHeartDropTime % 300 == 0)
-                Item.NewItem(new Vector2(player.position.X, player.position.Y), mod.ItemType<EnchantedHeart>());
+            if (player.GetModPlayer<DecimationPlayer>().isInCombat &&
+                player.GetModPlayer<DecimationPlayer>().enchantedHeartDropTime % 300 == 0)
+                Item.NewItem(new Vector2(player.position.X, player.position.Y), this.mod.ItemType<EnchantedHeart>());
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { TileID.TinkerersWorkbench }, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench});
 
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.LifeCrystal);
             recipe.AddIngredient(ItemID.BottledHoney);
             recipe.AddIngredient(ItemID.Gel, 5);
 
-            return new List<ModRecipe> { recipe };
+            return new List<ModRecipe> {recipe};
         }
 
-        protected override void SetAmuletTooltips(ref AmuletTooltip tooltip)
+        protected override void GetAmuletTooltip(ref AmuletTooltip tooltip)
         {
             tooltip
                 .AddEffect("+10 to maximum mana")

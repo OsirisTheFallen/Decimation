@@ -18,7 +18,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             TileID.Sets.DrawsWalls[Type] = true;
             TileID.Sets.NotReallySolid[Type] = true;
             dustType = DustID.Stone;
-            drop = mod.ItemType("RedHotSpike");
+            drop = mod.ItemType<Items.Placeable.ShrineoftheMoltenOne.RedHotSpike>();
             AddMapEntry(new Color(196, 35, 0));
         }
 

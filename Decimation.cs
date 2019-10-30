@@ -7,6 +7,7 @@ using Decimation.NPCs.Arachnus;
 using Decimation.NPCs.AncientDuneWorm;
 using Decimation.UI;
 using System.Collections.Generic;
+using Decimation.Core.Util;
 using Terraria.UI;
 using Microsoft.Xna.Framework;
 
@@ -15,8 +16,6 @@ namespace Decimation
     public class Decimation : Mod
     {
         public static Decimation Instance { set; get; }
-
-        public static List<int> amulets;
 
         public static AmuletSlotState amuletSlotState;
         private UserInterface amuletSlotInterface;
@@ -33,12 +32,12 @@ namespace Decimation
                 AutoloadGores = true,
                 AutoloadSounds = true
             };
+
+            References.mod = this;
         }
 
         public override void Load()
         {
-            amulets = new List<int>();
-
             if (!Main.dedServ)
             {
                 amuletSlotState = new AmuletSlotState();
@@ -56,17 +55,13 @@ namespace Decimation
             if (player.GetModPlayer<DecimationPlayer>().necrosisStoneEquipped && player.respawnTimer != 0)
                 player.respawnTimer -= 1;
 
-            if (amuletSlotInterface != null)
-                amuletSlotInterface.Update(gameTime);
-
-            if (skeletonUserInterface != null)
-                skeletonUserInterface.Update(gameTime);
+            amuletSlotInterface?.Update(gameTime);
+            skeletonUserInterface?.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-            int healthBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Entity Health Bars"));
 
             if (inventoryIndex != -1)
             {

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Terraria.ID;
-using Decimation.Projectiles;
+using Terraria.ModLoader;
 
-namespace Decimation
+namespace Decimation.Core.Util
 {
-    class References
+    public class References
     {
-        public static ArrayList bullets = new ArrayList()
+        public static Mod mod;
+
+        public static ArrayList bullets = new ArrayList
         {
             ProjectileID.Bullet,
             ProjectileID.ChlorophyteBullet,
@@ -28,12 +29,13 @@ namespace Decimation
             ProjectileID.BulletSnowman
         };
 
-        public static ArrayList styngerBolts = new ArrayList()
-        {
-            ProjectileID.Stynger,
-            Decimation.Instance.ProjectileType<MoltenStyngerBolt>(),
-            Decimation.Instance.ProjectileType<TitanicStyngerBolt>()
-        };
+        // TODO
+        //public static ArrayList styngerBolts = new ArrayList()
+        //{
+        //    ProjectileID.Stynger,
+        //    Decimation.Instance.ProjectileType<MoltenStyngerBolt>(),
+        //    Decimation.Instance.ProjectileType<TitanicStyngerBolt>()
+        //};
     }
 
     public enum Rarity

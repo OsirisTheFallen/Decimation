@@ -1,7 +1,4 @@
-using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+using Decimation.Core.Items;
 
 namespace Decimation.Items.Placeable
 {
@@ -9,7 +6,7 @@ namespace Decimation.Items.Placeable
     {
         protected override string ItemName => "Basalt";
         protected override string ItemTooltip => "Volcanic stone";
-        protected override int Tile => mod.TileType<Tiles.Basalt>();
+        protected override int Tile => this.mod.TileType<Tiles.Basalt>();
 
         protected override void InitPlaceable()
         {

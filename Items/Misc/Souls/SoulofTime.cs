@@ -1,8 +1,8 @@
-using Microsoft.Xna.Framework;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc.Souls
 {
@@ -19,9 +19,9 @@ namespace Decimation.Items.Misc.Souls
             value = Item.buyPrice(0, 0, 1);
             rarity = Rarity.Orange;
 
-            item.maxStack = 999;
+            this.item.maxStack = 999;
 
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            ItemID.Sets.ItemNoGravity[this.item.type] = true;
         }
     }
 }

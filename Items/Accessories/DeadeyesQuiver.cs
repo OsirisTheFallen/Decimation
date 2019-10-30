@@ -1,13 +1,12 @@
-using Terraria.ModLoader;
-using System;
 using System.Collections.Generic;
+using Decimation.Items.Misc;
+using Decimation.Items.Misc.Souls;
+using Decimation.Tiles;
+using Decimation.Core.Items;
+using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Decimation;
-using Decimation.Items.Misc.Souls;
-using Decimation.Items.Misc;
-using Decimation.Tiles;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Accessories
 {
@@ -23,24 +22,24 @@ namespace Decimation.Items.Accessories
             width = 30;
             height = 30;
             rarity = Rarity.Red;
-            item.value = Item.buyPrice(0, 15);
+            this.item.value = Item.buyPrice(0, 15);
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<ChlorophyteAnvil>() }, false);
-            recipe.AddIngredient(mod.ItemType<JestersQuiver>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {this.mod.TileType<ChlorophyteAnvil>()});
+            recipe.AddIngredient(this.mod.ItemType<JestersQuiver>());
             //r.AddIngredient(mod.ItemType<SoulofKight>());
-            recipe.AddIngredient(mod.ItemType<SoulofSpite>(), 15);
+            recipe.AddIngredient(this.mod.ItemType<SoulofSpite>(), 15);
             recipe.AddIngredient(ItemID.SoulofSight, 15);
             recipe.AddIngredient(ItemID.SoulofFright, 15);
-            recipe.AddIngredient(mod.ItemType<EndlessPouchofLife>());
-            recipe.AddIngredient(mod.ItemType<RedThread>(), 5);
+            recipe.AddIngredient(this.mod.ItemType<EndlessPouchofLife>());
+            recipe.AddIngredient(this.mod.ItemType<RedThread>(), 5);
             recipe.AddIngredient(ItemID.FlaskofIchor, 5);
             recipe.AddIngredient(ItemID.BlackDye, 3);
             recipe.AddIngredient(ItemID.RedDye, 3);
 
-            return new List<ModRecipe>() { recipe };
+            return new List<ModRecipe> {recipe};
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

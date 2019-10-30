@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Decimation.Core.Items;
+using Decimation.Core.Util;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,7 +19,7 @@ namespace Decimation.Items.Boss.Arachnus
             value = Item.buyPrice(0, 45);
             rarity = Rarity.Red;
 
-            item.maxStack = 1;
+            this.item.maxStack = 1;
         }
 
         public class DropFromMoonLord : GlobalNPC
@@ -25,9 +27,8 @@ namespace Decimation.Items.Boss.Arachnus
             public override void NPCLoot(NPC npc)
             {
                 if (npc.type == NPCID.MoonLordCore)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MoltenKey"));
-                }
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        this.mod.ItemType<MoltenKey>());
             }
         }
     }
