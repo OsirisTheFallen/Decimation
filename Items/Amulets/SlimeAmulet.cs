@@ -49,7 +49,7 @@ namespace Decimation.Items.Amulets
             player.npcTypeNoAggro[537] = true;
 
             DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
-            modPlayer.amuletsBuff = mod.BuffType<Singed>();
+            modPlayer.amuletsBuff = ModContent.BuffType<Singed>();
             modPlayer.amuletsBuffChances = 4;
             modPlayer.amuletsBuffTime = 300;
         }
@@ -61,7 +61,7 @@ namespace Decimation.Items.Amulets
             recipe.AddIngredient(ItemID.RoyalGel);
             recipe.AddIngredient(ItemID.Gel, 10);
             recipe.AddIngredient(ItemID.Chain, 2);
-            recipe.AddIngredient(mod.ItemType<SlimeBracelet>());
+            recipe.AddIngredient(ModContent.ItemType<SlimeBracelet>());
 
             return new List<ModRecipe> { recipe };
         }
@@ -89,7 +89,7 @@ namespace Decimation.Items.Amulets
             if (projectile.type == ProjectileID.BabySlime)
             {
                 if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type ==
-                    Decimation.Instance.ItemType<SlimeAmulet>())
+                    ModContent.ItemType<SlimeAmulet>())
                 {
                     if (_spikeIntervalCounter > SpikeInterval)
                     {

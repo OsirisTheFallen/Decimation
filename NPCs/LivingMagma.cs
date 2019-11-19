@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Decimation.Buffs.Debuffs;
+using Decimation.Tiles.ShrineoftheMoltenOne;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -45,7 +47,7 @@ namespace Decimation.NPCs
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            Main.LocalPlayer.AddBuff(mod.BuffType("Singed"), 600);
+            Main.LocalPlayer.AddBuff(ModContent.BuffType<Singed>(), 600);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -60,7 +62,7 @@ namespace Decimation.NPCs
                 {
                     if (i >= 0 && i <= Main.maxTilesX && j >= 0 && j <= Main.maxTilesY)
                     {
-                        if (Main.tile[i, j].type == mod.TileType("ShrineBrick") || (Main.tile[i, j].type == mod.TileType("LockedShrineDoor") || Main.tile[i, j].type == mod.TileType("ShrineDoorClosed") || Main.tile[i, j].type == mod.TileType("ShrineDoorOpened")) || Main.tile[i, j].type == mod.TileType("RedHotSpike"))
+                        if (Main.tile[i, j].type == ModContent.TileType<ShrineBrick>() || (Main.tile[i, j].type == ModContent.TileType<LockedShrineDoor>() || Main.tile[i, j].type == ModContent.TileType<ShrineDoorClosed>() || Main.tile[i, j].type == ModContent.TileType<ShrineDoorOpened>()) || Main.tile[i, j].type == ModContent.TileType<RedHotSpike>())
                         {
                             validBlockCount++;
                         }

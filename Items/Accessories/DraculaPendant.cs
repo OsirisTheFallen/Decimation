@@ -26,7 +26,7 @@ namespace Decimation.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.AddBuff(this.mod.BuffType<Vampire>(), 1);
+            player.AddBuff(ModContent.BuffType<Vampire>(), 1);
 
             player.npcTypeNoAggro[NPCID.CaveBat] = true;
             player.npcTypeNoAggro[NPCID.JungleBat] = true;
@@ -54,7 +54,7 @@ namespace Decimation.Items.Accessories
         public override void NPCLoot(NPC npc)
         {
             if (npc.type == NPCID.Vampire && Main.rand.NextBool(50))
-                Item.NewItem(npc.getRect(), this.mod.ItemType<DraculaPendant>());
+                Item.NewItem(npc.getRect(), ModContent.ItemType<DraculaPendant>());
         }
     }
 }

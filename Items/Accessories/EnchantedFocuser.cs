@@ -28,7 +28,7 @@ namespace Decimation.Items.Accessories
             recipe.AddIngredient(ItemID.Wire, 15);
             recipe.AddIngredient(ItemID.CopperBar, 5);
             recipe.AddIngredient(ItemID.WaterCandle);
-            recipe.AddIngredient(this.mod.ItemType<Focuser>());
+            recipe.AddIngredient(ModContent.ItemType<Focuser>());
 
             return new List<ModRecipe> {recipe};
         }

@@ -30,8 +30,8 @@ namespace Decimation.Items.Accessories
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench});
 
-            recipe.AddIngredient(this.mod.ItemType<RangersQuiver>());
-            recipe.AddIngredient(this.mod.ItemType<RangersPouch>());
+            recipe.AddIngredient(ModContent.ItemType<RangersQuiver>());
+            recipe.AddIngredient(ModContent.ItemType<RangersPouch>());
             recipe.AddIngredient(ItemID.SoulofSight, 25);
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddIngredient(ItemID.FallenStar, 15);

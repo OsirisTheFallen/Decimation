@@ -7,6 +7,7 @@ using Decimation.Core.Items;
 using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Boss.DuneWorm
 {
@@ -14,7 +15,7 @@ namespace Decimation.Items.Boss.DuneWorm
     {
         protected override string ItemName => "Treasure Bag";
         protected override string ItemTooltip => "Right click to open";
-        public override int BossBagNPC => this.mod.NPCType<AncientDuneWormHead>();
+        public override int BossBagNPC => ModContent.NPCType<AncientDuneWormHead>();
 
         protected override void Init()
         {
@@ -33,13 +34,13 @@ namespace Decimation.Items.Boss.DuneWorm
 
         public override void OpenBossBag(Player player)
         {
-            player.QuickSpawnItem(this.mod.ItemType<SoulofTime>(), Main.rand.Next(20, 35));
+            player.QuickSpawnItem(ModContent.ItemType<SoulofTime>(), Main.rand.Next(20, 35));
             player.QuickSpawnItem(ItemID.FossilOre, Main.rand.Next(10, 15));
-            player.QuickSpawnItem(this.mod.ItemType<TheHourGlass>());
+            player.QuickSpawnItem(ModContent.ItemType<TheHourGlass>());
             if (Main.rand.Next(7) == 0)
-                player.QuickSpawnItem(this.mod.ItemType<DuneWormMask>());
+                player.QuickSpawnItem(ModContent.ItemType<DuneWormMask>());
             if (Main.rand.NextBool(13))
-                player.QuickSpawnItem(this.mod.ItemType<DuneWormTrophy>());
+                player.QuickSpawnItem(ModContent.ItemType<DuneWormTrophy>());
         }
     }
 }

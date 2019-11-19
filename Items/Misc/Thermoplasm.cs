@@ -14,7 +14,7 @@ namespace Decimation.Items.Misc
         {
             width = 26;
             height = 36;
-            value = 5000;
+            value = Item.buyPrice(silver: 50);
             rarity = Rarity.Yellow;
         }
     }
@@ -23,9 +23,9 @@ namespace Decimation.Items.Misc
     {
         public override void NPCLoot(NPC npc)
         {
-            if (Main.LocalPlayer.ZoneUnderworldHeight && Main.rand.Next(1, 21) == 1)
+            if (Main.LocalPlayer.ZoneUnderworldHeight && Main.rand.NextBool(20))
                 Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
-                    this.mod.ItemType<Thermoplasm>());
+                    ModContent.ItemType<Thermoplasm>());
         }
     }
 }

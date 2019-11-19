@@ -39,9 +39,9 @@ namespace Decimation.Items.Weapons
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, ModContent.TileType<TitanForge>());
 
-            recipe.AddIngredient(this.mod.ItemType<TitaniteBar>(), 12);
+            recipe.AddIngredient(ModContent.ItemType<TitaniteBar>(), 12);
             recipe.AddIngredient(ItemID.SoulofMight, 15);
 
             return recipe;

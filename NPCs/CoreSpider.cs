@@ -68,7 +68,7 @@ namespace Decimation.NPCs
             }
 
             if (onWall)
-                this.npc.Transform(this.mod.NPCType("CoreSpiderWall"));
+                this.npc.Transform(ModContent.NPCType<CoreSpiderWall>());
             else
                 base.AI();
         }
@@ -82,11 +82,11 @@ namespace Decimation.NPCs
             for (int i = -50 + x; i <= 50 + x; i++)
             for (int j = -50 + y; j <= 50 + y; j++)
                 if (i >= 0 && i <= Main.maxTilesX && j >= 0 && j <= Main.maxTilesY)
-                    if (Main.tile[i, j].type == this.mod.TileType<ShrineBrick>() ||
-                        Main.tile[i, j].type == this.mod.TileType<LockedShrineDoor>() ||
-                        Main.tile[i, j].type == this.mod.TileType<ShrineDoorClosed>() ||
-                        Main.tile[i, j].type == this.mod.TileType<ShrineDoorOpened>() ||
-                        Main.tile[i, j].type == this.mod.TileType<RedHotSpike>())
+                    if (Main.tile[i, j].type == ModContent.TileType<ShrineBrick>() ||
+                        Main.tile[i, j].type == ModContent.TileType<LockedShrineDoor>() ||
+                        Main.tile[i, j].type == ModContent.TileType<ShrineDoorClosed>() ||
+                        Main.tile[i, j].type == ModContent.TileType<ShrineDoorOpened>() ||
+                        Main.tile[i, j].type == ModContent.TileType<RedHotSpike>())
                         validBlockCount++;
 
 

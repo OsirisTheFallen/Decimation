@@ -32,8 +32,8 @@ namespace Decimation.Items.Amulets
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench});
 
-            recipe.AddIngredient(this.mod.ItemType<MinersAmulet>());
-            recipe.AddIngredient(this.mod.ItemType<BuildersAmulet>());
+            recipe.AddIngredient(ModContent.ItemType<MinersAmulet>());
+            recipe.AddIngredient(ModContent.ItemType<BuildersAmulet>());
             recipe.AddIngredient(ItemID.MiningHelmet);
 
             return new List<ModRecipe> {recipe};

@@ -15,7 +15,7 @@ namespace Decimation.Tiles
             minPick = 200;
             mineResist = 10;
             dustType = DustID.Stone;
-            drop = mod.ItemType<Items.Placeable.TalonianPillar>();
+            drop = ModContent.ItemType<Items.Placeable.TalonianPillar>();
             AddMapEntry(new Color(101, 195, 242));
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Decimation.Buffs.Buffs;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,7 +22,7 @@ namespace Decimation.Tiles
             AddMapEntry(new Color(108, 239, 64), name);
             dustType = DustID.Iron;
             disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Anvils, TileID.MythrilAnvil, mod.TileType("EnchantedAnvil") };
+            adjTiles = new int[] { TileID.Anvils, TileID.MythrilAnvil, ModContent.TileType<EnchantedAnvil>() };
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
@@ -31,14 +32,14 @@ namespace Decimation.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType<Items.Placeable.ChlorophyteAnvil>());
+            Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<Items.Placeable.ChlorophyteAnvil>());
         }
 
         public override void NearbyEffects(int i, int j, bool closer)
         {
             if (closer)
             {
-                Main.LocalPlayer.AddBuff(mod.BuffType("NaturesAura"), 5);
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<NaturesAura>(), 5);
             }
         }
     }

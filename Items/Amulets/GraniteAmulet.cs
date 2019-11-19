@@ -31,7 +31,7 @@ namespace Decimation.Items.Amulets
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench});
 
-            recipe.AddIngredient(this.mod.ItemType<GraniteLinedTunic>());
+            recipe.AddIngredient(ModContent.ItemType<GraniteLinedTunic>());
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.Granite, 6);
             recipe.AddIngredient(ItemID.Gel, 20);

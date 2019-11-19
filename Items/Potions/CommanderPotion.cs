@@ -1,3 +1,4 @@
+using Decimation.Buffs.Buffs;
 using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
@@ -12,7 +13,7 @@ namespace Decimation.Items.Potions
         protected override string ItemTooltip =>
             "Increases your max number of minions by 1 \nMinions damages +10% \nMinions knockback +10%";
 
-        protected override int BuffType => this.mod.BuffType("Commander");
+        protected override int BuffType => ModContent.BuffType<Commander>();
         protected override int BuffTime => 36000;
 
         protected override void InitPotion()

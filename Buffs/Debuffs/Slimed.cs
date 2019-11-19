@@ -37,7 +37,7 @@ namespace Decimation.Buffs.Debuffs
     {
         public override bool CanUseItem(Item item, Player player)
         {
-            if (player.HasBuff(mod.BuffType("Slimed")))
+            if (player.HasBuff(ModContent.BuffType<Slimed>()))
             {
                 return !(item.UseSound != null && item.useStyle == 2);
             }

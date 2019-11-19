@@ -4,6 +4,7 @@ using Decimation.Core.Util;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Bloodshot
 {
@@ -33,7 +34,7 @@ namespace Decimation.Items.Weapons.Bloodshot
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
             ref int type, ref int damage, ref float knockBack)
         {
-            type = this.mod.ProjectileType<SiphonArrow>();
+            type = ModContent.ProjectileType<SiphonArrow>();
             return true;
         }
     }

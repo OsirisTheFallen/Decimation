@@ -38,14 +38,14 @@ namespace Decimation.Items.Armors.ScarabArmor
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { mod.TileType<TitanForge>() });
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int>() { ModContent.TileType<TitanForge>() });
 
             recipe.AddIngredient(ItemID.SolarFlareLeggings);
             recipe.AddIngredient(ItemID.BeetleLeggings);
             recipe.AddIngredient(ItemID.LunarOre, 6);
             recipe.AddIngredient(ItemID.SoulofMight, 5);
             recipe.AddIngredient(ItemID.SoulofFright, 5);
-            recipe.AddIngredient(mod.ItemType<SoulofSpite>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<SoulofSpite>(), 5);
             recipe.AddIngredient(ItemID.LavaBucket);
 
             return new List<ModRecipe>() { recipe };

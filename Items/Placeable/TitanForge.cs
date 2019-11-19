@@ -9,7 +9,7 @@ namespace Decimation.Items.Placeable
     {
         protected override string ItemName => "Titan Forge";
         protected override string ItemTooltip => "Used to craft powerful weapons and armor.";
-        protected override int Tile => this.mod.TileType<Tiles.TitanForge>();
+        protected override int Tile => ModContent.TileType<Tiles.TitanForge>();
 
         protected override void InitPlaceable()
         {
@@ -20,7 +20,7 @@ namespace Decimation.Items.Placeable
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<Tiles.ChlorophyteAnvil>(), true);
+            ModRecipe recipe = GetNewModRecipe(this, 1, ModContent.TileType<Tiles.ChlorophyteAnvil>(), true);
 
             recipe.AddIngredient(ItemID.AdamantiteForge);
             recipe.AddIngredient(ItemID.Autohammer);
@@ -30,7 +30,7 @@ namespace Decimation.Items.Placeable
             recipe.AddIngredient(ItemID.SoulofMight, 5);
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddIngredient(this.mod.ItemType<SoulofSpite>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<SoulofSpite>(), 5);
             recipe.AddIngredient(ItemID.SoulofFlight, 5);
 
             return recipe;

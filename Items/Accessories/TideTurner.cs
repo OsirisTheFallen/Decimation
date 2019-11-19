@@ -42,11 +42,11 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {mod.TileType<ChlorophyteAnvil>()}, false);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {ModContent.TileType<ChlorophyteAnvil>()}, false);
 
             recipe.AddIngredient(ItemID.EoCShield);
             recipe.AddIngredient(ItemID.Coral, 10);
-            recipe.AddIngredient(mod.ItemType<DenziumBar>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<DenziumBar>(), 5);
 
             return new List<ModRecipe> {recipe};
         }

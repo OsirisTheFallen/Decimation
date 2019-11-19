@@ -9,7 +9,7 @@ namespace Decimation.Buffs.Buffs
     internal class ScarabEndurance : DecimationBuff
     {
         protected override string DisplayName => "Scarab Endurance";
-        protected override string Description => "";
+        protected override string Description => "To add";
 
         protected override void Init()
         {
@@ -27,7 +27,7 @@ namespace Decimation.Buffs.Buffs
                 {
                     modPlayer.scarabCounter++;
                     modPlayer.scarabs[modPlayer.scarabCounter - 1] = Projectile.NewProjectile(player.Center,
-                        new Vector2(0, 0), this.mod.ProjectileType<Scarab>(), 0, 0, 255, player.whoAmI);
+                        new Vector2(0, 0), ModContent.ProjectileType<Scarab>(), 0, 0, 255, player.whoAmI);
                 }
 
                 modPlayer.scarabEnduranceBuffTimeCounter = 0;
@@ -58,7 +58,7 @@ namespace Decimation.Buffs.Buffs
     {
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
-            if (target.HasBuff(this.mod.BuffType<ScarabEndurance>())) npc.AddBuff(BuffID.OnFire, 300);
+            if (target.HasBuff(ModContent.BuffType<ScarabEndurance>())) npc.AddBuff(BuffID.OnFire, 300);
         }
     }
 }

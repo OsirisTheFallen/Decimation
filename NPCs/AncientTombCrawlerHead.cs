@@ -49,7 +49,7 @@ namespace Decimation.NPCs
 
         public override void NPCLoot()
         {
-            Item.NewItem(this.npc.Center, this.mod.ItemType<SoulofTime>(), Main.rand.Next(5, 11));
+            Item.NewItem(npc.Center, ModContent.ItemType<SoulofTime>(), Main.rand.Next(5, 11));
         }
 
         public override void BossLoot(ref string name, ref int potionType)
@@ -85,14 +85,14 @@ namespace Decimation.NPCs
                         // will determine the movement of this new NPC.
                         // Under there, we also set the realLife value of the new NPC, because of what is explained above.
                         latestNPC = NPC.NewNPC((int) this.npc.Center.X, (int) this.npc.Center.Y,
-                            this.mod.NPCType<AncientTombCrawlerBody>(), this.npc.whoAmI, 0, latestNPC);
+                            ModContent.NPCType<AncientTombCrawlerBody>(), this.npc.whoAmI, 0, latestNPC);
                         Main.npc[latestNPC].realLife = this.npc.whoAmI;
                         Main.npc[latestNPC].ai[3] = this.npc.whoAmI;
                     }
 
                     // When we're out of that loop, we want to 'close' the worm with a tail part!
                     latestNPC = NPC.NewNPC((int) this.npc.Center.X, (int) this.npc.Center.Y,
-                        this.mod.NPCType<AncientTombCrawlerTail>(), this.npc.whoAmI, 0, latestNPC);
+                        ModContent.NPCType<AncientTombCrawlerTail>(), this.npc.whoAmI, 0, latestNPC);
                     Main.npc[latestNPC].realLife = this.npc.whoAmI;
                     Main.npc[latestNPC].ai[3] = this.npc.whoAmI;
 

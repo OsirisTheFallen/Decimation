@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using Decimation.Buffs.Debuffs;
 using Decimation.Items.Boss.Arachnus;
 using Decimation.Items.Misc.Souls;
 using Decimation.Items.Weapons.Arachnus;
@@ -44,7 +45,7 @@ namespace Decimation.NPCs.Arachnus
             npc.HitSound = SoundID.NPCHit6;
             npc.DeathSound = SoundID.NPCDeath10;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Drums_of_hell");
-            bossBag = mod.ItemType<ArachnusTreasureBag>();
+            bossBag = ModContent.ItemType<ArachnusTreasureBag>();
 
             npc.lavaImmune = true;
             npc.buffImmune[BuffID.OnFire] = true;
@@ -109,7 +110,7 @@ namespace Decimation.NPCs.Arachnus
                     {
                         if (i >= 0 && i <= Main.maxTilesX && j >= 0 && j <= Main.maxTilesY)
                         {
-                            if (Main.tile[i, j].type == mod.TileType<ShrineBrick>() || (Main.tile[i, j].type == mod.TileType<LockedShrineDoor>() || Main.tile[i, j].type == mod.TileType<ShrineDoorClosed>() || Main.tile[i, j].type == mod.TileType<ShrineDoorOpened>()) || Main.tile[i, j].type == mod.TileType<RedHotSpike>() || Main.tile[i, j].type == mod.TileType<ShrineAltar>())
+                            if (Main.tile[i, j].type == ModContent.TileType<ShrineBrick>() || (Main.tile[i, j].type == ModContent.TileType<LockedShrineDoor>() || Main.tile[i, j].type == ModContent.TileType<ShrineDoorClosed>() || Main.tile[i, j].type == ModContent.TileType<ShrineDoorOpened>()) || Main.tile[i, j].type == ModContent.TileType<RedHotSpike>() || Main.tile[i, j].type == ModContent.TileType<ShrineAltar>())
                                 validBlockCount++;
                         }
                     }
@@ -187,7 +188,7 @@ namespace Decimation.NPCs.Arachnus
                 {
                     float speedX = (float)(6 * Math.Cos(npc.rotation - Math.PI * 0.5f)) * 2;
                     float speedY = (float)(6 * Math.Sin(npc.rotation - Math.PI * 0.5f)) * 2;
-                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), mod.ProjectileType<ArachnusFireball>(), 30, 0f);
+                    Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), ModContent.ProjectileType<ArachnusFireball>(), 30, 0f);
                 }
                 else if (counter % 5 == 0 && npc.ai[1] == 1)
                 {
@@ -195,7 +196,7 @@ namespace Decimation.NPCs.Arachnus
                     {
                         float speedX = (float)(7 * Math.Cos(npc.rotation - Math.PI * 0.5f));
                         float speedY = (float)(7 * Math.Sin(npc.rotation - Math.PI * 0.5f));
-                        Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), npc.ai[2] == 1 ? mod.ProjectileType<BlastofShadowFlame>() : mod.ProjectileType<BlastofHeat>(), 30, 0f, 255);
+                        Projectile.NewProjectile(new Vector2(mouthX, mouthY), new Vector2(speedX, speedY), npc.ai[2] == 1 ? ModContent.ProjectileType<BlastofShadowFlame>() : ModContent.ProjectileType<BlastofHeat>(), 30, 0f, 255);
                     }
                     Main.PlaySound(SoundID.Item34, npc.position);
                     if (Main.netMode == 2)
@@ -277,7 +278,7 @@ namespace Decimation.NPCs.Arachnus
         {
             if (npc.ai[1] == 2 && Main.expertMode)
             {
-                target.AddBuff(mod.BuffType("Hyperthermic"), 900);
+                target.AddBuff(ModContent.BuffType<Hyperthermic>(), 900);
             }
             base.OnHitPlayer(target, damage, crit);
         }
@@ -292,17 +293,17 @@ namespace Decimation.NPCs.Arachnus
 
         public override void NPCLoot()
         {
-            Item.NewItem(npc.Center, mod.ItemType<SoulofSpite>(), Main.rand.Next(15, 31));
+            Item.NewItem(npc.Center, ModContent.ItemType<SoulofSpite>(), Main.rand.Next(15, 31));
 
             if (!Main.expertMode)
             {
                 int rand = Main.rand.Next(3);
                 if (rand == 0)
-                    Item.NewItem(npc.Center, mod.ItemType<ChainStynger>());
+                    Item.NewItem(npc.Center, ModContent.ItemType<ChainStynger>());
                 else if (rand == 1)
-                    Item.NewItem(npc.Center, mod.ItemType<GlaiveWeaver>());
+                    Item.NewItem(npc.Center, ModContent.ItemType<GlaiveWeaver>());
                 else if (rand == 2)
-                    Item.NewItem(npc.Center, mod.ItemType<Infernolizer>());
+                    Item.NewItem(npc.Center, ModContent.ItemType<Infernolizer>());
             }
             else
             {

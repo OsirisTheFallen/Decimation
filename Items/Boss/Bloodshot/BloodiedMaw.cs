@@ -26,7 +26,7 @@ namespace Decimation.Items.Boss.Bloodshot
 
         public override bool CanUseItem(Player player)
         {
-            return !Main.dayTime || !NPC.AnyNPCs(this.mod.NPCType<BloodshotEye>());
+            return !Main.dayTime || !NPC.AnyNPCs(ModContent.NPCType<BloodshotEye>());
         }
 
         public override bool UseItem(Player player)
@@ -34,13 +34,13 @@ namespace Decimation.Items.Boss.Bloodshot
             if (Main.netMode == 0)
             {
                 Main.PlaySound(15, (int) player.position.X, (int) player.position.Y, 0);
-                NPC.SpawnOnPlayer(player.whoAmI, this.mod.NPCType<BloodshotEye>());
+                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<BloodshotEye>());
             }
             else
             {
                 ModPacket packet = this.mod.GetPacket();
                 packet.Write((byte) DecimationModMessageType.SpawnBoss);
-                packet.Write(this.mod.NPCType<BloodshotEye>());
+                packet.Write(ModContent.NPCType<BloodshotEye>());
                 packet.Write(player.whoAmI);
                 packet.Send();
             }
@@ -52,7 +52,7 @@ namespace Decimation.Items.Boss.Bloodshot
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, TileID.DemonAltar);
 
-            recipe.AddIngredient(this.mod.ItemType<BloodiedEssence>(), 10);
+            recipe.AddIngredient(ModContent.ItemType<BloodiedEssence>(), 10);
             recipe.AddIngredient(ItemID.Lens);
 
             return recipe;

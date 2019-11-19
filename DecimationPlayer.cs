@@ -111,8 +111,8 @@ namespace Decimation
             amuletsBuffTime = 0;
             amuletsBuffWhenAttacking = false;
 
-            if (!this.player.HasBuff(this.mod.BuffType<SlimyFeet>())) lastJumpBoost = 0;
-            if (!this.player.HasBuff(this.mod.BuffType<ScarabEndurance>()))
+            if (!player.HasBuff(ModContent.BuffType<SlimyFeet>())) lastJumpBoost = 0;
+            if (!player.HasBuff(ModContent.BuffType<ScarabEndurance>()))
             {
                 scarabEnduranceBuffTimeCounter = 0;
                 scarabCounter = 0;
@@ -167,7 +167,7 @@ namespace Decimation
             }
 
             // Frost Amulet
-            if (this.AmuletSlotItem.type == this.mod.ItemType<FrostAmulet>() && toCheck.arrow)
+            if (AmuletSlotItem.type == ModContent.ItemType<FrostAmulet>() && toCheck.arrow)
             {
                 speedX *= 1.03f;
                 speedY *= 1.03f;
@@ -186,10 +186,10 @@ namespace Decimation
                 return false;
             if (endlessPouchofLifeEquipped && ammo.ammo == AmmoID.Bullet)
                 return false;
-            if (this.AmuletSlotItem.type == this.mod.ItemType<FrostAmulet>() && ammo.ammo == AmmoID.Arrow &&
+            if (AmuletSlotItem.type == ModContent.ItemType<FrostAmulet>() && ammo.ammo == AmmoID.Arrow &&
                 Main.rand.NextBool(50))
                 return false;
-            if (this.AmuletSlotItem.type == this.mod.ItemType<MarbleAmulet>() && weapon.thrown &&
+            if (AmuletSlotItem.type == ModContent.ItemType<MarbleAmulet>() && weapon.thrown &&
                 Main.rand.NextBool(50) && weapon.thrown)
                 return false;
 
@@ -247,14 +247,14 @@ namespace Decimation
 
         public override void OnHitPvp(Item item, Player target, int damage, bool crit)
         {
-            if (target.HasBuff(this.mod.BuffType<ScarabEndurance>())) this.player.AddBuff(BuffID.OnFire, 300);
+            if (target.HasBuff(ModContent.BuffType<ScarabEndurance>())) this.player.AddBuff(BuffID.OnFire, 300);
 
             if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking &&
-                this.AmuletSlotItem.type != this.mod.ItemType<MarbleAmulet>())
+                AmuletSlotItem.type != ModContent.ItemType<MarbleAmulet>())
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
 
-            if (this.AmuletSlotItem.type == this.mod.ItemType<CrystalAmulet>())
+            if (AmuletSlotItem.type == ModContent.ItemType<CrystalAmulet>())
                 CrystalAmuletEffect();
         }
 
@@ -264,7 +264,7 @@ namespace Decimation
             combatTime = 0;
 
             if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking &&
-                this.AmuletSlotItem.type != this.mod.ItemType<MarbleAmulet>())
+                AmuletSlotItem.type != ModContent.ItemType<MarbleAmulet>())
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
@@ -272,8 +272,8 @@ namespace Decimation
         public override void OnHitPvpWithProj(Projectile proj, Player target, int damage, bool crit)
         {
             if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking &&
-                (this.AmuletSlotItem.type != this.mod.ItemType<MarbleAmulet>() ||
-                 this.AmuletSlotItem.type == this.mod.ItemType<MarbleAmulet>() && proj.thrown))
+                (AmuletSlotItem.type != ModContent.ItemType<MarbleAmulet>() ||
+                 AmuletSlotItem.type == ModContent.ItemType<MarbleAmulet>() && proj.thrown))
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
@@ -284,15 +284,15 @@ namespace Decimation
             combatTime = 0;
 
             if (amuletsBuffTime != 0 && amuletsBuff != 0 && amuletsBuffChances != 0 && amuletsBuffWhenAttacking &&
-                (this.AmuletSlotItem.type != this.mod.ItemType<MarbleAmulet>() ||
-                 this.AmuletSlotItem.type == this.mod.ItemType<MarbleAmulet>() && proj.thrown))
+                (AmuletSlotItem.type != ModContent.ItemType<MarbleAmulet>() ||
+                 AmuletSlotItem.type == ModContent.ItemType<MarbleAmulet>() && proj.thrown))
                 if (Main.rand.Next(amuletsBuffChances, 100) < amuletsBuffChances)
                     target.AddBuff(amuletsBuff, amuletsBuffTime);
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
-            if (this.player.HasBuff(this.mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 &&
+            if (player.HasBuff(ModContent.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 &&
                 !wasHurt)
             {
                 Main.projectile[scarabs[scarabCounter - 1]].Kill();
@@ -317,19 +317,19 @@ namespace Decimation
             foreach (Player otherPlayer in Main.player)
                 if (otherPlayer.whoAmI != this.player.whoAmI)
                     if (otherPlayer.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type ==
-                        this.mod.ItemType<GraniteAmulet>() && otherPlayer.team == this.player.team)
+                        ModContent.ItemType<GraniteAmulet>() && otherPlayer.team == this.player.team)
                     {
                         this.player.statLife += (int)(damage * 0.03f);
                         break;
                     }
 
-            if (this.AmuletSlotItem.type == this.mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
+            if (AmuletSlotItem.type == ModContent.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
                 CrystalAmuletEffect();
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
-            if (this.player.HasBuff(this.mod.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 &&
+            if (player.HasBuff(ModContent.BuffType<ScarabEndurance>()) && scarabCounter > 0 && lastHitCounter == 0 &&
                 !wasHurt)
             {
                 Main.projectile[scarabs[scarabCounter - 1]].Kill();
@@ -358,13 +358,13 @@ namespace Decimation
             foreach (Player otherPlayer in Main.player)
                 if (otherPlayer.whoAmI != this.player.whoAmI)
                     if (otherPlayer.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type ==
-                        this.mod.ItemType<GraniteAmulet>() && otherPlayer.team == this.player.team)
+                        ModContent.ItemType<GraniteAmulet>() && otherPlayer.team == this.player.team)
                     {
                         this.player.statLife += (int)(damage * 0.03f);
                         break;
                     }
 
-            if (this.AmuletSlotItem.type == this.mod.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
+            if (AmuletSlotItem.type == ModContent.ItemType<CrystalAmulet>() && Main.rand.NextBool(25))
                 CrystalAmuletEffect();
         }
 

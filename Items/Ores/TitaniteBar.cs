@@ -20,7 +20,7 @@ namespace Decimation.Items.Ores
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, ModContent.TileType<TitanForge>());
 
             recipe.AddIngredient(ItemID.AdamantiteBar);
             recipe.AddIngredient(ItemID.TitaniumBar);

@@ -3,6 +3,7 @@ using Decimation.Items.Weapons.Arachnus;
 using Decimation.Core.Items;
 using Decimation.Core.Util;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Boss.Arachnus
 {
@@ -10,7 +11,7 @@ namespace Decimation.Items.Boss.Arachnus
     {
         protected override string ItemName => "Treasure Bag";
         protected override string ItemTooltip => "{$CommonItemTooltip.RightClickToOpen}";
-        public override int BossBagNPC => this.mod.NPCType<NPCs.Arachnus.Arachnus>();
+        public override int BossBagNPC => ModContent.NPCType<NPCs.Arachnus.Arachnus>();
 
         protected override void Init()
         {
@@ -34,13 +35,13 @@ namespace Decimation.Items.Boss.Arachnus
 
             int rand = Main.rand.Next(3);
             if (rand == 0)
-                player.QuickSpawnItem(this.mod.ItemType<ChainStynger>());
+                player.QuickSpawnItem(ModContent.ItemType<ChainStynger>());
             else if (rand == 1)
-                player.QuickSpawnItem(this.mod.ItemType<GlaiveWeaver>());
+                player.QuickSpawnItem(ModContent.ItemType<GlaiveWeaver>());
             else if (rand == 2)
-                player.QuickSpawnItem(this.mod.ItemType<Infernolizer>());
+                player.QuickSpawnItem(ModContent.ItemType<Infernolizer>());
 
-            player.QuickSpawnItem(this.mod.ItemType<ShinySentinel>());
+            player.QuickSpawnItem(ModContent.ItemType<ShinySentinel>());
         }
     }
 }

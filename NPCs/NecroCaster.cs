@@ -49,7 +49,7 @@ namespace Decimation.NPCs
             Item.NewItem(npc.getRect(), ItemID.Bone, Main.rand.Next(10, 16));
 
             if (Main.rand.NextBool(2))
-                Item.NewItem(npc.getRect(), mod.ItemType<BloodiedEssence>(), Main.rand.Next(4, 9));
+                Item.NewItem(npc.getRect(), ModContent.ItemType<BloodiedEssence>(), Main.rand.Next(4, 9));
         }
 
         public override void AI()
@@ -77,7 +77,7 @@ namespace Decimation.NPCs
                     int width11 = npc.width;
                     int height11 = npc.height;
                     newColor = default(Color);
-                    int num73 = Dust.NewDust(position12, width11, height11, mod.DustType<Dusts.Blood>(), 0f, 0f, 100, newColor, 2.5f);
+                    int num73 = Dust.NewDust(position12, width11, height11, ModContent.DustType<Dusts.Blood>(), 0f, 0f, 100, newColor, 2.5f);
                     dust3 = Main.dust[num73];
                     dust3.velocity *= 3f;
                     Main.dust[num73].noGravity = true;
@@ -96,7 +96,7 @@ namespace Decimation.NPCs
                     int width19 = npc.width;
                     int height19 = npc.height;
                     newColor = default(Color);
-                    int num82 = Dust.NewDust(position20, width19, height19, mod.DustType<Dusts.Blood>(), 0f, 0f, 100, newColor, 2.5f);
+                    int num82 = Dust.NewDust(position20, width19, height19, ModContent.DustType<Dusts.Blood>(), 0f, 0f, 100, newColor, 2.5f);
                     dust3 = Main.dust[num82];
                     dust3.velocity *= 3f;
                     Main.dust[num82].noGravity = true;
@@ -166,7 +166,7 @@ namespace Decimation.NPCs
                         float speedX = Main.rand.NextFloat(-1, 2);
                         float speedY = Main.rand.NextFloat(-1, 2);
 
-                        Projectile.NewProjectile(new Vector2(npc.Center.X + npc.direction * 8, npc.position.Y), new Vector2(speedX, speedY), mod.ProjectileType<Projectiles.Bone>(), 1, 0, npc.target);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X + npc.direction * 8, npc.position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<Projectiles.Bone>(), 1, 0, npc.target);
                     }
                 }
             }
@@ -179,7 +179,7 @@ namespace Decimation.NPCs
                 float speedX9 = npc.velocity.X * 0.2f;
                 float speedY9 = npc.velocity.Y * 0.2f;
                 newColor = default(Color);
-                int num121 = Dust.NewDust(position27, width26, height26, mod.DustType<Dusts.Blood>(), speedX9, speedY9, 100, newColor, 2f);
+                int num121 = Dust.NewDust(position27, width26, height26, ModContent.DustType<Dusts.Blood>(), speedX9, speedY9, 100, newColor, 2f);
                 Main.dust[num121].noGravity = true;
                 Dust dust13 = Main.dust[num121];
                 dust13.velocity.X = dust13.velocity.X * 1f;
@@ -200,7 +200,7 @@ namespace Decimation.NPCs
         {
             numberKilled++;
             for (int i = 0; i < 10; i++)
-                Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.Blood>(), npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, default(Color), 2f);
+                Dust.NewDust(npc.position, npc.width, npc.height, ModContent.DustType<Dusts.Blood>(), npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, default(Color), 2f);
 
             if(numberKilled >= 3)
             {
@@ -209,13 +209,13 @@ namespace Decimation.NPCs
                 if (Main.netMode == 0)
                 {
                     Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
-                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<NPCs.Bloodshot.BloodshotEye>());
+                    NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Bloodshot.BloodshotEye>());
                 }
                 else
                 {
                     ModPacket packet = mod.GetPacket();
                     packet.Write((byte)DecimationModMessageType.SpawnBoss);
-                    packet.Write(mod.NPCType<NPCs.Bloodshot.BloodshotEye>());
+                    packet.Write(ModContent.NPCType<NPCs.Bloodshot.BloodshotEye>());
                     packet.Write(player.whoAmI);
                     packet.Send();
                 }

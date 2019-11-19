@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Decimation.Items.Boss.DuneWorm;
 using Decimation.Items.Misc;
 using Decimation.Items.Misc.Souls;
@@ -16,37 +15,46 @@ namespace Decimation.NPCs.TownNPCs
     [AutoloadHead]
     public class Skeleton : ModNPC
     {
+        private readonly List<string> names = new List<string>
+        {
+            "Tommy",
+            "Johnny",
+            "Comet Sands",
+            "Skeletor",
+            "Jeff Skullingtin"
+        };
+
         public override bool Autoload(ref string name)
         {
             name = "Skeleton";
-            return mod.Properties.Autoload;
+            return this.mod.Properties.Autoload;
         }
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 26;
-            NPCID.Sets.ExtraFramesCount[npc.type] = NPCID.Sets.ExtraFramesCount[NPCID.Guide];
-            NPCID.Sets.AttackFrameCount[npc.type] = NPCID.Sets.AttackFrameCount[NPCID.Guide];
-            NPCID.Sets.DangerDetectRange[npc.type] = 400;
-            NPCID.Sets.AttackType[npc.type] = 0;
-            NPCID.Sets.AttackTime[npc.type] = 60;
-            NPCID.Sets.AttackAverageChance[npc.type] = 30;
-            NPCID.Sets.HatOffsetY[npc.type] = 4;
+            Main.npcFrameCount[this.npc.type] = 26;
+            NPCID.Sets.ExtraFramesCount[this.npc.type] = NPCID.Sets.ExtraFramesCount[NPCID.Guide];
+            NPCID.Sets.AttackFrameCount[this.npc.type] = NPCID.Sets.AttackFrameCount[NPCID.Guide];
+            NPCID.Sets.DangerDetectRange[this.npc.type] = 400;
+            NPCID.Sets.AttackType[this.npc.type] = 0;
+            NPCID.Sets.AttackTime[this.npc.type] = 60;
+            NPCID.Sets.AttackAverageChance[this.npc.type] = 30;
+            NPCID.Sets.HatOffsetY[this.npc.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            NPCID.Sets.AttackType[npc.type] = 0;
-            npc.CloneDefaults(NPCID.Guide);
-            npc.townNPC = true;
-            npc.friendly = true;
-            npc.aiStyle = 7;
-            npc.damage = 10;
-            npc.defense = 15;
-            npc.lifeMax = 250;
-            npc.HitSound = SoundID.DD2_SkeletonHurt;
-            npc.DeathSound = SoundID.DD2_SkeletonDeath;
-            npc.knockBackResist = 0.5f;
+            NPCID.Sets.AttackType[this.npc.type] = 0;
+            this.npc.CloneDefaults(NPCID.Guide);
+            this.npc.townNPC = true;
+            this.npc.friendly = true;
+            this.npc.aiStyle = 7;
+            this.npc.damage = 10;
+            this.npc.defense = 15;
+            this.npc.lifeMax = 250;
+            this.npc.HitSound = SoundID.DD2_SkeletonHurt;
+            this.npc.DeathSound = SoundID.DD2_SkeletonDeath;
+            this.npc.knockBackResist = 0.5f;
             animationType = NPCID.Guide;
         }
 
@@ -69,27 +77,16 @@ namespace Decimation.NPCs.TownNPCs
         {
             int score = 0;
             for (int x = left; x <= right; x++)
+            for (int y = top; y <= bottom; y++)
             {
-                for (int y = top; y <= bottom; y++)
-                {
-                    int type = Main.tile[x, y].type;
-                    if (type == TileID.Tables || type == TileID.Chairs || type == TileID.WorkBenches || type == TileID.Beds || type == TileID.OpenDoor || type == TileID.ClosedDoor || type == TileID.Torches)
-                    {
-                        score++;
-                    }
-                }
+                int type = Main.tile[x, y].type;
+                if (type == TileID.Tables || type == TileID.Chairs || type == TileID.WorkBenches ||
+                    type == TileID.Beds || type == TileID.OpenDoor || type == TileID.ClosedDoor ||
+                    type == TileID.Torches) score++;
             }
+
             return score >= (right - left) * (bottom - top) / 2;
         }
-
-        private List<string> names = new List<string>()
-        {
-            "Tommy",
-            "Johnny",
-            "Comet Sands",
-            "Skeletor",
-            "Jeff Skullingtin"
-        };
 
         public override string TownNPCName()
         {
@@ -101,7 +98,8 @@ namespace Decimation.NPCs.TownNPCs
             WeightedRandom<string> chat = new WeightedRandom<string>();
             chat.Add("The skeletons underground are kinda stupid, they use themselves as ammunition!");
             chat.Add("I used to know a girl named Lisa, she tore me apart!");
-            chat.Add("I did not hit her it is not true I did not hit her I did not!.....oh, hi " + Main.LocalPlayer.name);
+            chat.Add(
+                "I did not hit her it is not true I did not hit her I did not!.....oh, hi " + Main.LocalPlayer.name);
 
             if (Main.bloodMoon)
             {
@@ -140,9 +138,9 @@ namespace Decimation.NPCs.TownNPCs
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.Skull);
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType<LunarTablet>());
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LunarTablet>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType<BloodyLunarTablet>());
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BloodyLunarTablet>());
             nextSlot++;
 
             if (Main.hardMode)
@@ -163,9 +161,9 @@ namespace Decimation.NPCs.TownNPCs
 
             if (DecimationWorld.downedDuneWorm)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType<SoulofTime>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulofTime>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType<DesertDessert>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<DesertDessert>());
                 nextSlot++;
             }
 
@@ -195,7 +193,7 @@ namespace Decimation.NPCs.TownNPCs
 
             if (NPC.downedPlantBoss)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType<SoulofLife>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulofLife>());
                 nextSlot++;
 
                 if (Main.bloodMoon)
@@ -220,11 +218,12 @@ namespace Decimation.NPCs.TownNPCs
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            projType = mod.ProjectileType<SkeletonBone>();
+            projType = ModContent.ProjectileType<SkeletonBone>();
             attackDelay = 1;
         }
 
-        public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
+        public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection,
+            ref float randomOffset)
         {
             multiplier = 5f;
             randomOffset = 2f;

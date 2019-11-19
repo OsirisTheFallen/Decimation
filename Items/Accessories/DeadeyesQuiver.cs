@@ -27,14 +27,14 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {this.mod.TileType<ChlorophyteAnvil>()});
-            recipe.AddIngredient(this.mod.ItemType<JestersQuiver>());
-            //r.AddIngredient(mod.ItemType<SoulofKight>());
-            recipe.AddIngredient(this.mod.ItemType<SoulofSpite>(), 15);
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {ModContent.TileType<ChlorophyteAnvil>()});
+            recipe.AddIngredient(ModContent.ItemType<JestersQuiver>());
+            //r.AddIngredient(ModContent.ItemType<SoulofKight>());
+            recipe.AddIngredient(ModContent.ItemType<SoulofSpite>(), 15);
             recipe.AddIngredient(ItemID.SoulofSight, 15);
             recipe.AddIngredient(ItemID.SoulofFright, 15);
-            recipe.AddIngredient(this.mod.ItemType<EndlessPouchofLife>());
-            recipe.AddIngredient(this.mod.ItemType<RedThread>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<EndlessPouchofLife>());
+            recipe.AddIngredient(ModContent.ItemType<RedThread>(), 5);
             recipe.AddIngredient(ItemID.FlaskofIchor, 5);
             recipe.AddIngredient(ItemID.BlackDye, 3);
             recipe.AddIngredient(ItemID.RedDye, 3);

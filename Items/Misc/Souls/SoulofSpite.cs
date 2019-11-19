@@ -31,9 +31,9 @@ namespace Decimation.Items.Misc.Souls
         {
             public override void NPCLoot(NPC npc)
             {
-                if (npc.type == mod.NPCType("SlimePrince"))
+                if (npc.type == mod.NPCType<SlimePrince>())
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType<SoulofSpite>(), Main.rand.Next(12, 25));
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<SoulofSpite>(), Main.rand.Next(12, 25));
                 }
             }
         }**/

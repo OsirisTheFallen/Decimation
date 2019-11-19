@@ -35,10 +35,10 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {this.mod.TileType<ChlorophyteAnvil>()});
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {ModContent.TileType<ChlorophyteAnvil>()});
 
             recipe.AddIngredient(ItemID.ChlorophyteBar, 25);
-            recipe.AddIngredient(this.mod.ItemType<EnergyFocuser>());
+            recipe.AddIngredient(ModContent.ItemType<EnergyFocuser>());
             recipe.AddIngredient(ItemID.EndlessMusketPouch);
             recipe.AddIngredient(ItemID.SoulofSight, 50);
 

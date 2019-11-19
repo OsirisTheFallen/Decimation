@@ -30,7 +30,7 @@ namespace Decimation.Items.Ammo
             ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.Anvils});
 
             recipe.AddIngredient(ItemID.WoodenArrow, 50);
-            recipe.AddIngredient(this.mod.ItemType<BloodiedEssence>());
+            recipe.AddIngredient(ModContent.ItemType<BloodiedEssence>());
 
             return new List<ModRecipe> {recipe};
         }

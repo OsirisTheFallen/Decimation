@@ -9,7 +9,7 @@ namespace Decimation.Items.Placeable
     internal class EnchantedAnvil : DecimationPlaceableItem
     {
         protected override string ItemName => "Enchanted Anvil";
-        protected override int Tile => mod.TileType<Tiles.EnchantedAnvil>();
+        protected override int Tile => ModContent.TileType<Tiles.EnchantedAnvil>();
 
         protected override void InitPlaceable()
         {
@@ -24,7 +24,7 @@ namespace Decimation.Items.Placeable
 
             recipe.AddIngredient(ItemID.MythrilAnvil, 1);
             recipe.AddIngredient(ItemID.IronAnvil, 1);
-            recipe.AddIngredient(mod.ItemType<SoulofLife>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<SoulofLife>(), 5);
             recipe.AddIngredient(ItemID.SoulofNight, 5);
             recipe.AddIngredient(ItemID.SoulofMight, 5);
 

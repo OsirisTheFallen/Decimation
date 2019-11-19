@@ -29,10 +29,10 @@ namespace Decimation.Items.Boss.Arachnus
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, ModContent.TileType<TitanForge>());
 
             recipe.AddIngredient(ItemID.FragmentSolar, 3);
-            recipe.AddIngredient(this.mod.ItemType<Thermoplasm>());
+            recipe.AddIngredient(ModContent.ItemType<Thermoplasm>());
 
             return recipe;
         }

@@ -43,7 +43,7 @@ namespace Decimation.UI
             base.Update(gameTime);
 
             if (Main.LocalPlayer.talkNPC == -1 ||
-                Main.npc[Main.LocalPlayer.talkNPC].type != Decimation.Instance.NPCType<Skeleton>())
+                Main.npc[Main.LocalPlayer.talkNPC].type != ModContent.NPCType<Skeleton>())
             {
                 Decimation.Instance.skeletonUserInterface.SetState(null);
             }

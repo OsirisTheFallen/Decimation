@@ -10,7 +10,7 @@ namespace Decimation.Items.Ammo
         protected override string ItemName => "Pebble";
         protected override string ItemTooltip => "For use with slings and slingshots";
         protected override string Projectile => "Pebble";
-        protected override int Ammo => this.mod.ItemType<Pebble>();
+        protected override int Ammo => ModContent.ItemType<Pebble>();
 
         protected override void InitAmmo()
         {

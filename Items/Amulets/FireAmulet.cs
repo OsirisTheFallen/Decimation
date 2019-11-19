@@ -29,7 +29,7 @@ namespace Decimation.Items.Amulets
             player.lavaMax += 420;
 
             DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
-            modPlayer.amuletsBuff = this.mod.BuffType<Singed>();
+            modPlayer.amuletsBuff = ModContent.BuffType<Singed>();
             modPlayer.amuletsBuffChances = 4;
             modPlayer.amuletsBuffTime = 300;
         }
@@ -38,7 +38,7 @@ namespace Decimation.Items.Amulets
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench});
 
-            recipe.AddIngredient(this.mod.ItemType<RedHotShackle>());
+            recipe.AddIngredient(ModContent.ItemType<RedHotShackle>());
             recipe.AddIngredient(ItemID.Obsidian, 6);
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.Gel, 20);

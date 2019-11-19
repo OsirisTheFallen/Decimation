@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Decimation.Buffs.Buffs;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,19 +33,19 @@ namespace Decimation.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 32, mod.ItemType<Items.Placeable.EnchantedAnvil>());
+            Item.NewItem(i * 16, j * 16, 48, 32, ModContent.ItemType<Items.Placeable.EnchantedAnvil>());
         }
 
         public override void NearbyEffects(int i, int j, bool closer)
         {
             if (closer)
             {
-                Main.LocalPlayer.AddBuff(mod.BuffType("FatesSmile"), 60);
-                Main.LocalPlayer.GetModPlayer<DecimationPlayer>(mod).closeToEnchantedAnvil = true;
+                Main.LocalPlayer.AddBuff(ModContent.BuffType<FatesSmile>(), 60);
+                Main.LocalPlayer.GetModPlayer<DecimationPlayer>().closeToEnchantedAnvil = true;
             }
             else
             {
-                Main.LocalPlayer.GetModPlayer<DecimationPlayer>(mod).closeToEnchantedAnvil = false;
+                Main.LocalPlayer.GetModPlayer<DecimationPlayer>().closeToEnchantedAnvil = false;
             }
         }
 
@@ -60,7 +61,7 @@ namespace Decimation.Tiles
             public override void OnCraft(Item item, Recipe recipe)
             {
                 //Work only on prefix, not on effects
-                if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>(mod).closeToEnchantedAnvil)
+                if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().closeToEnchantedAnvil)
                 {
                     // Damages
                     if (item.melee && item.useStyle != 1 && item.pick == 0 && item.axe == 0 && item.hammer == 0)

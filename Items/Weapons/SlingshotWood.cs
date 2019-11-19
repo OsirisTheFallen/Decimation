@@ -22,7 +22,7 @@ namespace Decimation.Items.Weapons
             useAnimation = 16;
             useStyle = 5;
             this.item.shoot = 1;
-            this.item.useAmmo = this.mod.ItemType<Pebble>();
+            item.useAmmo = ModContent.ItemType<Pebble>();
             knockBack = 6;
             rarity = Rarity.Orange;
             useSound = SoundID.Item5;

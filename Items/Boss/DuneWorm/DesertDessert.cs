@@ -32,13 +32,13 @@ namespace Decimation.Items.Boss.DuneWorm
                 if (Main.netMode == 0)
                 {
                     Main.PlaySound(15, (int) player.position.X, (int) player.position.Y, 0);
-                    NPC.SpawnOnPlayer(player.whoAmI, this.mod.NPCType<AncientDuneWormHead>());
+                    NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<AncientDuneWormHead>());
                     return true;
                 }
 
                 ModPacket packet = this.mod.GetPacket();
                 packet.Write((byte) DecimationModMessageType.SpawnBoss);
-                packet.Write(this.mod.NPCType<AncientDuneWormHead>());
+                packet.Write(ModContent.NPCType<AncientDuneWormHead>());
                 packet.Write(player.whoAmI);
                 packet.Send();
             }

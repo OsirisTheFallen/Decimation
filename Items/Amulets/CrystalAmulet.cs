@@ -66,7 +66,7 @@ namespace Decimation.Items.Amulets
         public override void Kill(Projectile projectile, int timeLeft)
         {
             if (Main.LocalPlayer.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type ==
-                Decimation.Instance.ItemType<CrystalAmulet>() && Bolts.Contains(projectile.type))
+                ModContent.ItemType<CrystalAmulet>() && Bolts.Contains(projectile.type))
                 // Create 4 crystal sparks in 4 different direction
                 for (int i = 1; i <= 4; i++)
                 {

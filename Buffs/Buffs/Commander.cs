@@ -6,7 +6,7 @@ namespace Decimation.Buffs.Buffs
 	internal class Commander : DecimationBuff
 	{
         protected override string DisplayName => "Commander";
-        protected override string Description => "Max minions +1 \nMinions damages +10% \nMinions Knockback +10%";
+        protected override string Description => "Max minions +1 \nMinion's damages +10% \nMinion's Knockback +10%";
 
         protected override void Init()
         {

@@ -35,7 +35,7 @@ namespace Decimation.Buffs.Debuffs
     {
         public override bool CanUseItem(Item item, Player player)
         {
-            return !(player.HasBuff(mod.BuffType("Hyperthermic")) && item.healMana > 0);
+            return !(player.HasBuff(ModContent.BuffType<Hyperthermic>()) && item.healMana > 0);
         }
     }
 }

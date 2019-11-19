@@ -52,8 +52,8 @@ namespace Decimation.Items.Weapons
             ModRecipe recipe = GetNewModRecipe(this, 1, TileID.MythrilAnvil, true);
 
             recipe.AddIngredient(ItemID.BloodButcherer);
-            recipe.AddIngredient(this.mod.ItemType<VampiricShiv>());
-            recipe.AddIngredient(this.mod.ItemType<SoulofTime>(), 10);
+            recipe.AddIngredient(ModContent.ItemType<VampiricShiv>());
+            recipe.AddIngredient(ModContent.ItemType<SoulofTime>(), 10);
             recipe.AddIngredient(ItemID.SoulofNight, 10);
 
             return recipe;

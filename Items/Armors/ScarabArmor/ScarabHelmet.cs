@@ -40,8 +40,8 @@ namespace Decimation.Items.Armors.ScarabArmor
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            if (head.type == this.item.type && body.type == this.mod.ItemType<ScarabBody>() &&
-                legs.type == this.mod.ItemType<ScarabLeggings>())
+            if (head.type == item.type && body.type == ModContent.ItemType<ScarabBody>() &&
+                legs.type == ModContent.ItemType<ScarabLeggings>())
                 return true;
             return false;
         }
@@ -50,7 +50,7 @@ namespace Decimation.Items.Armors.ScarabArmor
         {
             DecimationPlayer modPlayer = player.GetModPlayer<DecimationPlayer>();
 
-            player.AddBuff(this.mod.BuffType<ScarabEndurance>(), 1);
+            player.AddBuff(ModContent.BuffType<ScarabEndurance>(), 1);
             player.arrowDamage *= 1.05f;
             player.bulletDamage *= 1.05f;
             player.magicDamage *= 1.05f;
@@ -120,14 +120,14 @@ namespace Decimation.Items.Armors.ScarabArmor
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {this.mod.TileType<TitanForge>()});
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {ModContent.TileType<TitanForge>()});
 
             recipe.AddIngredient(ItemID.SolarFlareHelmet);
             recipe.AddIngredient(ItemID.BeetleHelmet);
             recipe.AddIngredient(ItemID.LunarOre, 15);
             recipe.AddIngredient(ItemID.SoulofMight, 5);
             recipe.AddIngredient(ItemID.SoulofFright, 5);
-            recipe.AddIngredient(this.mod.ItemType<SoulofSpite>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<SoulofSpite>(), 5);
             recipe.AddIngredient(ItemID.LavaBucket);
 
             return new List<ModRecipe> {recipe};

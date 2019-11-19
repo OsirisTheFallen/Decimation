@@ -13,7 +13,7 @@ namespace Decimation.Items.Potions
         protected override string ItemTooltip =>
             "Increased Mana Regeneration \nIncreased max mana \n10% increased magic damage";
 
-        protected override int BuffType => this.mod.BuffType<Warlock>();
+        protected override int BuffType => ModContent.BuffType<Warlock>();
         protected override int BuffTime => 36000;
 
         protected override void InitPotion()

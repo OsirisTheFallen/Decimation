@@ -18,7 +18,7 @@ namespace Decimation.Buffs.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.AddBuff(BuffID.Werewolf, 1);
-            player.AddBuff(mod.BuffType<Vampire>(), 1);
+            player.AddBuff(ModContent.BuffType<Vampire>(), 1);
 
             player.wereWolf = false;
         }
@@ -26,7 +26,7 @@ namespace Decimation.Buffs.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.AddBuff(BuffID.Werewolf, 1);
-            npc.AddBuff(mod.BuffType<Vampire>(), 1);
+            npc.AddBuff(ModContent.BuffType<Vampire>(), 1);
         }
     }
 }

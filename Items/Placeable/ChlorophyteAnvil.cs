@@ -9,7 +9,7 @@ namespace Decimation.Items.Placeable
     {
         protected override string ItemName => "Chlorophyte Anvil";
         protected override string ItemTooltip => "It reacts to the light.";
-        protected override int Tile => this.mod.TileType<Tiles.ChlorophyteAnvil>();
+        protected override int Tile => ModContent.TileType<Tiles.ChlorophyteAnvil>();
 
         protected override void InitPlaceable()
         {
@@ -22,13 +22,13 @@ namespace Decimation.Items.Placeable
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, TileID.AdamantiteForge);
 
-            recipe.AddIngredient(this.mod.TileType("EnchantedAnvil"));
+            recipe.AddIngredient(ModContent.TileType<Tiles.EnchantedAnvil>());
             recipe.AddIngredient(ItemID.ChlorophyteBar, 5);
             recipe.AddIngredient(ItemID.Vine, 5);
             recipe.AddIngredient(ItemID.JungleSpores, 16);
             recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddIngredient(this.mod.ItemType<SoulofLife>(), 5);
-            recipe.AddIngredient(this.mod.ItemType<SoulofTime>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<SoulofLife>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<SoulofTime>(), 5);
             recipe.AddIngredient(ItemID.SoulofFlight, 5);
 
             return recipe;

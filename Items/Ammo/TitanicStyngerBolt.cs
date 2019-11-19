@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Decimation.Buffs.Debuffs;
 using Decimation.Items.Ores;
 using Decimation.Tiles;
 using Decimation.Core.Items;
@@ -32,21 +33,21 @@ namespace Decimation.Items.Ammo
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             if (Main.rand.NextBool(100))
-                target.AddBuff(this.mod.BuffType("Amnesia"), 600);
+                target.AddBuff(ModContent.BuffType<Amnesia>(), 600);
         }
 
         public override void OnHitPvp(Player player, Player target, int damage, bool crit)
         {
             if (Main.rand.NextBool(100))
-                target.AddBuff(this.mod.BuffType("Amnesia"), 600);
+                target.AddBuff(ModContent.BuffType<Amnesia>(), 600);
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 50, new List<int> {this.mod.TileType<TitanForge>()});
+            ModRecipe recipe = GetNewModRecipe(this, 50, new List<int> {ModContent.TileType<TitanForge>()});
 
             recipe.AddIngredient(ItemID.StyngerBolt, 50);
-            recipe.AddIngredient(this.mod.ItemType<TitaniteBar>(), 3);
+            recipe.AddIngredient(ModContent.ItemType<TitaniteBar>(), 3);
 
             return new List<ModRecipe> {recipe};
         }

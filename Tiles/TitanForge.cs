@@ -31,7 +31,7 @@ namespace Decimation.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType<Items.Placeable.TitanForge>());
+            Item.NewItem(i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Placeable.TitanForge>());
         }
 
         public override void AnimateTile(ref int frame, ref int frameCounter)

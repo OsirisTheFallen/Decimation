@@ -14,7 +14,7 @@ namespace Decimation.Items.Misc
             width = 30;
             height = 40;
             consumable = true;
-            value = 25000;
+            value = Item.buyPrice(gold: 2, silver: 50);
             rarity = Rarity.Green;
             useStyle = 1;
             useTime = 20;

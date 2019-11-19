@@ -28,7 +28,7 @@ namespace Decimation.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.AddBuff(this.mod.BuffType<Vampire>(), 1);
+            player.AddBuff(ModContent.BuffType<Vampire>(), 1);
 
             player.npcTypeNoAggro[NPCID.CaveBat] = true;
             player.npcTypeNoAggro[NPCID.JungleBat] = true;
@@ -44,11 +44,11 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {this.mod.TileType<EnchantedAnvil>()});
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {ModContent.TileType<EnchantedAnvil>()});
 
-            recipe.AddIngredient(this.mod.ItemType<DraculaPendant>());
+            recipe.AddIngredient(ModContent.ItemType<DraculaPendant>());
             recipe.AddIngredient(ItemID.SoulofLight, 10);
-            recipe.AddIngredient(this.mod.ItemType<SoulofTime>(), 10);
+            recipe.AddIngredient(ModContent.ItemType<SoulofTime>(), 10);
             recipe.AddIngredient(ItemID.HolyWater, 5);
 
             return new List<ModRecipe> {recipe};

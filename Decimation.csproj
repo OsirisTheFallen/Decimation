@@ -13,4 +13,12 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="&quot;D:\Jeux\steamapps\common\Tmod\tModLoaderServer.exe&quot; -build &quot;$(ProjectDir)\&quot;" />
   </Target>
+  <ItemGroup>
+    <Compile Remove="NPCs\AncientDuneWorm\AncientDuneWormBody.cs" />
+    <Compile Remove="NPCs\AncientDuneWorm\AncientDuneWormHead.cs" />
+    <Compile Remove="NPCs\AncientDuneWorm\AncientDuneWormTail.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="NPCs\AncientDuneWorm\AncientDuneWorm" />
+  </ItemGroup>
 </Project>

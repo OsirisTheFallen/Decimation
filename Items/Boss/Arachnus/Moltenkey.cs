@@ -28,7 +28,7 @@ namespace Decimation.Items.Boss.Arachnus
             {
                 if (npc.type == NPCID.MoonLordCore)
                     Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
-                        this.mod.ItemType<MoltenKey>());
+                        ModContent.ItemType<MoltenKey>());
             }
         }
     }

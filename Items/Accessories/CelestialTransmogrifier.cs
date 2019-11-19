@@ -31,7 +31,7 @@ namespace Decimation.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.AddBuff(this.mod.BuffType<Werepire>(), 1);
+            player.AddBuff(ModContent.BuffType<Werepire>(), 1);
 
             player.meleeSpeed *= 1.1f;
             player.meleeDamage *= 1.1f;
@@ -61,11 +61,11 @@ namespace Decimation.Items.Accessories
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {this.mod.TileType<ChlorophyteAnvil>()});
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {ModContent.TileType<ChlorophyteAnvil>()});
 
-            recipe.AddIngredient(this.mod.ItemType<AlucardPendant>());
+            recipe.AddIngredient(ModContent.ItemType<AlucardPendant>());
             recipe.AddIngredient(ItemID.CelestialShell);
-            recipe.AddIngredient(this.mod.ItemType<SoulofSpite>(), 20);
+            recipe.AddIngredient(ModContent.ItemType<SoulofSpite>(), 20);
             recipe.AddIngredient(ItemID.FallenStar, 5);
 
             return new List<ModRecipe> {recipe};

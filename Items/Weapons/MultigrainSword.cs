@@ -36,7 +36,7 @@ namespace Decimation.Items.Weapons
             recipe.AddIngredient(ItemID.Pumpkin, 15);
             recipe.AddIngredient(ItemID.Acorn, 5);
             recipe.AddIngredient(ItemID.Hay, 15);
-            recipe.AddIngredient(this.mod.ItemType<TheGreatwoodSword>());
+            recipe.AddIngredient(ModContent.ItemType<TheGreatwoodSword>());
 
             return recipe;
         }

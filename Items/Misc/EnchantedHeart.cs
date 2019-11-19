@@ -2,6 +2,7 @@
 using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Misc
 {
@@ -32,7 +33,7 @@ namespace Decimation.Items.Misc
 
         public override bool CanPickup(Player player)
         {
-            return player.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type != this.mod.ItemType<HealtyAmulet>();
+            return player.GetModPlayer<DecimationPlayer>().AmuletSlotItem.type != ModContent.ItemType<HealtyAmulet>();
         }
     }
 }

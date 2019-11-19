@@ -1,6 +1,7 @@
 ﻿using Decimation.Dusts;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
 {
@@ -26,7 +27,7 @@ namespace Decimation.Projectiles
         {
             projectile.velocity.Y += (60 - timeLeft) * 0.005f;
 
-            Dust.NewDust(projectile.position, 26, 26, mod.DustType<Blood>());
+            Dust.NewDust(projectile.position, 26, 26, ModContent.DustType<Blood>());
         }
     }
 }

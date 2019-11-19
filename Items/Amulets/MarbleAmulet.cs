@@ -32,7 +32,7 @@ namespace Decimation.Items.Amulets
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.TinkerersWorkbench});
 
-            recipe.AddIngredient(this.mod.ItemType<LightweightGlove>());
+            recipe.AddIngredient(ModContent.ItemType<LightweightGlove>());
             recipe.AddIngredient(ItemID.Marble, 6);
             recipe.AddIngredient(ItemID.Chain, 2);
             recipe.AddIngredient(ItemID.Shuriken, 2);

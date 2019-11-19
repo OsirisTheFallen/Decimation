@@ -20,7 +20,7 @@ namespace Decimation.Items.Amulets
 
             if (player.GetModPlayer<DecimationPlayer>().isInCombat &&
                 player.GetModPlayer<DecimationPlayer>().enchantedHeartDropTime % 300 == 0)
-                Item.NewItem(new Vector2(player.position.X, player.position.Y), this.mod.ItemType<EnchantedHeart>());
+                Item.NewItem(new Vector2(player.position.X, player.position.Y), ModContent.ItemType<EnchantedHeart>());
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()

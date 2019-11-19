@@ -11,7 +11,7 @@ namespace Decimation.Walls
         {
             Main.wallHouse[this.Type] = true;
             dustType = DustID.Stone;
-            drop = this.mod.ItemType<Items.Placeable.DenziumWall>();
+            drop = ModContent.ItemType<Items.Placeable.DenziumWall>();
             AddMapEntry(new Color(5, 7, 22));
         }
     }

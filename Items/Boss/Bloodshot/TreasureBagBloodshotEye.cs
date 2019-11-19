@@ -6,6 +6,7 @@ using Decimation.Core.Items;
 using Decimation.Core.Util;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Boss.Bloodshot
 {
@@ -13,7 +14,7 @@ namespace Decimation.Items.Boss.Bloodshot
     {
         protected override string ItemName => "Treasure Bag";
         protected override string ItemTooltip => "{$CommonItemTooltip.RightClickToOpen}";
-        public override int BossBagNPC => this.mod.NPCType<BloodshotEye>();
+        public override int BossBagNPC => ModContent.NPCType<BloodshotEye>();
 
         protected override void Init()
         {
@@ -32,8 +33,8 @@ namespace Decimation.Items.Boss.Bloodshot
 
         public override void OpenBossBag(Player player)
         {
-            player.QuickSpawnItem(this.mod.ItemType<BloodiedEssence>(), Main.rand.Next(35, 51));
-            player.QuickSpawnItem(this.mod.ItemType<NecrosisStone>());
+            player.QuickSpawnItem(ModContent.ItemType<BloodiedEssence>(), Main.rand.Next(35, 51));
+            player.QuickSpawnItem(ModContent.ItemType<NecrosisStone>());
 
             int random = Main.rand.Next(3);
             int weapon = 0;
@@ -41,13 +42,13 @@ namespace Decimation.Items.Boss.Bloodshot
             switch (random)
             {
                 case 0:
-                    weapon = this.mod.ItemType<VampiricShiv>();
+                    weapon = ModContent.ItemType<VampiricShiv>();
                     break;
                 case 1:
-                    weapon = this.mod.ItemType<Umbra>();
+                    weapon = ModContent.ItemType<Umbra>();
                     break;
                 case 2:
-                    weapon = this.mod.ItemType<BloodStream>();
+                    weapon = ModContent.ItemType<BloodStream>();
                     break;
                 default:
                     Main.NewText(

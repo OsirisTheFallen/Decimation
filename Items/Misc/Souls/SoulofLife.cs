@@ -35,7 +35,7 @@ namespace Decimation.Items.Misc.Souls
             {
                 if (npc.type == NPCID.Plantera)
                     Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
-                        this.mod.ItemType<SoulofLife>(), Main.rand.Next(12, 25));
+                        ModContent.ItemType<SoulofLife>(), Main.rand.Next(12, 25));
             }
         }
     }

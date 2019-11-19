@@ -36,7 +36,7 @@ namespace Decimation.Buffs.Debuffs
     {
         public override bool CanUseItem(Item item, Player player)
         {
-            if (player.HasBuff(mod.BuffType("Singed")))
+            if (player.HasBuff(ModContent.BuffType<Singed>()))
             {
                 return !(item.UseSound != null && item.useStyle == 2);
             }

@@ -39,7 +39,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             bool inventoryContainAmulet = false;
 
             for (int k = 0; k < inventory.Length; k++)
-                if (inventory[k].type == mod.ItemType<MoltenArachnidsAmulet>())
+                if (inventory[k].type == ModContent.ItemType<MoltenArachnidsAmulet>())
                 {
                     inventoryContainAmulet = true;
                     inventory[k].TurnToAir();
@@ -52,14 +52,14 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
                 {
                     ModPacket packet = mod.GetPacket();
                     packet.Write((byte)DecimationModMessageType.SpawnBoss);
-                    packet.Write(mod.NPCType<Arachnus>());
+                    packet.Write(ModContent.NPCType<Arachnus>());
                     packet.Write(player.whoAmI);
                     packet.Send();
                 }
                 else if (Main.netMode == 0)
                 {
                     Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
-                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<Arachnus>());
+                    NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<Arachnus>());
                 }
             }
         }
@@ -69,12 +69,12 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.showItemIcon = true;
-            player.showItemIcon2 = mod.ItemType<MoltenArachnidsAmulet>();
+            player.showItemIcon2 = ModContent.ItemType<MoltenArachnidsAmulet>();
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 80, 32, mod.ItemType<Items.Placeable.ShrineoftheMoltenOne.ShrineAltar>());
+            Item.NewItem(i * 16, j * 16, 80, 32, ModContent.ItemType<Items.Placeable.ShrineoftheMoltenOne.ShrineAltar>());
         }
 
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)

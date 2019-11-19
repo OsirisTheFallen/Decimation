@@ -34,7 +34,7 @@ namespace Decimation.Items.Accessories.Wings
                 (int)(player.position.Y + player.height / 2f) / 16, 1.05f, 0.95f, 0.55f);
 
             if ((int)player.wingTime % 2 == 1)
-                Projectile.NewProjectile(player.Center, new Vector2(0, 0), this.mod.ProjectileType<Ember>(), 25, 5,
+                Projectile.NewProjectile(player.Center, new Vector2(0, 0), ModContent.ProjectileType<Ember>(), 25, 5,
                     player.whoAmI);
         }
 
@@ -56,12 +56,12 @@ namespace Decimation.Items.Accessories.Wings
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { this.mod.TileType<TitanForge>() });
+            ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> { ModContent.TileType<TitanForge>() });
 
             recipe.AddIngredient(ItemID.BeetleWings);
             recipe.AddIngredient(ItemID.WingsSolar);
-            recipe.AddIngredient(this.mod.ItemType<CondensedSpite>(), 2);
-            recipe.AddIngredient(this.mod.ItemType<DenziumBar>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<CondensedSpite>(), 2);
+            recipe.AddIngredient(ModContent.ItemType<DenziumBar>(), 5);
 
             return new List<ModRecipe> { recipe };
         }

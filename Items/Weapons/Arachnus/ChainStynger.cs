@@ -1,6 +1,8 @@
-﻿using Decimation.Core.Items;
+﻿using Decimation.Buffs.Debuffs;
+using Decimation.Core.Items;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Arachnus
 {
@@ -26,7 +28,7 @@ namespace Decimation.Items.Weapons.Arachnus
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            target.AddBuff(this.mod.BuffType("Singed"), 480);
+            target.AddBuff(ModContent.BuffType<Singed>(), 480);
         }
     }
 }

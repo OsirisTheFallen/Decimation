@@ -15,7 +15,7 @@ namespace Decimation.Tiles
             minPick = 200;
             mineResist = 10;
             dustType = DustID.Stone;
-            drop = mod.ItemType<Items.Placeable.DenziumOre>();
+            drop = ModContent.ItemType<Items.Placeable.DenziumOre>();
             AddMapEntry(new Color(192, 57, 85));
         }
 

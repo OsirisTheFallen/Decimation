@@ -14,7 +14,7 @@ namespace Decimation.Items.Misc
             width = 30;
             height = 40;
             rarity = Rarity.Green;
-            value = 50000;
+            value = Item.buyPrice(gold: 5);
             useStyle = 1;
             useTime = 20;
             useAnimation = 20;

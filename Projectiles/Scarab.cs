@@ -33,7 +33,7 @@ namespace Decimation.Projectiles
         public override void AI()
         {
             Player player = Main.player[(int)(projectile.ai[0])];
-            if (!player.HasBuff(mod.BuffType<ScarabEndurance>()))
+            if (!player.HasBuff(ModContent.BuffType<ScarabEndurance>()))
                 projectile.Kill();
 
             // Loop through the 2 animation frames, spending 5 ticks on each.

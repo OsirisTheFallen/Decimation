@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
+using Decimation.Tiles.ShrineoftheMoltenOne;
 using Microsoft.Xna.Framework;
 
 namespace Decimation.NPCs
@@ -71,7 +72,7 @@ namespace Decimation.NPCs
 
             if (!onWall)
             {
-                npc.Transform(mod.NPCType("CoreSpider"));
+                npc.Transform(ModContent.NPCType<CoreSpider>());
             }
             else
             {
@@ -91,7 +92,7 @@ namespace Decimation.NPCs
                 {
                     if (i >= 0 && i <= Main.maxTilesX && j >= 0 && j <= Main.maxTilesY)
                     {
-                        if (Main.tile[i, j].type == mod.TileType("ShrineBrick") || (Main.tile[i, j].type == mod.TileType("LockedShrineDoor") || Main.tile[i, j].type == mod.TileType("ShrineDoorClosed") || Main.tile[i, j].type == mod.TileType("ShrineDoorOpened")) || Main.tile[i, j].type == mod.TileType("RedHotSpike"))
+                        if (Main.tile[i, j].type == ModContent.TileType<ShrineBrick>() || (Main.tile[i, j].type == ModContent.TileType<LockedShrineDoor>() || Main.tile[i, j].type == ModContent.TileType<ShrineDoorClosed>() || Main.tile[i, j].type == ModContent.TileType<ShrineDoorOpened>()) || Main.tile[i, j].type == ModContent.TileType<RedHotSpike>())
                             validBlockCount++;
                     }
                 }

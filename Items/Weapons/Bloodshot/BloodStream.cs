@@ -3,6 +3,7 @@ using Decimation.Core.Items;
 using Decimation.Core.Util;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Weapons.Bloodshot
 {
@@ -32,12 +33,12 @@ namespace Decimation.Items.Weapons.Bloodshot
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            target.AddBuff(this.mod.BuffType<Slimed>(), 300);
+            target.AddBuff(ModContent.BuffType<Slimed>(), 300);
         }
 
         public override void OnHitPvp(Player player, Player target, int damage, bool crit)
         {
-            target.AddBuff(this.mod.BuffType<Slimed>(), 300);
+            target.AddBuff(ModContent.BuffType<Slimed>(), 300);
         }
     }
 }

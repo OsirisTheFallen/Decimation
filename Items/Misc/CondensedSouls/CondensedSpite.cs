@@ -32,9 +32,9 @@ namespace Decimation.Items.Misc.CondensedSouls
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<ChlorophyteAnvil>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, ModContent.TileType<ChlorophyteAnvil>());
 
-            recipe.AddIngredient(this.mod.ItemType<SoulofSpite>(), 50);
+            recipe.AddIngredient(ModContent.ItemType<SoulofSpite>(), 50);
 
             return recipe;
         }

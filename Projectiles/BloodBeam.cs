@@ -34,13 +34,13 @@ namespace Decimation.Projectiles
         {
             projectile.velocity.Y += (60 - timeLeft) * 0.005f;
 
-            Dust.NewDust(projectile.position, 26, 26, mod.DustType<Blood>());
+            Dust.NewDust(projectile.position, 26, 26, ModContent.DustType<Blood>());
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (Main.expertMode)
-                target.AddBuff(mod.BuffType<Slimed>(), 600);
+                target.AddBuff(ModContent.BuffType<Slimed>(), 600);
 
             int damages = Main.rand.Next(5, 11);
             target.Hurt(PlayerDeathReason.LegacyDefault(), damages, 0);

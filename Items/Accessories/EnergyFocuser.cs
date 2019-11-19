@@ -24,11 +24,11 @@ namespace Decimation.Items.Accessories
         {
             ModRecipe recipe = GetNewModRecipe(this, 1, new List<int> {TileID.MythrilAnvil}, true);
 
-            recipe.AddIngredient(this.mod.ItemType<EnchantedFocuser>());
+            recipe.AddIngredient(ModContent.ItemType<EnchantedFocuser>());
             recipe.AddIngredient(ItemID.PixieDust, 40);
             recipe.AddIngredient(ItemID.SoulofSight, 15);
             recipe.AddIngredient(ItemID.SoulofLight, 15);
-            recipe.AddIngredient(this.mod.ItemType<Focuser>());
+            recipe.AddIngredient(ModContent.ItemType<Focuser>());
 
             return new List<ModRecipe> {recipe};
         }

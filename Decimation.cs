@@ -139,7 +139,8 @@ namespace Decimation
                     AncientDuneWormHead duneWorm = (AncientDuneWormHead)Main.npc[reader.ReadInt32()].modNPC;
                     if (duneWorm != null && duneWorm.npc.active)
                     {
-                        duneWorm.HandlePacket(reader);
+                        // TODO multiplayer
+                        //duneWorm.HandlePacket(reader);
                     }
                     break;
                 case DecimationModMessageType.SpawnBoss:

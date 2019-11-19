@@ -46,7 +46,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             dustType = DustID.Stone;
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.ClosedDoor };
-            openDoorID = mod.TileType("ShrineDoorOpened");
+            openDoorID = ModContent.TileType<ShrineDoorOpened>();
         }
 
         public override bool HasSmartInteract()
@@ -61,7 +61,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 20, 48, mod.ItemType<ShrineDoor>());
+            Item.NewItem(i * 16, j * 16, 20, 48, ModContent.ItemType<ShrineDoor>());
         }
 
         public override void MouseOver(int i, int j)
@@ -69,7 +69,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.showItemIcon = true;
-            player.showItemIcon2 = mod.ItemType<ShrineDoor>();
+            player.showItemIcon2 = ModContent.ItemType<ShrineDoor>();
         }
 
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)

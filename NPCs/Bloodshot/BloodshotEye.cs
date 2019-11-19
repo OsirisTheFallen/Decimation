@@ -38,7 +38,7 @@ namespace Decimation.NPCs.Bloodshot
             this.npc.aiStyle = -1;
             this.npc.knockBackResist = 0;
             this.npc.dontTakeDamage = true;
-            bossBag = this.mod.ItemType<TreasureBagBloodshotEye>();
+            bossBag = ModContent.ItemType<TreasureBagBloodshotEye>();
         }
 
         public override void AI()
@@ -48,14 +48,14 @@ namespace Decimation.NPCs.Bloodshot
             {
                 if (Main.netMode != 1)
                     for (int i = 0; i < (Main.expertMode ? 14 : 10); i++)
-                        NPC.NewNPC((int) this.npc.Center.X, (int) this.npc.Center.Y, this.mod.NPCType<MangledServant>(),
+                        NPC.NewNPC((int) npc.Center.X, (int) this.npc.Center.Y, ModContent.NPCType<MangledServant>(),
                             0, 0, this.npc.whoAmI);
 
                 _hasSpawnedMinions = true;
                 this.npc.dontTakeDamage = true;
             }
 
-            if (!NPC.AnyNPCs(this.mod.NPCType<MangledServant>())) this.npc.dontTakeDamage = false;
+            if (!NPC.AnyNPCs(ModContent.NPCType<MangledServant>())) this.npc.dontTakeDamage = false;
 
             // --> EoC phase 1
             if (this.npc.ai[0] == 0f)
@@ -197,7 +197,7 @@ namespace Decimation.NPCs.Bloodshot
                             float num416 = 6f;
                             int num417 = 30;
                             if (Main.expertMode) num417 = 27;
-                            int num418 = this.mod.ProjectileType<BloodClot>();
+                            int num418 = ModContent.ProjectileType<BloodClot>();
                             Vector2 vector41 = new Vector2(this.npc.position.X + this.npc.width * 0.5f,
                                 this.npc.position.Y + this.npc.height * 0.5f);
                             float num413 = Main.player[this.npc.target].position.X +
@@ -218,7 +218,7 @@ namespace Decimation.NPCs.Bloodshot
 
                             if (Main.expertMode)
                             {
-                                num418 = this.mod.ProjectileType<BloodClotSmall>();
+                                num418 = ModContent.ProjectileType<BloodClotSmall>();
                                 num414 += (float) (Math.PI * (1 / 6f));
                                 Projectile.NewProjectile(vector41.X, vector41.Y, num413, num414, num418, num417, 1f);
                             }
@@ -552,7 +552,7 @@ namespace Decimation.NPCs.Bloodshot
                                     float num416 = 6f;
                                     int num417 = 30;
                                     if (Main.expertMode) num417 = 27;
-                                    int num418 = this.mod.ProjectileType<BloodBeam>();
+                                    int num418 = ModContent.ProjectileType<BloodBeam>();
                                     vector41 = new Vector2(this.npc.position.X + this.npc.width * 0.5f,
                                         this.npc.position.Y + this.npc.height * 0.5f);
                                     num413 = Main.player[this.npc.target].position.X +
@@ -712,13 +712,13 @@ namespace Decimation.NPCs.Bloodshot
                 switch (random)
                 {
                     case 0:
-                        //weapon = mod.ItemType<VampiricShiv>();
+                        //weapon = ModContent.ItemType<VampiricShiv>();
                         break;
                     case 1:
-                        //weapon = mod.ItemType<Umbra>();
+                        //weapon = ModContent.ItemType<Umbra>();
                         break;
                     case 2:
-                        weapon = this.mod.ItemType<BloodStream>();
+                        weapon = ModContent.ItemType<BloodStream>();
                         break;
                     default:
                         Main.NewText(
@@ -729,7 +729,7 @@ namespace Decimation.NPCs.Bloodshot
 
                 Item.NewItem(this.npc.Center, weapon);
 
-                Item.NewItem(this.npc.Center, this.mod.ItemType<BloodiedEssence>(), Main.rand.Next(35, 51));
+                Item.NewItem(npc.Center, ModContent.ItemType<BloodiedEssence>(), Main.rand.Next(35, 51));
             }
             else
             {

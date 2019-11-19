@@ -32,20 +32,20 @@ namespace Decimation.Items.Ammo
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool isCritical)
         {
-            target.AddBuff(this.mod.BuffType<Singed>(), 600);
+            target.AddBuff(ModContent.BuffType<Singed>(), 600);
         }
 
         public override void OnHitPvp(Player player, Player target, int damage, bool isCritical)
         {
-            player.AddBuff(this.mod.BuffType<Singed>(), 600);
+            player.AddBuff(ModContent.BuffType<Singed>(), 600);
         }
 
         protected override List<ModRecipe> GetAdditionalRecipes()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 50, new List<int> {this.mod.TileType<TitanForge>()});
+            ModRecipe recipe = GetNewModRecipe(this, 50, new List<int> {ModContent.TileType<TitanForge>()});
 
             recipe.AddIngredient(ItemID.StyngerBolt, 50);
-            recipe.AddIngredient(this.mod.ItemType<Thermoplasm>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<Thermoplasm>(), 5);
 
             return new List<ModRecipe> {recipe};
         }

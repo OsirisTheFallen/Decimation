@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Decimation.Buffs.Debuffs;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,7 +19,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             TileID.Sets.DrawsWalls[Type] = true;
             TileID.Sets.NotReallySolid[Type] = true;
             dustType = DustID.Stone;
-            drop = mod.ItemType<Items.Placeable.ShrineoftheMoltenOne.RedHotSpike>();
+            drop = ModContent.ItemType<Items.Placeable.ShrineoftheMoltenOne.RedHotSpike>();
             AddMapEntry(new Color(196, 35, 0));
         }
 
@@ -40,7 +41,7 @@ namespace Decimation.Tiles.ShrineoftheMoltenOne
             float playerY = player.position.Y;
 
             if (playerX / 16 - i <= 2 && playerX / 16 - i >= -2 && playerY / 16 - j <= 2 && playerY / 16 - j >= -4.3f)
-                player.AddBuff(mod.BuffType("Singed"), 300);
+                player.AddBuff(ModContent.BuffType<Singed>(), 300);
             if (playerX / 16 - i <= 1 && playerX / 16 - i >= -1.25f && playerY / 16 - j <= 1.1f && playerY / 16 - j >= -3.3f)
                 player.Hurt(PlayerDeathReason.LegacyDefault(), 100, 0);
         }

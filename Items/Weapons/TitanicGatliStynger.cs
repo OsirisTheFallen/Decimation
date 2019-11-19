@@ -38,12 +38,12 @@ namespace Decimation.Items.Weapons
 
         protected override ModRecipe GetRecipe()
         {
-            ModRecipe recipe = GetNewModRecipe(this, 1, this.mod.TileType<TitanForge>());
+            ModRecipe recipe = GetNewModRecipe(this, 1, ModContent.TileType<TitanForge>());
 
-            recipe.AddIngredient(this.mod.ItemType<ChainStynger>());
-            recipe.AddIngredient(this.mod.ItemType<TitaniteBar>(), 15);
+            recipe.AddIngredient(ModContent.ItemType<ChainStynger>());
+            recipe.AddIngredient(ModContent.ItemType<TitaniteBar>(), 15);
             // TODO recipe.AddIngredient(null, "CondensedMight", 5);
-            recipe.AddIngredient(this.mod.ItemType<DenziumBar>());
+            recipe.AddIngredient(ModContent.ItemType<DenziumBar>());
 
             return recipe;
         }
@@ -51,7 +51,7 @@ namespace Decimation.Items.Weapons
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
             ref int type, ref int damage, ref float knockBack)
         {
-            type = this.mod.ProjectileType<TitanicStyngerBolt>();
+            type = ModContent.ProjectileType<TitanicStyngerBolt>();
             return true;
         }
     }

@@ -1,5 +1,6 @@
 using Decimation.Core.Items;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Decimation.Items.Placeable.DuneWorm
 {
@@ -7,7 +8,7 @@ namespace Decimation.Items.Placeable.DuneWorm
     {
         protected override string ItemName => "Ancient Dune Worm Trophy";
         protected override string ItemTooltip => "Achievement get!";
-        protected override int Tile => this.mod.TileType<Tiles.DuneWormTrophy>();
+        protected override int Tile => ModContent.TileType<Tiles.DuneWormTrophy>();
 
         protected override void InitPlaceable()
         {
