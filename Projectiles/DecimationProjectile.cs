@@ -1,4 +1,5 @@
 ﻿using Decimation.Core.Items;
+using IL.Terraria;
 using Terraria.ModLoader;
 
 namespace Decimation.Projectiles
