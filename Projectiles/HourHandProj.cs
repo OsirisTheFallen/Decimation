@@ -10,6 +10,8 @@ namespace Decimation.Projectiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hour Hand Projectile");
+			Main.projFrames[projectile.type] = 4;
+			//Main.aiType = 8;
 		}
 
         public override void SetDefaults()
@@ -20,14 +22,16 @@ namespace Decimation.Projectiles
 			projectile.aiStyle = 1;
 			projectile.friendly = true;
 			projectile.ranged = true;
-			//aiType = ProjectileID.WoodenArrowFriendly;
-			projectile.CloneDefaults(ProjectileID.WaterBolt);
+			projectile.aiStyle = 8;
+			
+			//projectile.CloneDefaults(ProjectileID.WaterBolt);
         }
 
-		public override void AI()
+ 		public override void AI()
 		{
 			Lighting.AddLight(projectile.Center, 0f, 0f, 1f);
-		}
+			projectile.rotation = projectile.velocity.ToRotation();
+		} 
 
 
     }
